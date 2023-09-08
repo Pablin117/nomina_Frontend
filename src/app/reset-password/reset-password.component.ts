@@ -23,7 +23,7 @@ export class ResetPasswordComponent {
   questionComplete: boolean = false;
   newPassword: string = "";
   confirmPassword: string = "";
-  errorMessage: string ="¡Sus datos no son correctos verifique!"
+ 
 
   checkQuestions() {
     this.questionsService().subscribe(
@@ -74,10 +74,11 @@ export class ResetPasswordComponent {
   }
   responseValidateQuestionsService(response: any) {
     console.log(response.mensaje)
-    if (response.mensaje == "0") { 
+    if (response.codigo == "0") { 
+      alert(response.mensaje)
       this.questionComplete = true   
     } else{
-      alert(this.errorMessage)
+      alert(response.mensaje)
     }
   }
 
