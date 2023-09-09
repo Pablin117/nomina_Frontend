@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class ResetPasswordComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit() {
     this.checkQuestions()
@@ -23,6 +23,7 @@ export class ResetPasswordComponent {
   questionComplete: boolean = false;
   newPassword: string = "";
   confirmPassword: string = "";
+ 
  
 
   checkQuestions() {
@@ -48,7 +49,6 @@ export class ResetPasswordComponent {
       this.QuestionsData = response;
       this.user = this.QuestionsData[0].idUser;
       console.log("se obtuvo data de preguntas")
-
     for(var x=0;x<this.QuestionsData.length;x++){
       this.QuestionsData[x].respond = ''
     }
@@ -58,11 +58,11 @@ export class ResetPasswordComponent {
 
 
   formQuestions() {
-    this.validateQuestionsService(this.QuestionsData).subscribe(
+    this.validateQuestionsService().subscribe(
       (response: any) => this.responseValidateQuestionsService(response)
     )
   }
-  validateQuestionsService(data: any) {
+  validateQuestionsService() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -73,22 +73,48 @@ export class ResetPasswordComponent {
     )
   }
   responseValidateQuestionsService(response: any) {
-    console.log(response.mensaje)
-    if (response.codigo == "0") { 
-      alert(response.mensaje)
+    console.log(response)
+    if (response.code == "0") { 
       this.questionComplete = true   
     } else{
-      alert(response.mensaje)
+      alert(response.message)
     }
   }
 
 
   formPassword(){
-    console.log(this.newPassword)
-    console.log(this.confirmPassword)
-
+    if(this.newPassword === this.confirmPassword){
+      this.validatePassword().subscribe(
+        (response: any) => this.responseValidatePassword(response)
+      )
+    }else{
+      alert("Contraseñas no coinciden")
+    }
   }
 
+  validatePassword(){
+    let passwordData = {
+      idUser:this.user,
+      password:this.newPassword
+    }
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>("http://localhost:4042/v1/resetPassword" , passwordData, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseValidatePassword(response:any){
+    if (response.code == "0") { 
+      alert(response.message)
+      this.router.navigate(['']);
+    } else{
+      alert(response.message)
+    }
+  }
 
 
 
