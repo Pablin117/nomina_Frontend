@@ -12,12 +12,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { CompanyRulesComponent } from './company-rules/company-rules.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CompanyRulesComponent
   ],
   imports: [
     BrowserModule,
