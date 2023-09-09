@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
-import { AppComponent } from "../app.component";
 import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
+
 })
 export class ResetPasswordComponent {
 
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit() {
+    this.CompanyData()
     this.checkQuestions()
   }
 
@@ -23,15 +25,16 @@ export class ResetPasswordComponent {
   questionComplete: boolean = false;
   newPassword: string = "";
   confirmPassword: string = "";
+  BussinessRules: any ;
  
  
 
   checkQuestions() {
-    this.questionsService().subscribe(
-      (response: any) => this.responseQuestionsService(response)
+    this.RequestQuestions().subscribe(
+      (response: any) => this.ResponseQuestions(response)
     )
   }
-  questionsService() {
+  RequestQuestions() {
     var id = "Administrador"
     var httpOptions = {
       headers: new HttpHeaders({
@@ -42,7 +45,7 @@ export class ResetPasswordComponent {
       catchError(e => "1")
     )
   }
-  responseQuestionsService(response: any) {
+  ResponseQuestions(response: any) {
     if (response == null) {
       alert("Error")
     } else {
@@ -84,15 +87,15 @@ export class ResetPasswordComponent {
 
   formPassword(){
     if(this.newPassword === this.confirmPassword){
-      this.validatePassword().subscribe(
-        (response: any) => this.responseValidatePassword(response)
+      this.RequestPassword().subscribe(
+        (response: any) => this.ResponseValidatePassword(response)
       )
     }else{
       alert("Contraseñas no coinciden")
     }
   }
 
-  validatePassword(){
+  RequestPassword(){
     let passwordData = {
       idUser:this.user,
       password:this.newPassword
@@ -107,7 +110,7 @@ export class ResetPasswordComponent {
     )
   }
 
-  responseValidatePassword(response:any){
+  ResponseValidatePassword(response:any){
     if (response.code == "0") { 
       alert(response.message)
       this.router.navigate(['']);
@@ -117,5 +120,26 @@ export class ResetPasswordComponent {
   }
 
 
+  CompanyData(){
+      this.RequestCompany().subscribe(
+        (response: any) => this.ResponseCompany(response)
+      ) 
+  }
+
+  RequestCompany(){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>("http://localhost:4042/v1/bussinesRules" , httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseCompany(response:any){
+  this.BussinessRules = response[0]
+  console.log("Se obtuvo configuracion de empresa")
+  }
 
 }

@@ -6,6 +6,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -17,7 +23,9 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule, MatDividerModule, MatIconModule,
+    MatFormFieldModule, MatInputModule, MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
