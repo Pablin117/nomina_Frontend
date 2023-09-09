@@ -19,6 +19,7 @@ section{
 
 section .fondo{
   position: absolute;
+  background-color: #003554;
   top: 0;
   left: 0;
   width: 100%;
@@ -69,6 +70,7 @@ section .fondo{
 
 }
 button {
+  color: white !important;
   --glow-color: rgb(28, 91, 185);
   --glow-spread-color: rgba(29, 62, 145, 0.3);
   --enhanced-glow-color: rgb(231, 206, 255);
