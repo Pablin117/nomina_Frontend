@@ -26,6 +26,7 @@ export class ResetPasswordComponent {
   newPassword: string = "";
   confirmPassword: string = "";
   BussinessRules: any ;
+  url: String = "http://localhost:4042/v1"
  
  
 
@@ -41,7 +42,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>("http://localhost:4042/v1/questionsUser/" + id, httpOptions).pipe(
+    return this.http.get<any>(this.url+"/questionsUser/" + id, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -71,7 +72,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>("http://localhost:4042/v1/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
+    return this.http.post<any>(this.url+"/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -105,7 +106,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>("http://localhost:4042/v1/resetPassword" , passwordData, httpOptions).pipe(
+    return this.http.post<any>(this.url+"/resetPassword" , passwordData, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -132,7 +133,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>("http://localhost:4042/v1/bussinesRules" , httpOptions).pipe(
+    return this.http.get<any>(this.url+"/bussinesRules" , httpOptions).pipe(
       catchError(e => "1")
     )
   }

@@ -5,9 +5,9 @@ import { Router } from "@angular/router";
 
 
 @Component({
-  selector: 'app-company-rules',
-  templateUrl: './company-rules.component.html',
-  styleUrls: ['./company-rules.component.css']
+  selector: 'app-company',
+  templateUrl: './company.component.html',
+  styleUrls: ['./company.component.css']
 })
 export class CompanyRulesComponent {
 
@@ -20,7 +20,7 @@ export class CompanyRulesComponent {
 
   //variables
   BussinessRules: any = [] ;
-
+  url: String = "http://localhost:4042/v1"
 
   CompanyData(){
     this.RequestCompany().subscribe(
@@ -34,7 +34,7 @@ RequestCompany(){
       'Content-Type': 'application/json'
     })
   }
-  return this.http.get<any>("http://localhost:4042/v1/bussinesRules" , httpOptions).pipe(
+  return this.http.get<any>(this.url+"/bussinesRules" , httpOptions).pipe(
     catchError(e => "1")
   )
 }
@@ -72,7 +72,7 @@ RequestCompanyUpdate(){
       'Content-Type': 'application/json'
     })
   }
-  return this.http.post<any>("http://localhost:4042/v1/bussinesRulesModify",this.BussinessRules[0] , httpOptions).pipe(
+  return this.http.post<any>(this.url+"/bussinesRulesModify",this.BussinessRules[0] , httpOptions).pipe(
     catchError(e => "1")
   )
 }
