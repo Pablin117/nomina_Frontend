@@ -133,7 +133,7 @@ export class RecoverPasswordComponent {
 
 
   passwordForm(){
-    console.log("entro al for")
+    
   let formularioValido: any = document.getElementById("passwordForm");
     if(formularioValido.reportValidity()){
       if(this.newPassword === this.confirmPassword){
