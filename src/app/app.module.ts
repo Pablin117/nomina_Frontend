@@ -15,6 +15,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { CompanyRulesComponent } from './company/company.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { CompanyRulesComponent } from './company/company.component';
     ResetPasswordComponent,
     SecuritiProfileComponent,
     WelcomeComponent,
-    CompanyRulesComponent
+    CompanyRulesComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,
