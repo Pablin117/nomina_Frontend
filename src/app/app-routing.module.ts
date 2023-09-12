@@ -13,8 +13,7 @@ const routes: Routes = [
   {path:'reset',component: ResetPasswordComponent},
   {path:'welcome',component: WelcomeComponent},
   {path:'security',component: SecuritiProfileComponent},
-  {path:'rules',component: CompanyRulesComponent },
-  {path:'rules',component: CompanyRulesComponent },
+  {path:'company',component: CompanyRulesComponent },
   {path:'recover',component: RecoverPasswordComponent }
 ];
 

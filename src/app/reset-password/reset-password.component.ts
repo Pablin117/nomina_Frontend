@@ -16,110 +16,82 @@ export class ResetPasswordComponent {
 
   ngOnInit() {
     this.CompanyData()
-    this.checkQuestions()
+    this.DataUser()
+   
   }
 
   //variables
   QuestionsData: any = [];
-  user: String = "";
+  user: string = "";
   questionComplete: boolean = false;
+  question: string = "";
+  response: string= "";
   newPassword: string = "";
   confirmPassword: string = "";
   BussinessRules: any ;
-  url: String = "http://localhost:4042/v1"
+  dataUser: any ={}
+  url: string = "http://localhost:4042/v1"
+  createQuestion={
+    idUser: "",
+    questions: "",
+    respond: "",
+    userCreation: ""
+  }
  
+  DataUser(){
+    this.dataUser =  localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.user = this.dataUser.user
+    console.log(this.dataUser)
+    console.log(this.user)
+    this.checkQuestions(this.user)
+  }
  
+  questionsCreateForm(){
+    let formularioValido: any = document.getElementById("questionsForm");
+    if(formularioValido.reportValidity()){
+     this.createQuestion.idUser=this.user
+     this.createQuestion.questions=this.question
+     this.createQuestion.respond=this.response
+     this.createQuestion.userCreation=this.user
+     console.log(this.createQuestion)
 
-  checkQuestions() {
-    this.RequestQuestions().subscribe(
-      (response: any) => this.ResponseQuestions(response)
+
+     this.requestQuestionCreate(this.createQuestion).subscribe(
+      (response: any) => this.responseQuestionCreate(response)
     )
+    }
+
+
+
+    
+    
+
   }
-  RequestQuestions() {
-    var id = "Administrador"
+
+  requestQuestionCreate(response:any){
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url+"/questionsUser/" + id, httpOptions).pipe(
+    return this.http.post<any>(this.url+"/questionsCreate" , response, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseQuestions(response: any) {
-    if (response == null) {
-      alert("Error")
-    } else {
-      this.QuestionsData = response;
-      this.user = this.QuestionsData[0].idUser;
-      console.log("se obtuvo data de preguntas")
-    for(var x=0;x<this.QuestionsData.length;x++){
-      this.QuestionsData[x].respond = ''
-    }
-    }
+  responseQuestionCreate(response:any){
+
+console.log(response)
+this.checkQuestions(this.user)
   }
 
 
 
-  formQuestions() {
-    this.validateQuestionsService().subscribe(
-      (response: any) => this.responseValidateQuestionsService(response)
-    )
-  }
-  validateQuestionsService() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>(this.url+"/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  responseValidateQuestionsService(response: any) {
-    console.log(response)
-    if (response.code == "0") { 
-      this.questionComplete = true   
-    } else{
-      alert(response.message)
-    }
-  }
 
 
-  formPassword(){
-    if(this.newPassword === this.confirmPassword){
-      this.RequestPassword().subscribe(
-        (response: any) => this.ResponseValidatePassword(response)
-      )
-    }else{
-      alert("Contraseñas no coinciden")
-    }
+  passwordCreateForm(){
+    
   }
-
-  RequestPassword(){
-    let passwordData = {
-      idUser:this.user,
-      password:this.newPassword
-    }
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>(this.url+"/resetPassword" , passwordData, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponseValidatePassword(response:any){
-    if (response.code == "0") { 
-      alert(response.message)
-      this.router.navigate(['']);
-    } else{
-      alert(response.message)
-    }
-  }
-
 
   CompanyData(){
       this.RequestCompany().subscribe(
@@ -142,5 +114,38 @@ export class ResetPasswordComponent {
   this.BussinessRules = response[0]
   console.log("Se obtuvo configuracion de empresa")
   }
+
+  checkQuestions(response:any) {
+    
+    this.RequestQuestions(response).subscribe(
+      (response: any) => this.ResponseQuestions(response)
+    )
+  }
+  RequestQuestions(response:any) {
+    
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url+"/questionUserAll/" + response, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseQuestions(response: any) {
+    console.log(response)
+    if (response == null) {
+    } else if(response == 1){
+      alert("no hay servicio ")
+    }else {
+      this.QuestionsData = response;
+      this.user = this.QuestionsData[0].idUser;
+      console.log("se obtuvo data de preguntas")
+    for(var x=0;x<this.QuestionsData.length;x++){
+      this.QuestionsData[x].respond = ''
+    }
+    }
+  }
+
 
 }

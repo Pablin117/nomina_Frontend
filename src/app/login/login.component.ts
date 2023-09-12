@@ -41,7 +41,7 @@ export class LoginComponent {
   //consumer service login
   loginService() {
     this.data.idUser = this.data.idUser.toLowerCase()
-    console.log(this.data)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -54,7 +54,6 @@ export class LoginComponent {
 
   //response service login
   responseLoginService(response: any) {
-    console.log(response)
 
     if (response != null) {
       //validate code
@@ -100,7 +99,6 @@ export class LoginComponent {
     if (response != null) {
       //
       this.routes = response
-      console.log(this.routes)
 
     } else if (response == null || response == "e"){
       console.log("No hay comunicación con el servidor!!")
