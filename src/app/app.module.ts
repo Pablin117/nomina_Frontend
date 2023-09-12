@@ -23,14 +23,11 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
-<<<<<<< HEAD
     SecuritiProfileComponent,
     WelcomeComponent,
-    CompanyRulesComponent
-=======
+    CompanyRulesComponent,
     CompanyRulesComponent,
     RecoverPasswordComponent
->>>>>>> diboy
   ],
   imports: [
     BrowserModule,
