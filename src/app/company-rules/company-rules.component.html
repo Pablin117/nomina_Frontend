@@ -1,0 +1,24 @@
+<h1>Información de la empresa</h1>
+<h2>Parametros para Contraseñas</h2>
+<form (ngSubmit)="formCompany()">
+
+    <div *ngFor="let data of BussinessRules" >
+        <p>Cantidad minima de Mayusculas: </p>
+        <input type="number" id="mayusculas" name="mayusculas" [(ngModel)]="data.passwordAmountUppercase"  required>
+        <p>Cantidad minima de Minusculas:</p>
+        <input type="number" id="Minusculas" name="Minusculas" [(ngModel)]="data.passwordAmountLowercase"  required>
+        <p>Cantidad minima de Numeros:</p>
+        <input type="number" id="Numeros" name="Numeros" [(ngModel)]="data.passwordAmountNumber" required>
+        <p>Cantidad minima de Caracteres Especiales:</p>
+        <input type="number" id="Especial" name="Especial" [(ngModel)]="data.passwordAmountSpecialCharacters"  required>
+        <p for="min">Longitud Minima:</p>
+        <input type="number" id="min" name="min" [(ngModel)]="data.passwordlength"  required >
+        <p>Longitud Maxima:</p>
+        <input type="number"  placeholder="25" disabled >  
+        <br><br>
+        <button type="submit" mat-raised-button>Confirmar</button>
+    </div>
+</form>
+
+
+

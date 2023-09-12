@@ -4,12 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
 import { WelcomeComponent} from "./welcome/welcome.component";
 import { SecuritiProfileComponent} from "./securiti-profile/securiti-profile.component";
+import { CompanyRulesComponent } from './company-rules/company-rules.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'reset',component: ResetPasswordComponent},
   {path:'welcome',component: WelcomeComponent},
-  {path:'security',component: SecuritiProfileComponent}
+  {path:'security',component: SecuritiProfileComponent},
+  {path:'rules',component: CompanyRulesComponent }
 ];
 
 @NgModule({
