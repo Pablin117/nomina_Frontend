@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { CompanyRulesComponent } from './company-rules/company-rules.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 
 @NgModule({
@@ -22,9 +23,14 @@ import { CompanyRulesComponent } from './company-rules/company-rules.component';
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
+<<<<<<< HEAD
     SecuritiProfileComponent,
     WelcomeComponent,
     CompanyRulesComponent
+=======
+    CompanyRulesComponent,
+    RecoverPasswordComponent
+>>>>>>> diboy
   ],
   imports: [
     BrowserModule,
