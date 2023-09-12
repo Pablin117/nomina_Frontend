@@ -10,14 +10,10 @@ import { RecoverPasswordComponent} from "./recover-password/recover-password.com
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'reset',component: ResetPasswordComponent},
-<<<<<<< HEAD
   {path:'welcome',component: WelcomeComponent},
   {path:'security',component: SecuritiProfileComponent},
-  {path:'rules',component: CompanyRulesComponent }
-=======
   {path:'rules',component: CompanyRulesComponent },
   {path:'recover',component: RecoverPasswordComponent }
->>>>>>> diboy
 ];
 
 @NgModule({
