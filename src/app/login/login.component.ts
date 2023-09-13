@@ -75,11 +75,12 @@ export class LoginComponent {
       //code error 2 = first login
       else if(response.code == 2){
         this.messageError = response.message
-        //this.router.navigateByUrl("/set-password")
+        this.router.navigateByUrl("/set-password")
       }
       //code error 3 = required change password
       else if(response.code == 3){
-        this.messageError = response.message
+        localStorage.setItem("data",JSON.stringify(response))
+        this.router.navigateByUrl("/reset-password")
       }
     }
     //error in consumption
