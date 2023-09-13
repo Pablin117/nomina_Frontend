@@ -1,0 +1,12 @@
+<h1>Sucursales</h1>
+
+
+
+    <div *ngFor="let data of locationsData" >
+        <p>Direccion </p>
+        <input type="text" id="address" name="address" [(ngModel)]="data.address"  required>
+        <p>Direccion </p>
+        <input type="text" id="address" name="address" [(ngModel)]="data.name"  required>
+        <br><br>
+        <button type="submit" mat-raised-button>Confirmar</button>
+    </div>
