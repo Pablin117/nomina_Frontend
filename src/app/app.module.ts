@@ -18,6 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 
@@ -32,7 +33,8 @@ import {MatSelectModule} from '@angular/material/select';
     CompanyComponent,
     RecoverPasswordComponent,
     RoleComponent,
-    LocationComponent
+    LocationComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
