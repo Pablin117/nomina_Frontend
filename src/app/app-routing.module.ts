@@ -9,6 +9,7 @@ import { RecoverPasswordComponent} from "./recover-password/recover-password.com
 import { LocationComponent } from './location/location.component';
 import { RoleComponent } from './role/role.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
+import { CreateUserComponent} from "./create-user/create-user.component";
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'company',component: CompanyComponent },
   {path:'recover',component: RecoverPasswordComponent },
   {path:'location',component: LocationComponent },
-  {path:'role',component: RoleComponent }
+  {path:'role',component: RoleComponent },
+  {path:'create',component: CreateUserComponent }
 
 ];
 

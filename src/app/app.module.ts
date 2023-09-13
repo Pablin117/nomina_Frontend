@@ -19,6 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 
 
@@ -34,7 +35,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     RecoverPasswordComponent,
     RoleComponent,
     LocationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
