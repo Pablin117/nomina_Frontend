@@ -175,10 +175,13 @@ export class SetPasswordComponent {
     console.log("Se obtuvo configuracion de empresa")
   }
 
-  Confirmar() {
- 
+
+  Confirm(){
     this.questionComplete = true
     this.questionCreate = false
   }
+  
+  
+
 
 }
