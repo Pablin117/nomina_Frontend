@@ -14,12 +14,14 @@ export class LocationComponent {
 
   ngOnInit(){
     this.locationData()
+    this.CompanyData()
   }
 
 
 //variables
 locationsData: any = [];
 BussinessRules: any = [];
+modificar:boolean =false;
 url: String = "http://localhost:4042/v1"
 
 locationData() {
@@ -64,6 +66,7 @@ RequestCompany() {
 
 ResponseCompany(response: any) {
   this.BussinessRules = response
+  console.log(this.BussinessRules)
   console.log("Se obtuvo configuracion de empresa")
 
 }
