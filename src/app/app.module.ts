@@ -4,18 +4,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { SetPasswordComponent } from './set-password/set-password.component';
 import { FormsModule } from '@angular/forms';
 import { SecuritiProfileComponent } from './securiti-profile/securiti-profile.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { CompanyComponent } from './company/company.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+import { RoleComponent } from './role/role.component';
+import { LocationComponent } from './location/location.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-import { CompanyRulesComponent } from './company/company.component';
-import { RecoverPasswordComponent } from './recover-password/recover-password.component';
+
 
 
 
@@ -23,11 +26,13 @@ import { RecoverPasswordComponent } from './recover-password/recover-password.co
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetPasswordComponent,
+    SetPasswordComponent,
     SecuritiProfileComponent,
     WelcomeComponent,
-    CompanyRulesComponent,
-    RecoverPasswordComponent
+    CompanyComponent,
+    RecoverPasswordComponent,
+    RoleComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,

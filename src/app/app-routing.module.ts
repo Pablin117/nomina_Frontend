@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { ResetPasswordComponent} from "./reset-password/reset-password.component";
+import { SetPasswordComponent} from "./set-password/set-password.component";
 import { WelcomeComponent} from "./welcome/welcome.component";
 import { SecuritiProfileComponent} from "./securiti-profile/securiti-profile.component";
-import { CompanyRulesComponent } from './company/company.component';
+import { CompanyComponent } from './company/company.component';
 import { RecoverPasswordComponent} from "./recover-password/recover-password.component";
+import { LocationComponent } from './location/location.component';
+import { RoleComponent } from './role/role.component';
 
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
-  {path:'reset',component: ResetPasswordComponent},
+  {path:'set-password',component: SetPasswordComponent},
   {path:'welcome',component: WelcomeComponent},
   {path:'security',component: SecuritiProfileComponent},
-  {path:'company',component: CompanyRulesComponent },
-  {path:'recover',component: RecoverPasswordComponent }
+  {path:'company',component: CompanyComponent },
+  {path:'recover',component: RecoverPasswordComponent },
+  {path:'location',component: LocationComponent },
+  {path:'role',component: RoleComponent }
+  
 ];
 
 @NgModule({

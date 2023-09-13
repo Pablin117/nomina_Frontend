@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.css']
 })
-export class CompanyRulesComponent {
+export class CompanyComponent {
 
   constructor(private http: HttpClient, private router: Router) { }
 
