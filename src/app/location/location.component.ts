@@ -21,7 +21,7 @@ export class LocationComponent {
 //variables
 locationsData: any = [];
 BussinessRules: any = [];
-modificar:boolean =false;
+modificar:boolean =true;
 url: String = "http://localhost:4042/v1"
 
 locationData() {
@@ -43,7 +43,6 @@ RequestLocation() {
 
 ResponseLocation(response: any) {
   this.locationsData = response
-  console.log(this.locationsData)
   console.log("Se obtuvo roles")
 }
 
@@ -66,10 +65,26 @@ RequestCompany() {
 
 ResponseCompany(response: any) {
   this.BussinessRules = response
-  console.log(this.BussinessRules)
   console.log("Se obtuvo configuracion de empresa")
 
 }
+
+Confirm(){
+  console.log("confirma")
+  console.log()
+}
+
+
+Modify(){
+  console.log("modifica")
+  console.log()
+}
+
+Add(){
+  console.log("agregar")
+  console.log()
+}
+
 
 
 }

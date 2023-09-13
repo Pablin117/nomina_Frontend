@@ -45,5 +45,7 @@ ResponseRole(response: any) {
 
 }
 
-
+add(){
+  console.log("agrega")
+}
 }
