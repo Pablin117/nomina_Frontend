@@ -1,1 +1,33 @@
 <h1>Roles</h1>
+
+<form >
+    <table >
+       <th>IdRole</th>
+       <th>Nombre</th>
+       <th>Fecha de creacion</th>
+       <th>Usuario de creacion</th>
+       <th>Fecha de modificacion</th>
+       <th>Usuario de modificacion</th>
+       <th>Opcion</th>
+       <tr *ngFor="let data of RolesData">
+        <td >{{data.idRole}}</td>
+        <td >{{data.name}}</td>
+        <td >{{data.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td >{{data.userCreation}}</td>
+        <td >{{data.userModification}}</td>
+        <td >{{data.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>
+            <button>Modificar</button>
+            <button>Eliminar</button>
+        </td>
+    </tr>
+    <button>Agregar</button>
+    </table>
+ 
+       
+
+
+
+
+  
+</form>
