@@ -1,10 +1,8 @@
 <h1>Sucursales</h1>
 
-
-
 <form>
-    <div class="mat-elevation-z8">
-        <table >
+    <div class="mat-elevation-z8" *ngIf="tab">
+        <table>
             <th>Empresa</th>
             <th>Nombre</th>
             <th>Direccion</th>
@@ -13,17 +11,16 @@
             <th>Fecha de modificacion</th>
             <th>Usuario de modificacion</th>
             <th>Opciones</th>
-            <tr *ngFor="let data of locationsData">
-                <td  *ngFor="let d of BussinessRules">
-                    {{d.name}}</td>
-                <td>{{data.name}}</td>
-                <td>{{data.address}}</td>
-                <td >{{data.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                <td >{{data.userCreation}}</td>
-                <td >{{data.userModification}}</td>
-                <td >{{data.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <tr *ngFor="let location of locationsData; let i= index">
+                <td>{{ getCompanyName(location.idCompany) }}</td>
+                <td>{{location.name}}</td>
+                <td>{{location.address}}</td>
+                <td>{{location.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td>{{location.userCreation}}</td>
+                <td>{{location.userModification}}</td>
+                <td>{{location.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
                 <td>
-                    <button mat-raised-button id="modificar" (click)="Modify()">Modificar</button>
+                    <button mat-raised-button id="modificar" (click)="Modify(i)">Modificar</button>
                 </td>
             </tr>
         </table>
@@ -32,25 +29,47 @@
 </form>
 
 
-<div *ngIf="modificar">
-    <form >
-        <div *ngFor="let data of locationsData">
+<div *ngIf="modify">
+
+    <form (ngSubmit)="modForm()" id="modForm">
+        <div>
             <p>Empresa:</p>
-            <div >
-                <select *ngFor="let d of BussinessRules">
-                    <option value="{{d.name}}" >{{d.name}}</option>
-                </select>
-            </div>
-            
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany">
+                <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
+            </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" [(ngModel)]="data.name" required>
-            <p>Direccion: </p>
-            <input type="text" id="address" name="address" [(ngModel)]="data.address" required>
+            <input type="text" id="name" name="name" placeholder="Ingres el nombre"
+                [(ngModel)]="locationDataCreate.name" placeholder="{{dataIndex.name}}" required>
+            <p>Dirección: </p>
+            <input type="text" id="address" name="address" placeholder="Ingresa la dirección"
+                [(ngModel)]="locationDataCreate.address" placeholder="{{dataIndex.address}}" required>
             <p>
-                <button  mat-raised-button id="Confirmar" (click)="Confirm()">Confirmar</button>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
             </p>
         </div>
-      
     </form>
-    </div>
-    
+</div>
+
+
+<div *ngIf="add">
+
+    <form (ngSubmit)="addForm()" id="addForm">
+        <div>
+            <p>Empresa:</p>
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany">
+                <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
+            </select>
+            <p>Nombre:</p>
+            <input type="text" id="name" name="name" placeholder="Ingres el nombre"
+                [(ngModel)]="locationDataCreate.name" required>
+            <p>Dirección: </p>
+            <input type="text" id="address" name="address" placeholder="Ingresa la dirección"
+                [(ngModel)]="locationDataCreate.address" required>
+            <p>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+            </p>
+        </div>
+    </form>
+</div>
