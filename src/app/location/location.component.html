@@ -2,6 +2,7 @@
 
     <div class="mat-elevation-z8" *ngIf="tab">
         <table id="table" border="1">
+            <th>IdSucursal</th>
             <th>Empresa</th>
             <th>Nombre</th>
             <th>Direccion</th>
@@ -11,6 +12,7 @@
             <th>Usuario de modificacion</th>
             <th>Opciones</th>
             <tr *ngFor="let location of locationsData;">
+                <td>{{location.idBranch}}</td>
                 <td>{{ getCompanyName(location.idCompany) }}</td>
                 <td>{{location.name}}</td>
                 <td>{{location.address}}</td>
@@ -36,10 +38,10 @@
                 <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" placeholder="Ingres el nombre"
+            <input type="text" id="name" name="name" 
                 [(ngModel)]="locationDataModify.name" placeholder="{{dataIndex.name}}" required>
             <p>Dirección: </p>
-            <input type="text" id="address" name="address" placeholder="Ingresa la dirección"
+            <input type="text" id="address" name="address" 
                 [(ngModel)]="locationDataModify.address" placeholder="{{dataIndex.address}}" required>
             <p>
                 <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
@@ -58,10 +60,10 @@
                 <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" placeholder="Ingres el nombre"
+            <input type="text" id="name" name="name" 
                 [(ngModel)]="locationDataCreate.name" required>
             <p>Dirección: </p>
-            <input type="text" id="address" name="address" placeholder="Ingresa la dirección"
+            <input type="text" id="address" name="address" 
                 [(ngModel)]="locationDataCreate.address" required>
             <p>
                 <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>

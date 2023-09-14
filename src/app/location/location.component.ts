@@ -25,11 +25,11 @@ export class LocationComponent {
   companyData: any = [];
   modify: boolean = false;
   add: boolean = false;
-  tab: boolean = true
-  locationDataCreate: any = {}
-  locationDataModify: any = {}
-  dataIndex: any = {}
-  url: String = "http://localhost:4042/v1"
+  tab: boolean = true;
+  locationDataCreate: any = {};
+  locationDataModify: any = {};
+  dataIndex: any = {};
+  url: String = "http://localhost:4042/v1";
 
 
   locationService() {
@@ -108,7 +108,7 @@ export class LocationComponent {
     this.add = true
     this.tab = false
     console.log("add")
-    
+
   }
 
   back() {
@@ -116,6 +116,8 @@ export class LocationComponent {
     this.modify = false
     this.add = false
     this.tab = true
+    this.locationDataModify = {}
+    this.locationDataCreate = {}
   }
 
   addForm() {
@@ -133,6 +135,6 @@ export class LocationComponent {
   }
 
 
-  
+
 
 }
