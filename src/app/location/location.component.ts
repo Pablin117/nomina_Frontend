@@ -27,6 +27,7 @@ export class LocationComponent {
   add: boolean = false;
   tab: boolean = true
   locationDataCreate: any = {}
+  locationDataModify: any = {}
   dataIndex: any = {}
   url: String = "http://localhost:4042/v1"
 
@@ -90,12 +91,15 @@ export class LocationComponent {
   }
 
 
-  Modify(index: number) {
+  Modify(index: any) {
+    console.log(index)
     console.log("modifica")
-    this.dataIndex = this.locationsData[index]
+    this.dataIndex = index
     this.add = false
     this.tab = false
     this.modify = true
+    this.locationDataModify = {}
+    this.locationDataCreate = {}
   }
 
 
@@ -118,14 +122,13 @@ export class LocationComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       console.log(this.locationDataCreate)
-
     }
   }
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      console.log(this.locationDataCreate)
+      console.log(this.locationDataModify)
     }
   }
 

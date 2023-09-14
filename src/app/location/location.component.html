@@ -1,8 +1,7 @@
 <h1>Sucursales</h1>
 
-<form>
     <div class="mat-elevation-z8" *ngIf="tab">
-        <table>
+        <table id="table" border="1">
             <th>Empresa</th>
             <th>Nombre</th>
             <th>Direccion</th>
@@ -11,38 +10,37 @@
             <th>Fecha de modificacion</th>
             <th>Usuario de modificacion</th>
             <th>Opciones</th>
-            <tr *ngFor="let location of locationsData; let i= index">
+            <tr *ngFor="let location of locationsData;">
                 <td>{{ getCompanyName(location.idCompany) }}</td>
                 <td>{{location.name}}</td>
                 <td>{{location.address}}</td>
-                <td>{{location.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td>{{location.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{location.userCreation}}</td>
                 <td>{{location.userModification}}</td>
-                <td>{{location.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td>{{location.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>
-                    <button mat-raised-button id="modificar" (click)="Modify(i)">Modificar</button>
+                    <button mat-raised-button id="modificar" (click)="Modify(location)">Modificar</button>
                 </td>
             </tr>
         </table>
         <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
     </div>
-</form>
+
 
 
 <div *ngIf="modify">
-
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany">
+            <select id="companyDataSelect" name="companyDataSelect" >
                 <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
             <input type="text" id="name" name="name" placeholder="Ingres el nombre"
-                [(ngModel)]="locationDataCreate.name" placeholder="{{dataIndex.name}}" required>
+                [(ngModel)]="locationDataModify.name" placeholder="{{dataIndex.name}}" required>
             <p>Dirección: </p>
             <input type="text" id="address" name="address" placeholder="Ingresa la dirección"
-                [(ngModel)]="locationDataCreate.address" placeholder="{{dataIndex.address}}" required>
+                [(ngModel)]="locationDataModify.address" placeholder="{{dataIndex.address}}" required>
             <p>
                 <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
                 <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
@@ -53,11 +51,10 @@
 
 
 <div *ngIf="add">
-
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany">
+            <select id="companyDataSelect" name="companyDataSelect" >
                 <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
