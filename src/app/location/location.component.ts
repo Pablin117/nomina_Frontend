@@ -86,7 +86,7 @@ export class LocationComponent {
 
   getCompanyName(idCompany: number): string {
     for (let x = 0; x < this.companyData.length; x++) {
-      if (this.companyData[x].idcompany == idCompany) {
+      if (this.companyData[x].idCompany == idCompany) {
         return this.companyData[x].name
       }
     }
@@ -128,8 +128,8 @@ export class LocationComponent {
     if (formularioValido.reportValidity()) {
    
       this.locationDataCreate.userCreation = this.dataUser.user
-    
 
+    
       console.log(this.locationDataCreate)
 
      /* this.RequestLocationSave().subscribe(
@@ -141,8 +141,8 @@ export class LocationComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-     // this.locationDataModify.userModification = this.dataUser.user
       console.log(this.locationDataModify)
+      this.locationDataModify.userModification = this.dataUser.user
 
     }
   }
