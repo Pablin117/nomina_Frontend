@@ -15,6 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { CompanyRulesComponent } from './company-rules/company-rules.component';
+import { PlanillaComponent } from './planilla/planilla.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CompanyRulesComponent } from './company-rules/company-rules.component';
     ResetPasswordComponent,
     SecuritiProfileComponent,
     WelcomeComponent,
-    CompanyRulesComponent
+    CompanyRulesComponent,
+    PlanillaComponent
   ],
   imports: [
     BrowserModule,
