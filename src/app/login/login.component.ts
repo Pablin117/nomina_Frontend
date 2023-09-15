@@ -74,6 +74,7 @@ export class LoginComponent {
       }
       //code error 2 = first login
       else if(response.code == 2){
+        localStorage.setItem("data", JSON.stringify(response));
         this.messageError = response.message
         this.router.navigateByUrl("/set-password")
       }

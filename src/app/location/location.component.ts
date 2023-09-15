@@ -15,6 +15,8 @@ export class LocationComponent {
   ) { }
 
   ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
     this.CompanyService()
     this.locationService()
   }
@@ -29,6 +31,7 @@ export class LocationComponent {
   locationDataCreate: any = {};
   locationDataModify: any = {};
   dataIndex: any = {};
+  dataUser: any = {}
   url: String = "http://localhost:4042/v1";
 
 
@@ -70,20 +73,20 @@ export class LocationComponent {
   ResponseLocation(response: any) {
     this.locationsData = response;
     console.log("Se obtuvo sucursales");
-    console.log(this.locationsData)
+   // console.log(this.locationsData)
   }
 
 
   ResponseCompany(response: any) {
     this.companyData = response
     console.log("Se obtuvo configuracion de empresa")
-    console.log(this.companyData)
+    //console.log(this.companyData)
 
   }
 
   getCompanyName(idCompany: number): string {
     for (let x = 0; x < this.companyData.length; x++) {
-      if (this.companyData[x].idcompany == idCompany) {
+      if (this.companyData[x].idCompany == idCompany) {
         return this.companyData[x].name
       }
     }
@@ -123,7 +126,15 @@ export class LocationComponent {
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
+   
+      this.locationDataCreate.userCreation = this.dataUser.user
+
+    
       console.log(this.locationDataCreate)
+
+     /* this.RequestLocationSave().subscribe(
+        (response:any) => this.ResponseLocationSave(response)
+      )*/
     }
   }
 
@@ -131,9 +142,30 @@ export class LocationComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       console.log(this.locationDataModify)
+      this.locationDataModify.userModification = this.dataUser.user
+
     }
   }
 
+
+
+  RequestLocationSave() {
+    console.log("se agrega")
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createLocation", this.locationDataCreate,httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseLocationSave(response: any) {
+    console.log(response)
+    console.log("Se guardo")
+
+  }
 
 
 

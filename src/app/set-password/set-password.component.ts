@@ -88,6 +88,8 @@ export class SetPasswordComponent {
         respond: this.response,
         userCreation: this.user
       }
+
+      console.log(newQuestion)
       this.requestQuestionCreate(newQuestion).subscribe(
         (response: any) => this.responseQuestionCreate(response)
       )
@@ -134,6 +136,7 @@ export class SetPasswordComponent {
       idUser:this.user,
       password:this.newPassword
     }
+    console.log(passwordData)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

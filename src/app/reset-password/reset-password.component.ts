@@ -21,13 +21,13 @@ export class ResetPasswordComponent {
   url: String = "http://localhost:4042/v1"
   data: any = {}
   dataUser: any = {}
-  user: any = {}
+
   messageError: String = ""
 
   DataUser() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
-    this.user = this.dataUser.user
+   
   }
 
   resetPassword(){
@@ -37,7 +37,7 @@ export class ResetPasswordComponent {
       if(this.data.newPassword == this.data.confirmNewPassword){
         //consumption service resert pasword
         this.messageError = ""
-        this.data.idUser = this.user
+        this.data.idUser = this.dataUser.user
         this.resetPasswordService().subscribe(
           (response: any) => this.responseResetPasswordService(response)
         )
