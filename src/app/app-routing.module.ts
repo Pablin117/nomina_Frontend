@@ -4,8 +4,6 @@ import { LoginComponent } from './login/login.component';
 import { SetPasswordComponent} from "./set-password/set-password.component";
 import { WelcomeComponent} from "./welcome/welcome.component";
 import { SecuritiProfileComponent} from "./securiti-profile/securiti-profile.component";
-import { PlanillaComponent} from "./planilla/planilla.component";
-import { AuthGuard} from "./welcome/auth.guard";
 import { CompanyComponent } from './company/company.component';
 import { RecoverPasswordComponent} from "./recover-password/recover-password.component";
 import { LocationComponent } from './location/location.component';
@@ -23,8 +21,7 @@ const routes: Routes = [
   {path:'recover',component: RecoverPasswordComponent },
   {path:'location',component: LocationComponent },
   {path:'role',component: RoleComponent },
-  {path:'create',component: CreateUserComponent },
-  {path:'planilla',component: PlanillaComponent, canActivate: [AuthGuard]}
+  {path:'create',component: CreateUserComponent }
 
 ];
 
