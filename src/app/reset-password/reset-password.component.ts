@@ -1,145 +1,81 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { catchError } from "rxjs/operators";
-import { Router } from "@angular/router";
-
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {catchError} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
-
 })
 export class ResetPasswordComponent {
 
-  constructor(private http: HttpClient,private router: Router) { }
-
-  ngOnInit() {
-    this.CompanyData()
-    this.checkQuestions()
+  constructor(private http: HttpClient,  private router: Router) {
   }
 
-  //variables
-  QuestionsData: any = [];
-  user: String = "";
-  questionComplete: boolean = false;
-  newPassword: string = "";
-  confirmPassword: string = "";
-  BussinessRules: any ;
- 
- 
-
-  checkQuestions() {
-    this.RequestQuestions().subscribe(
-      (response: any) => this.ResponseQuestions(response)
-    )
+  ngOnInit(){
+    this.DataUser()
   }
-  RequestQuestions() {
-    var id = "Administrador"
+
+  //vars
+  url: String = "http://localhost:4042/v1"
+  data: any = {}
+  dataUser: any = {}
+  user: any = {}
+  messageError: String = ""
+
+  DataUser() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.user = this.dataUser.user
+  }
+
+  resetPassword(){
+    //validate form
+    let formularioValido: any = document.getElementById("loginForm");
+    if (formularioValido.reportValidity()) {
+      if(this.data.newPassword == this.data.confirmNewPassword){
+        //consumption service resert pasword
+        this.messageError = ""
+        this.data.idUser = this.user
+        this.resetPasswordService().subscribe(
+          (response: any) => this.responseResetPasswordService(response)
+        )
+      }else{
+        this.messageError = "Las contraseñas no coinciden"
+      }
+    }
+  }
+
+  //consumer service login
+  resetPasswordService() {
+    console.log(this.data)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>("http://localhost:4042/v1/questionsUser/" + id, httpOptions).pipe(
-      catchError(e => "1")
+    return this.http.post<any>(this.url + "/changePassword", this.data, httpOptions).pipe(
+      catchError(e => "e")
     )
   }
-  ResponseQuestions(response: any) {
-    if (response == null) {
-      alert("Error")
-    } else {
-      this.QuestionsData = response;
-      this.user = this.QuestionsData[0].idUser;
-      console.log("se obtuvo data de preguntas")
-    for(var x=0;x<this.QuestionsData.length;x++){
-      this.QuestionsData[x].respond = ''
-    }
-    }
-  }
 
+  //response service login
+  responseResetPasswordService(response: any) {
 
-
-  formQuestions() {
-    this.validateQuestionsService().subscribe(
-      (response: any) => this.responseValidateQuestionsService(response)
-    )
-  }
-  validateQuestionsService() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>("http://localhost:4042/v1/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  responseValidateQuestionsService(response: any) {
     console.log(response)
-    if (response.code == "0") { 
-      this.questionComplete = true   
-    } else{
-      alert(response.message)
+
+    if (response != null) {
+      //validate code
+      if (response.code == 0) {
+        alert("Contraseña cambiada exitosamente");
+        this.router.navigateByUrl("/");
+      }
+      // //error in consumption
+      else if (response == null || response == "e") {
+        console.log("No hay comunicación con el servidor!!")
+
+      }
     }
   }
-
-
-  formPassword(){
-    if(this.newPassword === this.confirmPassword){
-      this.RequestPassword().subscribe(
-        (response: any) => this.ResponseValidatePassword(response)
-      )
-    }else{
-      alert("Contraseñas no coinciden")
-    }
-  }
-
-  RequestPassword(){
-    let passwordData = {
-      idUser:this.user,
-      password:this.newPassword
-    }
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>("http://localhost:4042/v1/resetPassword" , passwordData, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponseValidatePassword(response:any){
-    if (response.code == "0") { 
-      alert(response.message)
-      this.router.navigate(['']);
-    } else{
-      alert(response.message)
-    }
-  }
-
-
-  CompanyData(){
-      this.RequestCompany().subscribe(
-        (response: any) => this.ResponseCompany(response)
-      ) 
-  }
-
-  RequestCompany(){
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>("http://localhost:4042/v1/bussinesRules" , httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponseCompany(response:any){
-  this.BussinessRules = response[0]
-  console.log("Se obtuvo configuracion de empresa")
-  }
-
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { catchError } from "rxjs/operators";
 })
 export class LoginComponent {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,  private router: Router) {
   }
 
   //vars
@@ -23,6 +24,11 @@ export class LoginComponent {
     this.routeService().subscribe(
       (response: any) => this.responseRouteService(response)
     )
+  }
+
+  //recover password
+  recoverPassword(){
+    this.router.navigateByUrl("/recover")
   }
 
   //login
@@ -41,7 +47,7 @@ export class LoginComponent {
   //consumer service login
   loginService() {
     this.data.idUser = this.data.idUser.toLowerCase()
-    console.log(this.data)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -54,14 +60,13 @@ export class LoginComponent {
 
   //response service login
   responseLoginService(response: any) {
-    console.log(response)
 
     if (response != null) {
       //validate code
       if(response.code == 0){
         // login ok
         localStorage.setItem("data", JSON.stringify(response));
-        //location.href = "/clientes";
+        this.router.navigateByUrl("/welcome")
       }
       //code error 1 = failed login, status user, current session
       else if(response.code == 1){
@@ -70,10 +75,12 @@ export class LoginComponent {
       //code error 2 = first login
       else if(response.code == 2){
         this.messageError = response.message
+        this.router.navigateByUrl("/set-password")
       }
       //code error 3 = required change password
       else if(response.code == 3){
-        this.messageError = response.message
+        localStorage.setItem("data",JSON.stringify(response))
+        this.router.navigateByUrl("/reset-password")
       }
     }
     //error in consumption
@@ -100,7 +107,6 @@ export class LoginComponent {
     if (response != null) {
       //
       this.routes = response
-      console.log(this.routes)
 
     } else if (response == null || response == "e"){
       console.log("No hay comunicación con el servidor!!")

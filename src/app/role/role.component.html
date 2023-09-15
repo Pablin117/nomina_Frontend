@@ -1,0 +1,57 @@
+<h1>Roles</h1>
+<div *ngIf="tab">
+    <form>
+        <div class="mat-elevation-z8">
+            <table id="table" border="1">
+                <th>IdRole</th>
+                <th>Nombre</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de modificación</th>
+                <th>Usuario de modificación</th>
+                <th>Opción</th>
+                <tr *ngFor="let role of RolesData">
+                    <td>{{role.idRole}}</td>
+                    <td>{{role.name}}</td>
+                    <td>{{role.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                    <td>{{role.userCreation}}</td>
+                    <td>{{role.userModification}}</td>
+                    <td>{{role.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                    <td><button mat-raised-button id="modificar" (click)="Modify(role)">Modíficar</button></td>
+                </tr>
+            </table>
+            <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+        <div>
+            <p>IdRol: </p>
+            <input type="text" id="idRol" name="idRol" [(ngModel)]="dataIndex.idRole" placeholder="{{dataIndex.idRole}}"
+                required disabled="">
+            <p>Nombre del Rol:</p>
+            <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name" placeholder="{{dataIndex.name}}"
+                required>
+            <p>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+            </p>
+        </div>
+    </form>
+</div>
+
+
+<div *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+        <div>
+            <p>Nombre del Rol:</p>
+            <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre" required>
+            <p>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+            </p>
+        </div>
+    </form>
+</div>
