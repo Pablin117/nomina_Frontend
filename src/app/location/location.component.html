@@ -57,7 +57,7 @@
         <div>
             <p>Empresa:</p>
             <select id="companyDataSelect" name="companyDataSelect" >
-                <option *ngFor="let data of companyData" value="{{data.idcompany}}" required>{{data.name}}</option>
+                <option *ngFor="let data of companyData" value="{{data.idcompany}}"  required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
             <input type="text" id="name" name="name" 
@@ -66,7 +66,7 @@
             <input type="text" id="address" name="address" 
                 [(ngModel)]="locationDataCreate.address" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button class="button" type="submit" id="btn" >Confirmar</button>
                 <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
             </p>
         </div>

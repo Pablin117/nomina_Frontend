@@ -13,6 +13,8 @@ export class RoleComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
     this.RoleData()
   }
 
@@ -28,6 +30,7 @@ export class RoleComponent {
   locationsData: any = [];
   companyData: any = [];
   dataIndex: any = {};
+  dataUser: any = {}
 
 
   RoleData() {
@@ -85,18 +88,72 @@ export class RoleComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       console.log(this.roleDataCreate)
+      this.roleDataCreate.userCreation = this.dataUser.user
+      this.RequestRoleSave().subscribe(
+        (response:any) => this.ResponseRoleSave(response)
+      )
+
     }
   }
+  RequestRoleSave() {
+    console.log("se agrega")
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createRol", this.roleDataCreate,httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseRoleSave(response: any) {
+    if(response.code == 0){
+      alert(response.message)
+      console.log("si")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
+    }
+  
+
+  }
+
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.dataIndex.name = this.roleDataModify.name
-      console.log(this.roleDataModify)
-      console.log(this.dataIndex)
+      this.dataIndex.userModification = this.dataUser.user
+      this.RequestRoleSaveM().subscribe(
+        (response:any) => this.ResponseRoleSaveM(response)
+      )
+
     }
   }
+  RequestRoleSaveM() {
+    console.log("se agrega")
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<any>(this.url + "/modifyRol", this.dataIndex,httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseRoleSaveM(response: any) {
+    if(response.code == 0){
+      alert(response.message)
+      console.log("si")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
+    }
+  
 
+  }
 
 
 }
