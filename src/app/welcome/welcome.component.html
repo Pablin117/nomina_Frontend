@@ -1,8 +1,8 @@
 <nav>
-  <div class="nivel" *ngFor="let data of info">
-    <ul>
-      <ol>
-      <ul>{{data.name}}
+  <div class="nivel" *ngFor="let data of Modul">
+    <ul>{{data}}
+      <ol *ngFor="let data1 of VarMenu1">{{data1.name}}
+      <ul>
         <li>opcion 1</li>
       </ul>
       </ol>
