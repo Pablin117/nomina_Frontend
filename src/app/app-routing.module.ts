@@ -11,7 +11,6 @@ import { RoleComponent } from './role/role.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
 import { CreateUserComponent} from "./create-user/create-user.component";
 
-
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'set-password',component: SetPasswordComponent},

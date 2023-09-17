@@ -18,11 +18,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { PlanillaComponent } from './planilla/planilla.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CreateUserComponent } from './create-user/create-user.component';
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
     SetPasswordComponent,
     SecuritiProfileComponent,
     WelcomeComponent,
+    PlanillaComponent,
     CompanyComponent,
     RecoverPasswordComponent,
     RoleComponent,
@@ -38,14 +39,14 @@ import { CreateUserComponent } from './create-user/create-user.component';
     ResetPasswordComponent,
     CreateUserComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        MatButtonModule, MatDividerModule, MatIconModule,
+        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
