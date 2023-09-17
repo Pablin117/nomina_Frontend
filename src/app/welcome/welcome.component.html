@@ -1,7 +1,7 @@
 <nav>
   <div class="nivel" *ngFor="let data of Modul">
     <ul>{{data}}
-      <ol *ngFor="let data1 of VarMenu1">{{data1.name}}
+      <ol *ngIf="VarMenu1.idModulo==VarModulo.idModulo">{{VarMenu.name}}
       <ul>
         <li>opcion 1</li>
       </ul>

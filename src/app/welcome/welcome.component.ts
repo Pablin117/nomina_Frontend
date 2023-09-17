@@ -138,7 +138,6 @@ ResponseUserRol(response:any){
   ResponseMenu(response:any){
     this.VarMenu = response;
     this.VarMenu1.push(this.VarMenu)
-    console.log(this.VarMenu1)
     this.Modulo();
   }
   ////////////////////////////Empieza la consulta de Modulos
@@ -172,6 +171,7 @@ ResponseUserRol(response:any){
       return a;
     }, []);
     this.Modul=resultado;
+    console.log(this.VarMenu1)
   }
 
 }
