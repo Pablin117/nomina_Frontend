@@ -1,5 +1,5 @@
 import { Component,OnInit } from '@angular/core';
-import {catchError} from 'rxjs/operators';
+import {catchError, connect} from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -14,11 +14,12 @@ export class WelcomeComponent {
   VarRolOption: any = [];
   VarUserRol: any = [];
   VarModulo: any=[];
-  VarRol: any=[];
+  VarOptionsRol: any={};
   VarOption:any=[];
   VarMenu:any=[];
-  rol :any = [];
+  rol :any = {};
   DataUser :any = {};
+  info : any =[];
 
 
   constructor(private http: HttpClient,private router: Router) { }
@@ -44,15 +45,21 @@ export class WelcomeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>("http://localhost:4042/v1/roleOption/"+idRolOption , httpOptions).pipe(
+    return this.http.get<any>("http://localhost:4042/v1/roleOption", httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseRolOption(response:any){
     this.VarRolOption = response
-    this.rol = this.VarRolOption.idRole;
-    this.Option();
+    for(let x = 0;x<this.VarRolOption.length;x++){
+        this.rol=this.VarRolOption[x].idPK;
+        if(this.rol.idRole==this.DataUser.user){
+          this.VarOptionsRol = this.rol.idOption;
+          console.log(this.VarOptionsRol)
+            this.Option();
+        }
+      }
 
   }
 ////////////////Empieza la consulta del usuario y su rol
@@ -81,8 +88,7 @@ export class WelcomeComponent {
 
 /////////////////Empieza la consulta de las opciones
   Option(){
-    console.log(this.VarRolOption)
-    this.RequestOption(this.VarRolOption.idOption).subscribe(
+    this.RequestOption(this.VarOptionsRol).subscribe(
       (response: any) => this.ResponseOption(response)
     )
   }
@@ -100,8 +106,8 @@ export class WelcomeComponent {
 
   ResponseOption(response:any){
     this.VarOption = response;
-    this.Menu();
     console.log(this.VarOption)
+    this.Menu();
   }
 
   ////////////////////////Empieza la consulta de menus
@@ -125,8 +131,8 @@ export class WelcomeComponent {
 
   ResponseMenu(response:any){
     this.VarMenu = response;
-    this.Modulo();
     console.log(this.VarMenu)
+    this.Modulo();
   }
   ////////////////////////////Empieza la consulta de Modulos
   Modulo(){
@@ -148,7 +154,9 @@ export class WelcomeComponent {
 
   ResponseModulo(response:any){
     this.VarModulo = response;
-    console.log(this.VarModulo)
+    this.info += this.VarModulo;
+    console.log(response)
+    console.log(this.info)
   }
 
 }
