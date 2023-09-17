@@ -24,11 +24,37 @@ export class WelcomeComponent {
 
   constructor(private http: HttpClient,private router: Router) { }
 
-  ngOnInit(): void {
-    this.RolOption()
+  ngOnInit() {
     this.UserRol();
-    //this.Modulo();
   }
+
+
+////////////////Empieza la consulta del usuario y su rol
+UserRol(){
+  this.DataUser = localStorage.getItem("data");
+  this.DataUser = JSON.parse(this.DataUser)
+  this.RequestUserRol().subscribe(
+    (response: any) => this.ResponseUserRol(response)
+  )
+}
+
+RequestUserRol(){
+  var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  return this.http.get<any>("http://localhost:4042/v1/userRole/"+this.DataUser.user , httpOptions).pipe(
+    catchError(e => "1")
+  )
+}
+
+ResponseUserRol(response:any){
+  this.VarUserRol = response;
+  this.RolOption()
+}
+
+
 
 ///////////////////Empieza la consulta del Rol con su opcion
   RolOption(){
@@ -40,6 +66,8 @@ export class WelcomeComponent {
   }
 
   RequestRolOption(idRolOption:any){
+    console.log(idRolOption)
+    
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -54,36 +82,13 @@ export class WelcomeComponent {
     this.VarRolOption = response
     for(let x = 0;x<this.VarRolOption.length;x++){
         this.rol=this.VarRolOption[x].idPK;
-        if(this.rol.idRole==this.DataUser.user){
+        if(this.rol.idRole==this.VarUserRol.idRole){
           this.VarOptionsRol = this.rol.idOption;
-          console.log(this.VarOptionsRol)
+       
             this.Option();
         }
       }
 
-  }
-////////////////Empieza la consulta del usuario y su rol
-  UserRol(){
-    this.DataUser = localStorage.getItem("data");
-    this.DataUser = JSON.parse(this.DataUser)
-    this.RequestUserRol().subscribe(
-      (response: any) => this.ResponseUserRol(response)
-    )
-  }
-
-  RequestUserRol(){
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>("http://localhost:4042/v1/userRole/"+this.DataUser.user , httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponseUserRol(response:any){
-    this.VarUserRol = response;
   }
 
 /////////////////Empieza la consulta de las opciones
@@ -106,14 +111,16 @@ export class WelcomeComponent {
 
   ResponseOption(response:any){
     this.VarOption = response;
-    console.log(this.VarOption)
-    this.Menu();
+    console.log("obtenemos opciones")
+  
+
+    this.Menu(this.VarOption.idMenu);
   }
 
   ////////////////////////Empieza la consulta de menus
 
-  Menu(){
-    this.RequestMenu(this.VarOption.idMenu).subscribe(
+  Menu(idMenu:any){
+    this.RequestMenu(idMenu).subscribe(
       (response: any) => this.ResponseMenu(response)
     )
   }
@@ -131,7 +138,7 @@ export class WelcomeComponent {
 
   ResponseMenu(response:any){
     this.VarMenu = response;
-    console.log(this.VarMenu)
+
     this.Modulo();
   }
   ////////////////////////////Empieza la consulta de Modulos
@@ -154,8 +161,8 @@ export class WelcomeComponent {
 
   ResponseModulo(response:any){
     this.VarModulo = response;
-    this.info += this.VarModulo;
-    console.log(response)
+    this.info.push(this.VarModulo)
+   
     console.log(this.info)
   }
 

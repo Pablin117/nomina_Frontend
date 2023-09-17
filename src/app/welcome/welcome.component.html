@@ -1,8 +1,8 @@
 <nav>
-  <div class="nivel">
-    <ul>hola
+  <div class="nivel" *ngFor="let data of info">
+    <ul>
       <ol>
-      <ul>menu1
+      <ul>{{data.name}}
         <li>opcion 1</li>
       </ul>
       </ol>
