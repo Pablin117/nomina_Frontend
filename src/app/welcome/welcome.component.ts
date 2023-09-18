@@ -23,13 +23,51 @@ export class WelcomeComponent {
   busqueda : any =[];
   Modul:any =[];
   VarMenu1:any=[];
+  VarMenu2:any=[];
+  VarFullRol:any=[];
+  VarOption1:any=[];
 
 
 
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit() {
-    this.UserRol();
+    this.FullRol();
+    //this.UserRol();
+  }
+
+////////////////Nuevo endpoint para consumir usuario, rol, opcion
+  FullRol(){
+    this.DataUser = localStorage.getItem("data");
+    this.DataUser = JSON.parse(this.DataUser)
+    this.RequestFullRol().subscribe(
+      (response: any) => this.ResponseFullRol(response)
+    )
+  }
+
+  RequestFullRol(){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>("http://localhost:4042/v1/fullRol/"+this.DataUser.user , httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  Calcular(obj:object):number{
+    const keys = Object.keys(obj)
+    return keys.length
+  }
+  ResponseFullRol(response:any){
+    this.VarFullRol = response;
+    const a = this.Calcular(this.VarFullRol)
+    for(let x=0;x<a;x++){
+      this.Menu(this.VarFullRol["idOption "+x].idMenu)
+      this.VarOption1 = this.VarFullRol["idOption "+x];
+      console.log(this.VarOption1)
+    }
   }
 
 
@@ -138,6 +176,7 @@ ResponseUserRol(response:any){
   ResponseMenu(response:any){
     this.VarMenu = response;
     this.VarMenu1.push(this.VarMenu)
+    console.log(response)
     this.Modulo();
   }
   ////////////////////////////Empieza la consulta de Modulos
@@ -171,7 +210,9 @@ ResponseUserRol(response:any){
       return a;
     }, []);
     this.Modul=resultado;
-    console.log(this.VarMenu1)
+    console.log(this.VarMenu1.length)
+    this.VarMenu2.push(this.VarMenu1)
+    console.log(this.VarMenu2)
   }
 
 }

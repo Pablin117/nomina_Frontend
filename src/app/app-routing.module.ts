@@ -11,6 +11,7 @@ import { RoleComponent } from './role/role.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
 import { CreateUserComponent} from "./create-user/create-user.component";
 import { FormsModule } from '@angular/forms';
+import { ModuleMaintenanceComponent} from "./module-maintenance/module-maintenance.component";
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path:'recover',component: RecoverPasswordComponent },
   {path:'location',component: LocationComponent },
   {path:'role',component: RoleComponent },
-  {path:'create',component: CreateUserComponent }
+  {path:'create',component: CreateUserComponent },
+  {path:'module-maintenance',component: ModuleMaintenanceComponent }
 
 ];
 
