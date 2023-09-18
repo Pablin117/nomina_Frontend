@@ -10,6 +10,7 @@ import { LocationComponent } from './location/location.component';
 import { RoleComponent } from './role/role.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
 import { CreateUserComponent} from "./create-user/create-user.component";
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -26,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
