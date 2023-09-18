@@ -24,6 +24,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,8 @@ import {MatMenuModule} from "@angular/material/menu";
     LocationComponent,
     ResetPasswordComponent,
     CreateUserComponent
+    
+    
   ],
     imports: [
         BrowserModule,
@@ -45,7 +48,8 @@ import {MatMenuModule} from "@angular/material/menu";
         FormsModule,
         HttpClientModule,
         MatButtonModule, MatDividerModule, MatIconModule,
-        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule
+        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule,
+        
     ],
   providers: [],
   bootstrap: [AppComponent]
