@@ -27,9 +27,9 @@ export class RoleComponent {
   tab: boolean = true;
   roleDataCreate: any = {}
   roleDataModify: any = {}
-  locationsData: any = [];
-  companyData: any = [];
-  dataIndex: any = {};
+  locationsData: any = {};
+  companyData: any = {};
+  roleModify: any = {};
   dataUser: any = {}
 
 
@@ -57,9 +57,11 @@ export class RoleComponent {
 
   }
 
-  Modify(index: any) {
+  Modify(rol: any) {
     console.log("modifica")
-    this.dataIndex = index
+    this.roleModify = rol
+
+
     this.add = false
     this.tab = false
     this.modify = true
@@ -123,8 +125,8 @@ export class RoleComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.dataIndex.name = this.roleDataModify.name
-      this.dataIndex.userModification = this.dataUser.user
+      this.roleModify.name = this.roleDataModify.name
+      this.roleModify.userModification = this.dataUser.user
       this.RequestRoleSaveM().subscribe(
         (response:any) => this.ResponseRoleSaveM(response)
       )
@@ -138,7 +140,7 @@ export class RoleComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRol", this.dataIndex,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyRol", this.roleModify,httpOptions).pipe(
       catchError(e => "1")
     )
   }

@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
 import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { ModuleMaintenanceComponent } from './module-maintenance/module-maintena
         FormsModule,
         HttpClientModule,
         MatButtonModule, MatDividerModule, MatIconModule,
-        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule
+        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule,
+        
     ],
   providers: [],
   bootstrap: [AppComponent]
