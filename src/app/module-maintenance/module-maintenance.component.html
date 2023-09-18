@@ -1,16 +1,20 @@
 <table class="table table-striped">
   <thead  class="borde">
   <tr>
-    <th class="encabezado" scope="col">Tarifa</th>
-    <th class="encabezado" scope="col">Peso</th>
-    <th class="encabezado" scope="col">Tamaño</th>
+    <th class="encabezado" scope="col">Nombre</th>
+    <th class="encabezado" scope="col">Fecha creacion</th>
+    <th class="encabezado" scope="col">Usuario que lo creo</th>
+    <th class="encabezado" scope="col">Fecha de modificacion</th>
+    <th class="encabezado" scope="col">Usuario que lo modifico</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let modulos of VarModulo" >
-    <th scope="row">{{modulos.Seguridad}}</th>
-    <td>{{modulos.peso}}</td>
-    <td>{{modulos.metroCubico}}</td>
+    <th scope="row">{{modulos.name}}</th>
+    <td>{{modulos.creationDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+    <td>{{modulos.userCreation}}</td>
+    <td>{{modulos.modificationDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+    <td>{{modulos.userModification}}</td>
   </tr>
   </tbody>
 </table>
