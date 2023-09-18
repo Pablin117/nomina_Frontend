@@ -20,12 +20,54 @@ export class WelcomeComponent {
   rol :any = {};
   DataUser :any = {};
   info : any =[];
+  busqueda : any =[];
+  Modul:any =[];
+  VarMenu1:any=[];
+  VarMenu2:any=[];
+  VarFullRol:any=[];
+  VarOption1:any=[];
+
 
 
   constructor(private http: HttpClient,private router: Router) { }
 
   ngOnInit() {
-    this.UserRol();
+    this.FullRol();
+    //this.UserRol();
+  }
+
+////////////////Nuevo endpoint para consumir usuario, rol, opcion
+  FullRol(){
+    this.DataUser = localStorage.getItem("data");
+    this.DataUser = JSON.parse(this.DataUser)
+    this.RequestFullRol().subscribe(
+      (response: any) => this.ResponseFullRol(response)
+    )
+  }
+
+  RequestFullRol(){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>("http://localhost:4042/v1/fullRol/"+this.DataUser.user , httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  Calcular(obj:object):number{
+    const keys = Object.keys(obj)
+    return keys.length
+  }
+  ResponseFullRol(response:any){
+    this.VarFullRol = response;
+    const a = this.Calcular(this.VarFullRol)
+    for(let x=0;x<a;x++){
+      this.Menu(this.VarFullRol["idOption "+x].idMenu)
+      this.VarOption1 = this.VarFullRol["idOption "+x];
+      console.log(this.VarOption1)
+    }
   }
 
 
@@ -66,8 +108,6 @@ ResponseUserRol(response:any){
   }
 
   RequestRolOption(idRolOption:any){
-    console.log(idRolOption)
-    
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -84,7 +124,6 @@ ResponseUserRol(response:any){
         this.rol=this.VarRolOption[x].idPK;
         if(this.rol.idRole==this.VarUserRol.idRole){
           this.VarOptionsRol = this.rol.idOption;
-       
             this.Option();
         }
       }
@@ -111,8 +150,6 @@ ResponseUserRol(response:any){
 
   ResponseOption(response:any){
     this.VarOption = response;
-    console.log("obtenemos opciones")
-  
 
     this.Menu(this.VarOption.idMenu);
   }
@@ -138,7 +175,8 @@ ResponseUserRol(response:any){
 
   ResponseMenu(response:any){
     this.VarMenu = response;
-
+    this.VarMenu1.push(this.VarMenu)
+    console.log(response)
     this.Modulo();
   }
   ////////////////////////////Empieza la consulta de Modulos
@@ -162,8 +200,19 @@ ResponseUserRol(response:any){
   ResponseModulo(response:any){
     this.VarModulo = response;
     this.info.push(this.VarModulo)
-   
-    console.log(this.info)
+    for(let x=0;x<this.info.length;x++){
+      this.busqueda.push(this.info[x].name)
+    }
+    let resultado = this.busqueda.reduce((a:any,e:any)=>{
+      if(!a.find((d: any)=> d ==e)){
+        a.push(e)
+      }
+      return a;
+    }, []);
+    this.Modul=resultado;
+    console.log(this.VarMenu1.length)
+    this.VarMenu2.push(this.VarMenu1)
+    console.log(this.VarMenu2)
   }
 
 }

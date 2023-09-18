@@ -1,0 +1,16 @@
+<table class="table table-striped">
+  <thead  class="borde">
+  <tr>
+    <th class="encabezado" scope="col">Tarifa</th>
+    <th class="encabezado" scope="col">Peso</th>
+    <th class="encabezado" scope="col">Tamaño</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let modulos of VarModulo" >
+    <th scope="row">{{modulos.Seguridad}}</th>
+    <td>{{modulos.peso}}</td>
+    <td>{{modulos.metroCubico}}</td>
+  </tr>
+  </tbody>
+</table>

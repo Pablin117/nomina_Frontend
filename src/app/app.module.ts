@@ -23,6 +23,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CreateUserComponent } from './create-user/create-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
+import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
 
 
 @NgModule({
@@ -38,9 +39,8 @@ import {MatMenuModule} from "@angular/material/menu";
     RoleComponent,
     LocationComponent,
     ResetPasswordComponent,
-    CreateUserComponent
-    
-    
+    CreateUserComponent,
+    ModuleMaintenanceComponent
   ],
     imports: [
         BrowserModule,
