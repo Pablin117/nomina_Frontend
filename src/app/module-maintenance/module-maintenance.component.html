@@ -1,20 +1,56 @@
-<table class="table table-striped">
-  <thead  class="borde">
-  <tr>
-    <th class="encabezado" scope="col">Nombre</th>
-    <th class="encabezado" scope="col">Fecha creacion</th>
-    <th class="encabezado" scope="col">Usuario que lo creo</th>
-    <th class="encabezado" scope="col">Fecha de modificacion</th>
-    <th class="encabezado" scope="col">Usuario que lo modifico</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let modulos of VarModulo" >
-    <th scope="row">{{modulos.name}}</th>
-    <td>{{modulos.creationDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
-    <td>{{modulos.userCreation}}</td>
-    <td>{{modulos.modificationDate|date:'dd/MM/yyyy HH:mm:ss'}}</td>
-    <td>{{modulos.userModification}}</td>
-  </tr>
-  </tbody>
-</table>
+<h1>Modulos</h1>
+<div *ngIf="tab">
+  <div >
+    <table class="table table-striped">
+      <th>IdModulo</th>
+      <th>Nombre</th>
+      <th>Orden del modulo</th>
+      <th>Fecha de creación</th>
+      <th>Usuario de creación</th>
+      <th>Usuario de modificación</th>
+      <th>Fecha de modificación</th>
+      <tr *ngFor="let modulo of ModulosData">
+        <td>{{modulo.idModule}}</td>
+        <td>{{modulo.name}}</td>
+        <td>{{modulo.orderMenu}}</td>
+        <td>{{modulo.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{modulo.userCreation}}</td>
+        <td>{{modulo.userModification}}</td>
+        <td>{{modulo.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td><button mat-raised-button id="modificar" (click)="Modify(modulo)">Modíficar</button></td>
+      </tr>
+    </table>
+    <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
+  </div>
+</div>
+
+<div *ngIf="modify">
+  <form (ngSubmit)="modForm()" id="modForm">
+    <div>
+      <p>IdModulo: </p>
+      <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule" placeholder="{{moduloModify.idModule}}"
+             required disabled="">
+      <p>Nombre del Modulo:</p>
+      <input type="text" id="name" name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloModify.name}}"
+             required>
+      <p>
+        <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+        <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+      </p>
+    </div>
+  </form>
+</div>
+
+
+<div *ngIf="add">
+  <form (ngSubmit)="addForm()" id="addForm">
+    <div>
+      <p>Nombre del Modulo:</p>
+      <input type="text" id="name" name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre" required>
+      <p>
+        <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+        <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+      </p>
+    </div>
+  </form>
+</div>
