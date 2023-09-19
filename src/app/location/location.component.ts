@@ -20,8 +20,16 @@ export class LocationComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.CompanyService()
     this.locationService()
+    this.validateSession()
   }
 
+validateSession(){
+  if(this.dataUser != null){
+    console.log("activo")
+  }else{
+    this.router.navigateByUrl("/")
+  }
+}
 
   //variables
   locationsData: any = [];
@@ -201,5 +209,39 @@ export class LocationComponent {
     }
   }
 
+  revoke(){
+    console.log("salida")
+  console.log(this.dataUser.session)
+  this.RequestRevoke().subscribe(
+    (response: any) => this.ResponseRevoke(response)
+  )
+  }
+  
+  
+  RequestRevoke() {
+     
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/"+ this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+   
+      localStorage.clear()  
+       this.router.navigateByUrl("/")
+    }
+  
+  }
 
 }

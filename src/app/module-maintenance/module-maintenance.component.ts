@@ -11,10 +11,24 @@ import {Router} from "@angular/router";
 export class ModuleMaintenanceComponent {
  VarModulo: any = [];
  VarName:any=[];
+ dataUser: any = {}
+
+ constructor(private http: HttpClient,private router: Router) { }
   ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
     this.Modulo();
+    this.validateSession()
   }
-  constructor(private http: HttpClient) { }
+
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
+  
   Modulo(){
     this.RequestModulo().subscribe(
       (response: any) => this.ResponseModulo(response)

@@ -22,7 +22,21 @@ export class RecoverPasswordComponent {
   newPassword: string = "";
   confirmPassword: string = "";
   BussinessRules: any ;
+  dataUser: any = {}
 
+  ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.validateSession()
+  }
+
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
 
   recover(){
     //validate form

@@ -17,8 +17,6 @@ export class RoleComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.RoleData()
   }
-
-
   //variables
   RolesData: any = [];
   url: String = "http://localhost:4042/v1"
@@ -31,6 +29,16 @@ export class RoleComponent {
   companyData: any = {};
   roleModify: any = {};
   dataUser: any = {}
+
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
+
+
 
 
   RoleData() {

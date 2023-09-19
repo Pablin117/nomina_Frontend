@@ -14,6 +14,13 @@ export class CreateUserComponent {
   }
 
 
+  ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.validateSession()
+  }
+
+
   showSuccessMessage = false;
 
   url: string = 'http://localhost:4042/v1';
@@ -43,12 +50,21 @@ export class CreateUserComponent {
   modificationDate: string = ""
   userModification: string = "";
   buttonClicked = false;
+  dataUser: any = {}
 
   genderOptions = [
     { id: '1', name: 'Masculino' },
     { id: '2', name: 'Femenino' },
   ];
  
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
+  
 
   create() {
     this.creationDate = new Date().toISOString();
