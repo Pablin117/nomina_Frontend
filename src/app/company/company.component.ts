@@ -21,24 +21,25 @@ export class CompanyComponent {
 
   }
 
-  validateSession(){
-    if(this.dataUser != null){
+  validateSession() {
+    if (this.dataUser != null) {
       console.log("activo")
-    }else{
+    } else {
       this.router.navigateByUrl("/")
     }
   }
-  
+
 
   //variables
   modify: boolean = false;
   add: boolean = false;
   tab: boolean = true;
-  companyDataModify:any = {}
-  companyDataCreate:any = {}
+  companyDataModify: any = {}
+  companyDataCreate: any = {}
   BussinessRules: any = [];
   companyModify: any = {};
   dataUser: any = {}
+  header: boolean = true
   url: String = "http://localhost:4042/v1"
 
   CompanyData() {
@@ -62,14 +63,14 @@ export class CompanyComponent {
 
   }
 
-//formulario para modificar
+  //formulario para modificar
   modForm() {
-   
+
     if (this.companyModify.passwordAmountSpecialCharacters >= 1) {
       if (this.companyModify.passwordAmountNumber >= 1) {
         if (this.companyModify.passwordAmountLowercase >= 1) {
           if (this.companyModify.passwordAmountUppercase >= 1) {
-           this.companyModify.userModification = this.dataUser.user
+            this.companyModify.userModification = this.dataUser.user
             console.log(this.companyDataModify)
 
             this.RequestCompanyUpdate().subscribe(
@@ -77,7 +78,7 @@ export class CompanyComponent {
             )
           } else {
             alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
-            }
+          }
         } else {
           alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
         }
@@ -90,7 +91,7 @@ export class CompanyComponent {
   }
 
   RequestCompanyUpdate() {
-   
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -115,8 +116,6 @@ export class CompanyComponent {
   }
 
 
-
-
   //formulario para agregar
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
@@ -124,13 +123,13 @@ export class CompanyComponent {
 
       console.log(this.companyDataCreate)
       this.companyDataCreate.userCreation = this.dataUser.user
-      
+
     }
   }
 
 
   RequestCompanySave() {
-   
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -163,6 +162,7 @@ export class CompanyComponent {
     this.add = false
     this.tab = false
     this.modify = true
+    this.header = false
     this.companyDataModify = {}
     this.companyDataCreate = {}
   }
@@ -173,57 +173,60 @@ export class CompanyComponent {
     this.modify = false
     this.add = false
     this.tab = true
+    this.header = true
     this.companyDataModify = {}
     this.companyDataCreate = {}
   }
 
-
-/*  Add() {
-    this.modify = false
-    this.add = true
-    this.tab = false
-    console.log("add")
-
+  backWelcome() {
+    this.router.navigateByUrl("/welcome")
   }
-*/
+  /*  Add() {
+      this.modify = false
+      this.add = true
+      this.tab = false
+      console.log("add")
+  
+    }
+  */
 
 
-revoke(){
-  console.log("salida")
-console.log(this.dataUser.session)
-this.RequestRevoke().subscribe(
-  (response: any) => this.ResponseRevoke(response)
-)
-}
-
-
-RequestRevoke() {
-   
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  }
-  return this.http.get<any>(this.url + "/revoke/"+ this.dataUser.session, httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
-
-ResponseRevoke(response: any) {
-  if (response.code == 0) {
-    console.log(response)
-    alert(response.message)
-    
-    localStorage.removeItem("data")
-    this.router.navigateByUrl("/")
-    localStorage.clear()
-  } else {
-    alert(response.message)
-    this.router.navigateByUrl("/")
-    localStorage.clear()
+  revoke() {
+    console.log("salida")
+    console.log(this.dataUser.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
   }
 
-}
+
+  RequestRevoke() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+
+      localStorage.removeItem("data")
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
+
+  }
 
 
 }

@@ -27,16 +27,11 @@ export class RecoverPasswordComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
-    this.validateSession()
+    this.CompanyData()
+  
   }
 
-  validateSession(){
-    if(this.dataUser != null){
-      console.log("activo")
-    }else{
-      this.router.navigateByUrl("/")
-    }
-  }
+
 
   recover(){
     //validate form
@@ -75,7 +70,7 @@ export class RecoverPasswordComponent {
     }
     //error in consumption
     else if (response == null || response == "e"){
-      this.messageError = "Usuario no valido"
+     alert("Usuario no valido")
     }
   }
 
@@ -205,9 +200,12 @@ export class RecoverPasswordComponent {
 
   ResponseCompany(response:any){
   this.BussinessRules = response[0]
+  console.log(this.BussinessRules)
   console.log("Se obtuvo configuracion de empresa")
   }
 
-
+back(){
+  this.router.navigateByUrl("/")
+}
 
 }

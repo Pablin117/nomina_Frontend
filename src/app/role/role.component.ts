@@ -29,11 +29,12 @@ export class RoleComponent {
   companyData: any = {};
   roleModify: any = {};
   dataUser: any = {}
+  header: boolean = true
 
-  validateSession(){
-    if(this.dataUser != null){
+  validateSession() {
+    if (this.dataUser != null) {
       console.log("activo")
-    }else{
+    } else {
       this.router.navigateByUrl("/")
     }
   }
@@ -65,11 +66,47 @@ export class RoleComponent {
 
   }
 
+  revoke() {
+    console.log("salida")
+    console.log(this.dataUser.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+
+  RequestRevoke() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+
+      localStorage.removeItem("data")
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
+
+  }
+
+
   Modify(rol: any) {
     console.log("modifica")
     this.roleModify = rol
-
-
+    this.header = false
     this.add = false
     this.tab = false
     this.modify = true
@@ -81,15 +118,20 @@ export class RoleComponent {
     this.modify = false
     this.add = true
     this.tab = false
+    this.header = false
     console.log("add")
 
   }
 
+  backWelcome() {
+    this.router.navigateByUrl("/welcome")
+  }
   back() {
     console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
+    this.header = true
     this.roleDataModify = {}
     this.roleDataCreate = {}
   }
@@ -100,7 +142,7 @@ export class RoleComponent {
       console.log(this.roleDataCreate)
       this.roleDataCreate.userCreation = this.dataUser.user
       this.RequestRoleSave().subscribe(
-        (response:any) => this.ResponseRoleSave(response)
+        (response: any) => this.ResponseRoleSave(response)
       )
 
     }
@@ -112,20 +154,20 @@ export class RoleComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createRol", this.roleDataCreate,httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createRol", this.roleDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   ResponseRoleSave(response: any) {
-    if(response.code == 0){
+    if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
-  
+
 
   }
 
@@ -136,7 +178,7 @@ export class RoleComponent {
       this.roleModify.name = this.roleDataModify.name
       this.roleModify.userModification = this.dataUser.user
       this.RequestRoleSaveM().subscribe(
-        (response:any) => this.ResponseRoleSaveM(response)
+        (response: any) => this.ResponseRoleSaveM(response)
       )
 
     }
@@ -148,20 +190,20 @@ export class RoleComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRol", this.roleModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyRol", this.roleModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   ResponseRoleSaveM(response: any) {
-    if(response.code == 0){
+    if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
-  
+
 
   }
 

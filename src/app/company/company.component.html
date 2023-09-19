@@ -1,11 +1,14 @@
 <h1>Empresa</h1>
-<div >
-    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>
+<div *ngIf="header">
+    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
+
 
 
 <div *ngIf="tab">
     <div>
+
         <table class="table table-striped">
             <th>IdEmpresa</th>
             <th>Nombre</th>
@@ -43,17 +46,17 @@
                 <td>{{rule.userCreation}}</td>
                 <td>{{rule.userModification}}</td>
                 <td>{{rule.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-    
+
                 <td>
                     <button mat-raised-button id="modificar" (click)="Modify(rule)">
                         Modificar</button>
                 </td>
             </tr>
         </table>
-       <!-- 
+        <!-- 
     <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
         -->
-            
+
     </div>
 
 </div>
@@ -63,33 +66,45 @@
     <form (ngSubmit)="modForm()" id="modForm">
         <h1>Modificación</h1>
         <p>Nombre: </p>
-        <input type="text" id="name" name="name" [(ngModel)]="companyModify.name" placeholder="{{companyModify.name}}" required>
+        <input type="text" id="name" name="name" [(ngModel)]="companyModify.name" placeholder="{{companyModify.name}}"
+            required>
         <p>Direccion: </p>
-        <input type="text" id="address" name="address" [(ngModel)]="companyModify.address" placeholder="{{companyModify.address}}" required>
+        <input type="text" id="address" name="address" [(ngModel)]="companyModify.address"
+            placeholder="{{companyModify.address}}" required>
         <p>Nit: </p>
-        <input type="text" id="address" name="address" [(ngModel)]="companyModify.nit" placeholder="{{companyModify.nit}}" required>
+        <input type="text" id="address" name="address" [(ngModel)]="companyModify.nit"
+            placeholder="{{companyModify.nit}}" required>
         <p>Cantidad minima de Mayusculas: </p>
-        <input type="number" id="mayusculas" name="mayusculas" [(ngModel)]="companyModify.passwordAmountUppercase" placeholder="{{companyModify.passwordAmountUppercase}}" required>
+        <input type="number" id="mayusculas" name="mayusculas" [(ngModel)]="companyModify.passwordAmountUppercase"
+            placeholder="{{companyModify.passwordAmountUppercase}}" required>
         <p>Cantidad minima de Minusculas:</p>
-        <input type="number" id="Minusculas" name="Minusculas" [(ngModel)]="companyModify.passwordAmountLowercase" placeholder="{{companyModify.passwordAmountLowercase}}" required>
+        <input type="number" id="Minusculas" name="Minusculas" [(ngModel)]="companyModify.passwordAmountLowercase"
+            placeholder="{{companyModify.passwordAmountLowercase}}" required>
         <p>Cantidad minima de Caracteres Especiales:</p>
-        <input type="number" id="Especial" name="Especial" [(ngModel)]="companyModify.passwordAmountSpecialCharacters" placeholder="{{companyModify.passwordAmountSpecialCharacters}}" required>
+        <input type="number" id="Especial" name="Especial" [(ngModel)]="companyModify.passwordAmountSpecialCharacters"
+            placeholder="{{companyModify.passwordAmountSpecialCharacters}}" required>
         <p>Cantidad minima de Numeros:</p>
-        <input type="number" id="Numeros" name="Numeros" [(ngModel)]="companyModify.passwordAmountNumber" placeholder="{{companyModify.passwordAmountNumber}}" required>
+        <input type="number" id="Numeros" name="Numeros" [(ngModel)]="companyModify.passwordAmountNumber"
+            placeholder="{{companyModify.passwordAmountNumber}}" required>
         <p>Long. Minima: </p>
-        <input type="number" id="min" name="min" [(ngModel)]="companyModify.passwordlength"  placeholder="{{companyModify.passwordlength}}" required>
+        <input type="number" id="min" name="min" [(ngModel)]="companyModify.passwordlength"
+            placeholder="{{companyModify.passwordlength}}" required>
         <p>Long. Maxima:</p>
-        <input type="number" placeholder="25"  disabled>
+        <input type="number" placeholder="25" disabled>
         <p>Días Expiracion:</p>
-        <input type="number" id="expiracion" name="expiracion" [(ngModel)]="companyModify.passwordAmountExpirationsDays"  placeholder="{{companyModify.passwordAmountExpirationsDays}}" required>
+        <input type="number" id="expiracion" name="expiracion" [(ngModel)]="companyModify.passwordAmountExpirationsDays"
+            placeholder="{{companyModify.passwordAmountExpirationsDays}}" required>
         <p>Intentos de bloqueo:</p>
-        <input type="number" id="bloqueo" name="bloqueo" [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"  placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
+        <input type="number" id="bloqueo" name="bloqueo"
+            [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"
+            placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
         <p>Preguntas validas:</p>
-        <input type="number" id="validas" name="validas" [(ngModel)]="companyModify.passwordAmountQuestionsValidate"  placeholder="{{companyModify.passwordAmountQuestionsValidate}}" required>
+        <input type="number" id="validas" name="validas" [(ngModel)]="companyModify.passwordAmountQuestionsValidate"
+            placeholder="{{companyModify.passwordAmountQuestionsValidate}}" required>
         <p>
-            <button type="submit" mat-raised-button>Confirmar</button>
-            <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>   
-       </p>
+            <button type="submit" mat-raised-button>Confirmar</button>&nbsp;
+            <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+        </p>
     </form>
 </div>
 

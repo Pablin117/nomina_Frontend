@@ -17,7 +17,7 @@ import { ModuleMaintenanceComponent} from "./module-maintenance/module-maintenan
 const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'set-password',component: SetPasswordComponent},
-  {path: 'reset-password', component: ResetPasswordComponent},
+  {path:'reset-password', component: ResetPasswordComponent},
   {path:'welcome',component: WelcomeComponent},
   {path:'security',component: SecuritiProfileComponent},
   {path:'company',component: CompanyComponent },

@@ -41,6 +41,7 @@ validateSession(){
   locationDataModify: any = {};
   locationModify: any = {};
   dataUser: any = {}
+  header:boolean = true
   url: String = "http://localhost:4042/v1";
 
 
@@ -110,6 +111,7 @@ validateSession(){
     this.add = false
     this.tab = false
     this.modify = true
+    this.header = false
     this.locationDataModify = {}
     this.locationDataCreate = {}
   }
@@ -119,8 +121,12 @@ validateSession(){
     this.modify = false
     this.add = true
     this.tab = false
+     this.header = false
     console.log("add")
 
+  }
+  backWelcome(){
+    this.router.navigateByUrl("/welcome")
   }
 
   back() {
@@ -128,6 +134,7 @@ validateSession(){
     this.modify = false
     this.add = false
     this.tab = true
+    this.header = true
     this.locationDataModify = {}
     this.locationDataCreate = {}
   }

@@ -1,7 +1,8 @@
 <h1>Sucursales</h1>
 
-<div >
-    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>
+<div *ngIf="header">
+    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
     <div  *ngIf="tab">
         <table class="table table-striped">
@@ -48,7 +49,7 @@
             <input type="text" id="address" name="address" 
                 [(ngModel)]="locationModify.address" placeholder="{{locationModify.address}}" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
                 <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
             </p>
         </div>
@@ -70,7 +71,7 @@
             <input type="text" id="address" name="address" 
                 [(ngModel)]="locationDataCreate.address" placeholder="Dirección" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
+                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
                 <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
             </p>
         </div>
