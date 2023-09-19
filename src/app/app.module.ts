@@ -21,15 +21,11 @@ import {MatSelectModule} from '@angular/material/select';
 import { PlanillaComponent } from './planilla/planilla.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CreateUserComponent } from './create-user/create-user.component';
-<<<<<<< HEAD
 import { LogComponent } from './log/log.component';
-
-
-=======
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
 import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
->>>>>>> master
+
 
 
 @NgModule({
@@ -46,20 +42,10 @@ import { ModuleMaintenanceComponent } from './module-maintenance/module-maintena
     LocationComponent,
     ResetPasswordComponent,
     CreateUserComponent,
-<<<<<<< HEAD
-    LogComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule
-=======
+    LogComponent,
     ModuleMaintenanceComponent
->>>>>>> master
   ],
+
     imports: [
         BrowserModule,
         AppRoutingModule,
