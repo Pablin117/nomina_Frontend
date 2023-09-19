@@ -14,7 +14,7 @@ export class CreateUserComponent {
   }
 
 
-  
+  showSuccessMessage = false;
 
   url: string = 'http://localhost:4042/v1';
   messageError: string = '';
@@ -92,8 +92,11 @@ export class CreateUserComponent {
         .subscribe((response: any) => {
           if (response.code === '0') {
             console.log('Usuario creado exitosamente.');
+            alert("Usuario creado exitosamente.")
+
           } else {
             console.error('Error al crear el usuario:', response.message);
+            alert(response.message)
           }
           this.buttonClicked = false; 
         });
