@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
   <link rel="stylesheet" href="login.component.css">
 </head>
+
 <body>
-<section>
-
-  <form (ngSubmit)="login()" class="container" id="loginForm">
-    <div class="login1">
-      <h2>Inicio de Sesión</h2>
-      <div class="inputBox">
-        <input type="text" class="form-control" aria-describedby="passwordHelpInline" placeholder="Usuario" style="text-transform:lowercase;"
-               [(ngModel)]="data.idUser" [ngModelOptions]="{standalone: true}" required>
-
-        <input type="password" class="form-control" aria-describedby="passwordHelpInline" placeholder="contraseña"
-               [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" required>
+  <section>
+    <form (ngSubmit)="login()" class="container" id="loginForm">
+      <div class="login1">
+        <h2>Inicio de Sesión</h2>
+        <div class="inputBox">
+          <input type="text" class="form-control" aria-describedby="passwordHelpInline" placeholder="Usuario"
+            style="text-transform:lowercase;" [(ngModel)]="data.idUser" [ngModelOptions]="{standalone: true}" required>
+          <input type="password" class="form-control" aria-describedby="passwordHelpInline" placeholder="contraseña"
+            [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" required>
+        </div>
+        <div class="inputBox">
+          <button class="button" type="submit" id="btn">Ingresar</button>
+        </div>
+        <br>
+        <div>
+          <h3>{{messageError}}</h3>
+        </div>
+        <br>
+        <a (click)="recoverPassword()">Recuperar Contraseña</a>
       </div>
-      <div class="inputBox">
-      <button class="button" type="submit" id="btn">Ingresar</button>
-      </div>
-      <br>
-      <div>
-        <h3>{{messageError}}</h3>
-      </div>
-      <br>
-      <a (click)="recoverPassword()">Recuperar Contraseña</a>
-<!--        <br><br>-->
-<!--        <a href="#">Registrarse</a>-->
-    </div>
-  </form>
-</section>
+    </form>
+  </section>
 </body>
 </html>

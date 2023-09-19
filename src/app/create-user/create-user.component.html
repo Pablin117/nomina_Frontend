@@ -1,37 +1,42 @@
 <h1>Creación de usuario</h1>
+
 <div *ngIf="header">
-  <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
-  <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
+  <button class="btn btn-danger"   (click)="revoke()">Salir</button>&nbsp;
+  <button class="btn btn-warning"   (click)="backWelcome()">Regresar</button>
 </div>
 <body>
-  <form (ngSubmit)="create()" id="create">
-    <label for="idUser">Correo electrónico: </label>
-    <input type="text" id="idUser" placeholder="tucorero@ejemplo.com" [(ngModel)]="idUserValue" name="idUser" required>
-    <br><br>
-    <label for="name">Nombre: </label>
-    <input type="text" id="name" placeholder="Nombre" [(ngModel)]="nameValue" name="name" required>
-    <br><br>
-    <label for="lastName">Apellido: </label>
-    <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="lastNameValue" name="lastName" required>
-    <br><br>
-    <label for="dob">Fecha de nacimiento: </label>
-    <input type="date" id="dob" placeholder="aaaa-mm-dd" [(ngModel)]="dobValue" name="dob" required>
-    <br><br>
-    <label for="idGender">Selecciona tu género: </label>
-    <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
-      <option *ngFor="let option of genderOptions" [value]="option.id">{{ option.name }}</option>
-    </select>
-    <br><br>
-    <label for="email">Correo adicional: </label>
-    <input type="text" id="email" placeholder="tucorero@ejemplo.com" [(ngModel)]="emailValue" name="email" required>
-    <br><br>
-    <label for="mobilePhone">Número telefonico: </label>
-    <input type="text" id="mobilePhone" placeholder="12345678" [(ngModel)]="mobilePhoneValue" name="mobilePhone"
-      required>
-    <br><br>
-    <input type="hidden" id="creationDate" name="creationDate" [value]="creationDate">
-    <button mat-raised-button (click)="create()">Crear Usuario</button>
-
-
-  </form>
+  <div>
+    <form (ngSubmit)="create()" id="create"><br>
+    
+      <label for="idUser">Correo electrónico: </label>
+      <input type="text" id="idUser" placeholder="tucorero@ejemplo.com" [(ngModel)]="idUserValue" name="idUser" required>
+      <br><br>
+      <label for="name">Nombre: </label>
+      <input type="text" id="name" placeholder="Nombre" [(ngModel)]="nameValue" name="name" required>
+      <br><br>
+      <label for="lastName">Apellido: </label>
+      <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="lastNameValue" name="lastName" required>
+      <br><br>
+      <label for="dob">Fecha de nacimiento: </label>
+      <input type="date" id="dob" placeholder="aaaa-mm-dd" [(ngModel)]="dobValue" name="dob" required>
+      <br><br>
+      <label for="idGender">Selecciona tu género: </label>
+      <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
+        <option *ngFor="let option of genderOptions" [value]="option.id">{{ option.name }}</option>
+      </select>
+      <br><br>
+      <label for="email">Correo adicional: </label>
+      <input type="text" id="email" placeholder="tucorero@ejemplo.com" [(ngModel)]="emailValue" name="email" required>
+      <br><br>
+      <label for="mobilePhone">Número telefonico: </label>
+      <input type="text" id="mobilePhone" placeholder="12345678" [(ngModel)]="mobilePhoneValue" name="mobilePhone"
+        required>
+      <p>
+        <input type="hidden" id="creationDate" name="creationDate" [value]="creationDate">
+      </p>
+     
+      <button class="btn btn-success" (click)="create()">Crear Usuario</button>
+    </form>
+  </div>
+  
 </body>
