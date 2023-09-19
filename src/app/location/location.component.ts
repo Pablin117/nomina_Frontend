@@ -31,7 +31,7 @@ export class LocationComponent {
   tab: boolean = true;
   locationDataCreate: any = {};
   locationDataModify: any = {};
-  dataIndex: any = {};
+  locationModify: any = {};
   dataUser: any = {}
   url: String = "http://localhost:4042/v1";
 
@@ -95,10 +95,10 @@ export class LocationComponent {
   }
 
 
-  Modify(index: any) {
-    console.log(index)
+  Modify(location: any) {
+    console.log(location)
     console.log("modifica")
-    this.dataIndex = index
+    this.locationModify = location
     this.add = false
     this.tab = false
     this.modify = true
@@ -127,28 +127,13 @@ export class LocationComponent {
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-   
       this.locationDataCreate.userCreation = this.dataUser.user
-
-    
       console.log(this.locationDataCreate)
-
-     /* this.RequestLocationSave().subscribe(
+      this.RequestLocationSave().subscribe(
         (response:any) => this.ResponseLocationSave(response)
-      )*/
+      )
     }
   }
-
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      console.log(this.locationDataModify)
-      this.locationDataModify.userModification = this.dataUser.user
-
-    }
-  }
-
-
 
   RequestLocationSave() {
     console.log("se agrega")
@@ -164,10 +149,57 @@ export class LocationComponent {
 
   ResponseLocationSave(response: any) {
     console.log(response)
-    console.log("Se guardo")
+ 
+    if(response.code == 0 ){
+      alert(response.message)
+      console.log("Se guardo")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
 
+    }
+    
   }
 
+  modForm() {
+    let formularioValido: any = document.getElementById("modForm");
+    if (formularioValido.reportValidity()) {
+     
+      this.locationModify.userModification = this.dataUser.user
+    console.log(this.locationModify)
+
+      this.RequestLocationModify().subscribe(
+        (response:any) => this.ResponseLocationModify(response)
+      )
+    }
+  }
+
+
+  RequestLocationModify() {
+    console.log("se agrega")
+   console.log(this.locationModify)
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<any>(this.url + "/modifyLocation" , this.locationModify,httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseLocationModify(response: any) {
+    console.log(response)
+    if(response.code == 0 ){
+      alert(response.message)
+      console.log("Se actualizo")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
+    }
+  }
 
 
 }

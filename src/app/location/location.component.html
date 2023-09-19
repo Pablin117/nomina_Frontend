@@ -35,15 +35,15 @@
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataModify.idcompany">
-                <option *ngFor="let data of companyData" value="{{data.idCompany}}" required>{{data.name}}</option>
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationModify.idcompany" required>
+                <option *ngFor="let data of companyData" value="{{data.idCompany}}" >{{data.name}}</option>
             </select>
             <p>Nombre:</p>
             <input type="text" id="name" name="name" 
-                [(ngModel)]="locationDataModify.name" placeholder="{{dataIndex.name}}" required>
+                [(ngModel)]="locationModify.name" placeholder="{{locationModify.name}}" required>
             <p>Dirección: </p>
             <input type="text" id="address" name="address" 
-                [(ngModel)]="locationDataModify.address" placeholder="{{dataIndex.address}}" required>
+                [(ngModel)]="locationModify.address" placeholder="{{locationModify.address}}" required>
             <p>
                 <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
                 <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
@@ -57,7 +57,7 @@
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idcompany" >
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany" >
                 <option *ngFor="let data of companyData" value="{{data.idCompany}}"  required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
