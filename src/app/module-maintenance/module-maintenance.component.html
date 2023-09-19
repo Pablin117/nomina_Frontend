@@ -1,6 +1,12 @@
 <h1>Modulos</h1>
+<div *ngIf="header">
+  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+  <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+</div>
+
+
 <div *ngIf="tab">
-  <div >
+  <div>
     <table class="table table-striped">
       <th>IdModulo</th>
       <th>Nombre</th>
@@ -9,6 +15,7 @@
       <th>Usuario de creación</th>
       <th>Usuario de modificación</th>
       <th>Fecha de modificación</th>
+      <th>Opción</th>
       <tr *ngFor="let modulo of ModulosData">
         <td>{{modulo.idModule}}</td>
         <td>{{modulo.name}}</td>
@@ -17,10 +24,14 @@
         <td>{{modulo.userCreation}}</td>
         <td>{{modulo.userModification}}</td>
         <td>{{modulo.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td><button mat-raised-button id="modificar" (click)="Modify(modulo)">Modíficar</button></td>
+        <td>
+          <div>
+            <button class="btn btn-warning" id="modificar" (click)="Modify(modulo)">Modíficar</button>
+          </div>
+        </td>
       </tr>
     </table>
-    <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
+    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
   </div>
 </div>
 
@@ -28,14 +39,16 @@
   <form (ngSubmit)="modForm()" id="modForm">
     <div>
       <p>IdModulo: </p>
-      <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule" placeholder="{{moduloModify.idModule}}"
-             required disabled="">
+      <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule"
+        placeholder="{{moduloModify.idModule}}" required disabled="">
       <p>Nombre del Modulo:</p>
-      <input type="text" id="name" name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloModify.name}}"
-             required>
       <p>
-        <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
-        <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+        <input type="text" id="name" name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloModify.name}}"
+          required>
+      </p>
+      <p>
+        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
       </p>
     </div>
   </form>
@@ -46,10 +59,12 @@
   <form (ngSubmit)="addForm()" id="addForm">
     <div>
       <p>Nombre del Modulo:</p>
-      <input type="text" id="name" name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre" required>
       <p>
-        <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>
-        <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+        <input type="text" id="name" name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre" required>
+      </p>
+      <p>
+        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
       </p>
     </div>
   </form>
