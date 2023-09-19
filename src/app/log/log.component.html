@@ -1,0 +1,30 @@
+<h1>Bitacora de Accesos</h1>
+
+    <div class="mat-elevation-z8" *ngIf="tab" >
+        <table id="table" border="1">
+            <th>Id Bitacorsa Acceso</th>
+            <th>Id Ususario</th>
+            <th>Id TipoA cceso</th>
+            <th>FechaA de cceso</th>
+            <th>HttpUserAgent</th>
+            <th>Direccion IP</th>
+            <th>Accion</th>
+            <th>Sistema operativo</th>
+            <th>Dispositivo</th>
+            <th>Navegador</th>
+            <th>Sesion</th>
+            <tr *ngFor="let log of logData;">
+                <td>{{log.idLog}}</td>
+                <td>{{log.idUser}}</td>
+                <td>{{log.idtypeAccess}}</td>
+                <td>{{log.dateAccess |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{log.httpUserAgent}}</td>
+                <td>{{log.ipAdress}}</td>
+                <td>{{log.action}}</td>
+                <td>{{log.os}}</td>
+                <td>{{log.divice}}</td>
+                <td>{{log.browser}}</td>
+                <td>{{log.sesion}}</td>
+            </tr>
+        </table>
+    </div>

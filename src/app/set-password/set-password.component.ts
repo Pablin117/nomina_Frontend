@@ -17,8 +17,16 @@ export class SetPasswordComponent {
   ngOnInit() {
     this.CompanyData()
     this.DataUser()
+    this.validateSession()
   }
 
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
   //variables
   QuestionsData: any = [];
   user: string = "";

@@ -14,7 +14,9 @@ export class ResetPasswordComponent {
   }
 
   ngOnInit(){
-    this.DataUser()
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.validateSession()
   }
 
   //vars
@@ -24,11 +26,15 @@ export class ResetPasswordComponent {
 
   messageError: String = ""
 
-  DataUser() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-   
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
   }
+
+ 
 
   resetPassword(){
     //validate form

@@ -21,9 +21,11 @@ import {MatSelectModule} from '@angular/material/select';
 import { PlanillaComponent } from './planilla/planilla.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { LogComponent } from './log/log.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
 import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
+
 
 
 @NgModule({
@@ -40,8 +42,10 @@ import { ModuleMaintenanceComponent } from './module-maintenance/module-maintena
     LocationComponent,
     ResetPasswordComponent,
     CreateUserComponent,
+    LogComponent,
     ModuleMaintenanceComponent
   ],
+
     imports: [
         BrowserModule,
         AppRoutingModule,

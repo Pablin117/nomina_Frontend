@@ -21,21 +21,33 @@ export class ModuleMaintenanceComponent {
   companyData: any = {};
   moduloModify: any = {};
   dataUser: any = {}
+  VarModulo: any = [];
+  VarName:any=[];
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
-    this.ModuloData()
+    this.Modulo();
+    this.validateSession()
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
 
-  ModuloData() {
-    this.RequestRModulo().subscribe(
+
+  validateSession(){
+    if(this.dataUser != null){
+      console.log("activo")
+    }else{
+      this.router.navigateByUrl("/")
+    }
+  }
+
+  Modulo(){
+    this.RequestModulo().subscribe(
       (response: any) => this.ResponseModulo(response)
     )
   }
 
-  RequestRModulo() {
+  RequestModulo() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

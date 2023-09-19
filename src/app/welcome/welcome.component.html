@@ -1,11 +1,21 @@
+<h1>{{data.user}}</h1>
+<div *ngIf="header">
+  <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
+</div>
+<br>
 <nav>
-  <div class="nivel" *ngFor="let data of Modul">
-    <ul>{{data}}
-      <ol *ngIf="VarMenu1.idModulo==VarModulo.idModulo">{{VarMenu1.name}}
-      <ul>
-        <li>opcion 1</li>
+  <ul *ngFor="let modulo of modulos">
+    <li>{{modulo.name}}</li>
+    <ul *ngFor="let menu of modulo.menus">
+      <li>{{menu.name}}</li>
+      <ul *ngFor="let opcion of menu.opciones">
+        <li><a href="{{opcion.page}}">{{opcion.name}}</a></li>
+<!--        <ul *ngFor="let permiso of opcion.permisos">-->
+<!--          <li>{{permiso.up}}</li>-->
+<!--        </ul>-->
       </ul>
-      </ol>
     </ul>
-  </div>
+  </ul>
 </nav>
+
+

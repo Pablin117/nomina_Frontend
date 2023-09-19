@@ -10,11 +10,18 @@ import { Router } from "@angular/router";
 })
 export class CreateUserComponent {
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
 
-  
+  ngOnInit() {
+    this.dataUser = localStorage.getItem("data");
+    this.dataUser = JSON.parse(this.dataUser)
+    this.validateSession()
+  }
+
+
+  showSuccessMessage = false;
 
   url: string = 'http://localhost:4042/v1';
   messageError: string = '';
@@ -25,60 +32,110 @@ export class CreateUserComponent {
   nameValue: string = ''
   lastNameValue: string = ''
   dobValue: string = ''
-  selectedGender: string = ''; 
+  selectedGender: string = '';
   emailValue: string = ''
   mobilePhoneValue: string = ''
   creationDate: string = ""
   idStatusUser: string = ""
   lastDateOfEntry: string = ""
-  accessAttempts:string = ""
-  currentSession:string = ""
+  accessAttempts: string = ""
+  currentSession: string = ""
   lastPasswordChangeDate: string = ""
   requiresChangingPassword: string = ""
   photo: string = ""
   fecmod: string = ""
-  usermod:  string = ""
-  userCreation:  string = ""
+  usermod: string = ""
+  userCreation: string = ""
   idBranch: string = ""
   modificationDate: string = ""
   userModification: string = "";
   buttonClicked = false;
+  header: boolean = true
+  dataUser: any = {}
 
   genderOptions = [
     { id: '1', name: 'Masculino' },
     { id: '2', name: 'Femenino' },
   ];
- 
+
+  validateSession() {
+    if (this.dataUser != null) {
+      console.log("activo")
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
+
+  revoke() {
+    console.log("salida")
+    console.log(this.dataUser.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+
+
+  RequestRevoke() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+
+      localStorage.removeItem("data")
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
+
+  }
+
+  backWelcome() {
+    this.router.navigateByUrl("/welcome")
+  }
 
   create() {
     this.creationDate = new Date().toISOString();
     const formData = {
-      idUser: this.idUserValue, 
-      name: this.nameValue, 
-      lastName: this.lastNameValue, 
+      idUser: this.idUserValue,
+      name: this.nameValue,
+      lastName: this.lastNameValue,
       dob: this.dobValue,
       idGender: this.selectedGender,
       email: this.emailValue,
       mobilePhone: this.mobilePhoneValue,
-      idStatusUser: 1, 
-      lastDateOfEntry: null, 
-      accessAttempts: 0, 
-      currentSession: null, 
-      lastPasswordChangeDate: null, 
-      requiresChangingPassword: 1, 
-      photo: null, 
-      fecmod: null, 
-      usermod: null, 
+      idStatusUser: 1,
+      lastDateOfEntry: null,
+      accessAttempts: 0,
+      currentSession: null,
+      lastPasswordChangeDate: null,
+      requiresChangingPassword: 1,
+      photo: null,
+      fecmod: null,
+      usermod: null,
       userCreation: 'admin',
       creationDate: this.creationDate,
       idBranch: 1,
-      modificationDate: null, 
+      modificationDate: null,
       userModification: null
-      
-    };
-    
 
-    
+    };
+
+
+
     if (!this.buttonClicked) {
       this.buttonClicked = true;
       this.http.post(`${this.url}/createUser`, formData)
@@ -92,10 +149,13 @@ export class CreateUserComponent {
         .subscribe((response: any) => {
           if (response.code === '0') {
             console.log('Usuario creado exitosamente.');
+            alert("Usuario creado exitosamente.")
+
           } else {
             console.error('Error al crear el usuario:', response.message);
+            alert(response.message)
           }
-          this.buttonClicked = false; 
+          this.buttonClicked = false;
         });
     }
   }

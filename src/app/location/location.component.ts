@@ -20,8 +20,16 @@ export class LocationComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.CompanyService()
     this.locationService()
+    this.validateSession()
   }
 
+validateSession(){
+  if(this.dataUser != null){
+    console.log("activo")
+  }else{
+    this.router.navigateByUrl("/")
+  }
+}
 
   //variables
   locationsData: any = [];
@@ -31,8 +39,9 @@ export class LocationComponent {
   tab: boolean = true;
   locationDataCreate: any = {};
   locationDataModify: any = {};
-  dataIndex: any = {};
+  locationModify: any = {};
   dataUser: any = {}
+  header:boolean = true
   url: String = "http://localhost:4042/v1";
 
 
@@ -95,13 +104,14 @@ export class LocationComponent {
   }
 
 
-  Modify(index: any) {
-    console.log(index)
+  Modify(location: any) {
+    console.log(location)
     console.log("modifica")
-    this.dataIndex = index
+    this.locationModify = location
     this.add = false
     this.tab = false
     this.modify = true
+    this.header = false
     this.locationDataModify = {}
     this.locationDataCreate = {}
   }
@@ -111,8 +121,12 @@ export class LocationComponent {
     this.modify = false
     this.add = true
     this.tab = false
+     this.header = false
     console.log("add")
 
+  }
+  backWelcome(){
+    this.router.navigateByUrl("/welcome")
   }
 
   back() {
@@ -120,6 +134,7 @@ export class LocationComponent {
     this.modify = false
     this.add = false
     this.tab = true
+    this.header = true
     this.locationDataModify = {}
     this.locationDataCreate = {}
   }
@@ -127,28 +142,13 @@ export class LocationComponent {
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-   
       this.locationDataCreate.userCreation = this.dataUser.user
-
-    
       console.log(this.locationDataCreate)
-
-     /* this.RequestLocationSave().subscribe(
+      this.RequestLocationSave().subscribe(
         (response:any) => this.ResponseLocationSave(response)
-      )*/
+      )
     }
   }
-
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      console.log(this.locationDataModify)
-      this.locationDataModify.userModification = this.dataUser.user
-
-    }
-  }
-
-
 
   RequestLocationSave() {
     console.log("se agrega")
@@ -164,10 +164,91 @@ export class LocationComponent {
 
   ResponseLocationSave(response: any) {
     console.log(response)
-    console.log("Se guardo")
+ 
+    if(response.code == 0 ){
+      alert(response.message)
+      console.log("Se guardo")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
 
+    }
+    
+  }
+
+  modForm() {
+    let formularioValido: any = document.getElementById("modForm");
+    if (formularioValido.reportValidity()) {
+     
+      this.locationModify.userModification = this.dataUser.user
+    console.log(this.locationModify)
+
+      this.RequestLocationModify().subscribe(
+        (response:any) => this.ResponseLocationModify(response)
+      )
+    }
   }
 
 
+  RequestLocationModify() {
+    console.log("se agrega")
+   console.log(this.locationModify)
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<any>(this.url + "/modifyLocation" , this.locationModify,httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseLocationModify(response: any) {
+    console.log(response)
+    if(response.code == 0 ){
+      alert(response.message)
+      console.log("Se actualizo")
+      this.back()
+      this.ngOnInit()
+    }else{
+      alert(response.message)
+    }
+  }
+
+  revoke(){
+    console.log("salida")
+  console.log(this.dataUser.session)
+  this.RequestRevoke().subscribe(
+    (response: any) => this.ResponseRevoke(response)
+  )
+  }
+  
+  
+  RequestRevoke() {
+     
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/"+ this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+   
+      localStorage.clear()  
+       this.router.navigateByUrl("/")
+    }
+  
+  }
 
 }
