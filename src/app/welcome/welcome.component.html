@@ -1,5 +1,7 @@
 <h1>{{data.user}}</h1>
-
+<div *ngIf="header">
+  <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
+</div>
 <br>
 <nav>
   <ul *ngFor="let modulo of modulos">

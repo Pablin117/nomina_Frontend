@@ -15,11 +15,13 @@ export class WelcomeComponent {
   data: any = {}
   url: String = "http://localhost:4042/v1"
   modulos: any = []
+  header: boolean = true
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
+  
     this.recoverUser();
   }
 
@@ -108,6 +110,44 @@ export class WelcomeComponent {
   Calcular(obj: object): number {
     const keys = Object.keys(obj)
     return keys.length
+  }
+
+
+  revoke() {
+    console.log("salida")
+    console.log(this.data.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+
+
+  RequestRevoke() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.data.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+
+      localStorage.removeItem("data")
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
+
   }
 }
 
