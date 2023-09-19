@@ -1,8 +1,7 @@
 <h1>Roles</h1>
 <div *ngIf="tab">
-    <form>
-        <div class="mat-elevation-z8">
-            <table id="table" border="1">
+        <div >
+            <table class="table table-striped">
                 <th>IdRole</th>
                 <th>Nombre</th>
                 <th>Fecha de creación</th>
@@ -22,17 +21,16 @@
             </table>
             <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
         </div>
-    </form>
 </div>
 
 <div *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
             <p>IdRol: </p>
-            <input type="text" id="idRol" name="idRol" [(ngModel)]="dataIndex.idRole" placeholder="{{dataIndex.idRole}}"
+            <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole" placeholder="{{roleModify.idRole}}"
                 required disabled="">
             <p>Nombre del Rol:</p>
-            <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name" placeholder="{{dataIndex.name}}"
+            <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name" placeholder="{{roleModify.name}}"
                 required>
             <p>
                 <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>

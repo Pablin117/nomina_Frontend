@@ -18,11 +18,18 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { PlanillaComponent } from './planilla/planilla.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+<<<<<<< HEAD
 import { LogComponent } from './log/log.component';
 
 
+=======
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatMenuModule} from "@angular/material/menu";
+import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
+>>>>>>> master
 
 
 @NgModule({
@@ -32,12 +39,14 @@ import { LogComponent } from './log/log.component';
     SetPasswordComponent,
     SecuritiProfileComponent,
     WelcomeComponent,
+    PlanillaComponent,
     CompanyComponent,
     RecoverPasswordComponent,
     RoleComponent,
     LocationComponent,
     ResetPasswordComponent,
     CreateUserComponent,
+<<<<<<< HEAD
     LogComponent
   ],
   imports: [
@@ -47,7 +56,19 @@ import { LogComponent } from './log/log.component';
     HttpClientModule,
     MatButtonModule, MatDividerModule, MatIconModule,
     MatFormFieldModule, MatInputModule, MatSelectModule
+=======
+    ModuleMaintenanceComponent
+>>>>>>> master
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        MatButtonModule, MatDividerModule, MatIconModule,
+        MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule,
+        
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

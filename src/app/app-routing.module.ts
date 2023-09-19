@@ -10,7 +10,12 @@ import { LocationComponent } from './location/location.component';
 import { RoleComponent } from './role/role.component';
 import { ResetPasswordComponent} from "./reset-password/reset-password.component";
 import { CreateUserComponent} from "./create-user/create-user.component";
+<<<<<<< HEAD
 import { LogComponent} from "./log/log.component";
+=======
+import { FormsModule } from '@angular/forms';
+import { ModuleMaintenanceComponent} from "./module-maintenance/module-maintenance.component";
+>>>>>>> master
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -23,12 +28,16 @@ const routes: Routes = [
   {path:'location',component: LocationComponent },
   {path:'role',component: RoleComponent },
   {path:'create',component: CreateUserComponent },
+<<<<<<< HEAD
   {path:'log',component: LogComponent }
+=======
+  {path:'module-maintenance',component: ModuleMaintenanceComponent }
+>>>>>>> master
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

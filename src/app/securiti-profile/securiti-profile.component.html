@@ -1,1 +1,4 @@
-
+<input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput>
+<button (click)="selectImage()">Seleccionar Imagen</button>
+<button (click)="saveImage()" [disabled]="!imageSrc">Guardar Imagen</button>
+<img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
