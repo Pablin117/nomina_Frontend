@@ -66,7 +66,7 @@ export class LoginComponent {
       if(response.code == 0){
         // login ok
         localStorage.setItem("data", JSON.stringify(response));
-        this.router.navigateByUrl("/welcome")
+        this.router.navigateByUrl("/home")
       }
       //code error 1 = failed login, status user, current session
       else if(response.code == 1){

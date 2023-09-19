@@ -179,7 +179,7 @@ export class CompanyComponent {
   }
 
   backWelcome() {
-    this.router.navigateByUrl("/welcome")
+    this.router.navigateByUrl("/home")
   }
   /*  Add() {
       this.modify = false

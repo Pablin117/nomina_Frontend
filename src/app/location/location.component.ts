@@ -126,7 +126,7 @@ validateSession(){
 
   }
   backWelcome(){
-    this.router.navigateByUrl("/welcome")
+    this.router.navigateByUrl("/home")
   }
 
   back() {
