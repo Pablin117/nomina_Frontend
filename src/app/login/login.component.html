@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <link rel="stylesheet" href="login.component.css">
-</head>
+
+
 <body>
-<section>
+  <section>
+    <form (ngSubmit)="login()" class="container" id="loginForm">
+      <div class="login1">
+        <h2>Inicio de Sesión</h2>
+        <div class="inputBox">
+          <p>
+            <input type="text" class="form-control" aria-describedby="passwordHelpInline" placeholder="Usuario"
+              style="text-transform:lowercase;" [(ngModel)]="data.idUser" [ngModelOptions]="{standalone: true}"
+              required>
+          </p>
+          <p>
+            <input type="password" class="form-control" aria-describedby="passwordHelpInline" placeholder="contraseña"
+              [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" required>
+          </p>
 
-  <form (ngSubmit)="login()" class="container" id="loginForm">
-    <div class="login1">
-      <h2>Inicio de Sesión</h2>
-      <div class="inputBox">
-        <input type="text" class="form-control" aria-describedby="passwordHelpInline" placeholder="Usuario" style="text-transform:lowercase;"
-               [(ngModel)]="data.idUser" [ngModelOptions]="{standalone: true}" required>
+        </div>
+        <div class="inputBox">
 
-        <input type="password" class="form-control" aria-describedby="passwordHelpInline" placeholder="contraseña"
-               [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" required>
+          <button class="btn btn-success" type="submit" id="btn">Ingresar</button>&nbsp;
+          <button class="btn btn-warning" (click)="recoverPassword()"> Recuperar Contraseña</button>
+        </div>
+        <br>
+        <div>
+          <h3>{{messageError}}</h3>
+        </div>
+
+
+
       </div>
-      <div class="inputBox">
-      <button class="button" type="submit" id="btn">Ingresar</button>
-      </div>
-      <br>
-      <div>
-        <h3>{{messageError}}</h3>
-      </div>
-      <br>
-      <a (click)="recoverPassword()">Recuperar Contraseña</a>
-<!--        <br><br>-->
-<!--        <a href="#">Registrarse</a>-->
-    </div>
-  </form>
-</section>
+    </form>
+  </section>
 </body>
+
 </html>

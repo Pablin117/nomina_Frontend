@@ -1,7 +1,7 @@
 <h1>Roles</h1>
 <div *ngIf="header">
-    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
 
 <div *ngIf="tab">
@@ -21,10 +21,14 @@
                 <td>{{role.userCreation}}</td>
                 <td>{{role.userModification}}</td>
                 <td>{{role.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                <td><button mat-raised-button id="modificar" (click)="Modify(role)">Modíficar</button></td>
+                <td>
+                    <div>
+                        <button class="btn btn-warning" id="modificar" (click)="Modify(role)">Modíficar</button>
+                    </div>
+                </td>
             </tr>
         </table>
-        <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
+        <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
     </div>
 </div>
 
@@ -35,11 +39,13 @@
             <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
                 placeholder="{{roleModify.idRole}}" required disabled="">
             <p>Nombre del Rol:</p>
-            <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name" placeholder="{{roleModify.name}}"
-                required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+                <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name"
+                    placeholder="{{roleModify.name}}" required>
+            </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" (click)="back()">Regresar</button>
             </p>
         </div>
     </form>
@@ -50,10 +56,13 @@
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
             <p>Nombre del Rol:</p>
-            <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+                <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre"
+                    required>
+            </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" (click)="back()">Regresar</button>
             </p>
         </div>
     </form>

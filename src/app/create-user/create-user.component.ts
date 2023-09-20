@@ -104,7 +104,7 @@ export class CreateUserComponent {
   }
 
   backWelcome() {
-    this.router.navigateByUrl("/welcome")
+    this.router.navigateByUrl("/home")
   }
 
   create() {

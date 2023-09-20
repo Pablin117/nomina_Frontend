@@ -1,37 +1,39 @@
 <h1>Sucursales</h1>
 
 <div *ngIf="header">
-    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
-    <div  *ngIf="tab">
-        <table class="table table-striped">
-            <th>IdSucursal</th>
-            <th>Empresa</th>
-            <th>Nombre</th>
-            <th>Direccion</th>
-            <th>Fecha de creacion</th>
-            <th>Usuario de creacion</th>
-            <th>Fecha de modificacion</th>
-            <th>Usuario de modificacion</th>
-            <th>Opciones</th>
-            <tr *ngFor="let location of locationsData;">
-                <td>{{location.idBranch}}</td>
-                <td>{{ getCompanyName(location.idCompany) }}</td>
-                <td>{{location.name}}</td>
-                <td>{{location.address}}</td>
-                <td>{{location.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{location.userCreation}}</td>
-                <td>{{location.userModification}}</td>
-                <td>{{location.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>
-                    <button mat-raised-button id="modificar" (click)="Modify(location)"> 
-                        Modificar</button>
-                </td>
-            </tr>
-        </table>
-        <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
-    </div>
+<div *ngIf="tab">
+    <table class="table table-striped">
+        <th>IdSucursal</th>
+        <th>Empresa</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Fecha de creacion</th>
+        <th>Usuario de creacion</th>
+        <th>Fecha de modificacion</th>
+        <th>Usuario de modificacion</th>
+        <th>Opción</th>
+        <tr *ngFor="let location of locationsData;">
+            <td>{{location.idBranch}}</td>
+            <td>{{ getCompanyName(location.idCompany) }}</td>
+            <td>{{location.name}}</td>
+            <td>{{location.address}}</td>
+            <td>{{location.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{location.userCreation}}</td>
+            <td>{{location.userModification}}</td>
+            <td>{{location.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>
+                <div>
+                    <button class="btn btn-warning" id="modificar" (click)="Modify(location)"> Modificar</button>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+</div>
 
 
 
@@ -40,17 +42,19 @@
         <div>
             <p>Empresa:</p>
             <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationModify.idcompany" required>
-                <option *ngFor="let data of companyData" value="{{data.idCompany}}" >{{data.name}}</option>
+                <option *ngFor="let data of companyData" value="{{data.idCompany}}">{{data.name}}</option>
             </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" 
-                [(ngModel)]="locationModify.name" placeholder="{{locationModify.name}}" required>
+            <input type="text" id="name" name="name" [(ngModel)]="locationModify.name"
+                placeholder="{{locationModify.name}}" required>
             <p>Dirección: </p>
-            <input type="text" id="address" name="address" 
-                [(ngModel)]="locationModify.address" placeholder="{{locationModify.address}}" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+                <input type="text" id="address" name="address" [(ngModel)]="locationModify.address"
+                    placeholder="{{locationModify.address}}" required>
+            </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
             </p>
         </div>
     </form>
@@ -61,19 +65,20 @@
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany" >
-                <option *ngFor="let data of companyData" value="{{data.idCompany}}"  required>{{data.name}}</option>
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataCreate.idCompany">
+                <option *ngFor="let data of companyData" value="{{data.idCompany}}" required>{{data.name}}</option>
             </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" 
-                [(ngModel)]="locationDataCreate.name" placeholder="Nombre" required>
+            <input type="text" id="name" name="name" [(ngModel)]="locationDataCreate.name" placeholder="Nombre"
+                required>
             <p>Dirección: </p>
-            <input type="text" id="address" name="address" 
-                [(ngModel)]="locationDataCreate.address" placeholder="Dirección" required>
             <p>
-                <button mat-raised-button class="button" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+                <input type="text" id="address" name="address" [(ngModel)]="locationDataCreate.address"
+                    placeholder="Dirección" required>
             </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
         </div>
     </form>
 </div>

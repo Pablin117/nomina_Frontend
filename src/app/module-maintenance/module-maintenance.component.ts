@@ -23,6 +23,9 @@ export class ModuleMaintenanceComponent {
   dataUser: any = {}
   VarModulo: any = [];
   VarName:any=[];
+  header: boolean = true
+
+
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
@@ -67,11 +70,10 @@ export class ModuleMaintenanceComponent {
   Modify(modulo: any) {
     console.log("modifica")
     this.moduloModify = modulo
-
-
     this.add = false
     this.tab = false
     this.modify = true
+    this.header = false
     this.moduloDataModify = {}
     this.moduloDataCreate = {}
   }
@@ -80,6 +82,7 @@ export class ModuleMaintenanceComponent {
     this.modify = false
     this.add = true
     this.tab = false
+    this.header = false
     console.log("add")
 
   }
@@ -89,6 +92,7 @@ export class ModuleMaintenanceComponent {
     this.modify = false
     this.add = false
     this.tab = true
+    this.header = true
     this.moduloDataModify = {}
     this.moduloDataCreate = {}
   }
@@ -160,7 +164,47 @@ export class ModuleMaintenanceComponent {
     }else{
       alert(response.message)
     }
+  }
 
+  revoke() {
+    console.log("salida")
+    console.log(this.dataUser.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+
+  backWelcome() {
+    this.router.navigateByUrl("/home")
+  }
+
+  RequestRevoke() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      console.log(response)
+      alert(response.message)
+
+      localStorage.removeItem("data")
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
 
   }
+
+
 }
