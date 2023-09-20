@@ -25,6 +25,7 @@ import { LogComponent } from './log/log.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from "@angular/material/menu";
 import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
+import { UserMComponent } from './user-m/user-m.component';
 
 
 
@@ -43,7 +44,8 @@ import { ModuleMaintenanceComponent } from './module-maintenance/module-maintena
     ResetPasswordComponent,
     CreateUserComponent,
     LogComponent,
-    ModuleMaintenanceComponent
+    ModuleMaintenanceComponent,
+    UserMComponent
   ],
 
     imports: [
