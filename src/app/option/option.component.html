@@ -1,1 +1,72 @@
-<p>option works!</p>
+<h1>Opciones</h1>
+
+<div *ngIf="header">
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+</div>
+
+<div *ngIf="tab">
+    <table class="table table-striped">
+        <th>IdOption</th>
+        <th>Nombre</th>
+        <th>IdMenu</th>
+        <th>Pagina</th>
+        <th>Fecha de creación</th>
+        <th>Usuario de creación</th>
+        <th>Fecha de modificación</th>
+        <th>Usuario de modificación</th>
+        <th>Opción</th>
+        <tr *ngFor="let option of optionData">
+            <td>{{option.idOption}}</td>
+            <td>{{option.name}}</td>
+            <td>{{getMenuName(option.idMenu)}}</td>
+            <td>{{option.page}}</td>
+            <td>{{option.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{option.userCreation}}</td>
+            <td>{{option.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{option.userModification}}</td>
+            <td>
+                <div>
+                    <button class="btn btn-warning" id="modificar" (click)="Modify(option)">Modíficar</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+</div>
+
+<div *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+        <div>
+            <p>IdRol: </p>
+            <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
+                placeholder="{{roleModify.idRole}}" required disabled="">
+            <p>Nombre del Rol:</p>
+            <p>
+                <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name"
+                    placeholder="{{roleModify.name}}" required>
+            </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" (click)="back()">Regresar</button>
+            </p>
+        </div>
+    </form>
+</div>
+
+
+<div *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+        <div>
+            <p>Nombre del Rol:</p>
+            <p>
+                <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre"
+                    required>
+            </p>
+            <p>
+                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+                <button class="btn btn-warning" (click)="back()">Regresar</button>
+            </p>
+        </div>
+    </form>
+</div>

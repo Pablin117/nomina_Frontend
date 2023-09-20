@@ -2,12 +2,12 @@
 
 <div *ngIf="header">
   <button class="btn btn-danger"   (click)="revoke()">Salir</button>&nbsp;
-  <button class="btn btn-warning"   (click)="backWelcome()">Regresar</button>
+  <button class="btn btn-warning"   (click)="back()">Regresar</button>
 </div>
 <body>
   <div>
     <form (ngSubmit)="create()" id="create"><br>
-    
+
       <label for="idUser">Correo electrónico: </label>
       <input type="text" id="idUser" placeholder="tucorreo@ejemplo.com" [(ngModel)]="idUserValue" name="idUser" required>
       <br><br>
@@ -22,7 +22,7 @@
       <br><br>
       <label for="idGender">Selecciona tu género: </label>
       <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
-        <option *ngFor="let option of genderOptions" [value]="option.id">{{ option.name }}</option>
+        <option *ngFor="let data of genderData" value="{{data.idGender}}" required>{{data.name}}</option>
       </select>
       <br><br>
       <label for="email">Correo adicional: </label>
@@ -34,9 +34,15 @@
       <p>
         <input type="hidden" id="creationDate" name="creationDate" [value]="creationDate">
       </p>
-     
       <button class="btn btn-success" (click)="create()">Crear Usuario</button>
     </form>
+    <p>Fotografia:</p>
+    <p>
+      <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
+      <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
+      <br>
+      <button class="btn btn-warning" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
+    </p>
   </div>
-  
+
 </body>

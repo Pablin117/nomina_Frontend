@@ -25,9 +25,8 @@ export class RoleComponent {
   tab: boolean = true;
   roleDataCreate: any = {}
   roleDataModify: any = {}
-  locationsData: any = {};
-  companyData: any = {};
-  roleModify: any = {};
+  companyData: any = {}
+  roleModify: any = {}
   dataUser: any = {}
   header: boolean = true
 
