@@ -23,18 +23,41 @@ export class ResetPasswordComponent {
   url: String = "http://localhost:4042/v1"
   data: any = {}
   dataUser: any = {}
+  BussinessRules: any
 
   messageError: String = ""
 
   validateSession(){
     if(this.dataUser != null){
       console.log("activo")
+      this.CompanyData()
     }else{
       this.router.navigateByUrl("/")
     }
   }
 
- 
+  CompanyData(){
+    this.RequestCompany().subscribe(
+      (response: any) => this.ResponseCompany(response)
+    )
+  }
+
+  RequestCompany(){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url+"/bussinesRules" , httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseCompany(response:any){
+    this.BussinessRules = response[0]
+    console.log(this.BussinessRules)
+    console.log("Se obtuvo configuracion de empresa")
+  }
 
   resetPassword(){
     //validate form
@@ -74,8 +97,15 @@ export class ResetPasswordComponent {
     if (response != null) {
       //validate code
       if (response.code == 0) {
-        alert("Contraseña cambiada exitosamente");
-        this.router.navigateByUrl("/");
+        alert("Contraseña cambiada exitosamente")
+        localStorage.clear()
+        this.router.navigateByUrl("/")
+      } else if(response.code == 1){
+        alert(response.message);
+      } else if (response.code == 401) {
+        localStorage.clear()
+        alert("Te wua sacar")
+        this.router.navigateByUrl("/")
       }
       // //error in consumption
       else if (response == null || response == "e") {
