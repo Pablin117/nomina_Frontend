@@ -24,10 +24,7 @@ import { LogComponent } from './log/log.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from "@angular/material/menu";
 import { ModuleMaintenanceComponent } from './module-maintenance/module-maintenance.component';
-<<<<<<< HEAD
 import { UserMComponent } from './user-m/user-m.component';
-
-=======
 import { GenderComponent } from './gender/gender.component';
 import { StatusUserComponent } from './status-user/status-user.component';
 import { MenuComponent } from './menu/menu.component';
@@ -35,7 +32,6 @@ import { OptionComponent } from './option/option.component';
 import { RoleUserComponent } from './role-user/role-user.component';
 import { RoleOptionComponent } from './role-option/role-option.component';
 import { HomeComponent } from './home/home.component';
->>>>>>> e3b133300ccef2746270fdf0c141c5bb756e3eb7
 
 
 @NgModule({
@@ -53,9 +49,7 @@ import { HomeComponent } from './home/home.component';
     CreateUserComponent,
     LogComponent,
     ModuleMaintenanceComponent,
-<<<<<<< HEAD
-    UserMComponent
-=======
+    UserMComponent,
     GenderComponent,
     StatusUserComponent,
     MenuComponent,
@@ -63,7 +57,6 @@ import { HomeComponent } from './home/home.component';
     RoleUserComponent,
     RoleOptionComponent,
     HomeComponent
->>>>>>> e3b133300ccef2746270fdf0c141c5bb756e3eb7
   ],
 
   imports: [

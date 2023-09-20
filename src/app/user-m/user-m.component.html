@@ -1,1 +1,110 @@
-<p>user-m works!</p>
+<h1>Usuarios</h1>
+<div *ngIf="header">
+  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+  <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+</div>
+
+
+<div *ngIf="tab">
+  <div>
+    <table class="table table-striped">
+      <th>IdUsuario</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Fecha de nacimiento</th>
+      <th>IdEstatusUsuario</th>
+      <th>IdGenero</th>
+      <th>Fecha de ingreso</th>
+      <th>Intentos de Acesso</th>
+      <th>Ultima fecha cambio de Contraseña</th>
+      <th>Correo</th>
+      <th>Requiere Cambiar la contraseña</th>
+      <th>Telefono</th>
+      <th>IdSucursal</th>
+      <th>Fecha de creacion</th>
+      <th>Usuario de creacion</th>
+      <th>Fecha de modificacion</th>
+      <th>Usuario de modificacion</th>
+      <tr *ngFor="let user of UsersData">
+        <td>{{user.idUser}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.idStatusUser}}</td>
+        <td>{{user.idGender}}</td>
+        <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.accessAttempts}}</td>
+        <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.requiresChangingPassword}}</td>
+        <td>{{user.mobilePhone}}</td>
+        <td>{{user.idBranch}}</td>
+        <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.userCreation}}</td>
+        <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+        <td>{{user.userModification}}</td>
+
+        <td>
+          <div>
+            <button class="btn btn-warning" id="modificar" (click)="Modify(user)">Modíficar</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+  </div>
+</div>
+
+<div *ngIf="modify">
+  <form (ngSubmit)="modForm()" id="modForm">
+    <div>
+      <p>IdModulo: </p>
+      <input type="text" id="idRol" name="idRol" [(ngModel)]="userDataModify.idModule"
+             placeholder="{{userModify.idUser}}" required disabled="">
+      <p>Nombre del Usuario:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.name" placeholder="{{userModify.name}}"
+               required>
+      </p>
+      <p>Apellido del Usuario:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.lastName" placeholder="{{userModify.lastName}}"
+               required>
+      </p>
+      <p>IdEstadoUsuario:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.idStatusUser" placeholder="{{userModify.idStatusUser}}"
+               required>
+      </p>
+      <p>Correo:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.email" placeholder="{{userModify.email}}"
+               required>
+      </p>
+      <p>Telefono:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userModify.mobilePhone}}"
+               required>
+      </p>
+      <p>IdSucursal:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.idBranch" placeholder="{{userModify.idBranch}}"
+               required>
+      </p>
+      <p>Fotografia:</p>
+      <p>
+        <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
+        <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
+        <br>
+        <button class="btn btn-warning" (click)="selectImage()">Seleccionar Imagen</button>
+      </p>
+      <p>
+        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+        <button class="btn btn-warning" id="Regresar" (click)="deletBack()" >Regresar</button>
+      </p>
+    </div>
+  </form>
+</div>
+
+
+
