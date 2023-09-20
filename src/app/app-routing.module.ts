@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { ModuleMaintenanceComponent} from "./module-maintenance/module-maintenance.component";
 import { UserMComponent} from "./user-m/user-m.component";
 import { HomeComponent } from './home/home.component';
+import { OptionComponent } from './option/option.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -29,8 +30,7 @@ const routes: Routes = [
   {path:'log',component: LogComponent },
   {path:'module-maintenance',component: ModuleMaintenanceComponent },
   {path:'userM',component: UserMComponent },
-
-
+  { path: 'option', component: OptionComponent }
 ];
 
 @NgModule({
