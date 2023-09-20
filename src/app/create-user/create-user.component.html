@@ -22,7 +22,7 @@
       <br><br>
       <label for="idGender">Selecciona tu género: </label>
       <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
-        <option *ngFor="let option of genderOptions" [value]="option.id">{{ option.name }}</option>
+        <option *ngFor="let data of genderData" value="{{data.idGender}}" required>{{data.name}}</option>
       </select>
       <br><br>
       <label for="email">Correo adicional: </label>

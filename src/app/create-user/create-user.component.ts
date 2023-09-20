@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router } from "@angular/router";
@@ -18,6 +18,7 @@ export class CreateUserComponent {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
     this.validateSession()
+    this.genderService();
   }
 
 
@@ -27,7 +28,7 @@ export class CreateUserComponent {
   messageError: string = '';
   data: any = {};
   routes: any = {};
-
+  genderData: any = [];
   idUserValue: string = ''
   nameValue: string = ''
   lastNameValue: string = ''
@@ -52,11 +53,10 @@ export class CreateUserComponent {
   buttonClicked = false;
   header: boolean = true
   dataUser: any = {}
+  genderOptions: any = [];
 
-  genderOptions = [
-    { id: '1', name: 'Masculino' },
-    { id: '2', name: 'Femenino' },
-  ];
+
+
 
   validateSession() {
     if (this.dataUser != null) {
@@ -159,4 +159,30 @@ export class CreateUserComponent {
         });
     }
   }
+
+  genderService() {
+    this.RequestGender().subscribe(
+      (response: any) => this.ResponseGender(response)
+    )
+  }
+  
+
+
+  RequestGender() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/gender", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseGender(response: any) {
+    this.genderData = response;
+    //console.log("Se obtuvieron los generos");
+   //console.log(response)
+  }
+
 }
