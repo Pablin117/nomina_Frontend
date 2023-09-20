@@ -65,14 +65,11 @@ export class CompanyComponent {
 
   //formulario para modificar
   modForm() {
-
     if (this.companyModify.passwordAmountSpecialCharacters >= 1) {
       if (this.companyModify.passwordAmountNumber >= 1) {
         if (this.companyModify.passwordAmountLowercase >= 1) {
           if (this.companyModify.passwordAmountUppercase >= 1) {
             this.companyModify.userModification = this.dataUser.user
-            console.log(this.companyDataModify)
-
             this.RequestCompanyUpdate().subscribe(
               (response: any) => this.ResponseCompanyUpdate(response)
             )
@@ -91,43 +88,37 @@ export class CompanyComponent {
   }
 
   RequestCompanyUpdate() {
-
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/bussinesRulesModify", this.companyModify, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/updateCompany", this.companyModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseCompanyUpdate(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
       this.back()
       this.ngOnInit()
     } else {
-      console.log(response.message)
       alert(response.message)
     }
 
   }
 
 
-  //formulario para agregar
-  addForm() {
+  //formulario para agregar por si se necesita
+
+  /* addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-
       console.log(this.companyDataCreate)
       this.companyDataCreate.userCreation = this.dataUser.user
-
     }
   }
-
-
   RequestCompanySave() {
 
     var httpOptions = {
@@ -151,36 +142,10 @@ export class CompanyComponent {
     }
 
   }
-
+*/
 
   //banderas
 
-
-  Modify(company: any) {
-    console.log("modifica")
-    this.companyModify = company
-    this.add = false
-    this.tab = false
-    this.modify = true
-    this.header = false
-    this.companyDataModify = {}
-    this.companyDataCreate = {}
-  }
-
-
-  back() {
-    console.log("back")
-    this.modify = false
-    this.add = false
-    this.tab = true
-    this.header = true
-    this.companyDataModify = {}
-    this.companyDataCreate = {}
-  }
-
-  backWelcome() {
-    this.router.navigateByUrl("/home")
-  }
   /*  Add() {
       this.modify = false
       this.add = true
@@ -190,10 +155,31 @@ export class CompanyComponent {
     }
   */
 
+  Modify(company: any) {
+    console.log("modifica")
+    this.companyModify = company
+    this.add = false
+    this.tab = false
+    this.modify = true
+    this.header = false
+  }
 
+
+  back() {
+    console.log("back")
+    this.modify = false
+    this.add = false
+    this.tab = true
+    this.header = true
+  }
+
+  backWelcome() {
+    this.router.navigateByUrl("/home")
+  }
+
+
+//cierre de sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -201,7 +187,6 @@ export class CompanyComponent {
 
 
   RequestRevoke() {
-
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -214,10 +199,7 @@ export class CompanyComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
-
-      localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
     } else {
@@ -225,7 +207,6 @@ export class CompanyComponent {
       this.router.navigateByUrl("/")
       localStorage.clear()
     }
-
   }
 
 

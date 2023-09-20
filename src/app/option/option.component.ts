@@ -22,19 +22,17 @@ export class OptionComponent {
 
 
   //variables
-
-
   url: String = "http://localhost:4042/v1"
   modify: boolean = false;
   add: boolean = false;
   tab: boolean = true;
   header: boolean = true
-  roleDataCreate: any = {}
-  roleDataModify: any = {}
+  optionDataCreate: any = {}
+  optionDataModify: any = {}
   optionData: any = []
   menuData: any = []
   companyData: any = {}
-  roleModify: any = {}
+  optionModify: any = {}
   dataUser: any = {}
 
   getMenuName(idMenu: number): string {
@@ -75,14 +73,11 @@ export class OptionComponent {
   }
 
   responseOption(response: any) {
-
     this.optionData = response
-    console.log(this.optionData)
-
+   
   }
 
   menu() {
-
     this.requestMenu().subscribe(
       (response: any) => this.responseMenu(response)
     )
@@ -100,9 +95,7 @@ export class OptionComponent {
   }
 
   responseMenu(response: any) {
-
     this.menuData = response
-    console.log(this.menuData)
   }
 
   revoke() {
@@ -114,7 +107,6 @@ export class OptionComponent {
   }
 
   RequestRevoke() {
-
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -129,7 +121,6 @@ export class OptionComponent {
     if (response.code == 0) {
       console.log(response)
       alert(response.message)
-
       localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
@@ -141,15 +132,15 @@ export class OptionComponent {
 
   }
 
-  Modify(rol: any) {
+  Modify(option: any) {
     console.log("modifica")
-    this.roleModify = rol
+    this.optionModify = option
+    console.log(this.optionModify)
     this.header = false
     this.add = false
     this.tab = false
     this.modify = true
-    this.roleDataModify = {}
-    this.roleDataCreate = {}
+
   }
 
   Add() {
@@ -158,92 +149,87 @@ export class OptionComponent {
     this.tab = false
     this.header = false
     console.log("add")
-
   }
 
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
+
   back() {
     console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
     this.header = true
-    this.roleDataModify = {}
-    this.roleDataCreate = {}
+  
   }
 
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      console.log(this.roleDataCreate)
-      this.roleDataCreate.userCreation = this.dataUser.user
-      this.RequestRoleSave().subscribe(
-        (response: any) => this.ResponseRoleSave(response)
+      this.optionDataCreate.userCreation = this.dataUser.user
+      console.log(this.optionDataCreate)
+     this.RequestOptionSave().subscribe(
+        (response: any) => this.ResponseOptionSave(response)
       )
 
     }
   }
-  RequestRoleSave() {
+  RequestOptionSave() {
     console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createRol", this.roleDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createRol", this.optionDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseRoleSave(response: any) {
+
+  ResponseOptionSave(response: any) {
     if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
       this.ngOnInit()
     } else {
       alert(response.message)
     }
-
-
   }
 
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.roleModify.name = this.roleDataModify.name
-      this.roleModify.userModification = this.dataUser.user
-      this.RequestRoleSaveM().subscribe(
+     // this.optionModify.name = this.optionDataModify.name
+      this.optionModify.userModification = this.dataUser.user
+      console.log(this.optionModify)
+      this.RequestOptionSaveM().subscribe(
         (response: any) => this.ResponseRoleSaveM(response)
       )
-
     }
   }
-  RequestRoleSaveM() {
+  RequestOptionSaveM() {
     console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRol", this.roleModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyRol", this.optionModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
+
   ResponseRoleSaveM(response: any) {
     if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
       this.ngOnInit()
     } else {
       alert(response.message)
     }
-
-
   }
 
 }
