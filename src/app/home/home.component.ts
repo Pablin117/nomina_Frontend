@@ -24,7 +24,7 @@ export class HomeComponent {
   }
 
   ngOnInit() {
-  
+
     this.recoverUser();
   }
 
@@ -55,7 +55,7 @@ export class HomeComponent {
 
   //response service login
   responseSearchOptionsUserService(response: any) {
-    console.log(response)
+    //console.log(response)
     var opciones = []
 
     //module
@@ -98,7 +98,9 @@ export class HomeComponent {
       modulos.push(modulo)
     }
 
-    console.log(modulos)
+    console.log(opciones)
+    localStorage.setItem("options", JSON.stringify(opciones));
+    //console.log(modulos)
     this.modulos = modulos
 
 
