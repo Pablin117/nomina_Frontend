@@ -13,6 +13,7 @@ import { LogComponent } from "./log/log.component";
 import { FormsModule } from '@angular/forms';
 import { ModuleMaintenanceComponent } from "./module-maintenance/module-maintenance.component";
 import { HomeComponent } from './home/home.component';
+import { OptionComponent } from './option/option.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'role', component: RoleComponent },
   { path: 'create', component: CreateUserComponent },
   { path: 'log', component: LogComponent },
-  { path: 'module-maintenance', component: ModuleMaintenanceComponent }
+  { path: 'module-maintenance', component: ModuleMaintenanceComponent },
+  { path: 'option', component: OptionComponent }
 
 ];
 
