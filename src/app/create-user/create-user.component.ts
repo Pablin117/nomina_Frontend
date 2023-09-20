@@ -60,6 +60,7 @@ export class CreateUserComponent {
   file: File | null =null;
   file2 : any
   genderOptions: any = [];
+  VarId: any = {};
 
 
 
@@ -167,7 +168,7 @@ export class CreateUserComponent {
           if (response.code === '0') {
             console.log('Usuario creado exitosamente.');
             alert("Usuario creado exitosamente.")
-
+            this.saveImage();
           } else {
             console.error('Error al crear el usuario:', response.message);
             alert(response.message)
@@ -210,9 +211,9 @@ export class CreateUserComponent {
 
   saveImage() {
     if (this.imageSrc) {
-      const idUser = this.dataUser.user; // Reemplaza esto con el ID real del usuario
+      const idUser = this.idUserValue; // Reemplaza esto con el ID real del usuario
       const file = this.fileInput.nativeElement.files[0];
-
+      console.log(idUser)
       this.saveImage1(idUser, file).subscribe(
         (response) => {
           // La imagen se ha guardado con éxito, maneja la respuesta aquí

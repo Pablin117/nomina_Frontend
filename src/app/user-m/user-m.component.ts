@@ -27,6 +27,7 @@ export class UserMComponent {
   Return: any = {};
   file: File | null =null;
   file2 : any
+  VarId: any = {};
 
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
@@ -40,7 +41,6 @@ export class UserMComponent {
 
   validateSession(){
     if(this.dataUser != null){
-      console.log("activo")
     }else{
       this.router.navigateByUrl("/")
     }
@@ -65,12 +65,9 @@ export class UserMComponent {
 
   ResponseUser(response: any) {
     this.UsersData = response
-
-    console.log("Se obtuvo usuarios")
   }
 
   Modify(modulo: any) {
-    console.log("modifica")
     this.userModify = modulo
     this.add = false
     this.tab = false
@@ -85,12 +82,10 @@ export class UserMComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
     this.router.navigateByUrl("/create")
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -116,22 +111,20 @@ export class UserMComponent {
     }
   }
   RequestUserSaveM() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyUser/"+this.dataUser.user, this.userModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyUser/"+this.userModify.idUser, this.userModify,httpOptions).pipe(
       catchError(e => "1")
     )
     /*<button (click)="saveImage()" [disabled]="!imageSrc">Guardar Imagen</button>*/
-
   }
   ResponseUserSaveM(response: any) {
     if(response.code == 0){
       alert(response.message)
-      console.log("si")
+      this.VarId=this.userModify.idUser
       this.saveImage()
       this.deleteImages()
       this.back()
@@ -142,8 +135,6 @@ export class UserMComponent {
   }
 
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -167,7 +158,6 @@ export class UserMComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
 
       localStorage.removeItem("data")
@@ -214,9 +204,9 @@ export class UserMComponent {
 
   saveImage() {
     if (this.imageSrc) {
-      const idUser = this.dataUser.user; // Reemplaza esto con el ID real del usuario
+      const idUser = this.VarId; // Reemplaza esto con el ID real del usuario
       const file = this.fileInput.nativeElement.files[0];
-
+      console.log(this.VarId)
       this.saveImage1(idUser, file).subscribe(
         (response) => {
           // La imagen se ha guardado con éxito, maneja la respuesta aquí
