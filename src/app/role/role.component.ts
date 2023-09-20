@@ -124,7 +124,7 @@ export class RoleComponent {
   }
 
   backWelcome() {
-    this.router.navigateByUrl("/welcome")
+    this.router.navigateByUrl("/home")
   }
   back() {
     console.log("back")

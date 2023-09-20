@@ -1,7 +1,7 @@
 <h1>Empresa</h1>
 <div *ngIf="header">
-    <button mat-raised-button id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button mat-raised-button id="modificar" (click)="backWelcome()">Regresar</button>
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
 
 
@@ -48,17 +48,17 @@
                 <td>{{rule.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
 
                 <td>
-                    <button mat-raised-button id="modificar" (click)="Modify(rule)">
-                        Modificar</button>
+                    <div>
+                        <button class="btn btn-warning" id="modificar" (click)="Modify(rule)">
+                            Modificar</button>
+                    </div>
                 </td>
             </tr>
         </table>
         <!-- 
     <button mat-raised-button id="agregar" (click)="Add()">Agregar</button>
         -->
-
     </div>
-
 </div>
 
 
@@ -99,11 +99,13 @@
             [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"
             placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
         <p>Preguntas validas:</p>
-        <input type="number" id="validas" name="validas" [(ngModel)]="companyModify.passwordAmountQuestionsValidate"
-            placeholder="{{companyModify.passwordAmountQuestionsValidate}}" required>
         <p>
-            <button type="submit" mat-raised-button>Confirmar</button>&nbsp;
-            <button mat-raised-button id="Regresar" (click)="back()">Regresar</button>
+            <input type="number" id="validas" name="validas" [(ngModel)]="companyModify.passwordAmountQuestionsValidate"
+                placeholder="{{companyModify.passwordAmountQuestionsValidate}}" required>
+        </p>
+        <p>
+            <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
+            <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
         </p>
     </form>
 </div>

@@ -1,21 +1,24 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {catchError, connect} from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
 
+
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class WelcomeComponent {
+export class HomeComponent {
+
 
   //diboy
   data: any = {}
   url: String = "http://localhost:4042/v1"
   modulos: any = []
   header: boolean = true
+
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -24,6 +27,7 @@ export class WelcomeComponent {
   
     this.recoverUser();
   }
+
 
   //DIBOY START
   recoverUser() {
@@ -149,6 +153,5 @@ export class WelcomeComponent {
     }
 
   }
+
 }
-
-
