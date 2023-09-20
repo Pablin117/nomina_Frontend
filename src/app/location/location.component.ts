@@ -39,7 +39,7 @@ validateSession(){
   tab: boolean = true;
   locationDataCreate: any = {};
   locationDataModify: any = {};
-  locationModify: any = {};
+
   dataUser: any = {}
   header:boolean = true
   url: String = "http://localhost:4042/v1";
@@ -107,12 +107,12 @@ validateSession(){
   Modify(location: any) {
     console.log(location)
     console.log("modifica")
-    this.locationModify = location
+    this.locationDataModify = location
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.locationDataModify = {}
+
     this.locationDataCreate = {}
   }
 
@@ -135,7 +135,7 @@ validateSession(){
     this.add = false
     this.tab = true
     this.header = true
-    this.locationDataModify = {}
+   
     this.locationDataCreate = {}
   }
 
@@ -181,8 +181,8 @@ validateSession(){
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
      
-      this.locationModify.userModification = this.dataUser.user
-    console.log(this.locationModify)
+      this.locationDataModify.userModification = this.dataUser.user
+    console.log(this.locationDataModify)
 
       this.RequestLocationModify().subscribe(
         (response:any) => this.ResponseLocationModify(response)
@@ -193,13 +193,13 @@ validateSession(){
 
   RequestLocationModify() {
     console.log("se agrega")
-   console.log(this.locationModify)
+   console.log(this.locationDataModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyLocation" , this.locationModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyLocation" , this.locationDataModify,httpOptions).pipe(
       catchError(e => "1")
     )
   }

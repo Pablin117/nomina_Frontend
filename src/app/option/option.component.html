@@ -1,6 +1,6 @@
-<h1>Opciones</h1>
 
 <div *ngIf="header">
+    <h1>Opciones</h1>
     <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
     <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
@@ -35,16 +35,25 @@
     <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
 </div>
 
-<div *ngIf="modify">
+<div class="container" *ngIf="modify">
+    <h1>Opciones</h1>
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
-            <p>IdRol: </p>
-            <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
-                placeholder="{{roleModify.idRole}}" required disabled="">
-            <p>Nombre del Rol:</p>
+            <p>Nombre de la opción:</p>
             <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name"
-                    placeholder="{{roleModify.name}}" required>
+                <input type="text" id="name" name="name" [(ngModel)]="optionModify.name" placeholder="{{optionModify.name}}" 
+                    required>
+            </p>
+            <p>Menu</p>
+            <p>
+                <select id="menu" name="menu" [(ngModel)]="optionModify.idMenu">
+                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
+                </select>
+            </p>
+            <p>Pagina</p>
+            <p>
+                <input type="text" id="page" name="page" [(ngModel)]="optionModify.page" placeholder="Pagina"
+                    required>
             </p>
             <p>
                 <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
@@ -55,12 +64,24 @@
 </div>
 
 
-<div *ngIf="add">
+<div class="container" *ngIf="add">
+    <h1>Opciones</h1>
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
-            <p>Nombre del Rol:</p>
+            <p>Nombre de la opción:</p>
             <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre"
+                <input type="text" id="name" name="name" [(ngModel)]="optionDataCreate.name" placeholder="Nombre"
+                    required>
+            </p>
+            <p>Menu</p>
+            <p>
+                <select id="menu" name="menu" [(ngModel)]="optionDataCreate.idMenu">
+                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
+                </select>
+            </p>
+            <p>Pagina</p>
+            <p>
+                <input type="text" id="page" name="page" [(ngModel)]="optionDataCreate.page" placeholder="Pagina"
                     required>
             </p>
             <p>
