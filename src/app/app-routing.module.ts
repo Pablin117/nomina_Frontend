@@ -18,6 +18,7 @@ import { OptionComponent } from './option/option.component';
 import { MenuComponent } from './menu/menu.component';
 import { StatusUserComponent } from './status-user/status-user.component';
 import { RoleUserComponent } from './role-user/role-user.component';
+import { GenderComponent } from './gender/gender.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -36,7 +37,9 @@ const routes: Routes = [
   { path: 'option', component: OptionComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'status-user', component: StatusUserComponent },
-  { path: 'role-user', component: RoleUserComponent }
+  { path: 'role-user', component: RoleUserComponent },
+  { path: 'gender', component: GenderComponent }
+  
 ];
 
 @NgModule({

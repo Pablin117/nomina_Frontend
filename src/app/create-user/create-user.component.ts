@@ -18,8 +18,7 @@ export class CreateUserComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
-    this.return = localStorage.getItem("Return");
-    this.return = JSON.parse(this.return)
+ 
     this.validateSession()
     this.genderService();
   }
@@ -116,13 +115,8 @@ export class CreateUserComponent {
   }
 
   backWelcome() {
-    if(this.return==1){
-      this.return=0;
-      localStorage.setItem("Return",this.return);
+
       this.router.navigateByUrl("/userM")
-    }else {
-      this.router.navigateByUrl("/home")
-    }
   }
 
   create() {
