@@ -102,7 +102,7 @@ export class GenderComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusUser", this.genderModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyGender", this.genderModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -137,7 +137,7 @@ requestGenderSave(){
       'Content-Type': 'application/json'
     })
   }
-  return this.http.post<any>(this.url + "/createStatusUser", this.genderDataCreate, httpOptions).pipe(
+  return this.http.post<any>(this.url + "/createGender", this.genderDataCreate, httpOptions).pipe(
     catchError(e => "1")
   )
 }
