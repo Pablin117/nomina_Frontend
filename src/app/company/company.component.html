@@ -45,16 +45,23 @@
                 <td>{{rule.userCreation}}</td>
                 <td>{{rule.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{rule.userModification}}</td>
-
                 <td>
                     <div>
-                        <button class="btn btn-warning" id="modificar" (click)="Modify(rule)">
+                        <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(rule)">
                             Modificar</button>
+                        <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                     </div>
                 </td>
             </tr>
         </table>
-        <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+        <p>
+            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+            &nbsp;
+            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+        </p>
+
     </div>
 </div>
 
@@ -88,25 +95,26 @@
                 placeholder="{{companyModify.passwordAmountSpecialCharacters}}" required>
         </p>
         <p>Cantidad minima de Numeros:</p>
-        <p>    <input type="number" id="Numeros" name="Numeros" [(ngModel)]="companyModify.passwordAmountNumber"
-            placeholder="{{companyModify.passwordAmountNumber}}" required>
+        <p> <input type="number" id="Numeros" name="Numeros" [(ngModel)]="companyModify.passwordAmountNumber"
+                placeholder="{{companyModify.passwordAmountNumber}}" required>
         </p>
         <p>Long. Minima: </p>
         <p><input type="number" id="min" name="min" [(ngModel)]="companyModify.passwordlength"
-            placeholder="{{companyModify.passwordlength}}" required>
+                placeholder="{{companyModify.passwordlength}}" required>
         </p>
         <p>Long. Maxima:</p>
         <p><input type="number" placeholder="25" disabled>
         </p>
         <p>Días Expiracion:</p>
-        <p><input type="number" id="expiracion" name="expiracion" [(ngModel)]="companyModify.passwordAmountExpirationsDays"
-            placeholder="{{companyModify.passwordAmountExpirationsDays}}" required>
+        <p><input type="number" id="expiracion" name="expiracion"
+                [(ngModel)]="companyModify.passwordAmountExpirationsDays"
+                placeholder="{{companyModify.passwordAmountExpirationsDays}}" required>
         </p>
         <p>Intentos de bloqueo:</p>
         <p>
             <input type="number" id="bloqueo" name="bloqueo"
-            [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"
-            placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
+                [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"
+                placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
         </p>
         <p>Preguntas validas:</p>
         <p>
@@ -138,40 +146,41 @@
                 required>
         </p>
         <p>Cantidad minima de Mayusculas: </p>
-        <p><input type="number" id="mayusculas" name="mayusculas" [(ngModel)]="companyDataCreate.passwordAmountUppercase"
-            placeholder="Mayusculas" required>
+        <p><input type="number" id="mayusculas" name="mayusculas"
+                [(ngModel)]="companyDataCreate.passwordAmountUppercase" placeholder="Mayusculas" required>
         </p>
         <p>Cantidad minima de Minusculas:</p>
-        <p><input type="number" id="Minusculas" name="Minusculas" [(ngModel)]="companyDataCreate.passwordAmountLowercase"
-            placeholder="Minusculas" required>
+        <p><input type="number" id="Minusculas" name="Minusculas"
+                [(ngModel)]="companyDataCreate.passwordAmountLowercase" placeholder="Minusculas" required>
         </p>
         <p>Cantidad minima de Numeros:</p>
         <p><input type="number" id="Numeros" name="Numeros" [(ngModel)]="companyDataCreate.passwordAmountNumber"
-            placeholder="Numeros" required>
+                placeholder="Numeros" required>
         </p>
         <p>Cantidad minima de Caracteres Especiales:</p>
         <p><input type="number" id="Especial" name="Especial"
-            [(ngModel)]="companyDataCreate.passwordAmountSpecialCharacters" placeholder="Especiales" required>
+                [(ngModel)]="companyDataCreate.passwordAmountSpecialCharacters" placeholder="Especiales" required>
         </p>
         <p>Long. Minima: </p>
         <p><input type="number" id="min" name="min" [(ngModel)]="companyDataCreate.passwordlength" placeholder="Minimo"
-            required>
+                required>
         </p>
         <p>Long. Maxima:</p>
         <p><input type="number" placeholder="25" disabled>
         </p>
         <p>Días Expiracion:</p>
         <p><input type="number" id="expiracion" name="expiracion"
-            [(ngModel)]="companyDataCreate.passwordAmountExpirationsDays" placeholder="Días expiracion" required>
+                [(ngModel)]="companyDataCreate.passwordAmountExpirationsDays" placeholder="Días expiracion" required>
         </p>
         <p>Intentos de bloqueo:</p>
         <p><input type="number" id="bloqueo" name="bloqueo"
-            [(ngModel)]="companyDataCreate.passwordAmountAttemptsBeforeBlocking" placeholder="Intentos de bloqueo"
-            required>
+                [(ngModel)]="companyDataCreate.passwordAmountAttemptsBeforeBlocking" placeholder="Intentos de bloqueo"
+                required>
         </p>
         <p>Preguntas validas:</p>
-        <p><input type="number" id="validas" name="validas" [(ngModel)]="companyDataCreate.passwordAmountQuestionsValidate"
-            placeholder="Preguntas validas" required>
+        <p><input type="number" id="validas" name="validas"
+                [(ngModel)]="companyDataCreate.passwordAmountQuestionsValidate" placeholder="Preguntas validas"
+                required>
         </p>
         <p>
             <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;

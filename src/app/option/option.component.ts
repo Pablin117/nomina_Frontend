@@ -18,6 +18,7 @@ export class OptionComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.option()
     this.validateSession()
+    this.optionsValidate()
   }
 
 
@@ -34,6 +35,46 @@ export class OptionComponent {
   companyData: any = {}
   optionModify: any = {}
   dataUser: any = {}
+    options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
+
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "option"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+
+      if (item.up == 1) {
+        this.btnAdd = true
+      }
+      if (item.update == 1) {
+        this.btnUpdate = true
+      }
+      if (item.print == 1) {
+        this.print = true
+      }
+      if (item.export == 1) {
+        this.exporte = true
+      }
+    })
+
+  }
+
+
+
 
   getMenuName(idMenu: number): string {
     for (let x = 0; x < this.menuData.length; x++) {

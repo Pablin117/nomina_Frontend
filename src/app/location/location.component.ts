@@ -21,7 +21,60 @@ export class LocationComponent {
     this.CompanyService()
     this.locationService()
     this.validateSession()
+    this.optionsValidate()
   }
+
+   //variables
+   locationsData: any = []
+   companyData: any = []
+   modify: boolean = false
+   add: boolean = false
+   tab: boolean = true
+   locationDataCreate: any = {}
+   locationDataModify: any = {}
+   options: any = {}
+   btnAdd: boolean = false
+   btnUpdate: boolean = false
+   print: boolean = false
+   exporte: boolean = false
+   dataUser: any = {}
+   header:boolean = true
+   url: String = "http://localhost:4042/v1";
+
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+
+    console.log(this.options)
+    let page = "location"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+
+      if (item.up == 1) {
+        this.btnAdd = true
+      }
+      if (item.update == 1) {
+        this.btnUpdate = true
+      }
+      if (item.print == 1) {
+        this.print = true
+      }
+      if (item.export == 1) {
+        this.exporte = true
+      }
+    })
+
+  }
+
+
+
 
 validateSession(){
   if(this.dataUser != null){
@@ -31,18 +84,7 @@ validateSession(){
   }
 }
 
-  //variables
-  locationsData: any = [];
-  companyData: any = [];
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
-  locationDataCreate: any = {};
-  locationDataModify: any = {};
-
-  dataUser: any = {}
-  header:boolean = true
-  url: String = "http://localhost:4042/v1";
+ 
 
 
   locationService() {

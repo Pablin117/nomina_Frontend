@@ -16,9 +16,63 @@ export class CompanyComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
+
+    this.optionsValidate()
     this.CompanyData()
     this.validateSession()
+
   }
+  //variables
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+  companyDataModify: any = {}
+  companyDataCreate: any = {}
+  BussinessRules: any = []
+  companyModify: any = {}
+  dataUser: any = {}
+  header: boolean = true
+  options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+  url: String = "http://localhost:4042/v1"
+
+
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "company"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+
+      if (item.up == 1) {
+        this.btnAdd = true
+      }
+      if (item.update == 1) {
+        this.btnUpdate = true
+      }
+      if (item.print == 1) {
+        this.print = true
+      }
+      if (item.export == 1) {
+        this.exporte = true
+      }
+    })
+
+  }
+
+
+
 
   validateSession() {
     if (this.dataUser != null) {
@@ -29,19 +83,9 @@ export class CompanyComponent {
   }
 
 
-  //variables
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
-  companyDataModify: any = {}
-  companyDataCreate: any = {}
-  BussinessRules: any = [];
-  companyModify: any = {};
-  dataUser: any = {}
-  header: boolean = true
-  url: String = "http://localhost:4042/v1"
-
+  
   CompanyData() {
+
     this.RequestCompany().subscribe(
       (response: any) => this.ResponseCompany(response)
     )
@@ -111,7 +155,7 @@ export class CompanyComponent {
 
   //formulario para agregar por si se necesita
 
-   addForm() {
+  addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
 
@@ -121,7 +165,7 @@ export class CompanyComponent {
           if (this.companyDataCreate.passwordAmountLowercase >= 1) {
             if (this.companyDataCreate.passwordAmountUppercase >= 1) {
               this.companyDataCreate.userCreation = this.dataUser.user
-              console.log(this.companyDataCreate)
+            
               this.RequestCompanySave().subscribe(
                 (response: any) => this.ResponseCompanySave(response)
               )
@@ -153,7 +197,7 @@ export class CompanyComponent {
 
   ResponseCompanySave(response: any) {
     if (response.code == 0) {
-      console.log(response)
+ 
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -166,15 +210,15 @@ export class CompanyComponent {
 
   //banderas
 
-   Add() {
-      this.modify = false
-      this.add = true
-      this.tab = false
-      this.header = false
-      console.log("add")
-  
-    }
-  
+  Add() {
+    this.modify = false
+    this.add = true
+    this.tab = false
+    this.header = false
+    console.log("add")
+
+  }
+
 
   Modify(company: any) {
     console.log("modifica")
@@ -199,7 +243,7 @@ export class CompanyComponent {
   }
 
 
-//cierre de sesion
+  //cierre de sesion
   revoke() {
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)

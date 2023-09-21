@@ -33,7 +33,7 @@ export class HomeComponent {
   recoverUser() {
     this.data = localStorage.getItem("data")
     this.data = JSON.parse(this.data)
-    console.log(this.data)
+
 
     //Busqueda de role-opcion-menu-modulo usuario
     this.searchOptionsUserService().subscribe(
@@ -55,7 +55,7 @@ export class HomeComponent {
 
   //response service login
   responseSearchOptionsUserService(response: any) {
-    //console.log(response)
+
     var opciones = []
 
     //module
@@ -73,7 +73,7 @@ export class HomeComponent {
       opciones.push(option)
     }
 
-    //console.log(opciones)
+  
     var menus = []
 
     for (var menu of response.menu) {
@@ -86,7 +86,7 @@ export class HomeComponent {
       menus.push(menu)
     }
 
-    //console.log(menus)
+
     var modulos = []
     for (var modulo of response.module) {
       modulo.menus = []
@@ -98,9 +98,9 @@ export class HomeComponent {
       modulos.push(modulo)
     }
 
-    console.log(opciones)
+
     localStorage.setItem("options", JSON.stringify(opciones));
-    //console.log(modulos)
+   
     this.modulos = modulos
 
 
@@ -121,7 +121,7 @@ export class HomeComponent {
 
   revoke() {
     console.log("salida")
-    console.log(this.data.session)
+
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -142,7 +142,7 @@ export class HomeComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
+  
       alert(response.message)
 
       localStorage.removeItem("data")

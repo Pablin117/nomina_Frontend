@@ -10,34 +10,74 @@ import {Router} from "@angular/router";
 })
 export class UserMComponent {
   //variables
-  UsersData: any = [];
+  UsersData: any = []
   url: String = "http://localhost:4042/v1"
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
   userDataCreate: any = {}
   userDataModify: any = {}
-  locationsData: any = {};
-  statusData: any = {};
-  userModify: any = {};
+  locationsData: any = {}
+  statusData: any = {}
+  userModify: any = {}
   dataUser: any = {}
-  VarModulo: any = [];
-  VarName:any=[];
+  VarModulo: any = []
+  VarName:any=[]
   header: boolean = true
-  Return: any = {};
-  file: File | null =null;
-  file2 : any
-  VarId: any = {};
+  Return: any = {}
+  file: File | null =null
+  file2 : any = {}
+  VarId: any = {}
+  options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
 
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
     this.User();
     this.validateSession()
+    this.optionsValidate()
   }
   constructor(private http: HttpClient,private router: Router) { }
   imageSrc: string | ArrayBuffer | null = null;
   @ViewChild('fileInput') fileInput: any;
+
+
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "userM"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+
+      if (item.up == 1) {
+        this.btnAdd = true
+      }
+      if (item.update == 1) {
+        this.btnUpdate = true
+      }
+      if (item.print == 1) {
+        this.print = true
+      }
+      if (item.export == 1) {
+        this.exporte = true
+      }
+    })
+
+  }
+
 
   validateSession(){
     if(this.dataUser != null){
