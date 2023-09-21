@@ -1,4 +1,4 @@
-<h1>Generos</h1>
+<h1>Aisgnacion de usuarios a roles</h1>
 
 <div *ngIf="header">
     <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
@@ -8,17 +8,16 @@
 <div *ngIf="tab">
     <div>
         <table class="table table-striped">
-            <th>IdEstado</th>
-
-            <th>Nombre</th>
+            <th>Id del usuario</th>
+            <th>Id Role</th>
             <th>Fecha de creación</th>
             <th>Usuario de creación</th>
             <th>Fecha de modificación</th>
             <th>Usuario de modificación</th>
             <th>Opción</th>
             <tr *ngFor="let  status of roleUserData">
-                <td>{{status.idGender}}</td>
-                <td>{{status.name}}</td>
+                <td>{{status.idUser}}</td>
+                <td>{{status.idRole}}</td>
                 <td>{{status.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{status.userCreation}}</td>
                 <td>{{status.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -40,12 +39,25 @@
 <div *ngIf="add">
     <form (ngSubmit)="addForm()" id="addForm">
         <h1>Creación</h1>
-        <p>Nombre: </p>
-        <p><input type="text" id="name" name="name" [(ngModel)]="roleUserDataCreate.name" placeholder="Nombre" required></p>
+        <p><label>Selecciona un Usuario:</label></p>
+            <select name="userSelector" [(ngModel)]="roleUserDataCreate.idUser">
+            <option *ngFor="let user of userData" value="{{user.idUser}}" required>
+              {{user.idUser}}
+            </option>
+          </select>
+          <p>
+        </p>
+          <p><label for="roleSelector">Selecciona un Rol:</label></p>
+          <select name="userRole" [(ngModel)]="roleUserDataCreate.idRole">
+            <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
+              {{role.idRole}}
+            </option>
+          </select>
         <p>
+            </p>
             <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
             <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-        </p>
+        
     </form>
 </div>
 
@@ -53,18 +65,22 @@
 <div *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
         <h1>Modificación</h1>
-        <p>IdEstado</p>
+        <p>Id Usuario</p>
         <p>
-            <input type="text" name="idGender" id="idGender" [(ngModel)]="roleUserModify.idGender"
-            placeholder="{{roleUserModify.idGender}}" required disabled>
+            <input type="text" name="idUser" id="idUser" [(ngModel)]="roleUserModify.idUser"
+            placeholder="{{roleUserModify.idUser}}" required disabled>
         </p>
-        <p>Nombre: </p>
-        <p> <input type="text" id="name" name="name" [(ngModel)]="roleUserModify.name"
-                placeholder="{{roleUserModify.name}}" required>
-        </p>
+        <p>Selecciona el nuevo Id Role: </p>
+        <select name="userRole" [(ngModel)]="roleUserModify.idRole">
+            <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
+              {{role.idRole}}
+            </option>
+          </select>
+        <p>
+            </p>
         <p>
             <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
             <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-        </p>
+        
     </form>
 </div>
