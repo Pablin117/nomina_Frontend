@@ -56,7 +56,7 @@ import { HomeComponent } from './home/home.component';
     OptionComponent,
     RoleUserComponent,
     RoleOptionComponent,
-    HomeComponent
+    HomeComponent,
   ],
 
   imports: [
