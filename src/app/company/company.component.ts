@@ -18,7 +18,6 @@ export class CompanyComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.CompanyData()
     this.validateSession()
-
   }
 
   validateSession() {
@@ -93,7 +92,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/updateCompany", this.companyModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateCompany", this.companyModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -112,11 +111,32 @@ export class CompanyComponent {
 
   //formulario para agregar por si se necesita
 
-  /* addForm() {
+   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      console.log(this.companyDataCreate)
-      this.companyDataCreate.userCreation = this.dataUser.user
+
+
+      if (this.companyDataCreate.passwordAmountSpecialCharacters >= 1) {
+        if (this.companyDataCreate.passwordAmountNumber >= 1) {
+          if (this.companyDataCreate.passwordAmountLowercase >= 1) {
+            if (this.companyDataCreate.passwordAmountUppercase >= 1) {
+              this.companyDataCreate.userCreation = this.dataUser.user
+              console.log(this.companyDataCreate)
+              this.RequestCompanySave().subscribe(
+                (response: any) => this.ResponseCompanySave(response)
+              )
+            } else {
+              alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
+            }
+          } else {
+            alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
+          }
+        } else {
+          alert("La cantidad de caracteres de números debe ser mayor a 0")
+        }
+      } else {
+        alert("La cantidad de caracteres especiales debe ser mayor a 0")
+      }
     }
   }
   RequestCompanySave() {
@@ -126,7 +146,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/bussinesRulesModify", this.companyDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createCompany", this.companyDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -142,18 +162,19 @@ export class CompanyComponent {
     }
 
   }
-*/
+
 
   //banderas
 
-  /*  Add() {
+   Add() {
       this.modify = false
       this.add = true
       this.tab = false
+      this.header = false
       console.log("add")
   
     }
-  */
+  
 
   Modify(company: any) {
     console.log("modifica")
