@@ -21,6 +21,7 @@ export class CreateUserComponent {
  
     this.validateSession()
     this.genderService();
+
   }
 
 
@@ -138,7 +139,7 @@ export class CreateUserComponent {
       photo: null,
       fecmod: null,
       usermod: null,
-      userCreation: 'admin',
+      userCreation: this.dataUser.user,
       creationDate: this.creationDate,
       idBranch: 1,
       modificationDate: null,
