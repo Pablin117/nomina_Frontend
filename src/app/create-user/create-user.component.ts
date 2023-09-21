@@ -248,7 +248,7 @@ export class CreateUserComponent {
   ResponseGender(response: any) {
     this.genderData = response;
     //console.log("Se obtuvieron los generos");
-    //console.log(response)
+    //console.log(this.genderData[0])
   }
 
 }

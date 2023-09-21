@@ -169,7 +169,7 @@ export class OptionComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.optionDataCreate.userCreation = this.dataUser.user
-      console.log(this.optionDataCreate)
+     
      this.RequestOptionSave().subscribe(
         (response: any) => this.ResponseOptionSave(response)
       )
@@ -178,12 +178,13 @@ export class OptionComponent {
   }
   RequestOptionSave() {
     console.log("se agrega")
+    console.log(this.optionDataCreate)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createRol", this.optionDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createOption", this.optionDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -212,12 +213,13 @@ export class OptionComponent {
   }
   RequestOptionSaveM() {
     console.log("se agrega")
+    console.log(this.optionModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRol", this.optionModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyOption", this.optionModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
