@@ -55,60 +55,65 @@ export class HomeComponent {
 
   //response service login
   responseSearchOptionsUserService(response: any) {
-
-    var opciones = []
-
-    //module
-    //menu
-    //option
-    //opciones de las opciones (roleOption) -> permisos
-
-    for (var option of response.option) {
-      option.permisos = []
-      for (var permiso of response.roleOption) {
-        if (permiso.idPK.idOption == option.idOption) {
-          option.permisos.push(permiso)
-        }
-      }
-      opciones.push(option)
-    }
-
-  
-    var menus = []
-
-    for (var menu of response.menu) {
-      menu.opciones = []
-      for (var opcion of opciones) {
-        if (opcion.idMenu == menu.idMenu) {
-          menu.opciones.push(opcion)
-        }
-      }
-      menus.push(menu)
-    }
-
-
-    var modulos = []
-    for (var modulo of response.module) {
-      modulo.menus = []
-      for (var menu of menus) {
-        if (menu.idModulo == modulo.idModule) {
-          modulo.menus.push(menu)
-        }
-      }
-      modulos.push(modulo)
-    }
-
-
-    localStorage.setItem("options", JSON.stringify(opciones));
-   
-    this.modulos = modulos
-
-
     //error in consumption
     if (response == null || response == "e") {
       console.log("No hay comunicación con el servidor!!")
 
+    }else if(response.code == "1"){
+      console.log(response.message)
+      alert(response.message)
+      this.revoke()
+    }else{
+      var opciones = []
+
+      //module
+      //menu
+      //option
+      //opciones de las opciones (roleOption) -> permisos
+  
+      for (var option of response.option) {
+        option.permisos = []
+        for (var permiso of response.roleOption) {
+          if (permiso.idPK.idOption == option.idOption) {
+            option.permisos.push(permiso)
+          }
+        }
+        opciones.push(option)
+      }
+  
+    
+      var menus = []
+  
+      for (var menu of response.menu) {
+        menu.opciones = []
+        for (var opcion of opciones) {
+          if (opcion.idMenu == menu.idMenu) {
+            menu.opciones.push(opcion)
+          }
+        }
+        menus.push(menu)
+      }
+  
+  
+      var modulos = []
+      for (var modulo of response.module) {
+        modulo.menus = []
+        for (var menu of menus) {
+          if (menu.idModulo == modulo.idModule) {
+            modulo.menus.push(menu)
+          }
+        }
+        modulos.push(modulo)
+      }
+  
+  
+      localStorage.setItem("options", JSON.stringify(opciones));
+     
+      this.modulos = modulos
+  
+  
     }
+
   }
   //DIBOY END
 

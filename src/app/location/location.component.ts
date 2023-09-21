@@ -56,19 +56,10 @@ export class LocationComponent {
     })
 
     permisos.forEach((item: any) => {
-
-      if (item.up == 1) {
-        this.btnAdd = true
-      }
-      if (item.update == 1) {
-        this.btnUpdate = true
-      }
-      if (item.print == 1) {
-        this.print = true
-      }
-      if (item.export == 1) {
-        this.exporte = true
-      }
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
     })
 
   }

@@ -43,33 +43,19 @@ export class GenderComponent {
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-
-
     let page = "gender"
     let permisos: any = {}
-
     this.options.forEach((item: any) => {
       if (item.page === page) {
         permisos = item.permisos
       }
     })
-
     permisos.forEach((item: any) => {
-
-      if (item.up == 1) {
-        this.btnAdd = true
-      }
-      if (item.update == 1) {
-        this.btnUpdate = true
-      }
-      if (item.print == 1) {
-        this.print = true
-      }
-      if (item.export == 1) {
-        this.exporte = true
-      }
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
     })
-
   }
 
   //banderas
