@@ -1,1 +1,76 @@
-<p>gender works!</p>
+<h1>Generos</h1>
+
+<div *ngIf="header">
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+</div>
+
+<div *ngIf="tab">
+    <div>
+        <table class="table table-striped">
+            <th>IdEstado</th>
+
+            <th>Nombre</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario de modificación</th>
+            <th>Opción</th>
+            <tr *ngFor="let  status of genderData">
+                <td>{{status.idGender}}</td>
+                <td>{{status.name}}</td>
+                <td>{{status.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{status.userCreation}}</td>
+                <td>{{status.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{status.userModification}}</td>
+                <td>
+                    <div>
+                        <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(status)">
+                            Modificar</button>
+                        <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+            &nbsp;
+            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir" >Imprimir</button>
+        </p>
+    </div>
+</div>
+
+<div *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+        <h1>Creación</h1>
+        <p>Nombre: </p>
+        <p><input type="text" id="name" name="name" [(ngModel)]="genderDataCreate.name" placeholder="Nombre" required></p>
+        <p>
+            <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
+            <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
+        </p>
+    </form>
+</div>
+
+
+<div *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+        <h1>Modificación</h1>
+        <p>IdEstado</p>
+        <p>
+            <input type="text" name="idGender" id="idGender" [(ngModel)]="genderModify.idGender"
+            placeholder="{{genderModify.idGender}}" required disabled>
+        </p>
+        <p>Nombre: </p>
+        <p> <input type="text" id="name" name="name" [(ngModel)]="genderModify.name"
+                placeholder="{{genderModify.name}}" required>
+        </p>
+        <p>
+            <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
+            <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
+        </p>
+    </form>
+</div>

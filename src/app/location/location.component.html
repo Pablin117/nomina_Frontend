@@ -23,18 +23,25 @@
             <td>{{location.address}}</td>
             <td>{{location.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td>{{location.userCreation}}</td>
-            <td>{{location.userModification}}</td>
             <td>{{location.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{location.userModification}}</td>
             <td>
                 <div>
-                    <button class="btn btn-warning" id="modificar" (click)="Modify(location)"> Modificar</button>
+                    <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(location)">
+                        Modificar</button>
+                    <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                 </div>
 
             </td>
         </tr>
     </table>
-    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-</div>
+    <p>
+        <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+        &nbsp;
+        <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+        &nbsp;
+        <button *ngIf="print" class="btn btn-primary" id="imprimir" >Imprimir</button>
+    </p></div>
 
 
 
@@ -42,16 +49,16 @@
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
             <p>Empresa:</p>
-            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationModify.idcompany" required>
-                <option *ngFor="let data of companyData" value="{{data.idCompany}}">{{data.name}}</option>
+            <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataModify.idCompany" required>
+                <option *ngFor="let company of companyData" value="{{company.idCompany}}" required>{{company.name}}</option>
             </select>
             <p>Nombre:</p>
-            <input type="text" id="name" name="name" [(ngModel)]="locationModify.name"
-                placeholder="{{locationModify.name}}" required>
+            <input type="text" id="name" name="name" [(ngModel)]="locationDataModify.name"
+                placeholder="{{locationDataModify.name}}" required>
             <p>Dirección: </p>
             <p>
-                <input type="text" id="address" name="address" [(ngModel)]="locationModify.address"
-                    placeholder="{{locationModify.address}}" required>
+                <input type="text" id="address" name="address" [(ngModel)]="locationDataModify.address"
+                    placeholder="{{locationDataModify.address}}" required>
             </p>
             <p>
                 <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;

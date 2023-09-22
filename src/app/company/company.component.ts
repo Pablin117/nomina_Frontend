@@ -16,10 +16,54 @@ export class CompanyComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
+
+    this.optionsValidate()
     this.CompanyData()
     this.validateSession()
 
   }
+  //variables
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+  companyDataModify: any = {}
+  companyDataCreate: any = {}
+  BussinessRules: any = []
+  companyModify: any = {}
+  dataUser: any = {}
+  header: boolean = true
+  options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+  url: String = "http://localhost:4042/v1"
+
+
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "company"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+
+  }
+
+
+
 
   validateSession() {
     if (this.dataUser != null) {
@@ -30,19 +74,9 @@ export class CompanyComponent {
   }
 
 
-  //variables
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
-  companyDataModify: any = {}
-  companyDataCreate: any = {}
-  BussinessRules: any = [];
-  companyModify: any = {};
-  dataUser: any = {}
-  header: boolean = true
-  url: String = "http://localhost:4042/v1"
-
+  
   CompanyData() {
+
     this.RequestCompany().subscribe(
       (response: any) => this.ResponseCompany(response)
     )
@@ -65,14 +99,11 @@ export class CompanyComponent {
 
   //formulario para modificar
   modForm() {
-
     if (this.companyModify.passwordAmountSpecialCharacters >= 1) {
       if (this.companyModify.passwordAmountNumber >= 1) {
         if (this.companyModify.passwordAmountLowercase >= 1) {
           if (this.companyModify.passwordAmountUppercase >= 1) {
             this.companyModify.userModification = this.dataUser.user
-            console.log(this.companyDataModify)
-
             this.RequestCompanyUpdate().subscribe(
               (response: any) => this.ResponseCompanyUpdate(response)
             )
@@ -91,43 +122,58 @@ export class CompanyComponent {
   }
 
   RequestCompanyUpdate() {
-
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/bussinesRulesModify", this.companyModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateCompany", this.companyModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseCompanyUpdate(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
       this.back()
       this.ngOnInit()
     } else {
-      console.log(response.message)
       alert(response.message)
     }
 
   }
 
 
-  //formulario para agregar
+  //formulario para agregar por si se necesita
+
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
 
-      console.log(this.companyDataCreate)
-      this.companyDataCreate.userCreation = this.dataUser.user
 
+      if (this.companyDataCreate.passwordAmountSpecialCharacters >= 1) {
+        if (this.companyDataCreate.passwordAmountNumber >= 1) {
+          if (this.companyDataCreate.passwordAmountLowercase >= 1) {
+            if (this.companyDataCreate.passwordAmountUppercase >= 1) {
+              this.companyDataCreate.userCreation = this.dataUser.user
+            
+              this.RequestCompanySave().subscribe(
+                (response: any) => this.ResponseCompanySave(response)
+              )
+            } else {
+              alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
+            }
+          } else {
+            alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
+          }
+        } else {
+          alert("La cantidad de caracteres de números debe ser mayor a 0")
+        }
+      } else {
+        alert("La cantidad de caracteres especiales debe ser mayor a 0")
+      }
     }
   }
-
-
   RequestCompanySave() {
 
     var httpOptions = {
@@ -135,14 +181,14 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/bussinesRulesModify", this.companyDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createCompany", this.companyDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseCompanySave(response: any) {
     if (response.code == 0) {
-      console.log(response)
+ 
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -155,6 +201,15 @@ export class CompanyComponent {
 
   //banderas
 
+  Add() {
+    this.modify = false
+    this.add = true
+    this.tab = false
+    this.header = false
+    console.log("add")
+
+  }
+
 
   Modify(company: any) {
     console.log("modifica")
@@ -163,8 +218,6 @@ export class CompanyComponent {
     this.tab = false
     this.modify = true
     this.header = false
-    this.companyDataModify = {}
-    this.companyDataCreate = {}
   }
 
 
@@ -174,26 +227,15 @@ export class CompanyComponent {
     this.add = false
     this.tab = true
     this.header = true
-    this.companyDataModify = {}
-    this.companyDataCreate = {}
   }
 
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
-  /*  Add() {
-      this.modify = false
-      this.add = true
-      this.tab = false
-      console.log("add")
-  
-    }
-  */
 
 
+  //cierre de sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -201,7 +243,6 @@ export class CompanyComponent {
 
 
   RequestRevoke() {
-
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -214,10 +255,7 @@ export class CompanyComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
-
-      localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
     } else {
@@ -225,7 +263,6 @@ export class CompanyComponent {
       this.router.navigateByUrl("/")
       localStorage.clear()
     }
-
   }
 
 

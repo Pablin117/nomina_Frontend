@@ -23,13 +23,20 @@
                 <td>{{role.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
                 <td>
                     <div>
-                        <button class="btn btn-warning" id="modificar" (click)="Modify(role)">Modíficar</button>
+                        <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(role)">
+                            Modificar</button>
+                        <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                     </div>
                 </td>
             </tr>
         </table>
-        <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-    </div>
+        <p>
+            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+            &nbsp;
+            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir" >Imprimir</button>
+        </p> </div>
 </div>
 
 <div *ngIf="modify">

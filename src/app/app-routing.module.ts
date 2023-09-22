@@ -11,26 +11,37 @@ import { ResetPasswordComponent } from "./reset-password/reset-password.componen
 import { CreateUserComponent } from "./create-user/create-user.component";
 import { LogComponent } from "./log/log.component";
 import { FormsModule } from '@angular/forms';
-import { ModuleMaintenanceComponent} from "./module-maintenance/module-maintenance.component";
-import { UserMComponent} from "./user-m/user-m.component";
+import { ModuleMaintenanceComponent } from "./module-maintenance/module-maintenance.component";
+import { UserMComponent } from "./user-m/user-m.component";
 import { HomeComponent } from './home/home.component';
 import { OptionComponent } from './option/option.component';
+import { MenuComponent } from './menu/menu.component';
+import { StatusUserComponent } from './status-user/status-user.component';
+import { RoleUserComponent } from './role-user/role-user.component';
+import { GenderComponent } from './gender/gender.component';
+import {RoleOptionComponent} from "./role-option/role-option.component";
 
 const routes: Routes = [
-  {path:'',component:LoginComponent},
-  {path:'set-password',component: SetPasswordComponent},
-  {path:'reset-password', component: ResetPasswordComponent},
+  { path: '', component: LoginComponent },
+  { path: 'set-password', component: SetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
-  {path:'security',component: SecuritiProfileComponent},
-  {path:'company',component: CompanyComponent },
-  {path:'recover',component: RecoverPasswordComponent },
-  {path:'location',component: LocationComponent },
-  {path:'role',component: RoleComponent },
-  {path:'create',component: CreateUserComponent },
-  {path:'log',component: LogComponent },
-  {path:'module-maintenance',component: ModuleMaintenanceComponent },
-  {path:'userM',component: UserMComponent },
-  { path: 'option', component: OptionComponent }
+  { path: 'security', component: SecuritiProfileComponent },
+  { path: 'company', component: CompanyComponent },
+  { path: 'recover', component: RecoverPasswordComponent },
+  { path: 'location', component: LocationComponent },
+  { path: 'role', component: RoleComponent },
+  { path: 'role-option', component: RoleOptionComponent },
+  { path: 'create', component: CreateUserComponent },
+  { path: 'log', component: LogComponent },
+  { path: 'module-maintenance', component: ModuleMaintenanceComponent },
+  { path: 'userM', component: UserMComponent },
+  { path: 'option', component: OptionComponent },
+  { path: 'menu', component: MenuComponent },
+  { path: 'status-user', component: StatusUserComponent },
+  { path: 'role-user', component: RoleUserComponent },
+  { path: 'gender', component: GenderComponent }
+
 ];
 
 @NgModule({

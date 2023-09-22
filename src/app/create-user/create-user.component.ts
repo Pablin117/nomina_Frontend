@@ -18,10 +18,10 @@ export class CreateUserComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
-    this.return = localStorage.getItem("Return");
-    this.return = JSON.parse(this.return)
+ 
     this.validateSession()
     this.genderService();
+
   }
 
 
@@ -116,13 +116,8 @@ export class CreateUserComponent {
   }
 
   backWelcome() {
-    if(this.return==1){
-      this.return=0;
-      localStorage.setItem("Return",this.return);
+
       this.router.navigateByUrl("/userM")
-    }else {
-      this.router.navigateByUrl("/home")
-    }
   }
 
   create() {
@@ -144,7 +139,7 @@ export class CreateUserComponent {
       photo: null,
       fecmod: null,
       usermod: null,
-      userCreation: 'admin',
+      userCreation: this.dataUser.user,
       creationDate: this.creationDate,
       idBranch: 1,
       modificationDate: null,
@@ -248,7 +243,7 @@ export class CreateUserComponent {
   ResponseGender(response: any) {
     this.genderData = response;
     //console.log("Se obtuvieron los generos");
-    //console.log(response)
+    //console.log(this.genderData[0])
   }
 
 }

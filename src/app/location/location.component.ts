@@ -21,7 +21,51 @@ export class LocationComponent {
     this.CompanyService()
     this.locationService()
     this.validateSession()
+    this.optionsValidate()
   }
+
+   //variables
+   locationsData: any = []
+   companyData: any = []
+   modify: boolean = false
+   add: boolean = false
+   tab: boolean = true
+   locationDataCreate: any = {}
+   locationDataModify: any = {}
+   options: any = {}
+   btnAdd: boolean = false
+   btnUpdate: boolean = false
+   print: boolean = false
+   exporte: boolean = false
+   dataUser: any = {}
+   header:boolean = true
+   url: String = "http://localhost:4042/v1";
+
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+
+    console.log(this.options)
+    let page = "location"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+
+  }
+
+
+
 
 validateSession(){
   if(this.dataUser != null){
@@ -31,18 +75,7 @@ validateSession(){
   }
 }
 
-  //variables
-  locationsData: any = [];
-  companyData: any = [];
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
-  locationDataCreate: any = {};
-  locationDataModify: any = {};
-  locationModify: any = {};
-  dataUser: any = {}
-  header:boolean = true
-  url: String = "http://localhost:4042/v1";
+ 
 
 
   locationService() {
@@ -107,12 +140,12 @@ validateSession(){
   Modify(location: any) {
     console.log(location)
     console.log("modifica")
-    this.locationModify = location
+    this.locationDataModify = location
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.locationDataModify = {}
+
     this.locationDataCreate = {}
   }
 
@@ -135,7 +168,7 @@ validateSession(){
     this.add = false
     this.tab = true
     this.header = true
-    this.locationDataModify = {}
+   
     this.locationDataCreate = {}
   }
 
@@ -181,8 +214,8 @@ validateSession(){
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
      
-      this.locationModify.userModification = this.dataUser.user
-    console.log(this.locationModify)
+      this.locationDataModify.userModification = this.dataUser.user
+    console.log(this.locationDataModify)
 
       this.RequestLocationModify().subscribe(
         (response:any) => this.ResponseLocationModify(response)
@@ -193,13 +226,13 @@ validateSession(){
 
   RequestLocationModify() {
     console.log("se agrega")
-   console.log(this.locationModify)
+   console.log(this.locationDataModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyLocation" , this.locationModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyLocation" , this.locationDataModify,httpOptions).pipe(
       catchError(e => "1")
     )
   }

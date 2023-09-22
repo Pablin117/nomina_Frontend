@@ -16,19 +16,49 @@ export class RoleComponent {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
     this.RoleData()
+    this.optionsValidate()
   }
   //variables
   RolesData: any = [];
   url: String = "http://localhost:4042/v1"
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
+
   roleDataCreate: any = {}
   roleDataModify: any = {}
   companyData: any = {}
   roleModify: any = {}
   dataUser: any = {}
   header: boolean = true
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+  options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
+ //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "role"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+
+  }
+
 
   validateSession() {
     if (this.dataUser != null) {

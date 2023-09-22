@@ -25,6 +25,7 @@
       <th>Usuario de creacion</th>
       <th>Fecha de modificacion</th>
       <th>Usuario de modificacion</th>
+      <th>Opción</th>
       <tr *ngFor="let user of UsersData">
         <td>{{user.idUser}}</td>
         <td>{{user.name}}</td>
@@ -43,16 +44,22 @@
         <td>{{user.userCreation}}</td>
         <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{user.userModification}}</td>
-
         <td>
           <div>
-            <button class="btn btn-warning" id="modificar" (click)="Modify(user)">Modíficar</button>
-          </div>
+            <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(user)">
+                Modificar</button>
+            <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+        </div>
         </td>
       </tr>
     </table>
-    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-  </div>
+    <p>
+      <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+      &nbsp;
+      <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+      &nbsp;
+      <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+  </p> </div>
 </div>
 
 <div *ngIf="modify">

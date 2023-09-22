@@ -1,6 +1,5 @@
-<h1>Opciones</h1>
-
 <div *ngIf="header">
+    <h1>Opciones</h1>
     <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
     <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
@@ -10,6 +9,7 @@
         <th>IdOption</th>
         <th>Nombre</th>
         <th>IdMenu</th>
+        <th>Orden en el menu</th>
         <th>Pagina</th>
         <th>Fecha de creación</th>
         <th>Usuario de creación</th>
@@ -20,31 +20,52 @@
             <td>{{option.idOption}}</td>
             <td>{{option.name}}</td>
             <td>{{getMenuName(option.idMenu)}}</td>
+            <td>{{option.idOrderMenu}}</td>
             <td>{{option.page}}</td>
             <td>{{option.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
             <td>{{option.userCreation}}</td>
             <td>{{option.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
             <td>{{option.userModification}}</td>
             <td>
-                <div>
-                    <button class="btn btn-warning" id="modificar" (click)="Modify(option)">Modíficar</button>
-                </div>
+             <div>
+                        <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(option)">
+                            Modificar</button>
+                        <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+                    </div>
             </td>
         </tr>
     </table>
-    <button class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-</div>
+   <p>
+            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+            &nbsp;
+            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+        </p></div>
 
-<div *ngIf="modify">
+<div class="container" *ngIf="modify">
+    <h1>Opciones</h1>
     <form (ngSubmit)="modForm()" id="modForm">
         <div>
-            <p>IdRol: </p>
-            <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
-                placeholder="{{roleModify.idRole}}" required disabled="">
-            <p>Nombre del Rol:</p>
+            <p>Menu</p>
             <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name"
-                    placeholder="{{roleModify.name}}" required>
+                <select id="menu" name="menu" [(ngModel)]="optionModify.idMenu">
+                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
+                </select>
+            </p>
+            <p>Nombre de la opción:</p>
+            <p>
+                <input type="text" id="name" name="name" [(ngModel)]="optionModify.name"
+                    placeholder="{{optionModify.name}}" required>
+            </p>
+            <p>Orden del menu</p>
+            <p>
+                <input type="text" id="idOrderMenu" name="idOrderMenu" [(ngModel)]="optionModify.idOrderMenu"
+                placeholder="{{optionModify.idOrderMenu}}" required>
+            </p>
+            <p>Pagina</p>
+            <p>
+                <input type="text" id="page" name="page" [(ngModel)]="optionModify.page" placeholder="Pagina" required>
             </p>
             <p>
                 <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
@@ -55,12 +76,28 @@
 </div>
 
 
-<div *ngIf="add">
+<div class="container" *ngIf="add">
+    <h1>Opciones</h1>
     <form (ngSubmit)="addForm()" id="addForm">
         <div>
-            <p>Nombre del Rol:</p>
+            <p>Menu</p>
             <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre"
+                <select id="menu" name="menu" [(ngModel)]="optionDataCreate.idMenu">
+                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
+                </select>
+            </p>
+            <p>Nombre de la opción:</p>
+            <p>
+                <input type="text" id="name" name="name" [(ngModel)]="optionDataCreate.name" placeholder="Nombre"
+                    required>
+            </p>
+            <p>Orden del menu</p>
+            <p>
+                <input type="number" id="menuOrder" name="menuOrder" [(ngModel)]="optionDataCreate.idOrderMenu" placeholder="Orden en el menu" >
+            </p>
+            <p>Pagina</p>
+            <p>
+                <input type="text" id="page" name="page" [(ngModel)]="optionDataCreate.page" placeholder="Pagina"
                     required>
             </p>
             <p>

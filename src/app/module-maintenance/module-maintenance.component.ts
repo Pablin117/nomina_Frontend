@@ -24,6 +24,11 @@ export class ModuleMaintenanceComponent {
   VarModulo: any = [];
   VarName:any=[];
   header: boolean = true
+  options: any = {}
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
 
 
   ngOnInit() {
@@ -31,9 +36,31 @@ export class ModuleMaintenanceComponent {
     this.dataUser = JSON.parse(this.dataUser)
     this.Modulo();
     this.validateSession()
+    this.optionsValidate()
   }
   constructor(private http: HttpClient,private router: Router) { }
 
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+    let page = "module-maintenance"
+    let permisos: any = {}
+
+    this.options.forEach((item: any) => {
+      if (item.page === page) {
+        permisos = item.permisos
+      }
+    })
+
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false 
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+
+  }
 
 
   validateSession(){
