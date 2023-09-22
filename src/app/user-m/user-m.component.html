@@ -58,7 +58,7 @@
 <div *ngIf="modify">
   <form (ngSubmit)="modForm()" id="modForm">
     <div>
-      <p>IdModulo: </p>
+      <p>Usuario: </p>
       <input type="text" id="idRol" name="idRol" [(ngModel)]="userDataModify.idUser"
              placeholder="{{userModify.idUser}}" required disabled="">
       <p>Nombre del Usuario:</p>
@@ -68,27 +68,27 @@
       </p>
       <p>Apellido del Usuario:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.lastName" placeholder="{{userModify.lastName}}"
+        <input type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName" placeholder="{{userModify.lastName}}"
                required>
       </p>
       <p>IdEstadoUsuario:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.idStatusUser" placeholder="{{userModify.idStatusUser}}"
+        <input type="text" id="idStatusUser" name="idStatusUser" [(ngModel)]="userDataModify.idStatusUser" placeholder="{{userModify.idStatusUser}}"
                required>
       </p>
       <p>Correo:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.email" placeholder="{{userModify.email}}"
+        <input type="text" id="email" name="email" [(ngModel)]="userDataModify.email" placeholder="{{userModify.email}}"
                required>
       </p>
       <p>Telefono:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userModify.mobilePhone}}"
+        <input type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userModify.mobilePhone}}"
                required>
       </p>
       <p>IdSucursal:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.idBranch" placeholder="{{userModify.idBranch}}"
+        <input type="text" id="idBranch" name="idBranch" [(ngModel)]="userDataModify.idBranch" placeholder="{{userModify.idBranch}}"
                required>
       </p>
       <p>Fotografia:</p>
