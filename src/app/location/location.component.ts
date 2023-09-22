@@ -56,7 +56,7 @@ export class LocationComponent {
     })
 
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -75,7 +75,7 @@ validateSession(){
   }
 }
 
- 
+
 
 
   locationService() {
@@ -168,7 +168,7 @@ validateSession(){
     this.add = false
     this.tab = true
     this.header = true
-   
+
     this.locationDataCreate = {}
   }
 
@@ -197,7 +197,7 @@ validateSession(){
 
   ResponseLocationSave(response: any) {
     console.log(response)
- 
+
     if(response.code == 0 ){
       alert(response.message)
       console.log("Se guardo")
@@ -207,13 +207,13 @@ validateSession(){
       alert(response.message)
 
     }
-    
+
   }
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-     
+
       this.locationDataModify.userModification = this.dataUser.user
     console.log(this.locationDataModify)
 
@@ -256,10 +256,10 @@ validateSession(){
     (response: any) => this.ResponseRevoke(response)
   )
   }
-  
-  
+
+
   RequestRevoke() {
-     
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -269,7 +269,7 @@ validateSession(){
       catchError(e => "1")
     )
   }
-  
+
   ResponseRevoke(response: any) {
     if (response.code == 0) {
       console.log(response)
@@ -277,11 +277,11 @@ validateSession(){
       this.router.navigateByUrl("/")
       localStorage.clear()
     } else {
-   
-      localStorage.clear()  
+
+      localStorage.clear()
        this.router.navigateByUrl("/")
     }
-  
+
   }
 
 }

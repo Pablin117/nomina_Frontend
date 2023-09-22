@@ -165,6 +165,7 @@ export class MenuComponent {
     if (formularioValido.reportValidity()) {
       this.menuModify.idModulo = this.menuDataModify.idModulo
       this.menuModify.name = this.menuDataModify.name
+      this.menuModify.orderMenu = this.menuDataModify.orderMenu
       this.menuModify.userModification = this.dataUser.user
       this.RequestUserSaveM().subscribe(
         (response:any) => this.ResponseUserSaveM(response)
@@ -257,6 +258,7 @@ export class MenuComponent {
 
   responseModule(response: any) {
     this.VarModule = response
+    console.log(this.VarModule)
   }
 
 

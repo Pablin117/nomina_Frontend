@@ -16,6 +16,7 @@
       <th>Usuario de creacion</th>
       <th>Fecha de modificación</th>
       <th>Usuario de modificacion</th>
+      <th>Opcion</th>
       <tr *ngFor="let menu of MenusData">
         <td>{{menu.idMenu}}</td>
         <td>{{getModulos(menu.idModulo)}}</td>
@@ -51,13 +52,18 @@
              placeholder="{{menuModify.idMenu}}" required disabled="">
       <p>Modulo:</p>
       <p>
-        <select id="menu" name="menu" [(ngModel)]="menuDataModify.idModulo">
+        <select id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
           <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
         </select>
       </p>
       <p>Nombre del Menu:</p>
       <p>
         <input type="text" id="name" name="name" [(ngModel)]="menuDataModify.name" placeholder="{{menuModify.name}}"
+               required>
+      </p>
+      <p>Orden del menu:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="menuDataModify.orderMenu" placeholder="{{menuModify.orderMenu}}"
                required>
       </p>
       <p>
@@ -81,6 +87,10 @@
       <p>Nombre:</p>
       <p>
         <input type="text" id="name" name="name" [(ngModel)]="menuDataCreate.name" placeholder="Nombre" required>
+      </p>
+      <p>Orden del Menu:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="menuDataCreate.orderMenu" placeholder="1" required>
       </p>
       <p>
         <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
