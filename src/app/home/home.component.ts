@@ -34,6 +34,7 @@ export class HomeComponent {
     this.data = localStorage.getItem("data")
     this.data = JSON.parse(this.data)
 
+    console.log(this.data)
 
     //Busqueda de role-opcion-menu-modulo usuario
     this.searchOptionsUserService().subscribe(
@@ -63,7 +64,7 @@ export class HomeComponent {
       console.log(response.message)
       alert(response.message)
       this.revoke()
-    }else{
+    }else if(response.code == "0"){
       var opciones = []
 
       //module
@@ -147,9 +148,7 @@ export class HomeComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-  
       alert(response.message)
-
       localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
