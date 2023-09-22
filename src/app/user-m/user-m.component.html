@@ -8,19 +8,19 @@
 <div *ngIf="tab">
   <div>
     <table class="table table-striped">
-      <th>IdUsuario</th>
+      <th>Usuario</th>
       <th>Nombre</th>
       <th>Apellido</th>
       <th>Fecha de nacimiento</th>
-      <th>IdEstatusUsuario</th>
-      <th>IdGenero</th>
+      <th>Estatus Usuario</th>
+      <th>Genero</th>
       <th>Fecha de ingreso</th>
       <th>Intentos de Acesso</th>
       <th>Ultima fecha cambio de Contraseña</th>
       <th>Correo</th>
       <th>Requiere Cambiar la contraseña</th>
       <th>Telefono</th>
-      <th>IdSucursal</th>
+      <th>Sucursal</th>
       <th>Fecha de creacion</th>
       <th>Usuario de creacion</th>
       <th>Fecha de modificacion</th>
@@ -31,15 +31,15 @@
         <td>{{user.name}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.idStatusUser}}</td>
-        <td>{{user.idGender}}</td>
+        <td>{{getStatus(user.idStatusUser)}}</td>
+        <td>{{getGender(user.idGender)}}</td>
         <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{user.accessAttempts}}</td>
         <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{user.email}}</td>
         <td>{{user.requiresChangingPassword}}</td>
         <td>{{user.mobilePhone}}</td>
-        <td>{{user.idBranch}}</td>
+        <td>{{getLocation(user.idBranch)}}</td>
         <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{user.userCreation}}</td>
         <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
@@ -62,7 +62,7 @@
   </p> </div>
 </div>
 
-<div *ngIf="modify">
+<div class="contenedor" *ngIf="modify">
   <form (ngSubmit)="modForm()" id="modForm">
     <div>
       <p>Usuario: </p>
@@ -78,10 +78,11 @@
         <input type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName" placeholder="{{userModify.lastName}}"
                required>
       </p>
-      <p>IdEstadoUsuario:</p>
+      <p>Estado Usuario:</p>
       <p>
-        <input type="text" id="idStatusUser" name="idStatusUser" [(ngModel)]="userDataModify.idStatusUser" placeholder="{{userModify.idStatusUser}}"
-               required>
+        <select id="menu" name="menu" [(ngModel)]="userDataModify.idStatusUser">
+          <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
+        </select>
       </p>
       <p>Correo:</p>
       <p>
@@ -93,10 +94,11 @@
         <input type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userModify.mobilePhone}}"
                required>
       </p>
-      <p>IdSucursal:</p>
+      <p>Sucursal:</p>
       <p>
-        <input type="text" id="idBranch" name="idBranch" [(ngModel)]="userDataModify.idBranch" placeholder="{{userModify.idBranch}}"
-               required>
+        <select id="menu" name="menu" [(ngModel)]="userDataModify.idBranch">
+          <option *ngFor="let location of Varlocation" value="{{location.idBranch}}" required>{{location.name}}</option>
+        </select>
       </p>
       <p>Fotografia:</p>
       <p>

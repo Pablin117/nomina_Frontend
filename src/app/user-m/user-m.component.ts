@@ -33,6 +33,9 @@ export class UserMComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  Varstatus : any = []
+  Varlocation: any=[]
+  Vargender:any = []
 
 
   ngOnInit() {
@@ -61,7 +64,7 @@ export class UserMComponent {
     })
 
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -78,6 +81,9 @@ export class UserMComponent {
   }
 
   User(){
+    this.Status()
+    this.location()
+    this.Gender()
     this.RequestUser().subscribe(
       (response: any) => this.ResponseUser(response)
     )
@@ -251,6 +257,94 @@ export class UserMComponent {
     }
   }
 
+  getStatus(idStatus: number): string {
+    for (let x = 0; x < this.Varstatus.length; x++) {
+      if (this.Varstatus[x].idStatusUser == idStatus) {
+        return this.Varstatus[x].name
+      }
+    }
+    return '';
+  }
 
+  Status() {
+    this.requestStatus().subscribe(
+      (response: any) => this.responseStatus(response)
+    )
+  }
+
+  requestStatus() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/statusUser", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseStatus(response: any) {
+    this.Varstatus = response
+  }
+
+  getLocation(idLocation: number): string {
+    for (let x = 0; x < this.Varlocation.length; x++) {
+      if (this.Varlocation[x].idBranch == idLocation) {
+        return this.Varlocation[x].name
+      }
+    }
+    return '';
+  }
+
+  location() {
+    this.requestLocation().subscribe(
+      (response: any) => this.responseLocation(response)
+    )
+  }
+
+  requestLocation() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/location", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseLocation(response: any) {
+    this.Varlocation = response
+  }
+
+  getGender(idGender: number): string {
+    for (let x = 0; x < this.Vargender.length; x++) {
+      if (this.Vargender[x].idGender == idGender) {
+        return this.Vargender[x].name
+      }
+    }
+    return '';
+  }
+
+  Gender() {
+    this.requestGender().subscribe(
+      (response: any) => this.responseGender(response)
+    )
+  }
+
+  requestGender() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/gender", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseGender(response: any) {
+    this.Vargender = response
+  }
 
 }
