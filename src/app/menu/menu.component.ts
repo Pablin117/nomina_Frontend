@@ -41,6 +41,7 @@ export class MenuComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
+    this.Module()
     this.validateSession()
     this.optionsValidate()
     this.Menu()
@@ -78,7 +79,6 @@ export class MenuComponent {
   }
 
   Menu(){
-    this.Module()
     this.RequestMenu().subscribe(
       (response: any) => this.ResponseMenu(response)
     )
@@ -100,12 +100,12 @@ export class MenuComponent {
   }
 
   Modify(menu: any) {
-    this.menuModify = menu
+    this.menuDataModify = menu
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.menuDataModify = {}
+    //this.menuDataModify = {}
     this.menuDataCreate = {}
   }
 
