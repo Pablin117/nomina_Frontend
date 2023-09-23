@@ -61,7 +61,7 @@ export class CreateUserComponent {
   file2 : any
   genderOptions: any = [];
   VarId: any = {};
-
+  showSpinner: boolean = false;
 
 
 
@@ -121,6 +121,7 @@ export class CreateUserComponent {
   }
 
   create() {
+
     this.creationDate = new Date().toISOString();
     const formData = {
       idUser: this.idUserValue,
@@ -143,14 +144,15 @@ export class CreateUserComponent {
       creationDate: this.creationDate,
       idBranch: 1,
       modificationDate: null,
-      userModification: null
-
+      userModification: null,
+      
     };
 
 
 
     if (!this.buttonClicked) {
       this.buttonClicked = true;
+      this.showSpinner = true;
       this.http.post(`${this.url}/createUser`, formData)
         .pipe(
           catchError((error: any) => {
@@ -163,6 +165,8 @@ export class CreateUserComponent {
           if (response.code === '0') {
             console.log('Usuario creado exitosamente.');
             alert("Usuario creado exitosamente.")
+            this.showSpinner = false;
+            this.router.navigateByUrl("/userM")
             this.saveImage();
           } else {
             console.error('Error al crear el usuario:', response.message);
