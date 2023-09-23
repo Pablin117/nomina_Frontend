@@ -18,7 +18,7 @@ export class CreateUserComponent {
   ngOnInit() {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
- 
+
     this.validateSession()
     this.genderService();
 
@@ -145,7 +145,7 @@ export class CreateUserComponent {
       idBranch: 1,
       modificationDate: null,
       userModification: null,
-      
+
     };
 
 
@@ -169,6 +169,7 @@ export class CreateUserComponent {
             this.router.navigateByUrl("/userM")
             this.saveImage();
           } else {
+            this.showSpinner = false;
             console.error('Error al crear el usuario:', response.message);
             alert(response.message)
           }
@@ -214,16 +215,14 @@ export class CreateUserComponent {
       const file = this.fileInput.nativeElement.files[0];
       console.log(idUser)
       this.saveImage1(idUser, file).subscribe(
-        (response) => {
-          // La imagen se ha guardado con éxito, maneja la respuesta aquí
-          //console.log('Imagen guardada con éxito:', response);
-        },
-        (error) => {
-          // Maneja errores aquí
-          //console.error('Error al guardar la imagen:', error);
-        }
+        (response:any) =>this.ResponseImages(response)
+
       );
     }
+  }
+
+  ResponseImages(response: any) {
+    console.log(response);
   }
   genderService() {
     this.RequestGender().subscribe(
