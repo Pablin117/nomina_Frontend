@@ -202,6 +202,7 @@ export class CreateUserComponent {
     this.deleteImages()
   }
   saveImage1(idUser: string, file: File) {
+    console.log("entro en images 1")
     const formData = new FormData();
     formData.append('file', file);
     formData.append('idUser', idUser);
@@ -210,11 +211,14 @@ export class CreateUserComponent {
   }
 
   saveImage() {
+    console.log("entro en images")
     if (this.imageSrc) {
+      console.log("entro en el if")
       const idUser = this.idUserValue; // Reemplaza esto con el ID real del usuario
-      const file = this.fileInput.nativeElement.files[0];
+      //const file = this.fileInput.nativeElement.files[0];
+      //console.log(this.file2)
       console.log(idUser)
-      this.saveImage1(idUser, file).subscribe(
+      this.saveImage1(idUser, this.file2).subscribe(
         (response:any) =>this.ResponseImages(response)
 
       );
