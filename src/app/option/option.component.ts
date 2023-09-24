@@ -14,20 +14,25 @@ export class OptionComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.option()
     this.validateSession()
-    this.optionsValidate()
   }
 
 
   //variables
-  url: String = "http://localhost:4042/v1"
-  modify: boolean = false;
-  add: boolean = false;
-  tab: boolean = true;
+
+  //boolean
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
   header: boolean = true
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+  //url
+  url: String = "http://localhost:4042/v1"
+  page = "option"
+  //objetos
   optionDataCreate: any = {}
   optionDataModify: any = {}
   optionData: any = []
@@ -36,27 +41,39 @@ export class OptionComponent {
   optionModify: any = {}
   dataUser: any = {}
   options: any = {}
-  btnAdd: boolean = false
-  btnUpdate: boolean = false
-  print: boolean = false
-  exporte: boolean = false
+
+
+  //valida la sesion
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.option()
+      this.optionsValidate()
+
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
 
 
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-    let page = "option"
+
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
 
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -66,7 +83,7 @@ export class OptionComponent {
 
 
 
-
+  //obtine nombre del menu
   getMenuName(idMenu: number): string {
     for (let x = 0; x < this.menuData.length; x++) {
       if (this.menuData[x].idMenu == idMenu) {
@@ -77,15 +94,7 @@ export class OptionComponent {
   }
 
 
-
-  validateSession() {
-    if (this.dataUser != null) {
-      console.log("activo")
-    } else {
-      this.router.navigateByUrl("/")
-    }
-  }
-
+  //obtine las opciones
   option() {
     this.menu()
     this.requestOption().subscribe(
@@ -106,9 +115,9 @@ export class OptionComponent {
 
   responseOption(response: any) {
     this.optionData = response
-   
-  }
 
+  }
+  //obtine los menus
   menu() {
     this.requestMenu().subscribe(
       (response: any) => this.responseMenu(response)
@@ -130,6 +139,7 @@ export class OptionComponent {
     this.menuData = response
   }
 
+  //finaliza la sesion
   revoke() {
     console.log("salida")
     console.log(this.dataUser.session)
@@ -193,7 +203,7 @@ export class OptionComponent {
     this.add = false
     this.tab = true
     this.header = true
-  
+
   }
 
 
@@ -201,8 +211,8 @@ export class OptionComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.optionDataCreate.userCreation = this.dataUser.user
-     
-     this.RequestOptionSave().subscribe(
+
+      this.RequestOptionSave().subscribe(
         (response: any) => this.ResponseOptionSave(response)
       )
 
@@ -235,7 +245,7 @@ export class OptionComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-     // this.optionModify.name = this.optionDataModify.name
+      // this.optionModify.name = this.optionDataModify.name
       this.optionModify.userModification = this.dataUser.user
       console.log(this.optionModify)
       this.RequestOptionSaveM().subscribe(

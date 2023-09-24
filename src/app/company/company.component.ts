@@ -14,69 +14,73 @@ export class CompanyComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-
-    this.optionsValidate()
-    this.CompanyData()
     this.validateSession()
 
   }
+
   //variables
+  //boolean
   modify: boolean = false
   add: boolean = false
   tab: boolean = true
+  header: boolean = true
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
+  //objects
   companyDataModify: any = {}
   companyDataCreate: any = {}
   BussinessRules: any = []
   companyModify: any = {}
   dataUser: any = {}
-  header: boolean = true
   options: any = {}
-  btnAdd: boolean = false
-  btnUpdate: boolean = false
-  print: boolean = false
-  exporte: boolean = false
+
+
+  // pagina y url
   url: String = "http://localhost:4042/v1"
+  page: String = "company"
 
 
-  //bandera de botones
-  optionsValidate() {
-    this.options = localStorage.getItem("options");
-    this.options = JSON.parse(this.options)
-    let page = "company"
-    let permisos: any = {}
-
-    this.options.forEach((item: any) => {
-      if (item.page === page) {
-        permisos = item.permisos
-      }
-    })
-
-    permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
-      this.btnUpdate = item.update == 1 ? true : false
-      this.print = item.print == 1 ? true : false
-      this.exporte = item.export == 1 ? true : false
-    })
-
-  }
-
-
-
-
+  //valida sesiones
   validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
+      this.optionsValidate()
+      this.CompanyData()
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
 
-  
-  CompanyData() {
 
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+
+    let permisos: any = {}
+    this.options.forEach((item: any) => {
+      if (item.page === this.page) {
+        permisos = item.permisos
+      }
+    })
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+  }
+
+
+  //Obtiene datos de company
+  CompanyData() {
     this.RequestCompany().subscribe(
       (response: any) => this.ResponseCompany(response)
     )
@@ -120,7 +124,6 @@ export class CompanyComponent {
       alert("La cantidad de caracteres especiales debe ser mayor a 0")
     }
   }
-
   RequestCompanyUpdate() {
     var httpOptions = {
       headers: new HttpHeaders({
@@ -131,7 +134,6 @@ export class CompanyComponent {
       catchError(e => "1")
     )
   }
-
   ResponseCompanyUpdate(response: any) {
     if (response.code == 0) {
       alert(response.message)
@@ -144,7 +146,7 @@ export class CompanyComponent {
   }
 
 
-  //formulario para agregar por si se necesita
+  //formulario para agregar 
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
@@ -156,7 +158,7 @@ export class CompanyComponent {
           if (this.companyDataCreate.passwordAmountLowercase >= 1) {
             if (this.companyDataCreate.passwordAmountUppercase >= 1) {
               this.companyDataCreate.userCreation = this.dataUser.user
-            
+
               this.RequestCompanySave().subscribe(
                 (response: any) => this.ResponseCompanySave(response)
               )
@@ -185,10 +187,9 @@ export class CompanyComponent {
       catchError(e => "1")
     )
   }
-
   ResponseCompanySave(response: any) {
     if (response.code == 0) {
- 
+
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -207,7 +208,6 @@ export class CompanyComponent {
     this.tab = false
     this.header = false
     console.log("add")
-
   }
 
 

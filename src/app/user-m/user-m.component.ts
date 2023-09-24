@@ -1,7 +1,7 @@
-import {Component, ViewChild} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError} from "rxjs/operators";
-import {Router} from "@angular/router";
+import { Component, ViewChild } from '@angular/core';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-user-m',
@@ -9,56 +9,74 @@ import {Router} from "@angular/router";
   styleUrls: ['./user-m.component.css']
 })
 export class UserMComponent {
+  constructor(private http: HttpClient, private router: Router) { }
+
+  ngOnInit() {
+    this.validateSession()
+
+  }
+
+
   //variables
-  UsersData: any = []
-  url: String = "http://localhost:4042/v1"
+
+  //boolean
   modify: boolean = false
   add: boolean = false
   tab: boolean = true
+  header: boolean = true
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
+
+  //url
+  url: String = "http://localhost:4042/v1"
+  page = "userM"
+  //objetos
+  UsersData: any = []
   userDataCreate: any = {}
   userDataModify: any = {}
   locationsData: any = {}
   statusData: any = {}
   userModify: any = {}
   dataUser: any = {}
-  VarModulo: any = []
-  VarName:any=[]
-  header: boolean = true
-  Return: any = {}
-  file: File | null =null
-  file2 : any = {}
+  file: any
   VarId: any = {}
   options: any = {}
-  btnAdd: boolean = false
-  btnUpdate: boolean = false
-  print: boolean = false
-  exporte: boolean = false
-  Varstatus : any = []
-  Varlocation: any=[]
-  Vargender:any = []
-
-
-  ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.User();
-    this.validateSession()
-    this.optionsValidate()
-  }
-  constructor(private http: HttpClient,private router: Router) { }
+  Varstatus: any = []
+  Varlocation: any = []
+  Vargender: any = []
   imageSrc: string | ArrayBuffer | null = null;
   @ViewChild('fileInput') fileInput: any;
+
+
+
+
+  //valida sesiones
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.User()
+      this.optionsValidate()
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
 
 
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-    let page = "userM"
+
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
@@ -73,14 +91,8 @@ export class UserMComponent {
   }
 
 
-  validateSession(){
-    if(this.dataUser != null){
-    }else{
-      this.router.navigateByUrl("/")
-    }
-  }
 
-  User(){
+  User() {
     this.Status()
     this.location()
     this.Gender()
@@ -136,13 +148,13 @@ export class UserMComponent {
     if (formularioValido.reportValidity()) {
       this.userModify.name = this.userDataModify.name
       this.userModify.lastName = this.userDataModify.lastName
-      this.userModify.idStatusUser =this.userDataModify.idStatusUser
-      this.userModify.email =this.userDataModify.email
-      this.userModify.mobilePhone =this.userDataModify.mobilePhone
-      this.userModify.idBranch =this.userDataModify.idBranch
+      this.userModify.idStatusUser = this.userDataModify.idStatusUser
+      this.userModify.email = this.userDataModify.email
+      this.userModify.mobilePhone = this.userDataModify.mobilePhone
+      this.userModify.idBranch = this.userDataModify.idBranch
       this.userModify.userModification = this.dataUser.user
       this.RequestUserSaveM().subscribe(
-        (response:any) => this.ResponseUserSaveM(response)
+        (response: any) => this.ResponseUserSaveM(response)
       )
 
     }
@@ -153,20 +165,20 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyUser/"+this.userModify.idUser, this.userModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyUser/" + this.userModify.idUser, this.userModify, httpOptions).pipe(
       catchError(e => "1")
     )
     /*<button (click)="saveImage()" [disabled]="!imageSrc">Guardar Imagen</button>*/
   }
   ResponseUserSaveM(response: any) {
-    if(response.code == 0){
+    if (response.code == 0) {
       alert(response.message)
-      this.VarId=this.userModify.idUser
+      this.VarId = this.userModify.idUser
       this.saveImage()
       this.deleteImages()
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
   }
@@ -216,7 +228,7 @@ export class UserMComponent {
         this.imageSrc = reader.result;
       };
       reader.readAsDataURL(selectedFile);
-      this.file2=selectedFile
+      this.file = selectedFile
     }
   }
 
@@ -224,10 +236,10 @@ export class UserMComponent {
     // Hacer clic en el input de tipo archivo para abrir el cuadro de diálogo de selección de archivo
     this.fileInput.nativeElement.click();
   }
-  deleteImages(){
+  deleteImages() {
     this.imageSrc = null;
   }
-  deletBack(){
+  deletBack() {
     this.back()
     this.deleteImages()
   }

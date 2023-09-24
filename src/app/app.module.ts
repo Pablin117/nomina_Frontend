@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
 import { FormsModule } from '@angular/forms';
-import { SecuritiProfileComponent } from './securiti-profile/securiti-profile.component';
 import { CompanyComponent } from './company/company.component';
 import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 import { RoleComponent } from './role/role.component';
@@ -39,7 +38,6 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LoginComponent,
     SetPasswordComponent,
-    SecuritiProfileComponent,
     PlanillaComponent,
     CompanyComponent,
     RecoverPasswordComponent,

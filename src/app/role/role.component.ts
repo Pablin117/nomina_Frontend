@@ -13,45 +13,47 @@ export class RoleComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.RoleData()
-    this.optionsValidate()
+    this.validateSession()
   }
   //variables
-  RolesData: any = [];
-  url: String = "http://localhost:4042/v1"
 
+  //boolean
+  header: boolean = true
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+  exporte: boolean = false
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+
+  //url
+  page = "role"
+  url: String = "http://localhost:4042/v1"
+  //objetos
+  RolesData: any = [];
   roleDataCreate: any = {}
   roleDataModify: any = {}
   companyData: any = {}
   roleModify: any = {}
   dataUser: any = {}
-  header: boolean = true
-  modify: boolean = false
-  add: boolean = false
-  tab: boolean = true
   options: any = {}
-  btnAdd: boolean = false
-  btnUpdate: boolean = false
-  print: boolean = false
-  exporte: boolean = false
 
- //bandera de botones
+
+
+  //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-    let page = "role"
     let permisos: any = {}
-
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
 
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -59,10 +61,15 @@ export class RoleComponent {
 
   }
 
-
+  //valida la sesion
   validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
+      this.RoleData()
+      this.optionsValidate()
     } else {
       this.router.navigateByUrl("/")
     }

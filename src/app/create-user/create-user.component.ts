@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router } from "@angular/router";
@@ -12,34 +12,32 @@ export class CreateUserComponent {
 
   constructor(private http: HttpClient, private router: Router) {
   }
-  imageSrc: string | ArrayBuffer | null = null;
-  @ViewChild('fileInput') fileInput: any;
+
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-
     this.validateSession()
-    this.genderService();
-
   }
 
 
-  showSuccessMessage = false;
-
+  //URL
   url: string = 'http://localhost:4042/v1';
-  messageError: string = '';
+
+  //Objectos
   data: any = {};
-  routes: any = {};
-  return: any = {};
   genderData: any = [];
-  idUserValue: string = ''
-  nameValue: string = ''
-  lastNameValue: string = ''
-  dobValue: string = ''
-  selectedGender: string = '';
-  emailValue: string = ''
-  mobilePhoneValue: string = ''
+  dataUser: any = {}
+  genderOptions: any = [];
+  options: any = {}
+
+  //String
+  messageError: string = ""
+  idUserValue: string = ""
+  nameValue: string = ""
+  lastNameValue: string = ""
+  dobValue: string = ""
+  selectedGender: string = ""
+  emailValue: string = ""
+  mobilePhoneValue: string = ""
   creationDate: string = ""
   idStatusUser: string = ""
   lastDateOfEntry: string = ""
@@ -53,26 +51,39 @@ export class CreateUserComponent {
   userCreation: string = ""
   idBranch: string = ""
   modificationDate: string = ""
-  userModification: string = "";
-  buttonClicked = false;
+  userModification: string = ""
+
+
+  //imagen
+  file: any
+  imageSrc: string | ArrayBuffer | null = null
+  @ViewChild('fileInput') fileInput: any
+
+  //boolean
+  buttonClicked: boolean = false
   header: boolean = true
-  dataUser: any = {}
-  file: File | null =null;
-  file2 : any
-  genderOptions: any = [];
-  VarId: any = {};
-  showSpinner: boolean = false;
+  showSpinner: boolean = false
+  showSuccessMessage: boolean = false
 
 
 
+  //valida la sesion
   validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
+      this.genderService()
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
+
+
+
+  //finaliza la sesion
   revoke() {
     console.log("salida")
     console.log(this.dataUser.session)
@@ -80,12 +91,6 @@ export class CreateUserComponent {
       (response: any) => this.ResponseRevoke(response)
     )
   }
-
-  back() {
-    console.log("back")
-    this.router.navigateByUrl("/userM")
-  }
-
 
   RequestRevoke() {
 
@@ -115,11 +120,13 @@ export class CreateUserComponent {
 
   }
 
-  backWelcome() {
-
-      this.router.navigateByUrl("/userM")
+  //banderas 
+  back() {
+    this.router.navigateByUrl("/userM")
   }
 
+
+  //creacion de usuario
   create() {
 
     this.creationDate = new Date().toISOString();
@@ -145,10 +152,7 @@ export class CreateUserComponent {
       idBranch: 1,
       modificationDate: null,
       userModification: null,
-
-    };
-
-
+    }
 
     if (!this.buttonClicked) {
       this.buttonClicked = true;
@@ -167,7 +171,7 @@ export class CreateUserComponent {
             alert("Usuario creado exitosamente.")
             this.showSpinner = false;
             this.router.navigateByUrl("/userM")
-            this.saveImage();
+            this.ServiceSaveImage();
           } else {
             this.showSpinner = false;
             console.error('Error al crear el usuario:', response.message);
@@ -178,6 +182,9 @@ export class CreateUserComponent {
     }
   }
 
+
+  //funciones de seleccion de imagen
+
   onFileSelected(event: any) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -186,7 +193,7 @@ export class CreateUserComponent {
         this.imageSrc = reader.result;
       };
       reader.readAsDataURL(selectedFile);
-      this.file2=selectedFile
+      this.file = selectedFile
     }
   }
 
@@ -194,48 +201,48 @@ export class CreateUserComponent {
     // Hacer clic en el input de tipo archivo para abrir el cuadro de diálogo de selección de archivo
     this.fileInput.nativeElement.click();
   }
-  deleteImages(){
+  deleteImages() {
     this.imageSrc = null;
   }
-  deletBack(){
+  deletBack() {
     this.back()
     this.deleteImages()
   }
-  saveImage1(idUser: string, file: File) {
-    console.log("entro en images 1")
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('idUser', idUser);
 
-    return this.http.post(`http://localhost:4042/v1/saveImage`, formData);
-  }
 
-  saveImage() {
-    console.log("entro en images")
+
+  ServiceSaveImage() {
     if (this.imageSrc) {
-      console.log("entro en el if")
       const idUser = this.idUserValue; // Reemplaza esto con el ID real del usuario
       //const file = this.fileInput.nativeElement.files[0];
       //console.log(this.file2)
       console.log(idUser)
-      this.saveImage1(idUser, this.file2).subscribe(
-        (response:any) =>this.ResponseImages(response)
+      this.saveImage(idUser, this.file).subscribe(
+        (response: any) => this.ResponseImages(response)
 
       );
     }
   }
 
+  //Guarda la imagen
+  saveImage(idUser: string, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('idUser', idUser);
+    return this.http.post(this.url + `/saveImage`, formData);
+  }
+
   ResponseImages(response: any) {
     console.log(response);
   }
+
+
+  //Servicio que obtiene los generos
   genderService() {
     this.RequestGender().subscribe(
       (response: any) => this.ResponseGender(response)
     )
   }
-
-
-
   RequestGender() {
     var httpOptions = {
       headers: new HttpHeaders({
@@ -249,8 +256,6 @@ export class CreateUserComponent {
 
   ResponseGender(response: any) {
     this.genderData = response;
-    //console.log("Se obtuvieron los generos");
-    //console.log(this.genderData[0])
   }
 
 }

@@ -1,11 +1,17 @@
 <h1>Bitacora de Accesos</h1>
 
-    <div class="mat-elevation-z8" *ngIf="tab" >
-        <table id="table" border="1">
-            <th>Id Bitacorsa Acceso</th>
+
+<div *ngIf="header">
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+</div>
+
+    <div  *ngIf="tab" >
+        <table class="table table-striped">
+            <th>Id Bitacora Acceso</th>
             <th>Id Ususario</th>
-            <th>Id TipoA cceso</th>
-            <th>FechaA de cceso</th>
+            <th>Id Tipo de Acceso</th>
+            <th>Fecha de Acceso</th>
             <th>HttpUserAgent</th>
             <th>Direccion IP</th>
             <th>Accion</th>

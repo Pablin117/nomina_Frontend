@@ -1,13 +1,13 @@
 table {
-  width: 90%;
+  width: 95%;
   border: 1px solid #030303;
   text-align: center;
   border-collapse: collapse;
-  margin:1rem auto;
+  margin: 2rem auto;
 }
 
 caption, td, th {
-  padding: 0.1em;
+  padding: 0.3em;
 }
 
 th, td {

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SetPasswordComponent } from "./set-password/set-password.component";
-import { SecuritiProfileComponent } from "./securiti-profile/securiti-profile.component";
 import { CompanyComponent } from './company/company.component';
 import { RecoverPasswordComponent } from "./recover-password/recover-password.component";
 import { LocationComponent } from './location/location.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
   { path: 'set-password', component: SetPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'security', component: SecuritiProfileComponent },
   { path: 'company', component: CompanyComponent },
   { path: 'recover', component: RecoverPasswordComponent },
   { path: 'location', component: LocationComponent },
@@ -34,13 +32,14 @@ const routes: Routes = [
   { path: 'role-option', component: RoleOptionComponent },
   { path: 'create', component: CreateUserComponent },
   { path: 'log', component: LogComponent },
-  { path: 'module-maintenance', component: ModuleMaintenanceComponent },
+  { path: 'module', component: ModuleMaintenanceComponent },
   { path: 'userM', component: UserMComponent },
   { path: 'option', component: OptionComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'status-user', component: StatusUserComponent },
   { path: 'role-user', component: RoleUserComponent },
   { path: 'gender', component: GenderComponent }
+
 
 ];
 

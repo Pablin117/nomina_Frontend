@@ -1,22 +1,29 @@
-
-<h1>{{data.user}}</h1>
-<div *ngIf="header">
-  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+<!DOCTYPE html>
+<html>
+<div>
+  <h1>Bienvenido usuario: {{dataUser.nameUser}}</h1>
+  <div *ngIf="header">
+    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+  </div>
+  <br>
 </div>
-<br>
-<nav>
-  <ul *ngFor="let modulo of modulos">
-    <li>{{modulo.name}}</li>
-    <ul *ngFor="let menu of modulo.menus">
-      <li>{{menu.name}}</li>
-      <ul *ngFor="let opcion of menu.opciones">
-        <li><a href="{{opcion.page}}">{{opcion.name}}</a></li>
-<!--        <ul *ngFor="let permiso of opcion.permisos">-->
-<!--          <li>{{permiso.up}}</li>-->
-<!--        </ul>-->
+<body >
+  <div>
+    <nav>
+      <ul *ngFor="let modulo of modulos">
+        <li>{{modulo.name}}
+          <ul *ngFor="let menu of modulo.menus">
+            <li>{{menu.name}}
+              <ul *ngFor="let opcion of menu.opciones">
+                <li><a href="{{opcion.page}}">{{opcion.name}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
       </ul>
-    </ul>
-  </ul>
-</nav>
+    </nav>
 
+  </div>
+</body>
 
+</html>

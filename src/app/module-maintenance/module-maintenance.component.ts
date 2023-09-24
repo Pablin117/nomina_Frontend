@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError} from "rxjs/operators";
-import {Router} from "@angular/router";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-module-maintenance',
@@ -9,52 +9,59 @@ import {Router} from "@angular/router";
   styleUrls: ['./module-maintenance.component.css']
 })
 export class ModuleMaintenanceComponent {
+
+
+  constructor(private http: HttpClient, private router: Router) { }
+
+  ngOnInit() {
+
+
+    this.validateSession()
+
+  }
+
   //variables
-  ModulosData: any = [];
-  url: String = "http://localhost:4042/v1"
+  //objeto
+  ModulosData: any = []
+  moduloDataCreate: any = {}
+  moduloDataModify: any = {}
+  locationsData: any = {}
+  companyData: any = {}
+  moduloModify: any = {}
+  dataUser: any = {}
+  options: any = {}
+
+  //boolena
+  header: boolean = true
   modify: boolean = false;
   add: boolean = false;
   tab: boolean = true;
-  moduloDataCreate: any = {}
-  moduloDataModify: any = {}
-  locationsData: any = {};
-  companyData: any = {};
-  moduloModify: any = {};
-  dataUser: any = {}
-  VarModulo: any = [];
-  VarName:any=[];
-  header: boolean = true
-  options: any = {}
   btnAdd: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  //url
+  url: String = "http://localhost:4042/v1"
+  page: string = "module-maintenance"
 
 
-  ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.Modulo();
-    this.validateSession()
-    this.optionsValidate()
-  }
-  constructor(private http: HttpClient,private router: Router) { }
+
 
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-    let page = "module-maintenance"
+
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
 
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -62,16 +69,23 @@ export class ModuleMaintenanceComponent {
 
   }
 
-
-  validateSession(){
-    if(this.dataUser != null){
+  //valida la sesion
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-    }else{
+      this.Modulo()
+      this.optionsValidate()
+    } else {
       this.router.navigateByUrl("/")
     }
   }
 
-  Modulo(){
+
+  //obtine modulos
+  Modulo() {
     this.RequestModulo().subscribe(
       (response: any) => this.ResponseModulo(response)
     )
@@ -90,10 +104,8 @@ export class ModuleMaintenanceComponent {
 
   ResponseModulo(response: any) {
     this.ModulosData = response
-
-    console.log("Se obtuvo roles")
   }
-
+  //banderas
   Modify(modulo: any) {
     console.log("modifica")
     this.moduloModify = modulo
@@ -105,6 +117,9 @@ export class ModuleMaintenanceComponent {
     this.moduloDataCreate = {}
   }
 
+  backWelcome() {
+    this.router.navigateByUrl("/home")
+  }
   Add() {
     this.modify = false
     this.add = true
@@ -123,14 +138,14 @@ export class ModuleMaintenanceComponent {
     this.moduloDataModify = {}
     this.moduloDataCreate = {}
   }
-
+  //agrega 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       console.log(this.moduloDataCreate)
       this.moduloDataCreate.userCreation = this.dataUser.user
       this.RequestModuloSave().subscribe(
-        (response:any) => this.ResponseModuloSave(response)
+        (response: any) => this.ResponseModuloSave(response)
       )
 
     }
@@ -142,31 +157,31 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate,httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   ResponseModuloSave(response: any) {
-    if(response.code == 0){
+    if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
 
 
   }
 
-
+  //modifica
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.moduloModify.name = this.moduloDataModify.name
       this.moduloModify.userModification = this.dataUser.user
       this.RequestModuloSaveM().subscribe(
-        (response:any) => this.ResponseModuloSaveM(response)
+        (response: any) => this.ResponseModuloSaveM(response)
       )
 
     }
@@ -178,21 +193,21 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/"+this.moduloModify.idModule, this.moduloModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloModify.idModule, this.moduloModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   ResponseModuloSaveM(response: any) {
-    if(response.code == 0){
+    if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
   }
-
+  //finaliza la sesion
   revoke() {
     console.log("salida")
     console.log(this.dataUser.session)
@@ -201,9 +216,7 @@ export class ModuleMaintenanceComponent {
     )
   }
 
-  backWelcome() {
-    this.router.navigateByUrl("/home")
-  }
+
 
   RequestRevoke() {
 

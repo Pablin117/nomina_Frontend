@@ -15,41 +15,59 @@ export class StatusUserComponent {
 
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.statusUser()
-    this.optionsValidate()
+
+  this.validateSession()
   }
 
 
   //variables
+
+  //boolean
   modify: boolean = false
   add: boolean = false
   tab: boolean = true
-  options: any = {}
   btnAdd: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  header: boolean = true
+
+  //objetos
+  options: any = {}
   statusUserDataModify: any = {}
   statusUserDataCreate: any = {}
   statusUserData: any = []
   statusUserModify: any = {}
   dataUser: any = {}
-  header: boolean = true
+
+  //url
+  page = "status-user"
   url: String = "http://localhost:4042/v1"
 
-    //bandera de botones
+
+  //valida sesiones
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.optionsValidate()
+      this.statusUser()
+
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
+
+
+  //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-
-   
-    let page = "status-user"
     let permisos: any = {}
-
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
@@ -118,7 +136,7 @@ export class StatusUserComponent {
     )
   }
   responseStatusUser(response: any) {
-  
+
     this.statusUserData = response
   }
 
@@ -130,13 +148,13 @@ export class StatusUserComponent {
       this.statusUserModify.userModification = this.dataUser.user
 
       this.requestStatusUserUpdate().subscribe(
-        (response:any) => this.responseStatusUserUpdate(response)
+        (response: any) => this.responseStatusUserUpdate(response)
       )
     }
   }
 
-  requestStatusUserUpdate(){
- 
+  requestStatusUserUpdate() {
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -146,9 +164,9 @@ export class StatusUserComponent {
       catchError(e => "1")
     )
   }
-  responseStatusUserUpdate(response:any){
+  responseStatusUserUpdate(response: any) {
     if (response.code == 0) {
-  
+
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -156,42 +174,42 @@ export class StatusUserComponent {
       alert(response.message)
     }
   }
-  
+
 
   //agregar
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      this.statusUserDataCreate.userCreation =this.dataUser.user
+      this.statusUserDataCreate.userCreation = this.dataUser.user
       this.requestStatusUserSave().subscribe(
-        (response:any) => this.responseStatusUserSave(response)
+        (response: any) => this.responseStatusUserSave(response)
       )
     }
   }
 
 
-requestStatusUserSave(){
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  requestStatusUserSave() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createStatusUser", this.statusUserDataCreate, httpOptions).pipe(
+      catchError(e => "1")
+    )
   }
-  return this.http.post<any>(this.url + "/createStatusUser", this.statusUserDataCreate, httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
-responseStatusUserSave(response:any){
-  if (response.code == 0) {
+  responseStatusUserSave(response: any) {
+    if (response.code == 0) {
 
-    alert(response.message)
-    this.back()
-    this.ngOnInit()
-  } else {
-    alert(response.message)
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+
   }
-
-}
 
   //cierre de sesion
   revoke() {

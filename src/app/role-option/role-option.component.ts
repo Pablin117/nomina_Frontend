@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError} from "rxjs/operators";
-import {Router} from "@angular/router";
-import {coerceStringArray} from "@angular/cdk/coercion";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { coerceStringArray } from "@angular/cdk/coercion";
 
 @Component({
   selector: 'app-role-option',
@@ -13,30 +13,73 @@ export class RoleOptionComponent {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  //vars
+  //variables
+
+  //url
   url: String = "http://localhost:4042/v1"
-  header:boolean = true
-  tab:boolean = true
-  add : boolean = false
-  modify : boolean = false
+
+  //boolean
+  header: boolean = true
+  tab: boolean = true
+  add: boolean = false
+  modify: boolean = false
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+  //objetos
   dataUser: any = {}
   RolesData: any = []
   OptionsData: any = []
-  RolesOptionsData:any = []
+  RolesOptionsData: any = []
   RoleOptionCreate: any = {}
   RoleOptionModify: any = {}
-  Permisos:any = []
-
+  Permisos: any = []
+  options: any = {}
+  page: string = "role-option"
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.permisos()
-    this.Options()
-
+    this.validateSession()
     this.RoleOptionCreate.idPK = {}
   }
 
-  permisos(){
+  //valida la sesion
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.optionsValidate()
+      this.permisos()
+      this.Options()
+
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
+
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
+
+    let permisos: any = {}
+    this.options.forEach((item: any) => {
+      if (item.page === this.page) {
+        permisos = item.permisos
+      }
+    })
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false
+      this.btnUpdate = item.update == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
+  }
+
+
+
+  permisos() {
     this.Permisos.push({
       id: 1,
       name: "Habilitado"
@@ -46,23 +89,23 @@ export class RoleOptionComponent {
       name: "Deshabilitado"
     })
 
-   console.log(this.Permisos)
+    console.log(this.Permisos)
   }
 
-  Options(){
+  Options() {
     this.RequestRole().subscribe(
       (response: any) => this.ResponseRequestRole(response)
     )
   }
 
-  Add(){
+  Add() {
     this.tab = false
     this.add = true
     this.modify = false
     this.header = false
   }
 
-  back(){
+  back() {
     this.tab = true
     this.add = false
     this.modify = false
@@ -92,7 +135,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createRoleOption", this.RoleOptionCreate,httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createRoleOption", this.RoleOptionCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -100,9 +143,9 @@ export class RoleOptionComponent {
   ResponseRoleOptionSave(response: any) {
     console.log(response)
 
-    if (response.code == 1){
+    if (response.code == 1) {
       alert(response.message)
-    } else if(response.code == 0){
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
     }
@@ -110,7 +153,7 @@ export class RoleOptionComponent {
 
 
   //Modificacion
-  Modify(optRole : any){
+  Modify(optRole: any) {
     this.RoleOptionModify = optRole
     this.modify = true
     this.add = false
@@ -119,7 +162,7 @@ export class RoleOptionComponent {
 
   }
 
-  modifyForm(){
+  modifyForm() {
     let formularioValido: any = document.getElementById("modifyForm");
     if (formularioValido.reportValidity()) {
       this.RoleOptionModify.userModification = this.dataUser.user
@@ -137,7 +180,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRoleOption", this.RoleOptionModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyRoleOption", this.RoleOptionModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -145,9 +188,9 @@ export class RoleOptionComponent {
   ResponseRoleOptionModify(response: any) {
     console.log(response)
 
-    if (response.code == 1){
+    if (response.code == 1) {
       alert(response.message)
-    } else if(response.code == 0){
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
     }
@@ -212,15 +255,15 @@ export class RoleOptionComponent {
     this.assignNames()
   }
 
-  assignNames(){
-    for(var optionAvalile of this.RolesOptionsData){
-      for(var role of this.RolesData){
-        if(role.idRole == optionAvalile.idPK.idRole){
+  assignNames() {
+    for (var optionAvalile of this.RolesOptionsData) {
+      for (var role of this.RolesData) {
+        if (role.idRole == optionAvalile.idPK.idRole) {
           optionAvalile.idPK.nameRole = role.name
         }
       }
-      for(var option of this.OptionsData){
-        if(option.idOption == optionAvalile.idPK.idOption){
+      for (var option of this.OptionsData) {
+        if (option.idOption == optionAvalile.idPK.idOption) {
           optionAvalile.idPK.nameOption = option.name
         }
       }
@@ -232,9 +275,9 @@ export class RoleOptionComponent {
     }
   }
 
+
+  //finaliza sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )

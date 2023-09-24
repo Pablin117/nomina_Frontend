@@ -18,13 +18,57 @@ export class LoginComponent {
   messageError: String = ""
   data: any = {}
   routes : any = {}
+  dataUser:any = {}
 
   ngOnInit(){
     //consumption service login
     this.routeService().subscribe(
       (response: any) => this.responseRouteService(response)
     )
+    
+    this.limpiarSession()
   }
+
+
+  limpiarSession(){
+    this.dataUser = localStorage.getItem("data");
+    if(this.dataUser != null){
+      this.dataUser = JSON.parse(this.dataUser)
+      this.revoke()
+    }
+  }
+
+
+
+  revoke() {
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+
+
+  RequestRevoke() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+     
+      localStorage.clear()
+    } else {
+    
+      localStorage.clear()
+    }
+  }
+
+
 
   //recover password
   recoverPassword(){

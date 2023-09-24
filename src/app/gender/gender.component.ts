@@ -14,44 +14,63 @@ export class GenderComponent {
 
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.gender()
-    this.optionsValidate()
+    this.validateSession()
+
   }
 
 
   //variables
- 
+
+  //boolean
+  header: boolean = true
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+
+  //objetos
   generDataModify: any = {}
   genderDataCreate: any = {}
   genderData: any = []
   genderModify: any = {}
   dataUser: any = {}
-  header: boolean = true
-  modify: boolean = false
-  add: boolean = false
-  tab: boolean = true
   options: any = {}
-  btnAdd: boolean = false
-  btnUpdate: boolean = false
-  print: boolean = false
-  exporte: boolean = false
+  //url
   url: String = "http://localhost:4042/v1"
+  page = "gender"
+
+
+  //valida la sesion
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.gender()
+      this.optionsValidate()
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
+
 
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-    let page = "gender"
+
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
     permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false 
+      this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -81,11 +100,12 @@ export class GenderComponent {
     this.tab = true
     this.header = true
   }
-
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
 
+
+  //obtiene los generos
   gender() {
     this.requestGender().subscribe(
       (response: any) => this.responseGender(response)
@@ -103,24 +123,22 @@ export class GenderComponent {
     )
   }
   responseGender(response: any) {
-
     this.genderData = response
   }
 
   //modificacion
-
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.genderModify.userModification = this.dataUser.user
 
       this.requestGenderUpdate().subscribe(
-        (response:any) => this.responseGenderUpdate(response)
+        (response: any) => this.responseGenderUpdate(response)
       )
     }
   }
 
-  requestGenderUpdate(){
+  requestGenderUpdate() {
 
     var httpOptions = {
       headers: new HttpHeaders({
@@ -131,9 +149,9 @@ export class GenderComponent {
       catchError(e => "1")
     )
   }
-  responseGenderUpdate(response:any){
+  responseGenderUpdate(response: any) {
     if (response.code == 0) {
-  
+
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -141,42 +159,39 @@ export class GenderComponent {
       alert(response.message)
     }
   }
-  
+
 
   //agregar
-
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      this.genderDataCreate.userCreation =this.dataUser.user
+      this.genderDataCreate.userCreation = this.dataUser.user
       this.requestGenderSave().subscribe(
-        (response:any) => this.responseGenderSave(response)
+        (response: any) => this.responseGenderSave(response)
       )
     }
   }
-
-
-requestGenderSave(){
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  requestGenderSave() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createGender", this.genderDataCreate, httpOptions).pipe(
+      catchError(e => "1")
+    )
   }
-  return this.http.post<any>(this.url + "/createGender", this.genderDataCreate, httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
-responseGenderSave(response:any){
-  if (response.code == 0) {
-   
-    alert(response.message)
-    this.back()
-    this.ngOnInit()
-  } else {
-    alert(response.message)
-  }
+  responseGenderSave(response: any) {
+    if (response.code == 0) {
 
-}
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+
+  }
 
   //cierre de sesion
   revoke() {

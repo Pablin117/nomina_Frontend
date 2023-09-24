@@ -16,41 +16,61 @@ export class LocationComponent {
   ) { }
 
   ngOnInit() {
-    this.dataUser = localStorage.getItem("data");
-    this.dataUser = JSON.parse(this.dataUser)
-    this.CompanyService()
-    this.locationService()
     this.validateSession()
-    this.optionsValidate()
+
   }
 
-   //variables
-   locationsData: any = []
-   companyData: any = []
-   modify: boolean = false
-   add: boolean = false
-   tab: boolean = true
-   locationDataCreate: any = {}
-   locationDataModify: any = {}
-   options: any = {}
-   btnAdd: boolean = false
-   btnUpdate: boolean = false
-   print: boolean = false
-   exporte: boolean = false
-   dataUser: any = {}
-   header:boolean = true
-   url: String = "http://localhost:4042/v1";
+  //variables
+  //objecto
+  locationsData: any = []
+  companyData: any = []
+  locationDataCreate: any = {}
+  locationDataModify: any = {}
+  options: any = {}
+  dataUser: any = {}
 
+  //boolean
+  header: boolean = true
+  btnAdd: boolean = false
+  btnUpdate: boolean = false
+  print: boolean = false
+  exporte: boolean = false
+  modify: boolean = false
+  add: boolean = false
+  tab: boolean = true
+
+  //url
+  page = "location"
+  url: String = "http://localhost:4042/v1";
+
+
+
+  //valida la sesion
+  validateSession() {
+    console.log("valida Sesion")
+    this.dataUser = localStorage.getItem("data")
+    if (this.dataUser != null) {
+      this.dataUser = JSON.parse(this.dataUser)
+      console.log("activo")
+      this.CompanyService()
+      this.locationService()
+      this.optionsValidate()
+    } else {
+      this.router.navigateByUrl("/")
+    }
+  }
+
+  //obtiene botones con permisos
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
 
     console.log(this.options)
-    let page = "location"
+
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === page) {
+      if (item.page === this.page) {
         permisos = item.permisos
       }
     })
@@ -66,24 +86,12 @@ export class LocationComponent {
 
 
 
-
-validateSession(){
-  if(this.dataUser != null){
-    console.log("activo")
-  }else{
-    this.router.navigateByUrl("/")
-  }
-}
-
-
-
-
+  //obtine sucursales
   locationService() {
     this.RequestLocation().subscribe(
       (response: any) => this.ResponseLocation(response)
     )
   }
-
   RequestLocation() {
     var httpOptions = {
       headers: new HttpHeaders({
@@ -94,13 +102,18 @@ validateSession(){
       catchError(e => "1")
     )
   }
+  ResponseLocation(response: any) {
+    this.locationsData = response;
 
+  }
+
+
+  //obtiene la empresa
   CompanyService() {
     this.RequestCompany().subscribe(
       (response: any) => this.ResponseCompany(response)
     )
   }
-
   RequestCompany() {
 
     var httpOptions = {
@@ -113,20 +126,12 @@ validateSession(){
     )
   }
 
-  ResponseLocation(response: any) {
-    this.locationsData = response;
-    console.log("Se obtuvo sucursales");
-   // console.log(this.locationsData)
-  }
-
 
   ResponseCompany(response: any) {
     this.companyData = response
-    console.log("Se obtuvo configuracion de empresa")
-    //console.log(this.companyData)
-
   }
 
+  //retorna el nombre de la compañia con el id company
   getCompanyName(idCompany: number): string {
     for (let x = 0; x < this.companyData.length; x++) {
       if (this.companyData[x].idCompany == idCompany) {
@@ -136,10 +141,9 @@ validateSession(){
     return '';
   }
 
-
+  //modifica
   Modify(location: any) {
-    console.log(location)
-    console.log("modifica")
+
     this.locationDataModify = location
     this.add = false
     this.tab = false
@@ -149,16 +153,16 @@ validateSession(){
     this.locationDataCreate = {}
   }
 
-
+  //banderas
   Add() {
     this.modify = false
     this.add = true
     this.tab = false
-     this.header = false
+    this.header = false
     console.log("add")
 
   }
-  backWelcome(){
+  backWelcome() {
     this.router.navigateByUrl("/home")
   }
 
@@ -172,13 +176,15 @@ validateSession(){
     this.locationDataCreate = {}
   }
 
+
+  //agrega
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.locationDataCreate.userCreation = this.dataUser.user
       console.log(this.locationDataCreate)
       this.RequestLocationSave().subscribe(
-        (response:any) => this.ResponseLocationSave(response)
+        (response: any) => this.ResponseLocationSave(response)
       )
     }
   }
@@ -190,7 +196,7 @@ validateSession(){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createLocation", this.locationDataCreate,httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createLocation", this.locationDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -198,27 +204,29 @@ validateSession(){
   ResponseLocationSave(response: any) {
     console.log(response)
 
-    if(response.code == 0 ){
+    if (response.code == 0) {
       alert(response.message)
       console.log("Se guardo")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
 
     }
 
   }
 
+
+  //modifica
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
 
       this.locationDataModify.userModification = this.dataUser.user
-    console.log(this.locationDataModify)
+      console.log(this.locationDataModify)
 
       this.RequestLocationModify().subscribe(
-        (response:any) => this.ResponseLocationModify(response)
+        (response: any) => this.ResponseLocationModify(response)
       )
     }
   }
@@ -226,37 +234,37 @@ validateSession(){
 
   RequestLocationModify() {
     console.log("se agrega")
-   console.log(this.locationDataModify)
+    console.log(this.locationDataModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyLocation" , this.locationDataModify,httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyLocation", this.locationDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseLocationModify(response: any) {
     console.log(response)
-    if(response.code == 0 ){
+    if (response.code == 0) {
       alert(response.message)
       console.log("Se actualizo")
       this.back()
       this.ngOnInit()
-    }else{
+    } else {
       alert(response.message)
     }
   }
 
-  revoke(){
+  //finaliza la sesion
+  revoke() {
     console.log("salida")
-  console.log(this.dataUser.session)
-  this.RequestRevoke().subscribe(
-    (response: any) => this.ResponseRevoke(response)
-  )
+    console.log(this.dataUser.session)
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
   }
-
 
   RequestRevoke() {
 
@@ -265,7 +273,7 @@ validateSession(){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/"+ this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -279,7 +287,7 @@ validateSession(){
     } else {
 
       localStorage.clear()
-       this.router.navigateByUrl("/")
+      this.router.navigateByUrl("/")
     }
 
   }

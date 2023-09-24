@@ -15,10 +15,8 @@
       <th>Estatus Usuario</th>
       <th>Genero</th>
       <th>Fecha de ingreso</th>
-      <th>Intentos de Acesso</th>
-      <th>Ultima fecha cambio de Contraseña</th>
-      <th>Correo</th>
-      <th>Requiere Cambiar la contraseña</th>
+      <th>Fecha de ultimo cambio de contraseña</th>
+      <th>Correo secundario</th>
       <th>Telefono</th>
       <th>Sucursal</th>
       <th>Fecha de creacion</th>
@@ -34,10 +32,8 @@
         <td>{{getStatus(user.idStatusUser)}}</td>
         <td>{{getGender(user.idGender)}}</td>
         <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.accessAttempts}}</td>
         <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
         <td>{{user.email}}</td>
-        <td>{{user.requiresChangingPassword}}</td>
         <td>{{user.mobilePhone}}</td>
         <td>{{getLocation(user.idBranch)}}</td>
         <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
