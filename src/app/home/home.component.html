@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <div>
   <h1>Bienvenido usuario: {{dataUser.nameUser}}</h1>
   <div *ngIf="header">
@@ -7,23 +8,28 @@
   </div>
   <br>
 </div>
-<body >
-  <div>
-    <nav>
-      <ul *ngFor="let modulo of modulos">
-        <li>{{modulo.name}}
+<h4>Opciones</h4>
+<div class="sidebar">
+  <div class="item">
+  <nav>
+    <ul *ngFor="let modulo of modulos">
+      <li>{{modulo.name}}
+       
           <ul *ngFor="let menu of modulo.menus">
-            <li>{{menu.name}}
+            <li>   {{menu.name}}
               <ul *ngFor="let opcion of menu.opciones">
                 <li><a href="{{opcion.page}}">{{opcion.name}}</a></li>
               </ul>
             </li>
           </ul>
-        </li>
-      </ul>
-    </nav>
+   
+      </li>
+    </ul>
+  </nav>
+</div>
+</div>
+<hr />
 
-  </div>
-</body>
+
 
 </html>
