@@ -10,29 +10,30 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent {
 
-  constructor(private http: HttpClient,  private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   //vars
   url: String = "http://localhost:4042/v1"
   messageError: String = ""
   data: any = {}
-  routes : any = {}
-  dataUser:any = {}
+  routes: any = {}
+  dataUser: any = {}
+  alert: boolean = false
 
-  ngOnInit(){
+  ngOnInit() {
     //consumption service login
     this.routeService().subscribe(
       (response: any) => this.responseRouteService(response)
     )
-    
+
     this.limpiarSession()
   }
 
 
-  limpiarSession(){
+  limpiarSession() {
     this.dataUser = localStorage.getItem("data");
-    if(this.dataUser != null){
+    if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       this.revoke()
     }
@@ -60,10 +61,10 @@ export class LoginComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-     
+
       localStorage.clear()
     } else {
-    
+
       localStorage.clear()
     }
   }
@@ -71,12 +72,12 @@ export class LoginComponent {
 
 
   //recover password
-  recoverPassword(){
+  recoverPassword() {
     this.router.navigateByUrl("/recover")
   }
 
   //login
-  login(){
+  login() {
     //validate form
     let formularioValido: any = document.getElementById("loginForm");
     if (formularioValido.reportValidity()) {
@@ -98,41 +99,50 @@ export class LoginComponent {
       })
     }
     return this.http.post<any>(this.url + "/login", this.data, httpOptions).pipe(
-      catchError(e => "e")
+      catchError(e => "1")
     )
   }
 
   //response service login
   responseLoginService(response: any) {
-
+    console.log("No hay comunicación con el servidor!!")
     if (response != null) {
+
+      //valida si hay comunicacion
+
+      if (response == null || response == 1) {
+
+        this.messageError = "No hay comunicación con el servidor!!"
+        console.log("No hay comunicación con el servidor!!")
+        this.alert = true
+
+      }
       //validate code
-      if(response.code == 0){
+      else if (response.code == 0) {
         // login ok
         localStorage.setItem("data", JSON.stringify(response));
         this.router.navigateByUrl("/home")
       }
       //code error 1 = failed login, status user, current session
-      else if(response.code == 1){
+      else if (response.code == 1) {
         this.messageError = response.message
+        this.alert = true
       }
       //code error 2 = first login
-      else if(response.code == 2){
+      else if (response.code == 2) {
         localStorage.setItem("data", JSON.stringify(response));
         this.messageError = response.message
         this.router.navigateByUrl("/set-password")
       }
       //code error 3 = required change password
-      else if(response.code == 3){
-        localStorage.setItem("data",JSON.stringify(response))
+      else if (response.code == 3) {
+        localStorage.setItem("data", JSON.stringify(response))
         this.router.navigateByUrl("/reset-password")
       }
     }
     //error in consumption
-    else if (response == null || response == "e"){
-      console.log("No hay comunicación con el servidor!!")
 
-    }
+
   }
 
   //consumer service route
@@ -153,7 +163,7 @@ export class LoginComponent {
       //
       this.routes = response
 
-    } else if (response == null || response == "e"){
+    } else if (response == null || response == "e") {
       console.log("No hay comunicación con el servidor!!")
     }
   }

@@ -3,8 +3,8 @@
     height: 100%;
     box-sizing: border-box;
     padding: 10px;
-    background-color: rgb(253, 253, 253);
-    transition: ease-in-out 0.3s;
+    background-color: rgba(13, 1, 1, 0.115);
+    transition: ease-in-out 1s;
     overflow: hidden;
     border: solid;
     border-color: #070202;
@@ -40,7 +40,7 @@ hr {
 
 .item .text{
     opacity: 1;
-    transition: ease-in-out 0.3s;
+    transition: ease-in-out 5s;
     transition-delay: 0.2s;
     margin-left: 15px;
     white-space: nowrap;

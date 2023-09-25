@@ -25,8 +25,8 @@
           <button class="btn btn-warning" (click)="recoverPassword()"> Recuperar Contraseña</button>
         </div>
         <br>
-        <div>
-          <h3>{{messageError}}</h3>
+        <div *ngIf="alert">
+          <h3  class="alert alert-danger" >{{messageError}}</h3>
         </div>
 
 
