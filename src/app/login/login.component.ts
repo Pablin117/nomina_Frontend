@@ -21,7 +21,7 @@ export class LoginComponent {
   dataUser: any = {}
   alert: boolean = false
   apiUrl = "https://api64.ipify.org/?format=json";
-  ipData: string = ""
+  ipData: any 
 
   ngOnInit() {
     //consumption service login
@@ -46,8 +46,9 @@ export class LoginComponent {
   }
 
   responseIp(response: any) {
-    console.log(response)
-    this.ipData = response
+    
+    this.ipData = response.ip
+    console.log(this.ipData)
   }
 
 
@@ -112,20 +113,21 @@ export class LoginComponent {
   //consumer service login
   loginService() {
     this.data.idUser = this.data.idUser.toLowerCase()
-
+    
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/login", this.data, httpOptions).pipe(
-      catchError(e => "1")
+    return this.http.post<any>(this.url + "/login/" + this.ipData, this.data, httpOptions).pipe(
+      catchError(e => e)
     )
   }
 
   //response service login
   responseLoginService(response: any) {
-    console.log("No hay comunicación con el servidor!!")
+   
+    console.log(response)
     if (response != null) {
 
       //valida si hay comunicacion
