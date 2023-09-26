@@ -42,7 +42,7 @@ export class ModuleMaintenanceComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "module-maintenance"
+  page: string = "module"
 
 
 

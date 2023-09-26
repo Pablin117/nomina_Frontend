@@ -31,6 +31,7 @@ import { OptionComponent } from './option/option.component';
 import { RoleUserComponent } from './role-user/role-user.component';
 import { RoleOptionComponent } from './role-option/role-option.component';
 import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { HomeComponent } from './home/home.component';
     RoleUserComponent,
     RoleOptionComponent,
     HomeComponent,
+    NotFoundComponent,
   ],
 
   imports: [
