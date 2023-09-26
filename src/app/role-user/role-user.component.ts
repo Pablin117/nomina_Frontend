@@ -91,6 +91,8 @@ export class RoleUserComponent {
     this.tab = false
     this.modify = true
     this.header = false
+    this.roleUserDataModify = {}
+
   }
   Add() {
     this.modify = false
@@ -140,7 +142,6 @@ export class RoleUserComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.roleUserModify.userModification = this.dataUser.user
-
       this.requestRolUserUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
       )
@@ -148,13 +149,14 @@ export class RoleUserComponent {
   }
 
   requestRolUserUpdate() {
+    console.log("aqui")
     console.log(this.roleUserModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyGender", this.roleUserModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyuserRole", this.roleUserModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
