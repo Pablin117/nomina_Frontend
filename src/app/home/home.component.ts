@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,6 +20,9 @@ export class HomeComponent {
     this.validateSession()
   }
 
+
+
+
   //variables
   //objectos
   modulos: any = []
@@ -27,7 +31,6 @@ export class HomeComponent {
   header: boolean = true
   //url
   url: String = "http://localhost:4042/v1"
-
 
 
   //valida la sesion
@@ -39,10 +42,13 @@ export class HomeComponent {
       console.log("activo")
       console.log(this.dataUser)
       this.recoverUser();
+
     } else {
       this.router.navigateByUrl("/")
     }
   }
+
+
 
 
   //DIBOY START
