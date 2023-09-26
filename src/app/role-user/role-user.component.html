@@ -1,4 +1,4 @@
-<h1>Aisgnacion de usuarios a roles</h1>
+<h1>Asignación de usuarios a roles</h1>
 
 <div *ngIf="header">
   <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
@@ -77,11 +77,12 @@
       <input type="text" name="idUser" id="idUser" [(ngModel)]="roleUserModify.idUser"
         placeholder="{{roleUserModify.idUser}}" required disabled>
     </p>
-    <p>Selecciona el nuevo Id Role: </p>
+    <p>Selecciona el Role: </p>
     <select name="userRole" [(ngModel)]="roleUserModify.idRole">
       <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
-        {{role.idRole}}
+        {{role.name}}
       </option>
+      
     </select>
     <p>
     </p>
