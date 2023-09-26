@@ -20,14 +20,34 @@ export class LoginComponent {
   routes: any = {}
   dataUser: any = {}
   alert: boolean = false
+  apiUrl = "https://api64.ipify.org/?format=json";
+  ipData: string = ""
 
   ngOnInit() {
     //consumption service login
     this.routeService().subscribe(
       (response: any) => this.responseRouteService(response)
     )
-
+    this.ip()
     this.limpiarSession()
+  }
+
+
+  ip() {
+    this.requestIp().subscribe(
+      (response: any) => this.responseIp(response)
+    )
+  }
+
+  requestIp() {
+    return this.http.get<any>(this.apiUrl).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseIp(response: any) {
+    console.log(response)
+    this.ipData = response
   }
 
 
