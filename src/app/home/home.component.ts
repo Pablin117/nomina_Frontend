@@ -37,6 +37,7 @@ export class HomeComponent {
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
+      console.log(this.dataUser)
       this.recoverUser();
     } else {
       this.router.navigateByUrl("/")

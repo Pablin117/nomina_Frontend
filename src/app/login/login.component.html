@@ -3,37 +3,56 @@
 
 
 <body>
-  <section>
-    <form (ngSubmit)="login()" class="container" id="loginForm">
-      <div class="login1">
-        <h2>Inicio de Sesión</h2>
-        <div class="inputBox">
-          <p>
-            <input type="text" class="form-control" aria-describedby="passwordHelpInline" placeholder="Usuario"
-              style="text-transform:lowercase;" [(ngModel)]="data.idUser" [ngModelOptions]="{standalone: true}"
-              required>
-          </p>
-          <p>
-            <input type="password" class="form-control" aria-describedby="passwordHelpInline" placeholder="contraseña"
-              [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}" required>
-          </p>
-
+  <div class="content">
+    <div class="container position-absolute top-50 start-50 translate-middle">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Iniciar Sesión</h4>
+            </div>
+            <div class="card-body">
+              <form (ngSubmit)="login()" class="container" id="loginForm">
+                <div class="row">
+                  <div class="col-12 nl">
+                    <div class="form-group">
+                      <label for="email" class="form-label">Usuario</label>
+                      <input type="text" class="form-control" aria-describedby="passwordHelpInline"
+                         style="text-transform:lowercase;" [(ngModel)]="data.idUser"
+                        [ngModelOptions]="{standalone: true}" required>
+                    </div>
+                  </div>
+                  <div class="col-12 nl">
+                    <div class="form-group">
+                      <label for="password" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" aria-describedby="passwordHelpInline"
+                        [(ngModel)]="data.password" [ngModelOptions]="{standalone: true}"
+                        required>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="login start">
+                      <button type="submit" class="btn btn-primary btn-block" id="btn-login">Iniciar
+                        Sesión</button>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="signup end">
+                      <button type="button" class="btn btn-link" (click)="recoverPassword()">Recuperar
+                        contraseña</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="alert alert-danger top" role="alert" *ngIf="alert">
+            {{messageError}}
+          </div>
         </div>
-        <div class="inputBox">
-
-          <button class="btn btn-success" type="submit" id="btn">Ingresar</button>&nbsp;
-          <button class="btn btn-warning" (click)="recoverPassword()"> Recuperar Contraseña</button>
-        </div>
-        <br>
-        <div *ngIf="alert">
-          <h3  class="alert alert-danger" >{{messageError}}</h3>
-        </div>
-
-
-
       </div>
-    </form>
-  </section>
+    </div>
+  </div>
 </body>
 
 </html>

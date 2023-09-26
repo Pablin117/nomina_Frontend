@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html>
-
-<div>
-  <h1>Bienvenido usuario: {{dataUser.nameUser}}</h1>
-  <div *ngIf="header">
-    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark min-vh-100">
+      <div *ngFor="let modulo of modulos"
+        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
+        <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <span class="fs-5 d-none d-sm-inline">{{modulo.name}}</span>
+        </a>
+        <ul *ngFor="let menu of modulo.menus"
+          class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li>
+            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+              <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">{{menu.name}}</span> </a>
+            <ul *ngFor="let opcion of menu.opciones" class="collapse show nav flex-column ms-1" id="submenu1"
+              data-bs-parent="#menu">
+              <li class="w-100">
+                <a href="{{opcion.page}}" class="nav-link px-0"> <span
+                    class="d-none d-sm-inline">&nbsp;&nbsp;&nbsp;&nbsp;{{opcion.name}}</span></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <button class="btn btn-danger btn-logout" id="modificar" (click)="revoke()">Salir</button>
+    </div>
+    <div class="col py-3">
+      <h3>Bienvenido: {{dataUser.nameUser}}</h3>
+    </div>
   </div>
-  <br>
 </div>
-<h4>Opciones</h4>
-
-  <nav >
-    <ul *ngFor="let modulo of modulos" class="nav flex-column">
-      <li class="nav-item">{{modulo.name}}
-       
-          <ul *ngFor="let menu of modulo.menus">
-            <li>   {{menu.name}}
-              <ul *ngFor="let opcion of menu.opciones">
-                <li><a   class="nav-link active" aria-current="page"  href="{{opcion.page}}">{{opcion.name}}</a></li>
-              </ul>
-            </li>
-          </ul>
-   
-      </li>
-    </ul>
-  </nav>
 
 </html>
