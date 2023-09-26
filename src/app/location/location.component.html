@@ -6,16 +6,20 @@
 </div>
 
 <div *ngIf="tab">
-    <table class="table table-striped">
-        <th>IdSucursal</th>
-        <th>Empresa</th>
-        <th>Nombre</th>
-        <th>Direccion</th>
-        <th>Fecha de creacion</th>
-        <th>Usuario de creacion</th>
-        <th>Fecha de modificacion</th>
-        <th>Usuario de modificacion</th>
-        <th>Opción</th>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>IdSucursal</th>
+                <th>Empresa</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Fecha de creacion</th>
+                <th>Usuario de creacion</th>
+                <th>Fecha de modificacion</th>
+                <th>Usuario de modificacion</th>
+                <th>Opción</th>
+            </tr>
+        </thead>
         <tr *ngFor="let location of locationsData;">
             <td>{{location.idBranch}}</td>
             <td>{{ getCompanyName(location.idCompany) }}</td>
@@ -40,8 +44,9 @@
         &nbsp;
         <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
         &nbsp;
-        <button *ngIf="print" class="btn btn-primary" id="imprimir" >Imprimir</button>
-    </p></div>
+        <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+    </p>
+</div>
 
 
 
@@ -50,7 +55,8 @@
         <div>
             <p>Empresa:</p>
             <select id="companyDataSelect" name="companyDataSelect" [(ngModel)]="locationDataModify.idCompany" required>
-                <option *ngFor="let company of companyData" value="{{company.idCompany}}" required>{{company.name}}</option>
+                <option *ngFor="let company of companyData" value="{{company.idCompany}}" required>{{company.name}}
+                </option>
             </select>
             <p>Nombre:</p>
             <input type="text" id="name" name="name" [(ngModel)]="locationDataModify.name"
