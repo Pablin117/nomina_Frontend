@@ -7,47 +7,55 @@
 
 <div *ngIf="tab">
   <div>
-    <table class="table table-striped">
-      <th>Usuario</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Fecha de nacimiento</th>
-      <th>Estatus Usuario</th>
-      <th>Genero</th>
-      <th>Fecha de ingreso</th>
-      <th>Fecha de ultimo cambio de contraseña</th>
-      <th>Correo secundario</th>
-      <th>Telefono</th>
-      <th>Sucursal</th>
-      <th>Fecha de creacion</th>
-      <th>Usuario de creacion</th>
-      <th>Fecha de modificacion</th>
-      <th>Usuario de modificacion</th>
-      <th>Opción</th>
-      <tr *ngFor="let user of UsersData">
-        <td>{{user.idUser}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{getStatus(user.idStatusUser)}}</td>
-        <td>{{getGender(user.idGender)}}</td>
-        <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.mobilePhone}}</td>
-        <td>{{getLocation(user.idBranch)}}</td>
-        <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.userCreation}}</td>
-        <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-        <td>{{user.userModification}}</td>
-        <td>
-          <div>
-            <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(user)">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Fecha de nacimiento</th>
+          <th>Estatus Usuario</th>
+          <th>Genero</th>
+          <th>Fecha de ingreso</th>
+          <th>Fecha de ultimo cambio de contraseña</th>
+          <th>Correo secundario</th>
+          <th>Telefono</th>
+          <th>Sucursal</th>
+          <th>Fecha de creacion</th>
+          <th>Usuario de creacion</th>
+          <th>Fecha de modificacion</th>
+          <th>Usuario de modificacion</th>
+          <th>Opción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of UsersData">
+          <td>{{user.idUser}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{getStatus(user.idStatusUser)}}</td>
+          <td>{{getGender(user.idGender)}}</td>
+          <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.mobilePhone}}</td>
+          <td>{{getLocation(user.idBranch)}}</td>
+          <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{user.userCreation}}</td>
+          <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{user.userModification}}</td>
+          <td>
+            <div>
+              <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(user)">
                 Modificar</button>
-            <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-        </div>
-        </td>
-      </tr>
+              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+
     </table>
     <p>
       <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
@@ -55,44 +63,45 @@
       <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
       &nbsp;
       <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-  </p> </div>
+    </p>
+  </div>
 </div>
 
 <div class="contenedor" *ngIf="modify">
   <form (ngSubmit)="modForm()" id="modForm">
     <div>
       <p>Usuario: </p>
-      <input type="text" id="idRol" name="idRol" [(ngModel)]="userDataModify.idUser"
-             placeholder="{{userModify.idUser}}" required disabled="">
+      <input type="text" id="idRol" name="idRol" [(ngModel)]="userModify.idUser" placeholder="{{userModify.idUser}}"
+        required disabled="">
       <p>Nombre del Usuario:</p>
       <p>
-        <input type="text" id="name" name="name" [(ngModel)]="userDataModify.name" placeholder="{{userModify.name}}"
-               required>
+        <input type="text" id="name" name="name" [(ngModel)]="userModify.name" placeholder="{{userModify.name}}"
+          required>
       </p>
       <p>Apellido del Usuario:</p>
       <p>
-        <input type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName" placeholder="{{userModify.lastName}}"
-               required>
+        <input type="text" id="lastName" name="lastName" [(ngModel)]="userModify.lastName"
+          placeholder="{{userModify.lastName}}" required>
       </p>
       <p>Estado Usuario:</p>
       <p>
-        <select id="menu" name="menu" [(ngModel)]="userDataModify.idStatusUser">
+        <select id="menu" name="menu" [(ngModel)]="userModify.idStatusUser">
           <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
         </select>
       </p>
       <p>Correo:</p>
       <p>
-        <input type="text" id="email" name="email" [(ngModel)]="userDataModify.email" placeholder="{{userModify.email}}"
-               required>
+        <input type="text" id="email" name="email" [(ngModel)]="userModify.email" placeholder="{{userModify.email}}"
+          required>
       </p>
       <p>Telefono:</p>
       <p>
-        <input type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userModify.mobilePhone}}"
-               required>
+        <input type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userModify.mobilePhone"
+          placeholder="{{userModify.mobilePhone}}" required>
       </p>
       <p>Sucursal:</p>
       <p>
-        <select id="menu" name="menu" [(ngModel)]="userDataModify.idBranch">
+        <select id="menu" name="menu" [(ngModel)]="userModify.idBranch">
           <option *ngFor="let location of Varlocation" value="{{location.idBranch}}" required>{{location.name}}</option>
         </select>
       </p>
@@ -105,11 +114,8 @@
       </p>
       <p>
         <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="deletBack()" >Regresar</button>
+        <button class="btn btn-warning" id="Regresar" (click)="deletBack()">Regresar</button>
       </p>
     </div>
   </form>
 </div>
-
-
-

@@ -5,43 +5,52 @@
 </div>
 
 <div *ngIf="tab">
-    <table class="table table-striped">
-        <th>IdOption</th>
-        <th>Nombre</th>
-        <th>IdMenu</th>
-        <th>Orden en el menu</th>
-        <th>Pagina</th>
-        <th>Fecha de creación</th>
-        <th>Usuario de creación</th>
-        <th>Fecha de modificación</th>
-        <th>Usuario de modificación</th>
-        <th>Opción</th>
-        <tr *ngFor="let option of optionData">
-            <td>{{option.idOption}}</td>
-            <td>{{option.name}}</td>
-            <td>{{getMenuName(option.idMenu)}}</td>
-            <td>{{option.idOrderMenu}}</td>
-            <td>{{option.page}}</td>
-            <td>{{option.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-            <td>{{option.userCreation}}</td>
-            <td>{{option.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-            <td>{{option.userModification}}</td>
-            <td>
-             <div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>IdOption</th>
+                <th>Nombre</th>
+                <th>IdMenu</th>
+                <th>Orden en el menu</th>
+                <th>Pagina</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de modificación</th>
+                <th>Usuario de modificación</th>
+                <th>Opción</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let option of optionData">
+                <td>{{option.idOption}}</td>
+                <td>{{option.name}}</td>
+                <td>{{getMenuName(option.idMenu)}}</td>
+                <td>{{option.idOrderMenu}}</td>
+                <td>{{option.page}}</td>
+                <td>{{option.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td>{{option.userCreation}}</td>
+                <td>{{option.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td>{{option.userModification}}</td>
+                <td>
+                    <div>
                         <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(option)">
                             Modificar</button>
                         <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                     </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
+        </tbody>
+
     </table>
-   <p>
-            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-            &nbsp;
-            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
-            &nbsp;
-            <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-        </p></div>
+    <p>
+        <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+        &nbsp;
+        <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+        &nbsp;
+        <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+    </p>
+</div>
 
 <div class="container" *ngIf="modify">
     <h1>Opciones</h1>
@@ -61,7 +70,7 @@
             <p>Orden del menu</p>
             <p>
                 <input type="text" id="idOrderMenu" name="idOrderMenu" [(ngModel)]="optionModify.idOrderMenu"
-                placeholder="{{optionModify.idOrderMenu}}" required>
+                    placeholder="{{optionModify.idOrderMenu}}" required>
             </p>
             <p>Pagina</p>
             <p>
@@ -93,7 +102,8 @@
             </p>
             <p>Orden del menu</p>
             <p>
-                <input type="number" id="menuOrder" name="menuOrder" [(ngModel)]="optionDataCreate.idOrderMenu" placeholder="Orden en el menu" >
+                <input type="number" id="menuOrder" name="menuOrder" [(ngModel)]="optionDataCreate.idOrderMenu"
+                    placeholder="Orden en el menu">
             </p>
             <p>Pagina</p>
             <p>

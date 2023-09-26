@@ -146,12 +146,8 @@ export class UserMComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.userModify.name = this.userDataModify.name
-      this.userModify.lastName = this.userDataModify.lastName
-      this.userModify.idStatusUser = this.userDataModify.idStatusUser
-      this.userModify.email = this.userDataModify.email
-      this.userModify.mobilePhone = this.userDataModify.mobilePhone
-      this.userModify.idBranch = this.userDataModify.idBranch
+
+    
       this.userModify.userModification = this.dataUser.user
       this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
