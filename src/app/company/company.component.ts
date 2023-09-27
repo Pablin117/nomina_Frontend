@@ -159,9 +159,13 @@ export class CompanyComponent {
             if (this.companyDataCreate.passwordAmountUppercase >= 1) {
               this.companyDataCreate.userCreation = this.dataUser.user
 
-              this.RequestCompanySave().subscribe(
+
+              console.log(this.companyDataCreate)
+              /*this.RequestCompanySave().subscribe(
                 (response: any) => this.ResponseCompanySave(response)
-              )
+              )*/
+
+
             } else {
               alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
             }
