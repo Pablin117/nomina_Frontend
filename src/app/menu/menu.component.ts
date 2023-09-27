@@ -30,6 +30,7 @@ export class MenuComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  btnDelete: boolean = false
   //objectos
   menuDataCreate: any = {}
   menuDataModify: any = {}
@@ -72,6 +73,7 @@ export class MenuComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -269,6 +271,35 @@ export class MenuComponent {
   responseModule(response: any) {
     this.VarModule = response
     console.log(this.VarModule)
+  }
+
+  Delete(response:any){
+    console.log(response.idMenu)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteMenu/"+response.idMenu, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseDelete(response:any){
+    if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
   }
 
 
