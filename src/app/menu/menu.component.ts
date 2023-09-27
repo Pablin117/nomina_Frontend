@@ -33,6 +33,7 @@ export class MenuComponent {
   //objectos
   menuDataCreate: any = {}
   menuDataModify: any = {}
+  menuTemp: any = {}
   menuModify: any = {}
   dataUser: any = {}
   options: any = {}
@@ -140,10 +141,10 @@ export class MenuComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.menuModify.idModulo = this.menuDataModify.idModulo
-      this.menuModify.name = this.menuDataModify.name
-      this.menuModify.orderMenu = this.menuDataModify.orderMenu
-      this.menuModify.userModification = this.dataUser.user
+      console.log(this.menuDataModify)
+      this.menuDataModify.userModification = this.dataUser.user
+      this.menuDataModify.idMenu = this.menuTemp.idMenu
+      this.menuDataModify.idModulo = this.menuTemp.idModulo
       this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
@@ -156,7 +157,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyMenu/" + this.menuModify.idMenu, this.menuModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -176,8 +177,8 @@ export class MenuComponent {
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
-  Modify(menu: any) {
-    this.menuDataModify = menu
+  Modify(response: any) {
+    this.menuTemp = response
     this.add = false
     this.tab = false
     this.modify = true
