@@ -40,7 +40,7 @@ export class HomeComponent {
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-      console.log(this.dataUser)
+
       this.recoverUser();
 
     } else {
@@ -75,7 +75,7 @@ export class HomeComponent {
   responseSearchOptionsUserService(response: any) {
     //error in consumption
     if (response == null || response == "e") {
-      console.log("No hay comunicación con el servidor!!")
+
     } else if (response.code[0] == 1) {
       alert(response.message)
       this.revoke()

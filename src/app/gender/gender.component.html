@@ -28,24 +28,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  gender of genderData">
-                        <td>{{gender.idGender}}</td>
-                        <td>{{gender.name}}</td>
-                        <td>{{gender.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{gender.userCreation}}</td>
-                        <td>{{gender.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{gender.userModification}}</td>
+                    <tr *ngFor="let  data of genderData">
+                        <td>{{data.idGender}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userCreation}}</td>
+                        <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userModification}}</td>
                         <td>
                             <div>
                                 <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(gender)"> <i class="fa-solid fa-pen-to-square"></i>
+                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
                                     Modificar</button>
                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(gender)">
+                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
                                     <i class="fa-solid fa-delete-left"></i>
                                     Eliminar</button>
                             </div>

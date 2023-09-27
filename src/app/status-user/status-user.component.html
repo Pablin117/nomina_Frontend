@@ -29,24 +29,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  status of statusUserData">
-                        <td>{{status.idStatusUser}}</td>
-                        <td>{{status.name}}</td>
-                        <td>{{status.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{status.userCreation}}</td>
-                        <td>{{status.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{status.userModification}}</td>
+                    <tr *ngFor="let  data of statusUserData">
+                        <td>{{data.idStatusUser}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userCreation}}</td>
+                        <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userModification}}</td>
                         <td>
                             <div>
                                 <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(status)"> <i class="fa-solid fa-pen-to-square"></i>
+                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
                                     Modificar</button>
                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                             </div>
                         </td>
                         <td>
                             <div>
-                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(status)">
+                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
                                     <i class="fa-solid fa-delete-left"></i>
                                     Eliminar</button>
                             </div>
@@ -88,7 +88,7 @@
             <h1>Creación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-brands fa-slack"></i> &nbsp;</span>
-                <input name="name" [(ngModel)]="statusUserDataModify.name" type="text" class="form-control"
+                <input name="name" [(ngModel)]="statusUserDataCreate.name" type="text" class="form-control"
                     placeholder="Estado del usuario" required>
             </div>
             <div>
@@ -97,7 +97,5 @@
             </div>
         </form>
     </div>
-
-
 
 </div>

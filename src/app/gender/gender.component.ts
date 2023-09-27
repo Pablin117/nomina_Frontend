@@ -145,7 +145,7 @@ export class GenderComponent {
   }
 
   requestGenderUpdate() {
-console.log(this.genderDataModify)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ console.log(this.genderDataModify)
 //para eliminar
 
 Delete(response:any){
-  console.log(response)
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
