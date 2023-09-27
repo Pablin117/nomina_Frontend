@@ -26,12 +26,13 @@
                         <th>Usuario de creacion</th>
                         <th>Fecha de modificacion</th>
                         <th>Usuario de modificacion</th>
-                        <th>Opción</th>
+                        <th>Opciónes</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let location of locationsData;">
-                        <td>{{location.idBranch}}</td>
+                        <td>{{location.idLocation}}</td>
                         <td>{{ getCompanyName(location.idCompany) }}</td>
                         <td>{{location.name}}</td>
                         <td>{{location.address}}</td>
@@ -45,6 +46,14 @@
                                     (click)="Modify(location)"> <i class="fa-solid fa-pen-to-square"></i>
                                     Modificar</button>
                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>   <button *ngIf="btnDelete" class="btn btn-danger"
+                                id="delete" (click)="Delete(location)"> <i class="fa-solid fa-delete-left"></i>
+                                Eliminar</button>
+                        
+
                             </div>
                         </td>
                     </tr>
@@ -98,16 +107,16 @@
             <h1>Agregar</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-list-check"></i></span>
-                <select class="form-select" name="companySelect" [(ngModel)]="locationDataModify.idCompany" required>
+                <select class="form-select" name="companySelect" [(ngModel)]="locationDataCreate.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
 
                 <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
-                <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
+                <input name="name" [(ngModel)]="locationDataCreate.name" type="text" class="form-control"
                     placeholder="Nombre" required>
 
                 <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
-                <input name="name" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
+                <input name="name" [(ngModel)]="locationDataCreate.address" type="text" class="form-control"
                     placeholder="Dirección" required>
             </div>
             <div>

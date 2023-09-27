@@ -1,21 +1,20 @@
 table {
-    width: 75%;
+    width: 90%;
     border: 2px solid #11151c;
     text-align: center;
     border-collapse: collapse;
-    margin:5%;
-
+    margin: 1rem;
  }
 
 
 
  caption, td, th {
-    padding: 1%;
+    padding: 0.1rem;
  }
  
  th, td {
     border-bottom: 1px solid #999;
-    width: 5%;
+    width: 5rem;
  }
 
 

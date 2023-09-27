@@ -131,8 +131,10 @@ export class GenderComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.genderDataModify.userModification = this.dataUser.user
-      this.genderDataModify.idGender = this.genderTemp.idGender
+ 
+      this.genderTemp.userModification = this.dataUser.user
+      this.genderTemp.name = this.genderDataModify.name
+      console.log(this.genderTemp)
 
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
@@ -147,7 +149,7 @@ export class GenderComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyGender", this.genderDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyGender", this.genderTemp, httpOptions).pipe(
       catchError(e => "1")
     )
   }

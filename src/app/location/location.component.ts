@@ -26,6 +26,7 @@ export class LocationComponent {
   companyData: any = []
   locationDataCreate: any = {}
   locationDataModify: any = {}
+  btnDelete: boolean = false
   locationTemp: any = {}
   options: any = {}
   dataUser: any = {}
@@ -76,12 +77,47 @@ export class LocationComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
 
   }
 
+
+
+//para eliminar
+
+Delete(response:any){
+
+  console.log(response)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+  
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteLocation/"+response.idLocation, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  responseDelete(response:any){
+    if (response.code == 0) {
+  
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
+  
 
 
   //obtine sucursales
@@ -167,6 +203,8 @@ export class LocationComponent {
     this.add = false
     this.tab = true
     this.header = true
+    this.locationDataCreate = {}
+    this.locationDataModify = {}
   }
 
 
@@ -175,9 +213,10 @@ export class LocationComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.locationDataCreate.userCreation = this.dataUser.user
-     /* this.RequestLocationSave().subscribe(
+      console.log(this.locationDataCreate)
+      this.RequestLocationSave().subscribe(
         (response: any) => this.ResponseLocationSave(response)
-      )*/
+      )
     }
   }
 
@@ -210,10 +249,8 @@ export class LocationComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-
       this.locationDataModify.userModification = this.dataUser.user
-
-
+      this.locationDataModify.idLocation= this.locationTemp.idLocation
      this.RequestLocationModify().subscribe(
         (response: any) => this.ResponseLocationModify(response)
       )
@@ -229,7 +266,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyLocation", this.locationDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyLocation/"+this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
