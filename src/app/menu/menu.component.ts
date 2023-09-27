@@ -140,10 +140,8 @@ export class MenuComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.menuModify.idModulo = this.menuDataModify.idModulo
-      this.menuModify.name = this.menuDataModify.name
-      this.menuModify.orderMenu = this.menuDataModify.orderMenu
-      this.menuModify.userModification = this.dataUser.user
+      console.log(this.menuDataModify)
+      this.menuDataModify.userModification = this.dataUser.user
       this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
@@ -156,7 +154,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyMenu/" + this.menuModify.idMenu, this.menuModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
