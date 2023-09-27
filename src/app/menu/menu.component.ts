@@ -144,6 +144,7 @@ export class MenuComponent {
       console.log(this.menuDataModify)
       this.menuDataModify.userModification = this.dataUser.user
       this.menuDataModify.idMenu = this.menuTemp.idMenu
+      this.menuDataModify.idModulo = this.menuTemp.idModulo
       this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )

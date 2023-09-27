@@ -75,7 +75,7 @@
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-  <select class="form-control" id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
+  <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuTemp.idModulo" required>
     <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
   </select>
 </div>
