@@ -90,7 +90,6 @@ export class LocationComponent {
 
 Delete(response:any){
 
-  console.log(response)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -177,7 +176,7 @@ Delete(response:any){
 
   //modifica
   Modify(response: any) {
-    console.log(response)
+  
     this.locationTemp = response
     this.add = false
     this.tab = false
@@ -213,7 +212,7 @@ Delete(response:any){
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.locationDataCreate.userCreation = this.dataUser.user
-      console.log(this.locationDataCreate)
+
       this.RequestLocationSave().subscribe(
         (response: any) => this.ResponseLocationSave(response)
       )
@@ -235,7 +234,6 @@ Delete(response:any){
   ResponseLocationSave(response: any) {
     if (response.code == 0) {
       alert(response.message)
-      console.log("Se guardo")
       this.back()
       this.ngOnInit()
     } else {

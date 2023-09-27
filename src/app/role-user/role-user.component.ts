@@ -27,6 +27,7 @@ export class RoleUserComponent {
   header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
+  btnDelete: boolean = false
   print: boolean = false
   exporte: boolean = false
   //url
@@ -36,7 +37,7 @@ export class RoleUserComponent {
   roleUserDataModify: any = {}
   roleUserDataCreate: any = {}
   roleUserData: any = []
-  roleUserModify: any = {}
+  roleUserTemp: any = {}
   dataUser: any = {}
   selectedUser: any = []
   selectedRole: any = []
@@ -54,7 +55,7 @@ export class RoleUserComponent {
       console.log("activo")
       this.optionsValidate()
       this.roleUser()
-      this.userService()
+    
 
     } else {
       this.router.navigateByUrl("/")
@@ -76,6 +77,7 @@ export class RoleUserComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -86,12 +88,11 @@ export class RoleUserComponent {
   //banderas
   Modify(id: any) {
     console.log("modifica")
-    this.roleUserModify = id
+    this.roleUserTemp = id
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.roleUserDataModify = {}
 
   }
   Add() {
@@ -99,8 +100,6 @@ export class RoleUserComponent {
     this.add = true
     this.tab = false
     this.header = false
-    this.selectedUser = {}
-    this.selectedRole = {}
     console.log("add")
   }
   back() {
@@ -109,15 +108,17 @@ export class RoleUserComponent {
     this.add = false
     this.tab = true
     this.header = true
+    this.roleUserDataCreate = {}
+    this.roleUserDataModify = {}
   }
 
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
-
+//obtiene Role User
   roleUser() {
     this.requestRolUser().subscribe(
-      (response: any) => this.responseGender(response)
+      (response: any) => this.responseRolUser(response)
     )
 
   }
@@ -131,9 +132,12 @@ export class RoleUserComponent {
       catchError(e => "1")
     )
   }
-  responseGender(response: any) {
-    console.log(response)
+  responseRolUser(response: any) {
+
     this.roleUserData = response
+    console.log("se obtiene roles user")
+    console.log(this.roleUserData)
+    this.userService()
   }
 
   getRoleName(idRole: number): string {
@@ -145,28 +149,58 @@ export class RoleUserComponent {
     return '';
   }
 
+//para eliminar
+
+Delete(response:any){
+console.log(response)
+  /*
+  this.requestDelete(response).subscribe(
+    (response: any) => this.responseDelete(response)
+  )*/
+}
+
+requestDelete(response:any){
+  var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  return this.http.delete<any>(this.url + "/deleteUserRole/"+response.idUser, httpOptions).pipe(
+    catchError(e => "1")
+  )
+}
+
+responseDelete(response:any){
+  if (response.code == 0) {
+
+    alert(response.message)
+    this.back()
+    this.ngOnInit()
+  } else {
+    alert(response.message)
+  }
+}
 
   //modificacion
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.roleUserModify.userModification = this.dataUser.user
-      this.requestRolUserUpdate().subscribe(
+      this.roleUserTemp.userModification = this.dataUser.user
+    /*  this.requestRolUserUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
-      )
+      )*/
     }
   }
 
   requestRolUserUpdate() {
-    console.log("aqui")
-    console.log(this.roleUserModify)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyuserRole", this.roleUserModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateUserRole/"+this.roleUserDataModify.idUser, this.roleUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -188,9 +222,9 @@ export class RoleUserComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.roleUserDataCreate.userCreation = this.dataUser.user
-      this.requestRolUserSave().subscribe(
+      /*this.requestRolUserSave().subscribe(
         (response: any) => this.responseRolUserSave(response)
-      )
+      )*/
     }
   }
 
@@ -200,13 +234,12 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/userAsignRole", this.roleUserDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createUserRole", this.roleUserDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   responseRolUserSave(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -217,7 +250,7 @@ export class RoleUserComponent {
   }
 
 
-  //llamar info del usaurio y roles
+  //llamar info del usaurio 
   userService() {
     this.RequestUser().subscribe(
       (response: any) => this.ResponseUser(response)
@@ -237,39 +270,38 @@ export class RoleUserComponent {
 
   ResponseUser(response: any) {
     this.userData = response;
-    console.log("Se obtuvo la data del userrio");
-    console.log(response)
-
+    console.log("obtiene usuario")
+    console.log(this.userData)
     this.RequestRole().subscribe(
       (response: any) => this.ResponseRole(response)
     )
 
   }
+//obtiene roles
+roleService() {
+  this.RequestRole().subscribe(
+    (response: any) => this.ResponseRole(response)
+  )
+}
 
-  roleService() {
-    this.RequestRole().subscribe(
-      (response: any) => this.ResponseRole(response)
-    )
+RequestRole() {
+  var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
   }
+  return this.http.get<any>(this.url + "/role", httpOptions).pipe(
+    catchError(e => "1")
+  )
+}
 
-  RequestRole() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>(this.url + "/role", httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponseRole(response: any) {
-    this.roleData = response;
-    console.log("Se obtuvo la data de los roles");
-    console.log(response)
+ResponseRole(response: any) {
+  this.roleData = response;
+  console.log("obtinene roles");
+  console.log(response)
 
 
-  }
+}
 
 
   //cierre de sesion
