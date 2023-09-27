@@ -1,14 +1,19 @@
-<h1>Menus</h1>
-<div *ngIf="header">
-  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
-  <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
-</div>
-
-
-<div *ngIf="tab">
-  <div>
-    <table class="table table-hover">
-      <thead>
+<div class="container-fluid">
+  <div class="container text-center">
+    <h1>Menus</h1>
+    <div>
+      <div *ngIf="header">
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+          class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
+          class="fa-solid fa-right-from-bracket"></i> x Salir</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover">
+        <thead>
         <tr>
           <th>IdMenu</th>
           <th>Modulo</th>
@@ -20,8 +25,8 @@
           <th>Usuario de modificacion</th>
           <th>Opcion</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         <tr *ngFor="let menu of MenusData">
           <td>{{menu.idMenu}}</td>
           <td>{{getModulos(menu.idModulo)}}</td>
@@ -33,77 +38,62 @@
           <td>{{menu.userModification}}</td>
           <td>
             <div>
-              <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(menu)">
+              <button *ngIf="btnUpdate" class="btn btn-secondary"
+                      id="modificar" (click)="Modify(menu)"> <i
+                class="fa-solid fa-pen-to-square"></i>
                 Modificar</button>
-              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm"
+                      disabled>No Disponible</button>
             </div>
           </td>
         </tr>
-      </tbody>
+        </tbody>
+      </table>
+      <div>
 
-    </table>
-    <p>
-      <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-      &nbsp;
-      <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
-      &nbsp;
-      <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-    </p>
+        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+          class="fa-regular fa-square-plus"></i> Agregar</button>
+
+
+        &nbsp;
+        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i
+          class="fa-solid fa-download"></i> Exportar</button>
+        &nbsp;
+        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i
+          class="fa-solid fa-print"></i> Imprimir</button>
+
+      </div>
+    </div>
   </div>
+  <div class="container text-left" *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+      <h1>Modificación</h1>
+<div class="input-group mb-3">
+<span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+  <input type="text" id="idMenu" name="idMenu" [(ngModel)]="menuDataModify.idMenu" placeholder="{{menuTemp.idMenu}}"
+         class="form-control" required disabled="">
 </div>
-
-<div *ngIf="modify">
-  <form (ngSubmit)="modForm()" id="modForm">
-    <div>
-      <p>IdMenu: </p>
-      <input type="text" id="idRol" name="idRol" [(ngModel)]="menuDataModify.idMenu" placeholder="{{menuModify.idMenu}}"
-        required disabled="">
-      <p>Modulo:</p>
-      <p>
-        <select id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
-          <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
-        </select>
-      </p>
-      <p>Nombre del Menu:</p>
-      <p>
-        <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name"
-          placeholder="{{menuModify.name}}" required>
-      </p>
-      <p>Orden del menu:</p>
-      <p>
-        <input type="text" id="OrdenMenu" name="OrdenMenu" [(ngModel)]="menuDataModify.orderMenu"
-          placeholder="{{menuModify.orderMenu}}" required>
-      </p>
-      <p>
-        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
+<div class="input-group mb-3">
+  <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+  <select id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
+    <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
+  </select>
 </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
+               placeholder="{{menuTemp.name}}" required>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input type="text" id="OrdenMenu" name="OrdenMenu" [(ngModel)]="menuDataModify.orderMenu" class="form-control"
+               placeholder="{{menuTemp.orderMenu}}" required>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
 
-
-<div *ngIf="add">
-  <form (ngSubmit)="addForm()" id="addForm">
-    <div>
-      <p>Modulo:</p>
-      <p>
-        <select id="menu" name="menu" [(ngModel)]="menuDataCreate.idModulo">
-          <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
-        </select>
-      </p>
-      <p>Nombre:</p>
-      <p>
-        <input type="text" id="name" name="name" [(ngModel)]="menuDataCreate.name" placeholder="Nombre" required>
-      </p>
-      <p>Orden del Menu:</p>
-      <p>
-        <input type="text" id="name" name="name" [(ngModel)]="menuDataCreate.orderMenu" placeholder="1" required>
-      </p>
-      <p>
-        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

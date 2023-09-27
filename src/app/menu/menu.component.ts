@@ -33,6 +33,7 @@ export class MenuComponent {
   //objectos
   menuDataCreate: any = {}
   menuDataModify: any = {}
+  menuTemp: any = {}
   menuModify: any = {}
   dataUser: any = {}
   options: any = {}
@@ -174,8 +175,8 @@ export class MenuComponent {
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
-  Modify(menu: any) {
-    this.menuDataModify = menu
+  Modify(response: any) {
+    this.menuTemp = response
     this.add = false
     this.tab = false
     this.modify = true
