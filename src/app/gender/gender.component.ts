@@ -32,10 +32,11 @@ export class GenderComponent {
   exporte: boolean = false
 
   //objetos
-  generDataModify: any = {}
+  genderDataModify: any = {}
   genderDataCreate: any = {}
+  genderTemp: any = {}
   genderData: any = []
-  genderModify: any = {}
+
   dataUser: any = {}
   options: any = {}
   //url
@@ -78,9 +79,9 @@ export class GenderComponent {
   }
 
   //banderas
-  Modify(id: any) {
+  Modify(response: any) {
     console.log("modifica")
-    this.genderModify = id
+    this.genderTemp = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -130,7 +131,7 @@ export class GenderComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.genderModify.userModification = this.dataUser.user
+      this.genderDataModify.userModification = this.dataUser.user
 
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
@@ -145,7 +146,7 @@ export class GenderComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyGender", this.genderModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyGender", this.genderDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }

@@ -92,63 +92,63 @@
                 <form (ngSubmit)="modForm()" id="modForm">
                         <h1>Modificación</h1>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre</span>
                                 <input name="name" [(ngModel)]="companyDataModify.name" type="text" class="form-control"
                                         placeholder="{{companyTemp.name}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
                                 <input name="address" [(ngModel)]="companyDataModify.address" type="text"
                                         class="form-control" placeholder="{{companyTemp.address}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp;Nit</span>
                                 <input name="address" [(ngModel)]="companyDataModify.nit" type="text"
                                         class="form-control" placeholder="{{companyTemp.nit}}" required>
                         </div>
                         <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp;Cantidad de mayusculas</span>
                                 <input name="mayusculas" [(ngModel)]="companyDataModify.passwordAmountUppercase"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountUppercase}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de minusculas</span>
                                 <input name="Minusculas" [(ngModel)]="companyDataModify.passwordAmountLowercase"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountLowercase}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de números</span>
                                 <input name="Numeros" [(ngModel)]="companyDataModify.passwordAmountNumber" type="number"
                                         class="form-control" placeholder="{{companyTemp.passwordAmountNumber}}"
                                         required>
                         </div>
                         <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de carácteres Especiales</span>
                                 <input name="Especial" [(ngModel)]="companyDataModify.passwordAmountSpecialCharacters"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountSpecialCharacters}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-minus"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-minus"></i>&nbsp; Longitud minima </span>
                                 <input name="min" [(ngModel)]="companyDataModify.passwordlength" type="number"
                                         class="form-control" placeholder="{{companyTemp.passwordlength}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-plus"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-plus"></i> &nbsp; Longitud maxima</span>
                                 <input type="number" class="form-control" placeholder="Longitud maxima 25" disabled>
                         </div>
                         <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp; Cantidad de días para caducar</span>
                                 <input name="expiracion" [(ngModel)]="companyDataModify.passwordAmountExpirationsDays"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountExpirationsDays}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i>&nbsp; Cantidad de intentos para bloqueo</span>
                                 <input name="bloqueo"
                                         [(ngModel)]="companyDataModify.passwordAmountAttemptsBeforeBlocking"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountAttemptsBeforeBlocking}}" required>
 
-                                <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i></span>
+                                <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i> &nbsp;  Cantidad de preguntas a validar</span>
                                 <input name="validas" [(ngModel)]="companyDataModify.passwordAmountQuestionsValidate"
                                         type="number" class="form-control"
                                         placeholder="{{companyTemp.passwordAmountQuestionsValidate}}" required>

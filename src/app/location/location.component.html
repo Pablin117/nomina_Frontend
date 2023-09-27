@@ -49,7 +49,6 @@
                         </td>
                     </tr>
                 </tbody>
-
             </table>
             <div>
 
@@ -77,11 +76,11 @@
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
 
-                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
                 <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
                     placeholder="{{locationTemp.name}}" required>
 
-                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
                 <input name="name" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
                     placeholder="{{locationTemp.address}}" required>
             </div>
@@ -101,11 +100,11 @@
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
 
-                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
                 <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
                     placeholder="Nombre" required>
 
-                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
                 <input name="name" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
                     placeholder="Dirección" required>
             </div>
