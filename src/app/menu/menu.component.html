@@ -75,7 +75,7 @@
 </div>
 <div class="input-group mb-3">
   <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-  <select id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
+  <select class="form-control" id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
     <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
   </select>
 </div>
@@ -94,6 +94,27 @@
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
       </div>
 
+    </form>
+  </div>
+  <div class="container text-left" *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+      <h1>Creación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <select class="form-control" id="menu" name="menu" [(ngModel)]="menuDataCreate.idModulo">
+          <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
+        </select>
+
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name" placeholder="Nombre" required>
+
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input class="form-control" type="text" id="odermenu" name="odermenu" [(ngModel)]="menuDataCreate.orderMenu" placeholder="1" required>
+      </div>
+        <div>
+          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+        </div>
     </form>
   </div>
 </div>

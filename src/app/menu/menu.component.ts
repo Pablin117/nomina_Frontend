@@ -143,6 +143,7 @@ export class MenuComponent {
     if (formularioValido.reportValidity()) {
       console.log(this.menuDataModify)
       this.menuDataModify.userModification = this.dataUser.user
+      this.menuDataModify.idMenu = this.menuTemp.idMenu
       this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
