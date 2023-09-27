@@ -27,7 +27,7 @@
         <tbody>
           <tr *ngFor="let  status of roleUserData">
             <td>{{status.idUser}}</td>
-            <td>{{status.idRole}}</td>
+            <td>{{ getRoleName(status.idRole) }}</td>
             <td>{{status.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td>{{status.userCreation}}</td>
             <td>{{status.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -83,26 +83,22 @@
     </div>
 
 
-    <div class="container-fluid" *ngIf="modify">
+    <div class="container text-left" *ngIf="modify">
       <form (ngSubmit)="modForm()" id="modForm">
         <h1>Modificación</h1>
-        <p>Id Usuario</p>
-        <p>
-          <input type="text" name="idUser" id="idUser" [(ngModel)]="roleUserModify.idUser"
-            placeholder="{{roleUserModify.idUser}}" required disabled>
-        </p>
-        <p>Selecciona el Role: </p>
-        <select name="userRole" [(ngModel)]="roleUserModify.idRole">
+        <div class="input-group xs">
+        <span class="input-group-text"><i class="fa-solid fa-paint-roller"></i></span>
+        <select  class="form-select" name="userRole" [(ngModel)]="roleUserModify.idRole">
           <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
             {{role.name}}
           </option>
-
         </select>
+      </div>
         <p>
         </p>
         <p>
-          <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
-          <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
+          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
 
       </form>
     </div>
