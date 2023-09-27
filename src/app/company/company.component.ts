@@ -32,8 +32,8 @@ export class CompanyComponent {
   //objects
   companyDataModify: any = {}
   companyDataCreate: any = {}
+  companyTemp: any = {}
   BussinessRules: any = []
-  companyModify: any = {}
   dataUser: any = {}
   options: any = {}
 
@@ -103,26 +103,31 @@ export class CompanyComponent {
 
   //formulario para modificar
   modForm() {
-    if (this.companyModify.passwordAmountSpecialCharacters >= 1) {
-      if (this.companyModify.passwordAmountNumber >= 1) {
-        if (this.companyModify.passwordAmountLowercase >= 1) {
-          if (this.companyModify.passwordAmountUppercase >= 1) {
-            this.companyModify.userModification = this.dataUser.user
-            this.RequestCompanyUpdate().subscribe(
-              (response: any) => this.ResponseCompanyUpdate(response)
-            )
+    let formularioValido : any = document.getElementById("modForm")
+    if(formularioValido.reportValidity()){
+      if (this.companyDataModify.passwordAmountSpecialCharacters >= 1) {
+        if (this.companyDataModify.passwordAmountNumber >= 1) {
+          if (this.companyDataModify.passwordAmountLowercase >= 1) {
+            if (this.companyDataModify.passwordAmountUppercase >= 1) {
+              this.companyDataModify.userModification = this.dataUser.user
+        
+              this.RequestCompanyUpdate().subscribe(
+                (response: any) => this.ResponseCompanyUpdate(response)
+              )
+            } else {
+              alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
+            }
           } else {
-            alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
+            alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
           }
         } else {
-          alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
+          alert("La cantidad de caracteres de números debe ser mayor a 0")
         }
       } else {
-        alert("La cantidad de caracteres de números debe ser mayor a 0")
+        alert("La cantidad de caracteres especiales debe ser mayor a 0")
       }
-    } else {
-      alert("La cantidad de caracteres especiales debe ser mayor a 0")
     }
+ 
   }
   RequestCompanyUpdate() {
     var httpOptions = {
@@ -130,7 +135,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateCompany", this.companyModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateCompany", this.companyDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -211,13 +216,11 @@ export class CompanyComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
 
 
-  Modify(company: any) {
-    console.log("modifica")
-    this.companyModify = company
+  Modify(response: any) {
+    this.companyTemp = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -226,10 +229,9 @@ export class CompanyComponent {
 
 
   back() {
-    console.log("back")
-    this.modify = false
-    this.add = false
     this.tab = true
+    this.add = false
+    this.modify = false
     this.header = true
   }
 

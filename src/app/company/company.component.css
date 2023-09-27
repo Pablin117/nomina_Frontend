@@ -4,7 +4,10 @@ table {
     text-align: center;
     border-collapse: collapse;
     margin:5%;
+
  }
+
+
 
  caption, td, th {
     padding: 1%;
@@ -26,7 +29,12 @@ table {
    border-color: #e0e4ce;
    color: #2d3839;
  }
- 
+ .btn-primary:active{
+  background-color: #e0e4ce;
+  border-color: #e0e4ce;
+  color: #2d3839;
+}
+
 
  .btn-secondary {
    background-color: #114d4d;
@@ -39,6 +47,11 @@ table {
    border-color: #6e9987;
    color: #e0e4ce;
  }
+ .btn-secondary:active {
+  background-color: #114d4d;
+  border-color: #114d4d;
+  color: #e0e4ce;
+}
 
  
  .btn-danger {
@@ -52,8 +65,3 @@ table {
    color: #e7ecef;
  }
 
-
- 
- div{
-   align-items: right;
- }
