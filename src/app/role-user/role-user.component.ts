@@ -136,6 +136,16 @@ export class RoleUserComponent {
     this.roleUserData = response
   }
 
+  getRoleName(idRole: number): string {
+    for (let x = 0; x < this.roleData.length; x++) {
+      if (this.roleData[x].idRole== idRole) {
+        return this.roleData[x].name
+      }
+    }
+    return '';
+  }
+
+
   //modificacion
 
   modForm() {

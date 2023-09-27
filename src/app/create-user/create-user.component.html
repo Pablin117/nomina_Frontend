@@ -1,17 +1,19 @@
 <h1>Creación de usuario</h1>
-<div *ngIf ="!showSpinner" >
+<div  *ngIf ="!showSpinner">
 <div *ngIf="header">
-  <button class="btn btn-danger"   (click)="revoke()">Salir</button>&nbsp;
-  <button class="btn btn-warning"   (click)="back()">Regresar</button>
+  <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>&nbsp;
+  <button class="btn btn-danger"   (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i> x Salir</button>&nbsp;
+ 
 </div>
 </div>
-<div><h1>Espera por favor</h1>
+<div  *ngIf ="showSpinner">
+  <h1>Espera por favor</h1>
   <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
   <span class="sr-only"></span>
 </div>
 </div>
 
-<body *ngIf ="!showSpinner" >
+<body class="container text-left" *ngIf ="!showSpinner" >
   <div>
     <form (ngSubmit)="create()" id="create"><br>
 

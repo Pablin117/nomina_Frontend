@@ -21,7 +21,7 @@ export class LoginComponent {
   dataUser: any = {}
   alert: boolean = false
   apiUrl = "https://api64.ipify.org/?format=json";
-  ipData: any 
+  ipData: any
 
   ngOnInit() {
     //consumption service login
@@ -46,9 +46,9 @@ export class LoginComponent {
   }
 
   responseIp(response: any) {
-    
+
     this.ipData = response.ip
-    console.log(this.ipData)
+
   }
 
 
@@ -113,31 +113,25 @@ export class LoginComponent {
   //consumer service login
   loginService() {
     this.data.idUser = this.data.idUser.toLowerCase()
-    
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
     return this.http.post<any>(this.url + "/login/" + this.ipData, this.data, httpOptions).pipe(
-      catchError(e => e)
+      catchError(e => "1")
     )
   }
 
   //response service login
   responseLoginService(response: any) {
-   
-    console.log(response)
+
     if (response != null) {
-
       //valida si hay comunicacion
-
       if (response == null || response == 1) {
-
         this.messageError = "No hay comunicación con el servidor!!"
-        console.log("No hay comunicación con el servidor!!")
         this.alert = true
-
       }
       //validate code
       else if (response.code == 0) {
@@ -163,8 +157,6 @@ export class LoginComponent {
       }
     }
     //error in consumption
-
-
   }
 
   //consumer service route
@@ -175,7 +167,7 @@ export class LoginComponent {
       })
     }
     return this.http.get<any>(this.url + "/option", httpOptions).pipe(
-      catchError(e => "e")
+      catchError(e => "1")
     )
   }
 
@@ -185,7 +177,7 @@ export class LoginComponent {
       //
       this.routes = response
 
-    } else if (response == null || response == "e") {
+    } else if (response == null || response == "1") {
       console.log("No hay comunicación con el servidor!!")
     }
   }
