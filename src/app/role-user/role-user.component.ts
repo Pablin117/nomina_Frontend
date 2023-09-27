@@ -31,7 +31,7 @@ export class RoleUserComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  page:string ="role-user"
+  page: string = "role-user"
   url: String = "http://localhost:4042/v1"
   //objetos
   roleUserDataModify: any = {}
@@ -55,7 +55,7 @@ export class RoleUserComponent {
       console.log("activo")
       this.optionsValidate()
       this.roleUser()
-    
+
 
     } else {
       this.router.navigateByUrl("/")
@@ -115,7 +115,7 @@ export class RoleUserComponent {
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
-//obtiene Role User
+  //obtiene Role User
   roleUser() {
     this.requestRolUser().subscribe(
       (response: any) => this.responseRolUser(response)
@@ -133,53 +133,50 @@ export class RoleUserComponent {
     )
   }
   responseRolUser(response: any) {
-
     this.roleUserData = response
-    console.log("se obtiene roles user")
-    console.log(this.roleUserData)
     this.userService()
   }
 
   getRoleName(idRole: number): string {
     for (let x = 0; x < this.roleData.length; x++) {
-      if (this.roleData[x].idRole== idRole) {
+      if (this.roleData[x].idRole == idRole) {
         return this.roleData[x].name
       }
     }
     return '';
   }
 
-//para eliminar
+  //para eliminar
 
-Delete(response:any){
-console.log(response)
-  /*
-  this.requestDelete(response).subscribe(
-    (response: any) => this.responseDelete(response)
-  )*/
-}
-
-requestDelete(response:any){
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  Delete(response: any) {
+    console.log(response)
+    
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
   }
-  return this.http.delete<any>(this.url + "/deleteUserRole/"+response.idUser, httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
 
-responseDelete(response:any){
-  if (response.code == 0) {
-
-    alert(response.message)
-    this.back()
-    this.ngOnInit()
-  } else {
-    alert(response.message)
+  requestDelete(response: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteUserRole/" + response.idUser, httpOptions).pipe(
+      catchError(e => "1")
+    )
   }
-}
+
+  responseDelete(response: any) {
+    if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
 
   //modificacion
 
@@ -187,9 +184,10 @@ responseDelete(response:any){
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.roleUserTemp.userModification = this.dataUser.user
-    /*  this.requestRolUserUpdate().subscribe(
+      this.roleUserDataModify = this.roleUserTemp
+      this.requestRolUserUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
-      )*/
+      )
     }
   }
 
@@ -200,13 +198,13 @@ responseDelete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateUserRole/"+this.roleUserDataModify.idUser, this.roleUserDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateUserRole/" + this.roleUserDataModify.idUser, this.roleUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   responseGenderUpdate(response: any) {
     if (response.code == 0) {
-      console.log(response)
+
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -222,9 +220,10 @@ responseDelete(response:any){
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.roleUserDataCreate.userCreation = this.dataUser.user
-      /*this.requestRolUserSave().subscribe(
+
+      this.requestRolUserSave().subscribe(
         (response: any) => this.responseRolUserSave(response)
-      )*/
+      )
     }
   }
 
@@ -270,38 +269,35 @@ responseDelete(response:any){
 
   ResponseUser(response: any) {
     this.userData = response;
-    console.log("obtiene usuario")
-    console.log(this.userData)
+
     this.RequestRole().subscribe(
       (response: any) => this.ResponseRole(response)
     )
 
   }
-//obtiene roles
-roleService() {
-  this.RequestRole().subscribe(
-    (response: any) => this.ResponseRole(response)
-  )
-}
-
-RequestRole() {
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  //obtiene roles
+  roleService() {
+    this.RequestRole().subscribe(
+      (response: any) => this.ResponseRole(response)
+    )
   }
-  return this.http.get<any>(this.url + "/role", httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
 
-ResponseRole(response: any) {
-  this.roleData = response;
-  console.log("obtinene roles");
-  console.log(response)
+  RequestRole() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/role", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseRole(response: any) {
+    this.roleData = response;
 
 
-}
+  }
 
 
   //cierre de sesion

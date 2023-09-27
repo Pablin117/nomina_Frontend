@@ -7,7 +7,7 @@
         <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
             class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
         <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
-          x Salir</button>
+          Salir</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,8 @@
             <th>Usuario de creación</th>
             <th>Fecha de modificación</th>
             <th>Usuario de modificación</th>
-            <th>Opción</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
@@ -42,6 +43,13 @@
                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
               </div>
             </td>
+            <td>
+              <div>
+                  <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
+                      <i class="fa-solid fa-delete-left"></i>
+                      Eliminar</button>
+              </div>
+          </td>
           </tr>
         </tbody>
 
@@ -84,9 +92,9 @@
       <h1>Agregar</h1>
       <div class="input-group mb-3">
 
-        <span class="input-group-text"><i class="fa-solid fa-paint-roller"></i>&nbsp; Usuario</span>
+        <span class="input-group-text"><i class="fa-solid fa-user"></i>&nbsp; Usuario</span>
         <select class="form-select" name="userRole" [(ngModel)]="roleUserDataCreate.idUser">
-          <option *ngFor="let user of userData" value="{{user.idUser}}" required> {{user.name}}
+          <option *ngFor="let user of userData" value="{{user.idUser}}" required> {{user.idUser}}
           </option>
         </select>
        
