@@ -72,15 +72,16 @@
         <form (ngSubmit)="modForm()" id="modForm">
             <h1>Modificación</h1>
             <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-list-check"></i></span>
                 <select class="form-select" name="companySelect" [(ngModel)]="locationDataModify.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
 
-                <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map"></i>&nbsp; Nombre</span>
                 <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
                     placeholder="{{locationTemp.name}}" required>
 
-                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
                 <input name="name" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
                     placeholder="{{locationTemp.address}}" required>
             </div>
@@ -94,8 +95,9 @@
 
     <div class="container text-left"  *ngIf="add">
         <form (ngSubmit)="addForm()" id="addForm">
-            <h1>Modificación</h1>
+            <h1>Agregar</h1>
             <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-list-check"></i></span>
                 <select class="form-select" name="companySelect" [(ngModel)]="locationDataModify.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>

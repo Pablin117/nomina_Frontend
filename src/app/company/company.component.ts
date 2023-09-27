@@ -103,14 +103,14 @@ export class CompanyComponent {
 
   //formulario para modificar
   modForm() {
-    let formularioValido : any = document.getElementById("modForm")
-    if(formularioValido.reportValidity()){
+    let formularioValido: any = document.getElementById("modForm")
+    if (formularioValido.reportValidity()) {
       if (this.companyDataModify.passwordAmountSpecialCharacters >= 1) {
         if (this.companyDataModify.passwordAmountNumber >= 1) {
           if (this.companyDataModify.passwordAmountLowercase >= 1) {
             if (this.companyDataModify.passwordAmountUppercase >= 1) {
               this.companyDataModify.userModification = this.dataUser.user
-        
+              this.companyDataModify.idCompany = this.companyTemp.idCompany
               this.RequestCompanyUpdate().subscribe(
                 (response: any) => this.ResponseCompanyUpdate(response)
               )
@@ -127,7 +127,7 @@ export class CompanyComponent {
         alert("La cantidad de caracteres especiales debe ser mayor a 0")
       }
     }
- 
+
   }
   RequestCompanyUpdate() {
     var httpOptions = {
@@ -163,14 +163,10 @@ export class CompanyComponent {
           if (this.companyDataCreate.passwordAmountLowercase >= 1) {
             if (this.companyDataCreate.passwordAmountUppercase >= 1) {
               this.companyDataCreate.userCreation = this.dataUser.user
-
-
               console.log(this.companyDataCreate)
               this.RequestCompanySave().subscribe(
                 (response: any) => this.ResponseCompanySave(response)
               )
-
-
             } else {
               alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
             }
@@ -183,6 +179,8 @@ export class CompanyComponent {
       } else {
         alert("La cantidad de caracteres especiales debe ser mayor a 0")
       }
+
+      
     }
   }
   RequestCompanySave() {
@@ -220,6 +218,7 @@ export class CompanyComponent {
 
 
   Modify(response: any) {
+    console.log(response)
     this.companyTemp = response
     this.add = false
     this.tab = false

@@ -132,6 +132,7 @@ export class GenderComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.genderDataModify.userModification = this.dataUser.user
+      this.genderDataModify.idGender = this.genderTemp.idGender
 
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
@@ -151,6 +152,7 @@ export class GenderComponent {
     )
   }
   responseGenderUpdate(response: any) {
+    
     if (response.code == 0) {
 
       alert(response.message)

@@ -64,37 +64,30 @@
     <div class="container text-left" *ngIf="modify">
         <form (ngSubmit)="modForm()" id="modForm">
             <h1>Modificación</h1>
-            <div>
-                <span class="input-group-text"><i class="fa-solid fa-check"></i> &nbsp;IdGenero</span>
-                <input name="name" [(ngModel)]="genderDataModify.idGender" type="text" class="form-control"
-                    placeholder="{{genderTemp.idGender}}" >
-
+            <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i> &nbsp; Nombre del Genero</span>
                 <input name="name" [(ngModel)]="genderDataModify.name" type="text" class="form-control"
                     placeholder="{{genderTemp.name}}" required>
-
-               
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
                 <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
             </div>
-
-
         </form>
     </div>
 
     <div class="container text-left" *ngIf="add">
         <form (ngSubmit)="addForm()" id="addForm">
             <h1>Creación</h1>
-            <p>Nombre: </p>
-            <p><input type="text" id="name" name="name" [(ngModel)]="genderDataCreate.name" placeholder="Nombre"
-                    required>
-            </p>
-            <p>
-                <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
-                <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-            </p>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i></span>
+                <input name="name" [(ngModel)]="genderDataCreate.name" type="text" class="form-control"
+                    placeholder="Nombre del genero" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+            </div>
         </form>
     </div>
 
