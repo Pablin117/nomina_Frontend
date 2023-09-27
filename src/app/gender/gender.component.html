@@ -23,23 +23,31 @@
                         <th>Usuario de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Usuario de modificación</th>
-                        <th>Opción</th>
+                        <th>Opciones</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  status of genderData">
-                        <td>{{status.idGender}}</td>
-                        <td>{{status.name}}</td>
-                        <td>{{status.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{status.userCreation}}</td>
-                        <td>{{status.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{status.userModification}}</td>
+                    <tr *ngFor="let  gender of genderData">
+                        <td>{{gender.idGender}}</td>
+                        <td>{{gender.name}}</td>
+                        <td>{{gender.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{gender.userCreation}}</td>
+                        <td>{{gender.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{gender.userModification}}</td>
                         <td>
                             <div>
                                 <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(status)"> <i class="fa-solid fa-pen-to-square"></i>
+                                    (click)="Modify(gender)"> <i class="fa-solid fa-pen-to-square"></i>
                                     Modificar</button>
                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(gender)">
+                                    <i class="fa-solid fa-delete-left"></i>
+                                    Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -54,7 +62,6 @@
                 &nbsp;
                 <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>
                     Imprimir</button>
-
             </div>
         </div>
     </div>

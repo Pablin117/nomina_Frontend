@@ -27,6 +27,7 @@ export class GenderComponent {
   add: boolean = false
   tab: boolean = true
   btnAdd: boolean = false
+  btnDelete: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
@@ -73,6 +74,7 @@ export class GenderComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -132,9 +134,9 @@ export class GenderComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
  
-      this.genderTemp.userModification = this.dataUser.user
-      this.genderTemp.name = this.genderDataModify.name
-      console.log(this.genderTemp)
+      this.genderDataModify.userModification = this.dataUser.user
+      this.genderDataModify.idGender = this.genderTemp.idGender
+
 
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
@@ -143,13 +145,13 @@ export class GenderComponent {
   }
 
   requestGenderUpdate() {
-
+console.log(this.genderDataModify)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyGender", this.genderTemp, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateGender/"+this.genderDataModify.idGender, this.genderDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -165,6 +167,38 @@ export class GenderComponent {
     }
   }
 
+
+//para eliminar
+
+Delete(response:any){
+  console.log(response)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+  
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  responseDelete(response:any){
+    if (response.code == 0) {
+  
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
+  
 
   //agregar
   addForm() {

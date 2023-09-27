@@ -266,7 +266,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyLocation/"+this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateLocation/"+this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }

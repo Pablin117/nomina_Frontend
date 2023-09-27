@@ -36,12 +36,11 @@
                                                 <th>Usuario de creación</th>
                                                 <th>Fecha de modificación</th>
                                                 <th>Usuario de modificación</th>
-                                                <th>Opciónes</th>
+                                                <th>Opciones</th>
                                                 <th>&nbsp;</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-
                                         <tr *ngFor="let  rule of BussinessRules">
                                                 <td>{{rule.idCompany}}</td>
                                                 <td>{{rule.name}}</td>
@@ -68,15 +67,16 @@
                                                                         Modificar</button>
                                                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm"
                                                                         disabled>No Disponible</button>
-                                                                
+
 
                                                         </div>
                                                 </td>
                                                 <td>
                                                         <div>
                                                                 <button *ngIf="btnDelete" class="btn btn-danger"
-                                                                id="delete" (click)="Delete(rule)"> <i class="fa-solid fa-delete-left"></i>
-                                                                Eliminar</button>
+                                                                        id="delete" (click)="Delete(rule)"> <i
+                                                                                class="fa-solid fa-delete-left"></i>
+                                                                        Eliminar</button>
                                                         </div>
                                                 </td>
                                         </tr>
@@ -103,8 +103,8 @@
                         <h1>Modificación</h1>
                         <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre</span>
-                                <input maxlength="10" name="name" [(ngModel)]="companyDataModify.name" type="text" class="form-control"
-                                        placeholder="{{companyTemp.name}}"  >
+                                <input maxlength="10" name="name" [(ngModel)]="companyDataModify.name" type="text"
+                                        class="form-control" placeholder="{{companyTemp.name}}">
 
                                 <span class="input-group-text"><i
                                                 class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
@@ -251,3 +251,4 @@
                         </div>
                 </form>
         </div>
+</div>

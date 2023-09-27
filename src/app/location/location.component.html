@@ -26,7 +26,7 @@
                         <th>Usuario de creacion</th>
                         <th>Fecha de modificacion</th>
                         <th>Usuario de modificacion</th>
-                        <th>Opciónes</th>
+                        <th>Opciones</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -81,7 +81,7 @@
         <form (ngSubmit)="modForm()" id="modForm">
             <h1>Modificación</h1>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-list-check"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
                 <select class="form-select" name="companySelect" [(ngModel)]="locationDataModify.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
@@ -106,7 +106,7 @@
         <form (ngSubmit)="addForm()" id="addForm">
             <h1>Agregar</h1>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-list-check"></i></span>
+                <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
                 <select class="form-select" name="companySelect" [(ngModel)]="locationDataCreate.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
                 </select>
