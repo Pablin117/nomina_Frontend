@@ -1,14 +1,16 @@
-<div class="container-fluid" >
+<div class="container-fluid">
 
         <div class="container text-center">
                 <h1>Empresa</h1>
-                <div >
-                        <div *ngIf="header"> 
-                                <button class="btn btn-primary"  id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
-                                <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i> x Salir</button>
+                <div>
+                        <div *ngIf="header">
+                                <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+                                                class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+                                <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
+                                                class="fa-solid fa-right-from-bracket"></i> x Salir</button>
                         </div>
                 </div>
-               
+
 
         </div>
 
@@ -34,11 +36,11 @@
                                                 <th>Usuario de creación</th>
                                                 <th>Fecha de modificación</th>
                                                 <th>Usuario de modificación</th>
-                                                <th>Opción</th>
+                                                <th>Opciones</th>
+                                                <th>&nbsp;</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-        
                                         <tr *ngFor="let  rule of BussinessRules">
                                                 <td>{{rule.idCompany}}</td>
                                                 <td>{{rule.name}}</td>
@@ -59,149 +61,194 @@
                                                 <td>{{rule.userModification}}</td>
                                                 <td>
                                                         <div>
-                                                                <button *ngIf="btnUpdate" class="btn btn-secondary"  id="modificar"
-                                                                        (click)="Modify(rule)"> <i class="fa-solid fa-pen-to-square"></i>
+                                                                <button *ngIf="btnUpdate" class="btn btn-secondary"
+                                                                        id="modificar" (click)="Modify(rule)"> <i
+                                                                                class="fa-solid fa-pen-to-square"></i>
                                                                         Modificar</button>
                                                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm"
                                                                         disabled>No Disponible</button>
+
+
+                                                        </div>
+                                                </td>
+                                                <td>
+                                                        <div>
+                                                                <button *ngIf="btnDelete" class="btn btn-danger"
+                                                                        id="delete" (click)="Delete(rule)"> <i
+                                                                                class="fa-solid fa-delete-left"></i>
+                                                                        Eliminar</button>
                                                         </div>
                                                 </td>
                                         </tr>
                                 </tbody>
-        
                         </table>
                         <div>
-             
-                                <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i class="fa-regular fa-square-plus"></i> Agregar</button>
-              
-                              
+
+                                <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+                                                class="fa-regular fa-square-plus"></i> Agregar</button>
                                 &nbsp;
-                                <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i> Exportar</button>
+                                <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i
+                                                class="fa-solid fa-download"></i> Exportar</button>
                                 &nbsp;
-                                <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
-            
+                                <button *ngIf="print" class="btn btn-primary" id="imprimir"><i
+                                                class="fa-solid fa-print"></i> Imprimir</button>
+
                         </div>
-        
+
                 </div>
         </div>
-                
-        <div class="container-fluid" *ngIf="modify">
+
+        <div class="container text-left" *ngIf="modify">
                 <form (ngSubmit)="modForm()" id="modForm">
                         <h1>Modificación</h1>
-                        <label>Nombre: </label>
-                        <label> <input type="text" id="name" name="name" [(ngModel)]="companyModify.name"
-                                        placeholder="{{companyModify.name}}" required>
-                        </label>
-                        <label>Direccion: </label>
-                        <label> <input type="text" id="address" name="address" [(ngModel)]="companyModify.address"
-                                        placeholder="{{companyModify.address}}" required>
-                        </label>
-                        <label>Nit: </label>
-                        <label> <input type="text" id="address" name="address" [(ngModel)]="companyModify.nit"
-                                        placeholder="{{companyModify.nit}}" required>
-                        </label>
-                        <label>Cantidad minima de Mayusculas: </label>
-                        <label><input type="number" id="mayusculas" name="mayusculas"
-                                        [(ngModel)]="companyModify.passwordAmountUppercase"
-                                        placeholder="{{companyModify.passwordAmountUppercase}}" required>
-                        </label>
-                        <label>Cantidad minima de Minusculas:</label>
-                        <label> <input type="number" id="Minusculas" name="Minusculas"
-                                        [(ngModel)]="companyModify.passwordAmountLowercase"
-                                        placeholder="{{companyModify.passwordAmountLowercase}}" required>
-                        </label>
-                        <label>Cantidad minima de Caracteres Especiales:</label>
-                        <label> <input type="number" id="Especial" name="Especial"
-                                        [(ngModel)]="companyModify.passwordAmountSpecialCharacters"
-                                        placeholder="{{companyModify.passwordAmountSpecialCharacters}}" required>
-                        </label>
-                        <label>Cantidad minima de Numeros:</label>
-                        <label> <input type="number" id="Numeros" name="Numeros"
-                                        [(ngModel)]="companyModify.passwordAmountNumber"
-                                        placeholder="{{companyModify.passwordAmountNumber}}" required>
-                        </label>
-                        <label>Long. Minima: </label>
-                        <label><input type="number" id="min" name="min" [(ngModel)]="companyModify.passwordlength"
-                                        placeholder="{{companyModify.passwordlength}}" required>
-                        </label>
-                        <label>Long. Maxima:</label>
-                        <label><input type="number" placeholder="25" disabled>
-                        </label>
-                        <label>Días Expiracion:</label>
-                        <label><input type="number" id="expiracion" name="expiracion"
-                                        [(ngModel)]="companyModify.passwordAmountExpirationsDays"
-                                        placeholder="{{companyModify.passwordAmountExpirationsDays}}" required>
-                        </label>
-                        <label>Intentos de bloqueo:</label>
-                        <label>
-                                <input type="number" id="bloqueo" name="bloqueo"
-                                        [(ngModel)]="companyModify.passwordAmountAttemptsBeforeBlocking"
-                                        placeholder="{{companyModify.passwordAmountAttemptsBeforeBlocking}}" required>
-                        </label>
-                        <label>Preguntas validas:</label>
-                        <label>
-                                <input type="number" id="validas" name="validas"
-                                        [(ngModel)]="companyModify.passwordAmountQuestionsValidate"
-                                        placeholder="{{companyModify.passwordAmountQuestionsValidate}}" required>
-                        </label>
-                        <label>
-                                <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
-                                <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-                        </label>
-                </form>
-        </div>
-        
-        <div class="container text-left" *ngIf="add">
-                <form (ngSubmit)="addForm()" id="addForm">
-                        <h1 >Creación</h1>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-                                <input name="name" [(ngModel)]="companyDataCreate.name" type="text" class="form-control" placeholder="Nombre"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
-                                <input name="address" [(ngModel)]="companyDataCreate.address" type="text" class="form-control" placeholder="Direccion"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
-                                <input name="address" [(ngModel)]="companyDataCreate.nit" type="text" class="form-control" placeholder="Nit"  required>
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre</span>
+                                <input maxlength="10" name="name" [(ngModel)]="companyDataModify.name" type="text"
+                                        class="form-control" placeholder="{{companyTemp.name}}">
+
+                                <span class="input-group-text"><i
+                                                class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
+                                <input name="address" [(ngModel)]="companyDataModify.address" type="text"
+                                        class="form-control" placeholder="{{companyTemp.address}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp;Nit</span>
+                                <input name="address" [(ngModel)]="companyDataModify.nit" type="text"
+                                        class="form-control" placeholder="{{companyTemp.nit}}" required>
                         </div>
+                        <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
-                                <input name="mayusculas" [(ngModel)]="companyDataCreate.passwordAmountUppercase" type="number" class="form-control" placeholder="Cantidad de Mayusculas"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
-                                <input name="Minusculas" [(ngModel)]="companyDataCreate.passwordAmountLowercase" type="number" class="form-control" placeholder="Cantidad de Minusculas"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
-                                <input  name="Numeros" [(ngModel)]="companyDataCreate.passwordAmountNumber" type="number" class="form-control" placeholder="Cantidad de números"  required>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp;Cantidad de
+                                        mayusculas</span>
+                                <input name="mayusculas" [(ngModel)]="companyDataModify.passwordAmountUppercase"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountUppercase}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+                                        minusculas</span>
+                                <input name="Minusculas" [(ngModel)]="companyDataModify.passwordAmountLowercase"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountLowercase}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+                                        números</span>
+                                <input name="Numeros" [(ngModel)]="companyDataModify.passwordAmountNumber" type="number"
+                                        class="form-control" placeholder="{{companyTemp.passwordAmountNumber}}"
+                                        required>
                         </div>
+                        <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
-                                <input name="Especial" [(ngModel)]="companyDataCreate.passwordAmountSpecialCharacters" type="number" class="form-control" placeholder="Cantidad minima de Caracteres Especiales"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-minus"></i></span>
-                                <input name="min"  [(ngModel)]="companyDataCreate.passwordlength" type="number" class="form-control" placeholder="Longitud minima"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-plus"></i></span>
-                                <input   type="number" class="form-control" placeholder="Longitud maxima 25"  disabled>
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+                                        carácteres Especiales</span>
+                                <input name="Especial" [(ngModel)]="companyDataModify.passwordAmountSpecialCharacters"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountSpecialCharacters}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-minus"></i>&nbsp; Longitud minima
+                                </span>
+                                <input name="min" [(ngModel)]="companyDataModify.passwordlength" type="number"
+                                        class="form-control" placeholder="{{companyTemp.passwordlength}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-plus"></i> &nbsp; Longitud
+                                        maxima</span>
+                                <input type="number" class="form-control" placeholder="Longitud maxima 25" disabled>
                         </div>
+                        <br>
                         <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
-                                <input name="expiracion"  [(ngModel)]="companyDataCreate.passwordAmountExpirationsDays" type="number" class="form-control" placeholder="Días Expiracion"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
-                                <input name="bloqueo" [(ngModel)]="companyDataCreate.passwordAmountAttemptsBeforeBlocking" type="number" class="form-control" placeholder="Intentos de bloqueo"  required>
-        
-                                <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i></span>
-                                <input  name="validas" [(ngModel)]="companyDataCreate.passwordAmountQuestionsValidate" type="number" class="form-control" placeholder="Preguntas validas"  required>
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp; Cantidad
+                                        de días para caducar</span>
+                                <input name="expiracion" [(ngModel)]="companyDataModify.passwordAmountExpirationsDays"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountExpirationsDays}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i>&nbsp; Cantidad
+                                        de intentos para bloqueo</span>
+                                <input name="bloqueo"
+                                        [(ngModel)]="companyDataModify.passwordAmountAttemptsBeforeBlocking"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountAttemptsBeforeBlocking}}" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i> &nbsp;
+                                        Cantidad de preguntas a validar</span>
+                                <input name="validas" [(ngModel)]="companyDataModify.passwordAmountQuestionsValidate"
+                                        type="number" class="form-control"
+                                        placeholder="{{companyTemp.passwordAmountQuestionsValidate}}" required>
                         </div>
+                        <br>
                         <div>
-                                <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
-                                <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-                       
+                                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
                         </div>
-                   
                 </form>
+
         </div>
 
-   
-  
+        <div class="container text-left" *ngIf="add">
+                <form (ngSubmit)="addForm()" id="addForm">
+                        <h1>Creación</h1>
+                        <div class="input-group mb-3">
+
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <input name="name" [(ngModel)]="companyDataCreate.name" type="text" class="form-control"
+                                        placeholder="Nombre" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
+                                <input name="address" [(ngModel)]="companyDataCreate.address" type="text"
+                                        class="form-control" placeholder="Direccion" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
+                                <input name="address" [(ngModel)]="companyDataCreate.nit" type="text"
+                                        class="form-control" placeholder="Nit" required>
+                        </div>
+                        <br>
+                        <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <input name="mayusculas" [(ngModel)]="companyDataCreate.passwordAmountUppercase"
+                                        type="number" class="form-control" placeholder="Cantidad de Mayusculas"
+                                        required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <input name="Minusculas" [(ngModel)]="companyDataCreate.passwordAmountLowercase"
+                                        type="number" class="form-control" placeholder="Cantidad de Minusculas"
+                                        required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <input name="Numeros" [(ngModel)]="companyDataCreate.passwordAmountNumber" type="number"
+                                        class="form-control" placeholder="Cantidad de números" required>
+                        </div>
+                        <br>
+                        <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                                <input name="Especial" [(ngModel)]="companyDataCreate.passwordAmountSpecialCharacters"
+                                        type="number" class="form-control"
+                                        placeholder="Cantidad minima de Caracteres Especiales" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-minus"></i></span>
+                                <input name="min" [(ngModel)]="companyDataCreate.passwordlength" type="number"
+                                        class="form-control" placeholder="Longitud minima" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-plus"></i></span>
+                                <input type="number" class="form-control" placeholder="Longitud maxima 25" disabled>
+                        </div>
+                        <br>
+                        <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                <input name="expiracion" [(ngModel)]="companyDataCreate.passwordAmountExpirationsDays"
+                                        type="number" class="form-control" placeholder="Días Expiracion" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
+                                <input name="bloqueo"
+                                        [(ngModel)]="companyDataCreate.passwordAmountAttemptsBeforeBlocking"
+                                        type="number" class="form-control" placeholder="Intentos de bloqueo" required>
+
+                                <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i></span>
+                                <input name="validas" [(ngModel)]="companyDataCreate.passwordAmountQuestionsValidate"
+                                        type="number" class="form-control" placeholder="Preguntas validas" required>
+                        </div>
+                        <br>
+                        <div>
+                                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+                        </div>
+                </form>
+        </div>
+</div>

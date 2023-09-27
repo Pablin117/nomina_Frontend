@@ -1,36 +1,48 @@
-<h1>Bitacora de Accesos</h1>
-
-
-<div *ngIf="header">
-    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
-</div>
-
-    <div  *ngIf="tab" >
-        <table class="table table-striped">
-            <th>Id Bitacora Acceso</th>
-            <th>Id Ususario</th>
-            <th>Id Tipo de Acceso</th>
-            <th>Fecha de Acceso</th>
-            <th>HttpUserAgent</th>
-            <th>Direccion IP</th>
-            <th>Accion</th>
-            <th>Sistema operativo</th>
-            <th>Dispositivo</th>
-            <th>Navegador</th>
-            <th>Sesion</th>
-            <tr *ngFor="let log of logData;">
-                <td>{{log.idLog}}</td>
-                <td>{{log.idUser}}</td>
-                <td>{{log.idtypeAccess}}</td>
-                <td>{{log.dateAccess |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{log.httpUserAgent}}</td>
-                <td>{{log.ipAdress}}</td>
-                <td>{{log.action}}</td>
-                <td>{{log.os}}</td>
-                <td>{{log.divice}}</td>
-                <td>{{log.browser}}</td>
-                <td>{{log.sesion}}</td>
-            </tr>
+<div class="container-fluid">
+    <div class="container text-center">
+        <h1>Bitacora de Accesos</h1>
+        <div>
+            <div *ngIf="header">
+                <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+                        class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+                <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
+                        class="fa-solid fa-right-from-bracket"></i>
+                    x Salir</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="tab">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id Bitacora Acceso</th>
+                    <th>Id Ususario</th>
+                    <th>Id Tipo de Acceso</th>
+                    <th>Fecha de Acceso</th>
+                    <th>HttpUserAgent</th>
+                    <th>Direccion IP</th>
+                    <th>Accion</th>
+                    <th>Sistema operativo</th>
+                    <th>Dispositivo</th>
+                    <th>Navegador</th>
+                    <th>Sesion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logData;">
+                    <td>{{log.idLog}}</td>
+                    <td>{{log.idUser}}</td>
+                    <td>{{log.idtypeAccess}}</td>
+                    <td>{{log.dateAccess |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                    <td>{{log.httpUserAgent}}</td>
+                    <td>{{log.ipAdress}}</td>
+                    <td>{{log.action}}</td>
+                    <td>{{log.os}}</td>
+                    <td>{{log.divice}}</td>
+                    <td>{{log.browser}}</td>
+                    <td>{{log.sesion}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
+</div>

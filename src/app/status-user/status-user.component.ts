@@ -27,6 +27,7 @@ export class StatusUserComponent {
   add: boolean = false
   tab: boolean = true
   btnAdd: boolean = false
+  btnDelete: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
@@ -37,7 +38,7 @@ export class StatusUserComponent {
   statusUserDataModify: any = {}
   statusUserDataCreate: any = {}
   statusUserData: any = []
-  statusUserModify: any = {}
+  statusUserTemp: any = {}
   dataUser: any = {}
 
   //url
@@ -65,36 +66,27 @@ export class StatusUserComponent {
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
+
     let permisos: any = {}
     this.options.forEach((item: any) => {
       if (item.page === this.page) {
         permisos = item.permisos
       }
     })
-
     permisos.forEach((item: any) => {
-
-      if (item.up == 1) {
-        this.btnAdd = true
-      }
-      if (item.update == 1) {
-        this.btnUpdate = true
-      }
-      if (item.print == 1) {
-        this.print = true
-      }
-      if (item.export == 1) {
-        this.exporte = true
-      }
+      this.btnAdd = item.up == 1 ? true : false
+      this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
     })
-
   }
 
 
   //banderas
   Modify(company: any) {
     console.log("modifica")
-    this.statusUserModify = company
+    this.statusUserTemp = company
     this.add = false
     this.tab = false
     this.modify = true
@@ -113,12 +105,16 @@ export class StatusUserComponent {
     this.add = false
     this.tab = true
     this.header = true
+    this.statusUserDataCreate = {}
+    this.statusUserDataModify = {}
   }
 
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
 
+
+  //Obtiene estados de usuario
   statusUser() {
     this.requestStatusUser().subscribe(
       (response: any) => this.responseStatusUser(response)
@@ -136,16 +132,48 @@ export class StatusUserComponent {
     )
   }
   responseStatusUser(response: any) {
-
     this.statusUserData = response
   }
+
+
+//para eliminar
+
+Delete(response:any){
+  console.log(response)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+  
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  responseDelete(response:any){
+    if (response.code == 0) {
+  
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
+  
 
   //modificacion
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.statusUserModify.userModification = this.dataUser.user
+      this.statusUserTemp.userModification = this.dataUser.user
 
       this.requestStatusUserUpdate().subscribe(
         (response: any) => this.responseStatusUserUpdate(response)
@@ -160,7 +188,7 @@ export class StatusUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusUser", this.statusUserModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateStatusUser", this.statusUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
