@@ -31,26 +31,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let location of locationsData;">
-                        <td>{{location.idLocation}}</td>
-                        <td>{{ getCompanyName(location.idCompany) }}</td>
-                        <td>{{location.name}}</td>
-                        <td>{{location.address}}</td>
-                        <td>{{location.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{location.userCreation}}</td>
-                        <td>{{location.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{location.userModification}}</td>
+                    <tr *ngFor="let data of locationsData;">
+                        <td>{{data.idLocation}}</td>
+                        <td>{{ getCompanyName(data.idCompany) }}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.address}}</td>
+                        <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userCreation}}</td>
+                        <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                        <td>{{data.userModification}}</td>
                         <td>
                             <div>
                                 <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(location)"> <i class="fa-solid fa-pen-to-square"></i>
+                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
                                     Modificar</button>
                                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
                             </div>
                         </td>
                         <td>
                             <div>   <button *ngIf="btnDelete" class="btn btn-danger"
-                                id="delete" (click)="Delete(location)"> <i class="fa-solid fa-delete-left"></i>
+                                id="delete" (click)="Delete(data)"> <i class="fa-solid fa-delete-left"></i>
                                 Eliminar</button>
                         
 
@@ -82,8 +82,8 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
-                <select class="form-select" name="companySelect" [(ngModel)]="locationDataModify.idCompany" required>
-                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
+                <select class="form-select" name="company" [(ngModel)]="locationTemp.idCompany" required>
+                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" required >{{company.name}}</option>
                 </select>
 
                 <span class="input-group-text"><i class="fa-solid fa-map"></i>&nbsp; Nombre</span>
