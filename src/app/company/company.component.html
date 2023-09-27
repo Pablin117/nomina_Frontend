@@ -2,7 +2,7 @@
 
         <div class="container text-center">
                 <h1>Empresa</h1>
-                <div align="right">
+                <div >
                         <div *ngIf="header"> 
                                 <button class="btn btn-primary"  id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
                                 <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i> x Salir</button>
@@ -153,7 +153,7 @@
         
         <div class="container text-left" *ngIf="add">
                 <form (ngSubmit)="addForm()" id="addForm">
-                        <h1 align="center">Creación</h1>
+                        <h1 >Creación</h1>
                         <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
                                 <input name="name" [(ngModel)]="companyDataCreate.name" type="text" class="form-control" placeholder="Nombre"  required>
@@ -194,15 +194,14 @@
                                 <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i></span>
                                 <input  name="validas" [(ngModel)]="companyDataCreate.passwordAmountQuestionsValidate" type="number" class="form-control" placeholder="Preguntas validas"  required>
                         </div>
-                        <p align="right">
+                        <div>
                                 <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
                                 <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-                        </p>
+                       
+                        </div>
+                   
                 </form>
         </div>
 
    
   
-</div>
-
-
