@@ -6,7 +6,7 @@
         <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
           class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
         <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
-          class="fa-solid fa-right-from-bracket"></i> x Salir</button>
+          class="fa-solid fa-right-from-bracket"></i>  Salir</button>
       </div>
     </div>
   </div>
@@ -69,23 +69,21 @@
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>
 <div class="input-group mb-3">
-<span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+<span class="input-group-text"><i class="fa-regular fa-clipboard"></i></span>
   <input type="text" id="idMenu" name="idMenu" [(ngModel)]="menuDataModify.idMenu" placeholder="{{menuTemp.idMenu}}"
          class="form-control" required disabled="">
-</div>
-<div class="input-group mb-3">
-  <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+
+  <span class="input-group-text"><i class="fa-solid fa-link"></i></span>
   <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuTemp.idModulo" required>
     <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
   </select>
 </div>
       <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
         <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
                placeholder="{{menuTemp.name}}" required>
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+
+        <span class="input-group-text"><i class="fa-solid fa-list"></i></span>
         <input type="text" id="OrdenMenu" name="OrdenMenu" [(ngModel)]="menuDataModify.orderMenu" class="form-control"
                placeholder="{{menuTemp.orderMenu}}" required>
       </div>
@@ -100,15 +98,15 @@
     <form (ngSubmit)="addForm()" id="addForm">
       <h1>Creación</h1>
       <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-link"></i></span>
         <select class="form-control" id="menu" name="menu" [(ngModel)]="menuDataCreate.idModulo">
           <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
         </select>
 
-        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
         <input class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name" placeholder="Nombre" required>
 
-        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-list"></i></span>
         <input class="form-control" type="text" id="odermenu" name="odermenu" [(ngModel)]="menuDataCreate.orderMenu" placeholder="1" required>
       </div>
         <div>
