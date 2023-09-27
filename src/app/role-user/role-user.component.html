@@ -59,8 +59,9 @@
   </div>
     <div class="container text-left" *ngIf="add">
       <form (ngSubmit)="addForm()" id="addForm">
-        <h1>Creación</h1>
-        <p><label>Selecciona un Usuario:</label></p>
+        <h1>Agregar</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Usuario</span>
         <select name="userSelector" [(ngModel)]="roleUserDataCreate.idUser">
           <option *ngFor="let user of userData" value="{{user.idUser}}" required>
             {{user.idUser}}
@@ -68,17 +69,19 @@
         </select>
         <p>
         </p>
-        <p><label for="roleSelector">Selecciona un Rol:</label></p>
+        <span class="input-group-text"><i class="fa-solid fa-paint-roller"></i>&nbsp; Rol</span>
         <select name="userRole" [(ngModel)]="roleUserDataCreate.idRole">
           <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
             {{role.name}}
           </option>
         </select>
+      </div>
         <p>
         </p>
-        <button type="submit" class="btn btn-success">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-
+        <div>
+          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
       </form>
     </div>
 
@@ -87,7 +90,7 @@
       <form (ngSubmit)="modForm()" id="modForm">
         <h1>Modificación</h1>
         <div class="input-group xs">
-        <span class="input-group-text"><i class="fa-solid fa-paint-roller"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-paint-roller"></i>&nbsp; Rol</span>
         <select  class="form-select" name="userRole" [(ngModel)]="roleUserModify.idRole">
           <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
             {{role.name}}
@@ -97,9 +100,10 @@
         <p>
         </p>
         <p>
-          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
-          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
-
+          <div>
+            <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+            <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+        </div>
       </form>
     </div>
 
