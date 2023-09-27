@@ -85,7 +85,8 @@ export class StatusUserComponent {
 
   //banderas
   Modify(company: any) {
-    console.log("modifica")
+
+    
     this.statusUserTemp = company
     this.add = false
     this.tab = false
@@ -97,10 +98,12 @@ export class StatusUserComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
+
+    
   }
   back() {
-    console.log("back")
+
+    
     this.modify = false
     this.add = false
     this.tab = true
@@ -139,7 +142,8 @@ export class StatusUserComponent {
 //para eliminar
 
 Delete(response:any){
-  console.log(response)
+
+  
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -151,7 +155,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteStatusUser/"+response.idStatusUser, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -173,8 +177,11 @@ Delete(response:any){
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.statusUserTemp.userModification = this.dataUser.user
-
+    
+      this.statusUserDataModify.idStatusUser = this.statusUserTemp.idStatusUser
+      this.statusUserDataModify.userModification = this.dataUser.user
+   
+      
       this.requestStatusUserUpdate().subscribe(
         (response: any) => this.responseStatusUserUpdate(response)
       )
@@ -188,7 +195,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusUser", this.statusUserDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateStatusUser/"+ this.statusUserDataModify.idStatusUser, this.statusUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -210,6 +217,7 @@ Delete(response:any){
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.statusUserDataCreate.userCreation = this.dataUser.user
+ 
       this.requestStatusUserSave().subscribe(
         (response: any) => this.responseStatusUserSave(response)
       )

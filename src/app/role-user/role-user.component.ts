@@ -27,6 +27,7 @@ export class RoleUserComponent {
   header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
+  btnDelete: boolean = false
   print: boolean = false
   exporte: boolean = false
   //url
@@ -76,6 +77,7 @@ export class RoleUserComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -144,6 +146,39 @@ export class RoleUserComponent {
     }
     return '';
   }
+
+//para eliminar
+
+Delete(response:any){
+
+  
+  this.requestDelete(response).subscribe(
+    (response: any) => this.responseDelete(response)
+  )
+}
+
+requestDelete(response:any){
+  var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  return this.http.delete<any>(this.url + "/deleteStatusUser/"+response.idStatusUser, httpOptions).pipe(
+    catchError(e => "1")
+  )
+}
+
+responseDelete(response:any){
+  if (response.code == 0) {
+
+    alert(response.message)
+    this.back()
+    this.ngOnInit()
+  } else {
+    alert(response.message)
+  }
+}
+
 
 
   //modificacion
