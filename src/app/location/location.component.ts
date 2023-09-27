@@ -26,6 +26,7 @@ export class LocationComponent {
   companyData: any = []
   locationDataCreate: any = {}
   locationDataModify: any = {}
+  locationTemp: any = {}
   options: any = {}
   dataUser: any = {}
 
@@ -64,9 +65,6 @@ export class LocationComponent {
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-
-    console.log(this.options)
-
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
@@ -142,15 +140,13 @@ export class LocationComponent {
   }
 
   //modifica
-  Modify(location: any) {
-
-    this.locationDataModify = location
+  Modify(response: any) {
+    console.log(response)
+    this.locationTemp = response
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-
-    this.locationDataCreate = {}
   }
 
   //banderas
@@ -159,7 +155,6 @@ export class LocationComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
 
   }
   backWelcome() {
@@ -172,8 +167,6 @@ export class LocationComponent {
     this.add = false
     this.tab = true
     this.header = true
-
-    this.locationDataCreate = {}
   }
 
 
@@ -182,15 +175,14 @@ export class LocationComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.locationDataCreate.userCreation = this.dataUser.user
-      console.log(this.locationDataCreate)
-      this.RequestLocationSave().subscribe(
+     /* this.RequestLocationSave().subscribe(
         (response: any) => this.ResponseLocationSave(response)
-      )
+      )*/
     }
   }
 
   RequestLocationSave() {
-    console.log("se agrega")
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -202,8 +194,6 @@ export class LocationComponent {
   }
 
   ResponseLocationSave(response: any) {
-    console.log(response)
-
     if (response.code == 0) {
       alert(response.message)
       console.log("Se guardo")
@@ -211,7 +201,6 @@ export class LocationComponent {
       this.ngOnInit()
     } else {
       alert(response.message)
-
     }
 
   }
@@ -223,9 +212,9 @@ export class LocationComponent {
     if (formularioValido.reportValidity()) {
 
       this.locationDataModify.userModification = this.dataUser.user
-      console.log(this.locationDataModify)
 
-      this.RequestLocationModify().subscribe(
+
+     this.RequestLocationModify().subscribe(
         (response: any) => this.ResponseLocationModify(response)
       )
     }
@@ -234,7 +223,7 @@ export class LocationComponent {
 
   RequestLocationModify() {
     console.log("se agrega")
-    console.log(this.locationDataModify)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -246,7 +235,7 @@ export class LocationComponent {
   }
 
   ResponseLocationModify(response: any) {
-    console.log(response)
+
     if (response.code == 0) {
       alert(response.message)
       console.log("Se actualizo")
@@ -260,7 +249,7 @@ export class LocationComponent {
   //finaliza la sesion
   revoke() {
     console.log("salida")
-    console.log(this.dataUser.session)
+
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -280,7 +269,6 @@ export class LocationComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
       this.router.navigateByUrl("/")
       localStorage.clear()

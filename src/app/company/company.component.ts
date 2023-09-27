@@ -166,9 +166,9 @@ export class CompanyComponent {
 
 
               console.log(this.companyDataCreate)
-              /*this.RequestCompanySave().subscribe(
+              this.RequestCompanySave().subscribe(
                 (response: any) => this.ResponseCompanySave(response)
-              )*/
+              )
 
 
             } else {
