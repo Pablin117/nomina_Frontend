@@ -85,8 +85,7 @@ export class CreateUserComponent {
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
+
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -106,7 +105,7 @@ export class CreateUserComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
+     
       alert(response.message)
 
       localStorage.removeItem("data")
