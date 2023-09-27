@@ -1,57 +1,73 @@
-<h1>Creación de usuario</h1>
-<div  *ngIf ="!showSpinner">
-<div *ngIf="header">
-  <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>&nbsp;
-  <button class="btn btn-danger"   (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i> x Salir</button>&nbsp;
- 
-</div>
-</div>
-<div  *ngIf ="showSpinner">
-  <h1>Espera por favor</h1>
-  <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
-  <span class="sr-only"></span>
-</div>
-</div>
+<div class="container-fluid">
+  <h1>Creación de usuario</h1>
+  <div *ngIf="!showSpinner">
+    <div *ngIf="header">
+      <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>&nbsp;
+      <button class="btn btn-danger" (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i> x
+        Salir</button>&nbsp;
 
-<body class="container text-left" *ngIf ="!showSpinner" >
-  <div>
+    </div>
+  </div>
+  <div *ngIf="showSpinner">
+    <h1>Espera por favor</h1>
+    <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+
+  <body class="container text-left" *ngIf="!showSpinner">
     <form (ngSubmit)="create()" id="create"><br>
+      <div class="input-group mb-3">
 
-      <label for="idUser">Correo electrónico: </label>
-      <input type="text" id="idUser" placeholder="tucorreo@ejemplo.com" [(ngModel)]="idUserValue" name="idUser" required>
-      <br><br>
-      <label for="name">Nombre: </label>
-      <input type="text" id="name" placeholder="Nombre" [(ngModel)]="nameValue" name="name" required>
-      <br><br>
-      <label for="lastName">Apellido: </label>
-      <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="lastNameValue" name="lastName" required>
-      <br><br>
-      <label for="dob">Fecha de nacimiento: </label>
-      <input type="date" id="dob"  [(ngModel)]="dobValue" name="dob" required>
-      <br><br>
-      <label for="idGender">Selecciona tu género: </label>
-      <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
-        <option *ngFor="let data of genderData" value="{{data.idGender}}" required>{{data.name}}</option>
-      </select>
-      <br><br>
-      <label for="email">Correo adicional: </label>
-      <input type="text" id="email" placeholder="tucorero@ejemplo.com" [(ngModel)]="emailValue" name="email" required>
-      <br><br>
-      <label for="mobilePhone">Número telefonico: </label>
-      <input type="number" id="mobilePhone" placeholder="12345678" [(ngModel)]="mobilePhoneValue" name="mobilePhone"
-        required>
-      <p>
+
+        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+        <input type="text" id="idUser" placeholder="tucorreo@ejemplo.com" [(ngModel)]="idUserValue" name="idUser"
+          class="form-control" required>
+
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input type="text" id="name" placeholder="Nombre" [(ngModel)]="nameValue" name="name" class="form-control"
+          required>
+
+        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+        <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="lastNameValue" name="lastName"
+          class="form-control" required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+        <input type="date" id="dob" [(ngModel)]="dobValue" name="dob" class="form-control" required>
+
+        <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+        <input type="text" id="email" placeholder="tucorreo@ejemplo.com" [(ngModel)]="emailValue" name="email"
+          class="form-control" required>
+
+        <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i></span>
+        <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
+          <option *ngFor="let data of genderData" value="{{data.idGender}}" class="form-control" required>{{data.name}}
+          </option>
+        </select>
+
+      </div>
+      <br>
+      <div class="input-group mb-1">
+        <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+        <input type="number" id="mobilePhone" placeholder="12345678" [(ngModel)]="mobilePhoneValue" name="mobilePhone"
+          class="form-control" required>
         <input type="hidden" id="creationDate" name="creationDate" [value]="creationDate">
-      </p>
-      <p>Fotografia:</p>
+      </div>
+      <br>
+
+      <h4>Fotografía:</h4>
       <form>
         <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
         <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
         <br>
-        <button class="btn btn-warning" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
+        <button class="btn btn-secondary" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
       </form>
-      <button class="btn btn-success" (click)="create()">Crear Usuario</button>
+      <div>
+        <button class="btn btn-secondary" (click)="create()">Crear Usuario</button>
+      </div>
+      
     </form>
-  </div>
-
-</body>
+  </body>
+</div>
