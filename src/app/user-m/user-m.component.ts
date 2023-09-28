@@ -28,6 +28,8 @@ export class UserMComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  btnDelete: boolean = false
+
 
 
   //url
@@ -37,6 +39,7 @@ export class UserMComponent {
   UsersData: any = []
   userDataCreate: any = {}
   userDataModify: any = {}
+  userTemp: any = {}
   locationsData: any = {}
   statusData: any = {}
   userModify: any = {}
@@ -84,6 +87,7 @@ export class UserMComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -116,14 +120,12 @@ export class UserMComponent {
     this.UsersData = response
   }
 
-  Modify(modulo: any) {
-    this.userModify = modulo
+  Modify(response: any) {
+    this.userTemp = response
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.userDataModify = {}
-    this.userDataCreate = {}
   }
 
   Add() {
@@ -139,17 +141,20 @@ export class UserMComponent {
     this.add = false
     this.tab = true
     this.header = true
-    this.userDataModify = {}
+    this.userModify = {}
     this.userDataCreate = {}
+      this.userTemp = {}
   }
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-
-    
+      this.userModify.idStatusUser = this.userTemp.idStatusUser
+        this.userModify.idBranch = this.userTemp.idBranch
       this.userModify.userModification = this.dataUser.user
-      this.RequestUserSaveM().subscribe(
+        this.VarId = this.userTemp.idUser
+        console.log(this.VarId)
+        this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
 
@@ -161,16 +166,14 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyUser/" + this.userModify.idUser, this.userModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyUser/" + this.userTemp.idUser, this.userModify, httpOptions).pipe(
       catchError(e => "1")
     )
-    /*<button (click)="saveImage()" [disabled]="!imageSrc">Guardar Imagen</button>*/
   }
   ResponseUserSaveM(response: any) {
     if (response.code == 0) {
       alert(response.message)
-      this.VarId = this.userModify.idUser
-      this.saveImage()
+      this.ServiceSaveImage()
       this.deleteImages()
       this.back()
       this.ngOnInit()
@@ -239,31 +242,30 @@ export class UserMComponent {
     this.back()
     this.deleteImages()
   }
-  saveImage1(idUser: string, file: File) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('idUser', idUser);
+    ServiceSaveImage() {
+        if (this.imageSrc) {
+            const idUser = this.VarId; // Reemplaza esto con el ID real del usuario
+            //const file = this.fileInput.nativeElement.files[0];
+            //console.log(this.file2)
+            console.log(idUser)
+            this.saveImage(idUser, this.file).subscribe(
+                (response: any) => this.ResponseImages(response)
 
-    return this.http.post(`http://localhost:4042/v1/saveImage`, formData);
-  }
-
-  saveImage() {
-    if (this.imageSrc) {
-      const idUser = this.VarId; // Reemplaza esto con el ID real del usuario
-      const file = this.fileInput.nativeElement.files[0];
-      console.log(this.VarId)
-      this.saveImage1(idUser, file).subscribe(
-        (response) => {
-          // La imagen se ha guardado con éxito, maneja la respuesta aquí
-          //console.log('Imagen guardada con éxito:', response);
-        },
-        (error) => {
-          // Maneja errores aquí
-          //console.error('Error al guardar la imagen:', error);
+            );
         }
-      );
     }
-  }
+
+    //Guarda la imagen
+    saveImage(idUser: string, file: File) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('idUser', idUser);
+        return this.http.post(this.url + `/saveImage`, formData);
+    }
+
+    ResponseImages(response: any) {
+        console.log(response);
+    }
 
   getStatus(idStatus: number): string {
     for (let x = 0; x < this.Varstatus.length; x++) {
@@ -297,7 +299,7 @@ export class UserMComponent {
 
   getLocation(idLocation: number): string {
     for (let x = 0; x < this.Varlocation.length; x++) {
-      if (this.Varlocation[x].idBranch == idLocation) {
+      if (this.Varlocation[x].idLocation == idLocation) {
         return this.Varlocation[x].name
       }
     }
@@ -354,5 +356,34 @@ export class UserMComponent {
   responseGender(response: any) {
     this.Vargender = response
   }
+
+    Delete(response:any){
+        this.requestDelete(response).subscribe(
+            (response: any) => this.responseDelete(response)
+        )
+    }
+
+    requestDelete(response:any){
+        var httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        }
+        return this.http.delete<any>(this.url + "/deleteUser/"+response.idUser, httpOptions).pipe(
+            catchError(e => "1")
+        )
+    }
+
+    responseDelete(response:any){
+        if (response.code == 0) {
+
+            alert(response.message)
+            this.back()
+            this.ngOnInit()
+        } else {
+            alert(response.message)
+        }
+    }
+
 
 }
