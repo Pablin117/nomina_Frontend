@@ -3,20 +3,19 @@ table {
     border: 2px solid #11151c;
     text-align: center;
     border-collapse: collapse;
-    margin: 1rem;
-}
+    margin: 3rem;
+ }
 
 
 
-caption, td, th {
+ caption, td, th {
     padding: 0.1rem;
-}
-
-th, td {
+ }
+ 
+ th, td {
     border-bottom: 1px solid #999;
     width: 5rem;
-}
-
+ }
 
 
 .btn-primary{

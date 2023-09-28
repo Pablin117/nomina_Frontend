@@ -1,86 +1,83 @@
-<div class="container-fluid">
+<div class="container-fluid ">
   <div class="container text-center">
     <h1>Usuarios</h1>
     <div *ngIf="header">
-      <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
-        class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
-      <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
-        class="fa-solid fa-right-from-bracket"></i>  Salir</button>
+      <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i>
+        Regresar</button>&nbsp;&nbsp;
+      <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+        Salir</button>
     </div>
   </div>
+
   <div *ngIf="tab">
     <div>
-      <table class="table table-hover">
+      <table class="table table-hover" id="table-consult">
         <thead>
-        <tr>
-          <th>Usuario</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Fecha de nacimiento</th>
-          <th>Estatus Usuario</th>
-          <th>Genero</th>
-          <th>Fecha de ultimo ingreso</th>
-          <th>Fecha de ultimo cambio de contraseña</th>
-          <th>Correo adicional</th>
-          <th>Telefono</th>
-          <th>Sucursal</th>
-          <th>Fecha de creacion</th>
-          <th>Usuario de creacion</th>
-          <th>Fecha de modificacion</th>
-          <th>Usuario de modificacion</th>
-          <th>Opciónes</th>
-          <th>&nbsp;</th>
-        </tr>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de nacimiento</th>
+            <th>Estatus Usuario</th>
+            <th>Genero</th>
+            <th>Fecha de ultimo ingreso</th>
+            <th>Fecha de ultimo cambio de contraseña</th>
+            <th>Correo adicional</th>
+            <th>Telefono</th>
+            <th>Sucursal</th>
+            <th>Fecha de creacion</th>
+            <th>Usuario de creacion</th>
+            <th>Fecha de modificacion</th>
+            <th>Usuario de modificacion</th>
+            <th>Opciónes</th>
+            <th>&nbsp;</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of UsersData">
-          <td>{{user.idUser}}</td>
-          <td>{{user.name}}</td>
-          <td>{{user.lastName}}</td>
-          <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{getStatus(user.idStatusUser)}}</td>
-          <td>{{getGender(user.idGender)}}</td>
-          <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy'}}</td>
-          <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy'}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.mobilePhone}}</td>
-          <td>{{getLocation(user.idBranch)}}</td>
-          <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{user.userCreation}}</td>
-          <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{user.userModification}}</td>
-          <td>
-            <div>
-              <button *ngIf="btnUpdate" class="btn btn-secondary"
-                      id="modificar" (click)="Modify(user)"> <i
-                class="fa-solid fa-pen-to-square"></i>
-                Modificar</button>
-              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm"
-                      disabled>No Disponible</button>
-            </div>
-          </td>
-          <td>
-            <div>
-              <button *ngIf="btnDelete" class="btn btn-danger"
-                      id="delete" (click)="Delete(user)"> <i
-                class="fa-solid fa-delete-left"></i>
-                Eliminar</button>
-            </div>
-          </td>
-        </tr>
+          <tr *ngFor="let user of UsersData">
+            <td>{{user.idUser}}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{getStatus(user.idStatusUser)}}</td>
+            <td>{{getGender(user.idGender)}}</td>
+            <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy'}}</td>
+            <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy'}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.mobilePhone}}</td>
+            <td>{{getLocation(user.idLocation)}}</td>
+            <td>{{user.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{user.userCreation}}</td>
+            <td>{{user.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{user.userModification}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(user)"> <i
+                    class="fa-solid fa-pen-to-square"></i>
+                  Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(user)"> <i
+                    class="fa-solid fa-delete-left"></i>
+                  Eliminar</button>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
       <div>
         <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
-          class="fa-regular fa-square-plus"></i> Agregar</button>
+            class="fa-regular fa-square-plus"></i> Agregar</button>
 
 
         &nbsp;
-        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i
-          class="fa-solid fa-download"></i> Exportar</button>
+        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+          Exportar</button>
         &nbsp;
-        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i
-          class="fa-solid fa-print"></i> Imprimir</button>
+        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
       </div>
     </div>
   </div>
@@ -88,43 +85,44 @@
   <div class="container text-left" *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>
-<div class="input-group mb-3">
-  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre</span>
-  <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userDataModify.name" placeholder="{{userDataModify.name}}"
-         required>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre</span>
+        <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userDataModify.name"
+          placeholder="{{userDataModify.name}}" required>
 
-  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido</span>
-  <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName"
-         placeholder="{{userDataModify.lastName}}" required>
+        <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido</span>
+        <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName"
+          placeholder="{{userDataModify.lastName}}" required>
 
-  <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado</span>
-  <select class="form-select" id="estatus" name="estatus" [(ngModel)]="userDataModify.idStatusUser">
-    <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
-  </select>
-</div>
+        <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado</span>
+        <select class="form-select" id="estatus" name="estatus" [(ngModel)]="userDataModify.idStatusUser">
+          <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
+        </select>
+      </div>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-envelope"></i> &nbsp; Correo</span>
-        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="userDataModify.email" placeholder="{{userDataModify.email}}"
-               required>
+        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="userDataModify.email"
+          placeholder="{{userDataModify.email}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i> &nbsp; Telefono</span>
-        <input class="form-control" type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userDataModify.mobilePhone"
-               placeholder="{{userDataModify.mobilePhone}}" required>
+        <input class="form-control" type="text" id="mobilePhone" name="mobilePhone"
+          [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userDataModify.mobilePhone}}" required>
 
         <span class="input-group-text"><i class="fa-regular fa-building"></i> &nbsp; Sucursal</span>
-        <select class="form-select" id="sucursal" name="sucursal" [(ngModel)]="userDataModify.idBranch">
-          <option *ngFor="let location of Varlocation" value="{{location.idLocation}}" required>{{location.name}}</option>
+        <select class="form-select" id="sucursal" name="sucursal" [(ngModel)]="userDataModify.idLocation">
+          <option *ngFor="let location of Varlocation" value="{{location.idLocation}}" required>{{location.name}}
+          </option>
         </select>
       </div>
       <div class="col-2">
-      <span class="input-group-text"><i class="fa-regular fa-image"></i> &nbsp; Fotografia</span>
-      <form>
-        <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
-        <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
-        <br>
-        <button class="btn btn-secondary" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
-      </form>
-    </div>
+        <span class="input-group-text"><i class="fa-regular fa-image"></i> &nbsp; Fotografia</span>
+        <form>
+          <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
+          <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
+          <br>
+          <button class="btn btn-secondary" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
+        </form>
+      </div>
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
