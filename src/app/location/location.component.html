@@ -22,10 +22,10 @@
                         <th>Empresa</th>
                         <th>Nombre</th>
                         <th>Direccion</th>
-                        <th>Fecha de creacion</th>
-                        <th>Usuario de creacion</th>
-                        <th>Fecha de modificacion</th>
-                        <th>Usuario de modificacion</th>
+                        <th>Fecha de creación</th>
+                        <th>Usuario de creación</th>
+                        <th>Fecha de modificación</th>
+                        <th>Usuario de modificación</th>
                         <th>Opciones</th>
                         <th>&nbsp;</th>
                     </tr>
@@ -49,11 +49,9 @@
                             </div>
                         </td>
                         <td>
-                            <div>   <button *ngIf="btnDelete" class="btn btn-danger"
-                                id="delete" (click)="Delete(data)"> <i class="fa-solid fa-delete-left"></i>
-                                Eliminar</button>
-                        
-
+                            <div> <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
+                                    <i class="fa-solid fa-delete-left"></i>
+                                    Eliminar</button>
                             </div>
                         </td>
                     </tr>
@@ -83,7 +81,8 @@
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
                 <select class="form-select" name="company" [(ngModel)]="locationTemp.idCompany" required>
-                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" required >{{company.name}}</option>
+                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" required>{{company.name}}
+                    </option>
                 </select>
 
                 <span class="input-group-text"><i class="fa-solid fa-map"></i>&nbsp; Nombre</span>
@@ -102,13 +101,14 @@
     </div>
 
 
-    <div class="container text-left"  *ngIf="add">
+    <div class="container text-left" *ngIf="add">
         <form (ngSubmit)="addForm()" id="addForm">
             <h1>Agregar</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
                 <select class="form-select" name="companySelect" [(ngModel)]="locationDataCreate.idCompany" required>
-                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}</option>
+                    <option *ngFor="let company of companyData" value="{{company.idCompany}}" selected>{{company.name}}
+                    </option>
                 </select>
 
                 <span class="input-group-text"><i class="fa-solid fa-map"></i></span>

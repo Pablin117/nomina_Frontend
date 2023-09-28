@@ -26,19 +26,22 @@ export class OptionComponent {
   tab: boolean = true
   header: boolean = true
   btnAdd: boolean = false
+  btnDelete: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+
   //url
   url: String = "http://localhost:4042/v1"
   page = "option"
+
   //objetos
   optionDataCreate: any = {}
   optionDataModify: any = {}
   optionData: any = []
   menuData: any = []
   companyData: any = {}
-  optionModify: any = {}
+  optionTemp: any = {}
   dataUser: any = {}
   options: any = {}
 
@@ -63,9 +66,7 @@ export class OptionComponent {
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-
     let permisos: any = {}
-
     this.options.forEach((item: any) => {
       if (item.page === this.page) {
         permisos = item.permisos
@@ -74,6 +75,7 @@ export class OptionComponent {
 
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
@@ -174,10 +176,9 @@ export class OptionComponent {
 
   }
 
-  Modify(option: any) {
+  Modify(response: any) {
     console.log("modifica")
-    this.optionModify = option
-    console.log(this.optionModify)
+    this.optionTemp = response
     this.header = false
     this.add = false
     this.tab = false
@@ -203,6 +204,8 @@ export class OptionComponent {
     this.add = false
     this.tab = true
     this.header = true
+    this.optionDataCreate = {}
+    this.optionDataModify = {}
 
   }
 
@@ -211,7 +214,7 @@ export class OptionComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.optionDataCreate.userCreation = this.dataUser.user
-
+      console.log(this.optionDataCreate)
       this.RequestOptionSave().subscribe(
         (response: any) => this.ResponseOptionSave(response)
       )
@@ -245,23 +248,28 @@ export class OptionComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      // this.optionModify.name = this.optionDataModify.name
-      this.optionModify.userModification = this.dataUser.user
-      console.log(this.optionModify)
-      this.RequestOptionSaveM().subscribe(
-        (response: any) => this.ResponseRoleSaveM(response)
-      )
+
+      this.optionDataModify.idOption = this.optionTemp.idOption
+      this.optionDataModify.idMenu = this.optionTemp.idMenu
+      this.optionDataModify.userModification = this.dataUser.user
+   
+ 
+
+      console.log(this.optionDataModify)
+
+       this.RequestOptionSaveM().subscribe(
+          (response: any) => this.ResponseRoleSaveM(response)
+        )
     }
   }
   RequestOptionSaveM() {
-    console.log("se agrega")
-    console.log(this.optionModify)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyOption", this.optionModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateOption/"+this.optionDataModify.idOption, this.optionDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -275,5 +283,40 @@ export class OptionComponent {
       alert(response.message)
     }
   }
+
+
+  //para eliminar
+
+  Delete(response: any) {
+
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+
+  requestDelete(response: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteOption/" + response.idOption, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseDelete(response: any) {
+    if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
+
+
+
 
 }

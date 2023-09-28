@@ -21,12 +21,12 @@ export class LocationComponent {
   }
 
   //variables
+
   //objecto
   locationsData: any = []
   companyData: any = []
   locationDataCreate: any = {}
   locationDataModify: any = {}
-  btnDelete: boolean = false
   locationTemp: any = {}
   options: any = {}
   dataUser: any = {}
@@ -35,6 +35,7 @@ export class LocationComponent {
   header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
+  btnDelete: boolean = false
   print: boolean = false
   exporte: boolean = false
   modify: boolean = false
@@ -86,29 +87,29 @@ export class LocationComponent {
 
 
 
-//para eliminar
+  //para eliminar
 
-Delete(response:any){
+  Delete(response: any) {
 
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
   }
-  
-  requestDelete(response:any){
+
+  requestDelete(response: any) {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteLocation/"+response.idLocation, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteLocation/" + response.idLocation, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  
-  responseDelete(response:any){
+
+  responseDelete(response: any) {
     if (response.code == 0) {
-  
+
       alert(response.message)
       this.back()
       this.ngOnInit()
@@ -116,7 +117,7 @@ Delete(response:any){
       alert(response.message)
     }
   }
-  
+
 
 
   //obtine sucursales
@@ -176,7 +177,7 @@ Delete(response:any){
 
   //modifica
   Modify(response: any) {
-  
+
     this.locationTemp = response
     this.add = false
     this.tab = false
@@ -248,8 +249,8 @@ Delete(response:any){
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.locationDataModify.userModification = this.dataUser.user
-      this.locationDataModify.idLocation= this.locationTemp.idLocation
-     this.RequestLocationModify().subscribe(
+      this.locationDataModify.idLocation = this.locationTemp.idLocation
+      this.RequestLocationModify().subscribe(
         (response: any) => this.ResponseLocationModify(response)
       )
     }
@@ -264,7 +265,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateLocation/"+this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateLocation/" + this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }

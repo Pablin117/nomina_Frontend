@@ -1,119 +1,144 @@
-<div *ngIf="header">
-    <h1>Opciones</h1>
-    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
-</div>
-
-<div *ngIf="tab">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>IdOption</th>
-                <th>Nombre</th>
-                <th>IdMenu</th>
-                <th>Orden en el menu</th>
-                <th>Pagina</th>
-                <th>Fecha de creación</th>
-                <th>Usuario de creación</th>
-                <th>Fecha de modificación</th>
-                <th>Usuario de modificación</th>
-                <th>Opción</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <tr *ngFor="let option of optionData">
-                <td>{{option.idOption}}</td>
-                <td>{{option.name}}</td>
-                <td>{{getMenuName(option.idMenu)}}</td>
-                <td>{{option.idOrderMenu}}</td>
-                <td>{{option.page}}</td>
-                <td>{{option.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                <td>{{option.userCreation}}</td>
-                <td>{{option.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                <td>{{option.userModification}}</td>
-                <td>
-                    <div>
-                        <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(option)">
-                            Modificar</button>
-                        <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-
-    </table>
-    <p>
-        <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-        &nbsp;
-        <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
-        &nbsp;
-        <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-    </p>
-</div>
-
-<div class="container" *ngIf="modify">
-    <h1>Opciones</h1>
-    <form (ngSubmit)="modForm()" id="modForm">
+<div class="container-fluid">
+    <div class="container text-center">
+        <h1>Opciones</h1>
         <div>
-            <p>Menu</p>
-            <p>
-                <select id="menu" name="menu" [(ngModel)]="optionModify.idMenu">
-                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
-                </select>
-            </p>
-            <p>Nombre de la opción:</p>
-            <p>
-                <input type="text" id="name" name="name" [(ngModel)]="optionModify.name"
-                    placeholder="{{optionModify.name}}" required>
-            </p>
-            <p>Orden del menu</p>
-            <p>
-                <input type="text" id="idOrderMenu" name="idOrderMenu" [(ngModel)]="optionModify.idOrderMenu"
-                    placeholder="{{optionModify.idOrderMenu}}" required>
-            </p>
-            <p>Pagina</p>
-            <p>
-                <input type="text" id="page" name="page" [(ngModel)]="optionModify.page" placeholder="Pagina" required>
-            </p>
-            <p>
-                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button class="btn btn-warning" (click)="back()">Regresar</button>
-            </p>
+            <div *ngIf="header">
+                <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+                        class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+                <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
+                        class="fa-solid fa-right-from-bracket"></i> Salir</button>
+            </div>
         </div>
-    </form>
-</div>
+    </div>
 
-
-<div class="container" *ngIf="add">
-    <h1>Opciones</h1>
-    <form (ngSubmit)="addForm()" id="addForm">
+    <div *ngIf="tab">
         <div>
-            <p>Menu</p>
-            <p>
-                <select id="menu" name="menu" [(ngModel)]="optionDataCreate.idMenu">
-                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" required>{{menu.name}}</option>
-                </select>
-            </p>
-            <p>Nombre de la opción:</p>
-            <p>
-                <input type="text" id="name" name="name" [(ngModel)]="optionDataCreate.name" placeholder="Nombre"
-                    required>
-            </p>
-            <p>Orden del menu</p>
-            <p>
-                <input type="number" id="menuOrder" name="menuOrder" [(ngModel)]="optionDataCreate.idOrderMenu"
-                    placeholder="Orden en el menu">
-            </p>
-            <p>Pagina</p>
-            <p>
-                <input type="text" id="page" name="page" [(ngModel)]="optionDataCreate.page" placeholder="Pagina"
-                    required>
-            </p>
-            <p>
-                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button class="btn btn-warning" (click)="back()">Regresar</button>
-            </p>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>IdOption</th>
+                        <th>Nombre</th>
+                        <th>IdMenu</th>
+                        <th>Orden en el menu</th>
+                        <th>Pagina</th>
+                        <th>Fecha de creación</th>
+                        <th>Usuario de creación</th>
+                        <th>Fecha de modificación</th>
+                        <th>Usuario de modificación</th>
+                        <th>Opciones</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of optionData">
+                        <td>{{data.idOption}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{getMenuName(data.idMenu)}}</td>
+                        <td>{{data.idOrderMenu}}</td>
+                        <td>{{data.page}}</td>
+                        <td>{{data.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                        <td>{{data.userCreation}}</td>
+                        <td>{{data.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                        <td>{{data.userModification}}</td>
+                        <td>
+                            <div>
+                                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
+                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
+                                    Modificar</button>
+                                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+                            </div>
+                        </td>
+                        <td>
+                            <div> <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
+                                    <i class="fa-solid fa-delete-left"></i>
+                                    Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
         </div>
-    </form>
+
+        <div>
+
+        </div>
+        <div>
+
+            <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+                    class="fa-regular fa-square-plus"></i> Agregar</button>
+            &nbsp;
+            <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+                Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>
+                Imprimir</button>
+
+        </div>
+    </div>
+
+    <div class="container" *ngIf="modify">
+        <h1>Modificar</h1>
+        <form (ngSubmit)="modForm()" id="modForm">
+            <div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fa-solid fa-notes-medical"></i></span>
+                    <input name="name" [(ngModel)]="optionDataModify.name" type="text" class="form-control"
+                        placeholder="{{optionTemp.name}}" required>
+
+                    <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Menu</span>
+                    <select class="form-select" name="companySelect" [(ngModel)]="optionTemp.idMenu" required>
+                        <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" selected>{{menu.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fa-solid fa-network-wired"></i></span>
+                    <input name="name" [(ngModel)]="optionDataModify.idOrderMenu" type="number" class="form-control"
+                        placeholder="{{optionTemp.idOrderMenu}}" required>
+
+                        <span class="input-group-text"><i class="fa-solid fa-table"></i></span>
+                    <input name="name" [(ngModel)]="optionDataModify.page" type="text" class="form-control"
+                        placeholder="{{optionTemp.page}}" required>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                    <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container text-left" *ngIf="add">
+        <form (ngSubmit)="addForm()" id="addForm">
+            <h1>Agregar</h1>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-notes-medical"></i></span>
+                <input name="name" [(ngModel)]="optionDataCreate.name" type="text" class="form-control"
+                    placeholder="Nombre" required>
+
+                <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Menu</span>
+                <select class="form-select" name="companySelect" [(ngModel)]="optionDataCreate.idMenu" required>
+                    <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" selected>{{menu.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-network-wired"></i></span>
+                <input name="name" [(ngModel)]="optionDataCreate.idOrderMenu" type="number" class="form-control"
+                    placeholder="Asignacion de la opción" required>
+
+                <span class="input-group-text"><i class="fa-solid fa-table"></i></span>
+                <input name="name" [(ngModel)]="optionDataCreate.page" type="text" class="form-control"
+                    placeholder="Pagina" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+            </div>
+        </form>
+    </div>
 </div>
