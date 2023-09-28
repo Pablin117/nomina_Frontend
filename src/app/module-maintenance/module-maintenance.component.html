@@ -1,86 +1,106 @@
-<h1>Modulos</h1>
-<div *ngIf="header">
-  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
-  <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
-</div>
+<div class="container-fluid">
 
-
-<div *ngIf="tab">
-  <div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>IdModulo</th>
-          <th>Nombre</th>
-          <th>Orden del modulo</th>
-          <th>Fecha de creación</th>
-          <th>Usuario de creación</th>
-          <th>Usuario de modificación</th>
-          <th>Fecha de modificación</th>
-          <th>Opción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let modulo of ModulosData">
-          <td>{{modulo.idModule}}</td>
-          <td>{{modulo.name}}</td>
-          <td>{{modulo.orderMenu}}</td>
-          <td>{{modulo.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{modulo.userCreation}}</td>
-          <td>{{modulo.userModification}}</td>
-          <td>{{modulo.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>
-            <div>
-              <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(modulo)">
-                Modificar</button>
-              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-    <p>
-      <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-      &nbsp;
-      <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
-      &nbsp;
-      <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-    </p>
-  </div>
-</div>
-
-<div *ngIf="modify">
-  <form (ngSubmit)="modForm()" id="modForm">
+  <div class="container text-center">
+    <h1>Modulos</h1>
     <div>
-      <p>IdModulo: </p>
-      <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule"
-        placeholder="{{moduloModify.idModule}}" required disabled="">
-      <p>Nombre del Modulo:</p>
-      <p>
+      <div *ngIf="header">
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+            class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+           Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>IdModulo</th>
+            <th>Nombre</th>
+            <th>Orden del modulo</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
+            <th>Usuario de modificación</th>
+            <th>Fecha de modificación</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let modulo of ModulosData">
+            <td>{{modulo.idModule}}</td>
+            <td>{{modulo.name}}</td>
+            <td>{{modulo.orderMenu}}</td>
+            <td>{{modulo.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{modulo.userCreation}}</td>
+            <td>{{modulo.userModification}}</td>
+            <td>{{modulo.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(modulo)"> <i
+                    class="fa-solid fa-pen-to-square"></i>
+                  Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(modulo)"> <i
+                    class="fa-solid fa-delete-left"></i>
+                  Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+      <div>
+
+        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+            class="fa-regular fa-square-plus"></i> Agregar</button>
+        &nbsp;
+        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+          Exportar</button>
+        &nbsp;
+        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-left" *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+      <h1>Modificación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-bars"></i>&nbsp; Id Modulo</span>
+        <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule"
+          placeholder="{{moduloModify.idModule}}" required disabled="">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del modulo</span>
         <input type="text" id="name" name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloModify.name}}"
           required>
-      </p>
-      <p>
-        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
-</div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
 
 
-<div *ngIf="add">
-  <form (ngSubmit)="addForm()" id="addForm">
-    <div>
-      <p>Nombre del Modulo:</p>
-      <p>
+  <div class="container text-left" *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del Modulo</span>
         <input type="text" id="name" name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre" required>
-      </p>
-      <p>
-        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" id="Regresar" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
+      </div>
+      <br>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+
+    </form>
+  </div>
 </div>
