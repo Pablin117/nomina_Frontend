@@ -1,4 +1,5 @@
 <div class="container-fluid">
+<div class="container text-center">
   <h1>Creación de usuario</h1>
   <div *ngIf="!showSpinner">
     <div *ngIf="header">
@@ -8,6 +9,10 @@
 
     </div>
   </div>
+</div>
+
+ 
+ 
   <div *ngIf="showSpinner">
     <h1>Espera por favor</h1>
     <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
@@ -41,7 +46,7 @@
         <input type="text" id="email" placeholder="tucorreo@ejemplo.com" [(ngModel)]="emailValue" name="email"
           class="form-control" required>
 
-        <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i></span>
+        <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
         <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
           <option *ngFor="let data of genderData" value="{{data.idGender}}" class="form-control" required>{{data.name}}
           </option>
