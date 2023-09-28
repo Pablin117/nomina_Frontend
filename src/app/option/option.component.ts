@@ -41,7 +41,7 @@ export class OptionComponent {
   optionData: any = []
   menuData: any = []
   companyData: any = {}
-  optionTemp: any = {}
+
   dataUser: any = {}
   options: any = {}
 
@@ -178,7 +178,7 @@ export class OptionComponent {
 
   Modify(response: any) {
     console.log("modifica")
-    this.optionTemp = response
+    this.optionDataModify = response
     this.header = false
     this.add = false
     this.tab = false
@@ -206,7 +206,7 @@ export class OptionComponent {
     this.header = true
     this.optionDataCreate = {}
     this.optionDataModify = {}
-
+    this.ngOnInit()
   }
 
 
@@ -238,7 +238,6 @@ export class OptionComponent {
     if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -249,8 +248,8 @@ export class OptionComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
 
-      this.optionDataModify.idOption = this.optionTemp.idOption
-      this.optionDataModify.idMenu = this.optionTemp.idMenu
+      this.optionDataModify.idOption = this.optionDataModify.idOption
+      this.optionDataModify.idMenu = this.optionDataModify.idMenu
       this.optionDataModify.userModification = this.dataUser.user
    
  
@@ -278,7 +277,6 @@ export class OptionComponent {
     if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -310,7 +308,6 @@ export class OptionComponent {
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }

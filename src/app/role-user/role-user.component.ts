@@ -37,7 +37,6 @@ export class RoleUserComponent {
   roleUserDataModify: any = {}
   roleUserDataCreate: any = {}
   roleUserData: any = []
-  roleUserTemp: any = {}
   dataUser: any = {}
   selectedUser: any = []
   selectedRole: any = []
@@ -88,7 +87,7 @@ export class RoleUserComponent {
   //banderas
   Modify(id: any) {
     console.log("modifica")
-    this.roleUserTemp = id
+    this.roleUserDataModify = id
     this.add = false
     this.tab = false
     this.modify = true
@@ -110,6 +109,7 @@ export class RoleUserComponent {
     this.header = true
     this.roleUserDataCreate = {}
     this.roleUserDataModify = {}
+    this.ngOnInit()
   }
 
   backWelcome() {
@@ -172,7 +172,6 @@ export class RoleUserComponent {
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -183,8 +182,8 @@ export class RoleUserComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.roleUserTemp.userModification = this.dataUser.user
-      this.roleUserDataModify = this.roleUserTemp
+      this.roleUserDataModify.userModification = this.dataUser.user
+      this.roleUserDataModify = this.roleUserDataModify
       this.requestRolUserUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
       )
@@ -207,7 +206,6 @@ export class RoleUserComponent {
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -241,7 +239,6 @@ export class RoleUserComponent {
     if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }

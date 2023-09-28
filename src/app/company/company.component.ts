@@ -34,7 +34,6 @@ export class CompanyComponent {
   //objects
   companyDataModify: any = {}
   companyDataCreate: any = {}
-  companyTemp: any = {}
   BussinessRules: any = []
   dataUser: any = {}
   options: any = {}
@@ -116,39 +115,25 @@ export class CompanyComponent {
   //formulario para modificar
   modForm() {
     let formularioValido: any = document.getElementById("modForm")
-    if (formularioValido.reportValidity()) {
-      if (this.companyDataModify.passwordAmountSpecialCharacters >= 1) {
-        if (this.companyDataModify.passwordAmountNumber >= 1) {
-          if (this.companyDataModify.passwordAmountLowercase >= 1) {
-            if (this.companyDataModify.passwordAmountUppercase >= 1) {
-              this.companyDataModify.userModification = this.dataUser.user
-              this.companyDataModify.idCompany = this.companyTemp.idCompany
-              console.log(this.companyDataModify)
-              this.RequestCompanyUpdate().subscribe(
-                (response: any) => this.ResponseCompanyUpdate(response)
-              )
-            } else {
-              alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
-            }
-          } else {
-            alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
-          }
-        } else {
-          alert("La cantidad de caracteres de números debe ser mayor a 0")
-        }
-      } else {
-        alert("La cantidad de caracteres especiales debe ser mayor a 0")
-      }
-    }
 
+    this.companyDataModify.userModification = this.dataUser.user
+    console.log(this.companyDataModify)
+    this.RequestCompanyUpdate().subscribe(
+      (response: any) => this.ResponseCompanyUpdate(response)
+    )
   }
+
+
+
+
+
   RequestCompanyUpdate() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateCompany/" + this.companyDataModify.idCompany , this.companyDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateCompany/" + this.companyDataModify.idCompany, this.companyDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -158,7 +143,7 @@ export class CompanyComponent {
       alert(response.message)
       this.companyDataModify = {}
       this.back()
-      this.ngOnInit()
+ 
     } else {
       alert(response.message)
     }
@@ -166,66 +151,47 @@ export class CompanyComponent {
   }
 
 
-//para eliminar
+  //para eliminar
 
-Delete(response:any){
-console.log(response.idCompany)
-  this.requestDelete(response).subscribe(
-    (response: any) => this.responseDelete(response)
-  )
-}
-
-requestDelete(response:any){
-  var httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
+  Delete(response: any) {
+    console.log(response.idCompany)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
   }
-  return this.http.delete<any>(this.url + "/deleteCompany/"+response.idCompany, httpOptions).pipe(
-    catchError(e => "1")
-  )
-}
 
-responseDelete(response:any){
-  if (response.code == 0) {
-
-    alert(response.message)
-    this.back()
-    this.ngOnInit()
-  } else {
-    alert(response.message)
+  requestDelete(response: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteCompany/" + response.idCompany, httpOptions).pipe(
+      catchError(e => "1")
+    )
   }
-}
+
+  responseDelete(response: any) {
+    if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
+    }
+  }
 
   //formulario para agregar 
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-  
 
-      if (this.companyDataCreate.passwordAmountSpecialCharacters >= 1) {
-        if (this.companyDataCreate.passwordAmountNumber >= 1) {
-          if (this.companyDataCreate.passwordAmountLowercase >= 1) {
-            if (this.companyDataCreate.passwordAmountUppercase >= 1) {
-              this.companyDataCreate.userCreation = this.dataUser.user
-              console.log(this.companyDataCreate)
-              this.RequestCompanySave().subscribe(
-                (response: any) => this.ResponseCompanySave(response)
-              )
-            } else {
-              alert("La cantidad de caracteres de mayusculas debe ser mayor a 0")
-            }
-          } else {
-            alert("La cantidad de caracteres de minusculas debe ser mayor a 0")
-          }
-        } else {
-          alert("La cantidad de caracteres de números debe ser mayor a 0")
-        }
-      } else {
-        alert("La cantidad de caracteres especiales debe ser mayor a 0")
-      }
-      
+      this.companyDataCreate.userCreation = this.dataUser.user
+      console.log(this.companyDataCreate)
+      this.RequestCompanySave().subscribe(
+        (response: any) => this.ResponseCompanySave(response)
+      )
     }
   }
   RequestCompanySave() {
@@ -244,9 +210,8 @@ responseDelete(response:any){
     if (response.code == 0) {
 
       alert(response.message)
-  
+
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -266,7 +231,7 @@ responseDelete(response:any){
 
   Modify(response: any) {
     console.log(response)
-    this.companyTemp = response
+    this.companyDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -281,6 +246,7 @@ responseDelete(response:any){
     this.header = true
     this.companyDataCreate = {}
     this.companyDataModify = {}
+    this.ngOnInit()
   }
 
   backWelcome() {

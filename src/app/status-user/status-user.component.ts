@@ -101,15 +101,14 @@ export class StatusUserComponent {
 
     
   }
-  back() {
-
-    
+  back() {    
     this.modify = false
     this.add = false
     this.tab = true
     this.header = true
     this.statusUserDataCreate = {}
     this.statusUserDataModify = {}
+    this.ngOnInit()
   }
 
   backWelcome() {
@@ -165,7 +164,6 @@ Delete(response:any){
   
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -204,7 +202,6 @@ Delete(response:any){
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -240,7 +237,6 @@ Delete(response:any){
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }

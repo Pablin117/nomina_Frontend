@@ -27,7 +27,6 @@ export class ModuleMaintenanceComponent {
   moduloDataModify: any = {}
   locationsData: any = {}
   companyData: any = {}
-  moduloModify: any = {}
   btnDelete: boolean = false
   dataUser: any = {}
   options: any = {}
@@ -110,13 +109,12 @@ export class ModuleMaintenanceComponent {
   //banderas
   Modify(modulo: any) {
     console.log("modifica")
-    this.moduloModify = modulo
+    this.moduloDataModify = modulo
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
-    this.moduloDataModify = {}
-    this.moduloDataCreate = {}
+
   }
 
   backWelcome() {
@@ -139,12 +137,13 @@ export class ModuleMaintenanceComponent {
     this.header = true
     this.moduloDataModify = {}
     this.moduloDataCreate = {}
+    this.ngOnInit()
   }
   //agrega 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      console.log(this.moduloDataCreate)
+
       this.moduloDataCreate.userCreation = this.dataUser.user
       this.RequestModuloSave().subscribe(
         (response: any) => this.ResponseModuloSave(response)
@@ -168,7 +167,7 @@ export class ModuleMaintenanceComponent {
       alert(response.message)
       console.log("si")
       this.back()
-      this.ngOnInit()
+   
     } else {
       alert(response.message)
     }
@@ -180,8 +179,8 @@ export class ModuleMaintenanceComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.moduloModify.name = this.moduloDataModify.name
-      this.moduloModify.userModification = this.dataUser.user
+      this.moduloDataModify.name = this.moduloDataModify.name
+      this.moduloDataModify.userModification = this.dataUser.user
       this.RequestModuloSaveM().subscribe(
         (response: any) => this.ResponseModuloSaveM(response)
       )
@@ -195,7 +194,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloModify.idModule, this.moduloModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -204,7 +203,7 @@ export class ModuleMaintenanceComponent {
       alert(response.message)
       console.log("si")
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }
@@ -235,7 +234,7 @@ Delete(response:any){
   
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }

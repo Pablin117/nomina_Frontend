@@ -35,7 +35,7 @@ export class GenderComponent {
   //objetos
   genderDataModify: any = {}
   genderDataCreate: any = {}
-  genderTemp: any = {}
+
   genderData: any = []
 
   dataUser: any = {}
@@ -83,7 +83,7 @@ export class GenderComponent {
   //banderas
   Modify(response: any) {
     console.log("modifica")
-    this.genderTemp = response
+    this.genderDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -102,6 +102,7 @@ export class GenderComponent {
     this.add = false
     this.tab = true
     this.header = true
+    this.ngOnInit()
   }
   backWelcome() {
     this.router.navigateByUrl("/home")
@@ -135,8 +136,6 @@ export class GenderComponent {
     if (formularioValido.reportValidity()) {
  
       this.genderDataModify.userModification = this.dataUser.user
-      this.genderDataModify.idGender = this.genderTemp.idGender
-
 
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
@@ -156,12 +155,9 @@ export class GenderComponent {
     )
   }
   responseGenderUpdate(response: any) {
-    
     if (response.code == 0) {
-
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -193,7 +189,7 @@ Delete(response:any){
   
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }
@@ -225,7 +221,7 @@ Delete(response:any){
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }

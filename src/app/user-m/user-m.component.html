@@ -19,9 +19,9 @@
           <th>Fecha de nacimiento</th>
           <th>Estatus Usuario</th>
           <th>Genero</th>
-          <th>Fecha de ingreso</th>
+          <th>Fecha de ultimo ingreso</th>
           <th>Fecha de ultimo cambio de contraseña</th>
-          <th>Correo secundario</th>
+          <th>Correo adicional</th>
           <th>Telefono</th>
           <th>Sucursal</th>
           <th>Fecha de creacion</th>
@@ -40,8 +40,8 @@
           <td>{{user.dob |date:'dd/MM/yyyy hh:mm:ss'}}</td>
           <td>{{getStatus(user.idStatusUser)}}</td>
           <td>{{getGender(user.idGender)}}</td>
-          <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{user.lastDateOfEntry |date:'dd/MM/yyyy'}}</td>
+          <td>{{user.lastPasswordChangeDate |date:'dd/MM/yyyy'}}</td>
           <td>{{user.email}}</td>
           <td>{{user.mobilePhone}}</td>
           <td>{{getLocation(user.idBranch)}}</td>
@@ -90,29 +90,29 @@
       <h1>Modificación</h1>
 <div class="input-group mb-3">
   <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre</span>
-  <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userModify.name" placeholder="{{userTemp.name}}"
+  <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userDataModify.name" placeholder="{{userDataModify.name}}"
          required>
 
   <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido</span>
-  <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userModify.lastName"
-         placeholder="{{userTemp.lastName}}" required>
+  <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName"
+         placeholder="{{userDataModify.lastName}}" required>
 
   <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado</span>
-  <select class="form-select" id="estatus" name="estatus" [(ngModel)]="userTemp.idStatusUser">
+  <select class="form-select" id="estatus" name="estatus" [(ngModel)]="userDataModify.idStatusUser">
     <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
   </select>
 </div>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-envelope"></i> &nbsp; Correo</span>
-        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="userModify.email" placeholder="{{userTemp.email}}"
+        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="userDataModify.email" placeholder="{{userDataModify.email}}"
                required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i> &nbsp; Telefono</span>
-        <input class="form-control" type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userModify.mobilePhone"
-               placeholder="{{userTemp.mobilePhone}}" required>
+        <input class="form-control" type="text" id="mobilePhone" name="mobilePhone" [(ngModel)]="userDataModify.mobilePhone"
+               placeholder="{{userDataModify.mobilePhone}}" required>
 
         <span class="input-group-text"><i class="fa-regular fa-building"></i> &nbsp; Sucursal</span>
-        <select class="form-select" id="sucursal" name="sucursal" [(ngModel)]="userTemp.idBranch">
+        <select class="form-select" id="sucursal" name="sucursal" [(ngModel)]="userDataModify.idBranch">
           <option *ngFor="let location of Varlocation" value="{{location.idLocation}}" required>{{location.name}}</option>
         </select>
       </div>

@@ -1,19 +1,11 @@
 <div class="container-fluid">
 <div class="container text-center">
   <h1>Creación de usuario</h1>
-  <div *ngIf="!showSpinner">
-    <div *ngIf="header">
-      
-      <button class="btn btn-danger" (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i> 
-        Salir</button>&nbsp;
-
-    </div>
-  </div>
 </div>
 
  
  
-  <div *ngIf="showSpinner">
+  <div class="container text-center" *ngIf="showSpinner">
     <h1>Espera por favor</h1>
     <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
       <span class="sr-only"></span>
@@ -21,49 +13,48 @@
   </div>
 
   <body class="container text-left" *ngIf="!showSpinner">
-    <form (ngSubmit)="create()" id="create"><br>
+    <form (ngSubmit)="addForm()" id="create"><br>
       <div class="input-group mb-3">
-
-
+    
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-        <input type="email" id="idUser" placeholder="@" [(ngModel)]="idUserValue" name="idUser"
+        <input type="email" id="idUser" placeholder="@" [(ngModel)]="userDataCreate.idUser" name="idUser"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-        <input type="text" id="name" placeholder="Nombre" [(ngModel)]="nameValue" name="name" class="form-control"
+        <input type="text" id="name" placeholder="Nombre" [(ngModel)]="userDataCreate.name" name="name" class="form-control"
           required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-        <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="lastNameValue" name="lastName"
+        <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="userDataCreate.lastName" name="lastName"
           class="form-control" required>
+
+          <span class="input-group-text"><i class="fa-regular fa-building"></i> &nbsp; Sucursal</span>
+          <select class="form-select" id="sucursal" name="sucursal" [(ngModel)]="userDataCreate.idLocation">
+            <option *ngFor="let location of locationsData" value="{{location.idLocation}}" required>{{location.name}}</option>
+          </select>
       </div>
       <br>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Nacimiento</span>
-        <input type="date" id="dob" [(ngModel)]="dobValue" name="dob" class="form-control" required>
+        <input type="date" id="dob" [(ngModel)]="userDataCreate.dob" name="dob" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
-        <input type="number" id="mobilePhone" placeholder="Telefono" [(ngModel)]="mobilePhoneValue" name="mobilePhone"
+        <input type="number" id="mobilePhone" placeholder="Telefono" [(ngModel)]="userDataCreate.mobilePhone" name="mobilePhone"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-        <input type="email" id="email" placeholder="@ Adicional" [(ngModel)]="emailValue" name="email"
+        <input type="email" id="email" placeholder="@ Adicional" [(ngModel)]="userDataCreate.email" name="email"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
-        <select id="idGender" [(ngModel)]="selectedGender" name="idGender" required>
+        <select class="form-select" id="idGender" [(ngModel)]="userDataCreate.idGender" name="idGender" required>
           <option *ngFor="let data of genderData" value="{{data.idGender}}" class="form-control" required>{{data.name}}
           </option>
         </select>
 
       </div>
       <br>
-      <div class="input-group mb-1 col-2">
-        
-        
-          
-        <input type="hidden" id="creationDate" name="creationDate" [value]="creationDate">
-      </div>
+
       <br>
 
       <div class="col-2">
@@ -77,7 +68,7 @@
     </div>
       <div>
         
-        <button class="btn btn-secondary" (click)="create()">Confirmar</button>&nbsp;
+        <button class="btn btn-secondary" (click)="addForm()">Confirmar</button>&nbsp;
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>&nbsp;
       </div>
       

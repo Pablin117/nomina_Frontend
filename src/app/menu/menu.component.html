@@ -77,17 +77,17 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Modulo</span>
-        <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuTemp.idModulo" required>
+        <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuDataModify.idModulo" required>
           <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp; Nombre</span>
         <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
-          placeholder="{{menuTemp.name}}" required>
+          placeholder="{{menuDataModify.name}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-list"></i> &nbsp; Asignación en el menu</span>
         <input type="text" id="OrdenMenu" name="OrdenMenu" [(ngModel)]="menuDataModify.orderMenu" class="form-control"
-          placeholder="{{menuTemp.orderMenu}}" required>
+          placeholder="{{menuDataModify.orderMenu}}" required>
       </div>
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;

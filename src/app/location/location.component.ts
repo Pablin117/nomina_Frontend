@@ -27,7 +27,7 @@ export class LocationComponent {
   companyData: any = []
   locationDataCreate: any = {}
   locationDataModify: any = {}
-  locationTemp: any = {}
+
   options: any = {}
   dataUser: any = {}
 
@@ -177,8 +177,7 @@ export class LocationComponent {
 
   //modifica
   Modify(response: any) {
-
-    this.locationTemp = response
+    this.locationDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -205,6 +204,7 @@ export class LocationComponent {
     this.header = true
     this.locationDataCreate = {}
     this.locationDataModify = {}
+    this.ngOnInit()
   }
 
 
@@ -249,7 +249,7 @@ export class LocationComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.locationDataModify.userModification = this.dataUser.user
-      this.locationDataModify.idLocation = this.locationTemp.idLocation
+
       this.RequestLocationModify().subscribe(
         (response: any) => this.ResponseLocationModify(response)
       )

@@ -73,7 +73,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Rol</span>
-        <select class="form-select" name="userRole" [(ngModel)]="roleUserTemp.idRole">
+        <select class="form-select" name="userRole" [(ngModel)]="roleUserDataModify.idRole">
           <option *ngFor="let role of roleData" value="{{role.idRole}}" required>
             {{role.name}}
           </option>

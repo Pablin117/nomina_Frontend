@@ -86,22 +86,22 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fa-solid fa-notes-medical"></i></span>
                     <input name="name" [(ngModel)]="optionDataModify.name" type="text" class="form-control"
-                        placeholder="{{optionTemp.name}}" required>
+                        placeholder="{{optionDataModify.name}}" required>
 
                     <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Menu</span>
-                    <select class="form-select" name="companySelect" [(ngModel)]="optionTemp.idMenu" required>
+                    <select class="form-select" name="companySelect" [(ngModel)]="optionDataModify.idMenu" required>
                         <option *ngFor="let menu of menuData" value="{{menu.idMenu}}" selected>{{menu.name}}
                         </option>
                     </select>
                 </div>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fa-solid fa-network-wired"></i></span>
-                    <input name="name" [(ngModel)]="optionDataModify.idOrderMenu" type="number" class="form-control"
-                        placeholder="{{optionTemp.idOrderMenu}}" required>
+                    <input name="idOrderMenu" [(ngModel)]="optionDataModify.idOrderMenu" type="number" class="form-control"
+                        placeholder="{{optionDataModify.idOrderMenu}}" required>
 
                         <span class="input-group-text"><i class="fa-solid fa-table"></i></span>
-                    <input name="name" [(ngModel)]="optionDataModify.page" type="text" class="form-control"
-                        placeholder="{{optionTemp.page}}" required>
+                    <input name="page" [(ngModel)]="optionDataModify.page" type="text" class="form-control"
+                        placeholder="{{optionDataModify.page}}" required>
                 </div>
 
                 <div>

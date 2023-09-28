@@ -74,11 +74,8 @@
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>
       <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-solid fa-bars"></i>&nbsp; Id Modulo</span>
-        <input type="text" id="idRol" name="idRol" [(ngModel)]="moduloDataModify.idModule"
-          placeholder="{{moduloModify.idModule}}" required disabled="">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del modulo</span>
-        <input type="text" id="name" name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloModify.name}}"
+        <input class="form-control" type="text"  name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloDataModify.name}}"
           required>
       </div>
       <div>
@@ -92,8 +89,8 @@
   <div class="container text-left" *ngIf="add">
     <form (ngSubmit)="addForm()" id="addForm">
       <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del Modulo</span>
-        <input type="text" id="name" name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre" required>
+        <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;</span>
+        <input class="form-control" type="text"  name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre del modulo" required>
       </div>
       <br>
       <div>

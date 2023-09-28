@@ -80,18 +80,18 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>
-                <select class="form-select" name="company" [(ngModel)]="locationTemp.idCompany" required>
+                <select class="form-select" name="company" [(ngModel)]="locationDataModify.idCompany" required>
                     <option *ngFor="let company of companyData" value="{{company.idCompany}}" required>{{company.name}}
                     </option>
                 </select>
 
                 <span class="input-group-text"><i class="fa-solid fa-map"></i>&nbsp; Nombre</span>
                 <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
-                    placeholder="{{locationTemp.name}}" required>
+                    placeholder="{{locationDataModify.name}}" required>
 
                 <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
-                <input name="name" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
-                    placeholder="{{locationTemp.address}}" required>
+                <input name="address" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
+                    placeholder="{{locationDataModify.address}}" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;

@@ -34,7 +34,6 @@ export class MenuComponent {
   //objectos
   menuDataCreate: any = {}
   menuDataModify: any = {}
-  menuTemp: any = {}
   menuModify: any = {}
   dataUser: any = {}
   options: any = {}
@@ -129,7 +128,7 @@ export class MenuComponent {
     if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }
@@ -143,8 +142,7 @@ export class MenuComponent {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.menuDataModify.userModification = this.dataUser.user
-      this.menuDataModify.idMenu = this.menuTemp.idMenu
-      this.menuDataModify.idModulo = this.menuTemp.idModulo
+
       this.RequestMenuM().subscribe(
         (response: any) => this.ResponseMenuM(response)
       )
@@ -164,7 +162,7 @@ export class MenuComponent {
     if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }
@@ -177,7 +175,7 @@ export class MenuComponent {
     this.router.navigateByUrl("/home")
   }
   Modify(response: any) {
-    this.menuTemp = response
+    this.menuDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -198,6 +196,7 @@ export class MenuComponent {
     this.header = true
     this.menuDataModify = {}
     this.menuDataCreate = {}
+    this.ngOnInit()
   }
 
 
@@ -292,7 +291,7 @@ export class MenuComponent {
 
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }

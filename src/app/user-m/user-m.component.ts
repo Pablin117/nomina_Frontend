@@ -29,20 +29,16 @@ export class UserMComponent {
   print: boolean = false
   exporte: boolean = false
   btnDelete: boolean = false
-
-
-
   //url
   url: String = "http://localhost:4042/v1"
   page = "userM"
+
   //objetos
   UsersData: any = []
   userDataCreate: any = {}
   userDataModify: any = {}
-  userTemp: any = {}
   locationsData: any = {}
   statusData: any = {}
-  userModify: any = {}
   dataUser: any = {}
   file: any
   VarId: any = {}
@@ -75,9 +71,7 @@ export class UserMComponent {
   optionsValidate() {
     this.options = localStorage.getItem("options");
     this.options = JSON.parse(this.options)
-
     let permisos: any = {}
-
     this.options.forEach((item: any) => {
       if (item.page === this.page) {
         permisos = item.permisos
@@ -121,7 +115,7 @@ export class UserMComponent {
   }
 
   Modify(response: any) {
-    this.userTemp = response
+    this.userDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -141,18 +135,16 @@ export class UserMComponent {
     this.add = false
     this.tab = true
     this.header = true
-    this.userModify = {}
+    this.userDataModify = {}
     this.userDataCreate = {}
-      this.userTemp = {}
+    this.ngOnInit()
   }
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.userModify.idStatusUser = this.userTemp.idStatusUser
-        this.userModify.idBranch = this.userTemp.idBranch
-      this.userModify.userModification = this.dataUser.user
-        this.VarId = this.userTemp.idUser
+        this.userDataModify.userModification = this.dataUser.user
+        this.VarId = this.userDataModify.idUser
         this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
@@ -165,7 +157,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyUser/" + this.userTemp.idUser, this.userModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/modifyUser/" + this.userDataModify.idUser, this.userDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -372,6 +364,7 @@ export class UserMComponent {
     }
 
     responseDelete(response:any){
+      console.log(response)
         if (response.code == 0) {
 
             alert(response.message)
