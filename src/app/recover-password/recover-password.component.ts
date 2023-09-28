@@ -48,7 +48,6 @@ export class RecoverPasswordComponent {
   //consumer service login
   validateUserService() {
     this.user = this.user.toLowerCase()
-    console.log(this.user)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -61,9 +60,11 @@ export class RecoverPasswordComponent {
 
   //response service login
   responseValidateUserService(response: any) {
-    console.log(response) //<----- Acá esta la info recuperada del usuairo
+   
     //validación de respuesta
     if (response != null) {
+      this.dataUser = response
+      console.log(this.dataUser)
       this.userRecover = false;
       this.messageError = ""
       this.checkQuestions(response);
@@ -93,7 +94,7 @@ export class RecoverPasswordComponent {
     )
   }
   ResponseQuestions(response: any) {
-    console.log(response)
+  
     if (response == null) {
 
       alert("Usuario no cuenta con preguntas configuradas")
@@ -115,6 +116,7 @@ export class RecoverPasswordComponent {
   questionsForm() {
     let formularioValido: any = document.getElementById("questionsForm");
     if(formularioValido.reportValidity()){
+      console.log(this.QuestionsData)
       this.validateQuestionsService().subscribe(
         (response: any) => this.responseValidateQuestionsService(response)
       )
@@ -132,7 +134,7 @@ export class RecoverPasswordComponent {
     )
   }
   responseValidateQuestionsService(response: any) {
-    console.log(response)
+
     if (response.code == "0") { 
       this.questionComplete = true   
     } else{
@@ -200,7 +202,6 @@ export class RecoverPasswordComponent {
 
   ResponseCompany(response:any){
   this.BussinessRules = response[0]
-  console.log(this.BussinessRules)
   console.log("Se obtuvo configuracion de empresa")
   }
 
