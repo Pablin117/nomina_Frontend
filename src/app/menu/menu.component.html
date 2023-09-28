@@ -4,92 +4,90 @@
     <div>
       <div *ngIf="header">
         <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
-          class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
-        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
-          class="fa-solid fa-right-from-bracket"></i>  Salir</button>
+            class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+          Salir</button>
       </div>
     </div>
   </div>
+
   <div *ngIf="tab">
     <div>
       <table class="table table-hover">
         <thead>
-        <tr>
-          <th>Menu</th>
-          <th>Modulo</th>
-          <th>Nombre</th>
-          <th>Orden Menu</th>
-          <th>Fecha de creacion</th>
-          <th>Usuario de creacion</th>
-          <th>Fecha de modificación</th>
-          <th>Usuario de modificacion</th>
-          <th>Opciones</th>
-          <th>&nbsp;</th>
-        </tr>
+          <tr>
+            <th>Menu</th>
+            <th>Modulo</th>
+            <th>Nombre</th>
+            <th>Asignación en el Menu</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario de modificación</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let menu of MenusData">
-          <td>{{menu.idMenu}}</td>
-          <td>{{getModulos(menu.idModulo)}}</td>
-          <td>{{menu.name}}</td>
-          <td>{{menu.orderMenu }}</td>
-          <td>{{menu.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{menu.userCreation}}</td>
-          <td>{{menu.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{menu.userModification}}</td>
-          <td>
-            <div>
-              <button *ngIf="btnUpdate" class="btn btn-secondary"
-                      id="modificar" (click)="Modify(menu)"> <i
-                class="fa-solid fa-pen-to-square"></i>
-                Modificar</button>
-              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm"
-                      disabled>No Disponible</button>
-            </div>
-          </td>
-          <td>
-            <div>
-              <button *ngIf="btnDelete" class="btn btn-danger"
-                      id="delete" (click)="Delete(menu)"> <i
-                class="fa-solid fa-delete-left"></i>
-                Eliminar</button>
-            </div>
-          </td>
-        </tr>
+          <tr *ngFor="let data of MenusData">
+            <td>{{data.idMenu}}</td>
+            <td>{{getModulos(data.idModulo)}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.orderMenu }}</td>
+            <td>{{data.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{data.userCreation}}</td>
+            <td>{{data.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{data.userModification}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
+                    class="fa-solid fa-pen-to-square"></i>
+                  Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)"> <i
+                    class="fa-solid fa-delete-left"></i>
+                  Eliminar</button>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
       <div>
 
         <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
-          class="fa-regular fa-square-plus"></i> Agregar</button>
+            class="fa-regular fa-square-plus"></i> Agregar</button>
 
 
         &nbsp;
-        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i
-          class="fa-solid fa-download"></i> Exportar</button>
+        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+          Exportar</button>
         &nbsp;
-        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i
-          class="fa-solid fa-print"></i> Imprimir</button>
+        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i> Imprimir</button>
 
       </div>
     </div>
   </div>
+  
   <div class="container text-left" *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>
-<div class="input-group mb-3">
-  <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Modulo</span>
-  <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuTemp.idModulo" required>
-    <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
-  </select>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Modulo</span>
+        <select class="form-select" id="DataModulo" name="DataModulo" [(ngModel)]="menuTemp.idModulo" required>
+          <option *ngFor="let menu of VarModule" value="{{menu.idModule}}" required>{{menu.name}}</option>
+        </select>
 
         <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp; Nombre</span>
         <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
-               placeholder="{{menuTemp.name}}" required>
+          placeholder="{{menuTemp.name}}" required>
 
-        <span class="input-group-text"><i class="fa-solid fa-list"></i> &nbsp; Orden de menu</span>
+        <span class="input-group-text"><i class="fa-solid fa-list"></i> &nbsp; Asignación en el menu</span>
         <input type="text" id="OrdenMenu" name="OrdenMenu" [(ngModel)]="menuDataModify.orderMenu" class="form-control"
-               placeholder="{{menuTemp.orderMenu}}" required>
+          placeholder="{{menuTemp.orderMenu}}" required>
       </div>
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
@@ -98,6 +96,7 @@
 
     </form>
   </div>
+  
   <div class="container text-left" *ngIf="add">
     <form (ngSubmit)="addForm()" id="addForm">
       <h1>Creación</h1>
@@ -108,15 +107,17 @@
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
-        <input class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name" placeholder="Nombre" required>
+        <input class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name"
+          placeholder="Nombre" required>
 
-        <span class="input-group-text"><i class="fa-solid fa-list"></i> &nbsp; Orden del menu</span>
-        <input class="form-control" type="text" id="odermenu" name="odermenu" [(ngModel)]="menuDataCreate.orderMenu" placeholder="1" required>
+        <span class="input-group-text"><i class="fa-solid fa-list"></i> </span>
+        <input class="form-control" type="text" id="odermenu" name="odermenu" [(ngModel)]="menuDataCreate.orderMenu"
+          placeholder="Asignación en el menu" required>
       </div>
-        <div>
-          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
-          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
-        </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
     </form>
   </div>
 </div>

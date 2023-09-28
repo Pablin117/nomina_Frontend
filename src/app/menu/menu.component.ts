@@ -143,27 +143,27 @@ export class MenuComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      console.log(this.menuDataModify)
+   
       this.menuDataModify.userModification = this.dataUser.user
       this.menuDataModify.idMenu = this.menuTemp.idMenu
       this.menuDataModify.idModulo = this.menuTemp.idModulo
-      this.RequestUserSaveM().subscribe(
-        (response: any) => this.ResponseUserSaveM(response)
+      console.log(this.menuDataModify)
+      this.RequestMenuM().subscribe(
+        (response: any) => this.ResponseMenuM(response)
       )
-
     }
   }
-  RequestUserSaveM() {
+  RequestMenuM() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseUserSaveM(response: any) {
+  ResponseMenuM(response: any) {
     if (response.code == 0) {
       alert(response.message)
       this.back()
