@@ -85,19 +85,19 @@
     </div>
   </div>
 
-  <div class="contenedor" *ngIf="modify">
+  <div class="container text-left" *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>
 <div class="input-group mb-3">
-  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre del Usuario</span>
+  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre</span>
   <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userModify.name" placeholder="{{userTemp.name}}"
          required>
 
-  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido del Usuario</span>
+  <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido</span>
   <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userModify.lastName"
          placeholder="{{userTemp.lastName}}" required>
 
-  <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado Usuario</span>
+  <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado</span>
   <select class="form-select" id="estatus" name="estatus" [(ngModel)]="userTemp.idStatusUser">
     <option *ngFor="let status of Varstatus" value="{{status.idStatusUser}}" required>{{status.name}}</option>
   </select>
@@ -116,13 +116,15 @@
           <option *ngFor="let location of Varlocation" value="{{location.idLocation}}" required>{{location.name}}</option>
         </select>
       </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text"><i class="fa-regular fa-image"></i> &nbsp; Fotografia</span>
+      <div class="col-2">
+      <span class="input-group-text"><i class="fa-regular fa-image"></i> &nbsp; Fotografia</span>
+      <form>
         <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput required>
         <img *ngIf="imageSrc" [src]="imageSrc" style="max-width: 300px;" alt="Imagen Previa">
         <br>
-        <button class="btn btn-secondary" (click)="selectImage()">Seleccionar Imagen</button>
-      </div>
+        <button class="btn btn-secondary" (click)="selectImage()" id="selected">Seleccionar Imagen</button>
+      </form>
+    </div>
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
