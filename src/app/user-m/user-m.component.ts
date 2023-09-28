@@ -153,7 +153,6 @@ export class UserMComponent {
         this.userModify.idBranch = this.userTemp.idBranch
       this.userModify.userModification = this.dataUser.user
         this.VarId = this.userTemp.idUser
-        console.log(this.VarId)
         this.RequestUserSaveM().subscribe(
         (response: any) => this.ResponseUserSaveM(response)
       )
@@ -246,8 +245,6 @@ export class UserMComponent {
         if (this.imageSrc) {
             const idUser = this.VarId; // Reemplaza esto con el ID real del usuario
             //const file = this.fileInput.nativeElement.files[0];
-            //console.log(this.file2)
-            console.log(idUser)
             this.saveImage(idUser, this.file).subscribe(
                 (response: any) => this.ResponseImages(response)
 
@@ -264,7 +261,6 @@ export class UserMComponent {
     }
 
     ResponseImages(response: any) {
-        console.log(response);
     }
 
   getStatus(idStatus: number): string {
@@ -364,6 +360,7 @@ export class UserMComponent {
     }
 
     requestDelete(response:any){
+    console.log(response)
         var httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
