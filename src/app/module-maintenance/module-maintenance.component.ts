@@ -28,6 +28,7 @@ export class ModuleMaintenanceComponent {
   locationsData: any = {}
   companyData: any = {}
   moduloModify: any = {}
+  btnDelete: boolean = false
   dataUser: any = {}
   options: any = {}
 
@@ -63,6 +64,7 @@ export class ModuleMaintenanceComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -207,6 +209,38 @@ export class ModuleMaintenanceComponent {
       alert(response.message)
     }
   }
+
+//para eliminar
+
+Delete(response:any){
+  console.log(response.idModule)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+  
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  
+  responseDelete(response:any){
+    if (response.code == 0) {
+  
+      alert(response.message)
+      this.back()
+      this.ngOnInit()
+    } else {
+      alert(response.message)
+    }
+  }
+
   //finaliza la sesion
   revoke() {
     console.log("salida")
