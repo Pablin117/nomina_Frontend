@@ -1,203 +1,212 @@
-<h1>Asignación de opciones a roles</h1>
-<div *ngIf="header">
-  <button class="btn btn-danger" id="salir" (click)="revoke()">Salir</button>&nbsp;
-  <button class="btn btn-secondary" id="regresar" (click)="backWelcome()">Regresar</button>
+<div class="container-fluid">
+
+  <div class="container text-center">
+    <h1>Asignación de Opciones a Rol</h1>
+    <div>
+      <div *ngIf="header">
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i 
+          class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
+          class="fa-solid fa-right-from-bracket"></i> Salir</button>
+      </div>
+    </div>
 </div>
 
-<br>
-<br>
-<div *ngIf="tab">
-  <div>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>Rol</th>
-          <th>Opción</th>
-          <th>Alta</th>
-          <th>Baja</th>
-          <th>Cambio</th>
-          <th>Imprimir</th>
-          <th>Exportar</th>
-          <th>Fecha Creación</th>
-          <th>Usuario Creacion</th>
-          <th>Fecha Modificacion</th>
-          <th>Usuario Modificacion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let optRole of RolesOptionsData">
-          <td>{{optRole.idPK.nameRole}}</td>
-          <td>{{optRole.idPK.nameOption}}</td>
-          <td>{{optRole.nameUp}}</td>
-          <td>{{optRole.nameDown}}</td>
-          <td>{{optRole.nameUpdate}}</td>
-          <td>{{optRole.namePrint}}</td>
-          <td>{{optRole.nameExport}}</td>
-          <td>{{optRole.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{optRole.userCreation}}</td>
-          <td>{{optRole.userModification}}</td>
-          <td>{{optRole.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>
-            <div>
-              <button class="btn btn-warning" id="modificar" (click)="Modify(optRole)">Modificar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover" id="table-consult">
+        <thead>
+          <tr>
+            <th>Rol</th>
+            <th>Opción</th>
+            <th>Alta</th>
+            <th>Baja</th>
+            <th>Cambio</th>
+            <th>Imprimir</th>
+            <th>Exportar</th>
+            <th>Fecha Creación</th>
+            <th>Usuario Creacion</th>
+            <th>Fecha Modificacion</th>
+            <th>Usuario Modificacion</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let optRole of RolesOptionsData">
+            <td>{{optRole.idPK.nameRole}}</td>
+            <td>{{optRole.idPK.nameOption}}</td>
+            <td>{{optRole.nameUp}}</td>
+            <td>{{optRole.nameDown}}</td>
+            <td>{{optRole.nameUpdate}}</td>
+            <td>{{optRole.namePrint}}</td>
+            <td>{{optRole.nameExport}}</td>
+            <td>{{optRole.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{optRole.userCreation}}</td>
+            <td>{{optRole.userModification}}</td>
+            <td>{{optRole.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" 
+                  id="modificar" (click)="Modify(optRole)"> <i 
+                  class="fa-solid fa-pen-to-square"></i> Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" 
+                  disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger"
+                  id="delete" (click)="Delete(optRole)"> <i 
+                  class="fa-solid fa-delete-left"></i> Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
 
 
-    </table>
-    <br>
-    <button class="btn btn-success" id="add" (click)="Add()">Agregar</button>
+      </table>
+      <div>
+        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+                        class="fa-regular fa-square-plus"></i> Agregar</button>
+        &nbsp;
+        <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
+          class="fa-solid fa-download"></i> Exportar</button>
+        &nbsp;
+        <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i
+          class="fa-solid fa-print"></i> Imprimir</button>
+      </div>
+      
+    </div>
   </div>
-</div>
 
 
-<div *ngIf="add">
-  <form (ngSubmit)="addForm()" id="addForm">
-    <div>
-      <p>Rol:</p>
-      <p>
-        <select name="idRole" [(ngModel)]="RoleOptionCreate.idPK.idRole">
-          <option *ngFor="let role of RolesData" value="{{role.idRole}}" required>
+  <div class="container text-left"  *ngIf="modify">
+    <form (ngSubmit)="modifyForm()" id="modifyForm">
+      <h1>Modificación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Rol</span>
+        <select class="form-select" name="idRole" [(ngModel)]="RoleOptionModify.idPK.idRole" required>
+          <option *ngFor="let role of RolesData" value="{{role.idRole}}" selected>
             {{role.name}}
           </option>
         </select>
-      </p>
 
-      <p>Opción:</p>
-      <p>
-        <select name="idOption" [(ngModel)]="RoleOptionCreate.idPK.idOption">
-          <option *ngFor="let option of OptionsData" value="{{option.idOption}}" required>
+        <span class="input-group-text"><i class="fa-solid fa-sliders"></i> &nbsp; Opción</span>
+        <select class="form-select" name="idOption" [(ngModel)]="RoleOptionModify.idPK.idOption" required>
+          <option *ngFor="let option of OptionsData" value="{{option.idOption}}" selected>
             {{option.name}}
           </option>
         </select>
-      </p>
-
-      <p>Alta:</p>
-      <p>
-        <select name="up" [(ngModel)]="RoleOptionCreate.up">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-check"></i> &nbsp; Alta</span>
+        <select class="form-select" name="up" [(ngModel)]="RoleOptionModify.up" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>Baja:</p>
-      <p>
-        <select name="down" [(ngModel)]="RoleOptionCreate.down">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+  
+        <span class="input-group-text"><i class="fa-solid fa-xmark"></i> &nbsp; Baja</span>
+        <select class="form-select" name="down" [(ngModel)]="RoleOptionModify.down" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>Modificación:</p>
-      <p>
-        <select name="update" [(ngModel)]="RoleOptionCreate.update">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+  
+        <span class="input-group-text"><i class="fa-solid fa-pen"></i>&nbsp; Modificación</span>
+        <select class="form-select" name="update" [(ngModel)]="RoleOptionModify.update" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>Imprimir:</p>
-      <p>
-        <select name="print" [(ngModel)]="RoleOptionCreate.print">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-download"></i> &nbsp; Exportar</span>
+        <select class="form-select" name="export" [(ngModel)]="RoleOptionModify.export" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>Exportar:</p>
-      <p>
-        <select name="export" [(ngModel)]="RoleOptionCreate.export">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+  
+        <span class="input-group-text"><i class="fa-solid fa-print"></i> &nbsp; Imprimir</span>
+        <select class="form-select" name="print" [(ngModel)]="RoleOptionModify.print" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
+      </div>
 
-      <p>
-        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
-</div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
 
-
-<div *ngIf="modify">
-  <form (ngSubmit)="modifyForm()" id="modifyForm">
-    <div>
-      <p>Rol:</p>
-      <p>
-        <select name="idRole" [(ngModel)]="RoleOptionModify.idPK.idRole">
-          <option *ngFor="let role of RolesData" value="{{role.idRole}}" required>
+  <div class="container text-left" *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+      <h1>Creación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Rol</span>
+        <select class="form-select" name="idRole" [(ngModel)]="RoleOptionCreate.idPK.idRole" required>
+          <option *ngFor="let role of RolesData" value="{{role.idRole}}" selected>
             {{role.name}}
           </option>
         </select>
-      </p>
 
-      <p>Opción:</p>
-      <p>
-        <select name="idOption" [(ngModel)]="RoleOptionModify.idPK.idOption">
-          <option *ngFor="let option of OptionsData" value="{{option.idOption}}" required>
+        <span class="input-group-text"><i class="fa-solid fa-sliders"></i> &nbsp; Opción</span>
+        <select class="form-select" name="idOption" [(ngModel)]="RoleOptionCreate.idPK.idOption" required>
+          <option *ngFor="let option of OptionsData" value="{{option.idOption}}" selected>
             {{option.name}}
           </option>
         </select>
-      </p>
-
-      <p>Alta:</p>
-      <p>
-        <select name="up" [(ngModel)]="RoleOptionModify.up">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-check"></i> &nbsp; Alta</span>
+        <select class="form-select" name="up" [(ngModel)]="RoleOptionCreate.up" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
 
-      <p>Baja:</p>
-      <p>
-        <select name="down" [(ngModel)]="RoleOptionModify.down">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+        <span class="input-group-text"><i class="fa-solid fa-xmark"></i> &nbsp; Baja</span>
+        <select class="form-select" name="down" [(ngModel)]="RoleOptionCreate.down" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
 
-      <p>Modificación:</p>
-      <p>
-        <select name="update" [(ngModel)]="RoleOptionModify.update">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+        <span class="input-group-text"><i class="fa-solid fa-pen"></i>&nbsp; Modificación</span>
+        <select class="form-select" name="update" [(ngModel)]="RoleOptionCreate.update" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>Imprimir:</p>
-      <p>
-        <select name="print" [(ngModel)]="RoleOptionModify.print">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-download"></i> &nbsp; Exportar</span>
+        <select class="form-select" name="export" [(ngModel)]="RoleOptionCreate.export" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
 
-      <p>Exportar:</p>
-      <p>
-        <select name="export" [(ngModel)]="RoleOptionModify.export">
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" required>
+        <span class="input-group-text"><i class="fa-solid fa-print"></i> &nbsp; Imprimir</span>
+        <select class="form-select" name="print" [(ngModel)]="RoleOptionCreate.print" required>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-      </p>
-
-      <p>
-        <button class="btn btn-success" type="submit" id="btnM">Confirmar</button>&nbsp;
-        <button class="btn btn-warning" (click)="back()">Regresar</button>
-      </p>
-    </div>
-  </form>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
 </div>

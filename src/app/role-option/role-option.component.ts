@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { coerceStringArray } from "@angular/cdk/coercion";
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-role-option',
@@ -27,6 +28,7 @@ export class RoleOptionComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  btnDelete: boolean = false
   //objetos
   dataUser: any = {}
   RolesData: any = []
@@ -37,9 +39,22 @@ export class RoleOptionComponent {
   Permisos: any = []
   options: any = {}
   page: string = "role-option"
+
+  name = 'RolOpcionesReport.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('table-consult');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
+  }
+  
   ngOnInit() {
     this.validateSession()
     this.RoleOptionCreate.idPK = {}
+
   }
 
   //valida la sesion
@@ -58,6 +73,7 @@ export class RoleOptionComponent {
     }
   }
 
+
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
@@ -72,6 +88,7 @@ export class RoleOptionComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -88,8 +105,6 @@ export class RoleOptionComponent {
       id: 0,
       name: "Deshabilitado"
     })
-
-    console.log(this.Permisos)
   }
 
   Options() {
@@ -274,6 +289,36 @@ export class RoleOptionComponent {
       optionAvalile.nameExport = optionAvalile.export == 1 ? "Habilitado" : "Deshabilitado"
     }
   }
+
+
+  Delete(response:any){
+    console.log(response)
+      this.requestDelete(response).subscribe(
+        (response: any) => this.responseDelete(response)
+      )
+    }
+    
+    requestDelete(response:any){
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+      return this.http.delete<any>(this.url + "/deleteRoleOption/"+response.idPK.idRole + "/" + response.idPK.idOption, httpOptions).pipe(
+        catchError(e => "1")
+      )
+    }
+    
+    responseDelete(response:any){
+      if (response.code == 0) {
+    
+        alert(response.message)
+        this.back()
+        this.ngOnInit()
+      } else {
+        alert(response.message)
+      }
+    }
 
 
   //finaliza sesion

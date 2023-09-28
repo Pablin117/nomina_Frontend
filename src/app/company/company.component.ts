@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -44,6 +45,17 @@ export class CompanyComponent {
   page: String = "company"
 
 
+  name = 'empresasReport.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('table-consult');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
+  }
+
   //valida sesiones
   validateSession() {
     console.log("valida Sesion")
@@ -57,8 +69,6 @@ export class CompanyComponent {
       this.router.navigateByUrl("/")
     }
   }
-
-
 
   //bandera de botones
   optionsValidate() {
