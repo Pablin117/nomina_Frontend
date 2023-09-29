@@ -24,6 +24,10 @@ import { BankComponent } from './bank/bank.component';
 import { MaritalStatusComponent } from './marital-status/marital-status.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { PersonDocumentComponent } from './person-document/person-document.component';
+import { PersonComponent } from './person/person.component';
+import { PositionComponent } from './position/position.component';
+import { AbsenceComponent } from './absence/absence.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -48,8 +52,11 @@ const routes: Routes = [
   { path: 'marital-status', component: MaritalStatusComponent},
   { path: 'employee', component: EmployeeComponent},
   { path: 'personal-document', component: PersonDocumentComponent},
+  { path: 'position', component: PositionComponent},
+  { path: 'person', component: PersonComponent},
+  { path: 'absence', component: AbsenceComponent},
   { path: 'not-found', component: NotFoundComponent},
-  { path: '**', redirectTo: 'not-found'}
+  { path: '**', redirectTo: 'not-found'},
 ];
 
 @NgModule({

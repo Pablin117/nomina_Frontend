@@ -36,6 +36,10 @@ import { BankComponent } from './bank/bank.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { MaritalStatusComponent } from './marital-status/marital-status.component';
 import { PersonDocumentComponent } from './person-document/person-document.component';
+import { PersonComponent } from './person/person.component';
+import { PositionComponent } from './position/position.component';
+import { AbsenceComponent } from './absence/absence.component';
+
 
 
 
@@ -67,6 +71,9 @@ import { PersonDocumentComponent } from './person-document/person-document.compo
     EmployeeComponent,
     MaritalStatusComponent,
     PersonDocumentComponent,
+    PersonComponent,
+    PositionComponent,
+    AbsenceComponent,
 
   ],
 
