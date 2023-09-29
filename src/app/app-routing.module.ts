@@ -20,6 +20,9 @@ import { RoleUserComponent } from './role-user/role-user.component';
 import { GenderComponent } from './gender/gender.component';
 import {RoleOptionComponent} from "./role-option/role-option.component";
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PersonComponent } from './person/person.component';
+import { PositionComponent } from './position/position.component';
+import { AbsenceComponent } from './absence/absence.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -40,9 +43,11 @@ const routes: Routes = [
   { path: 'status-user', component: StatusUserComponent },
   { path: 'role-user', component: RoleUserComponent },
   { path: 'gender', component: GenderComponent },
+  { path: 'position', component: PositionComponent},
+  { path: 'person', component: PersonComponent},
+  { path: 'absence', component: AbsenceComponent},
   { path: 'not-found', component: NotFoundComponent},
-  { path: '**', redirectTo: 'not-found'}
-
+  { path: '**', redirectTo: 'not-found'},
 
 ];
 

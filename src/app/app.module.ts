@@ -32,6 +32,9 @@ import { RoleUserComponent } from './role-user/role-user.component';
 import { RoleOptionComponent } from './role-option/role-option.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PersonComponent } from './person/person.component';
+import { PositionComponent } from './position/position.component';
+import { AbsenceComponent } from './absence/absence.component';
 
 
 
@@ -59,6 +62,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     RoleOptionComponent,
     HomeComponent,
     NotFoundComponent,
+    PersonComponent,
+    PositionComponent,
+    AbsenceComponent,
 
   ],
 
