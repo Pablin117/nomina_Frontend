@@ -134,9 +134,7 @@ export class GenderComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
- 
       this.genderDataModify.userModification = this.dataUser.user
-
       this.requestGenderUpdate().subscribe(
         (response: any) => this.responseGenderUpdate(response)
       )
@@ -155,7 +153,9 @@ export class GenderComponent {
     )
   }
   responseGenderUpdate(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.back()
     } else {
@@ -179,17 +179,17 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   
   responseDelete(response:any){
-    if (response.code == 0) {
-  
+    if(response.code == 999){
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
-
     } else {
       alert(response.message)
     }
@@ -217,11 +217,12 @@ Delete(response:any){
     )
   }
   responseGenderSave(response: any) {
-    if (response.code == 0) {
 
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.back()
-
     } else {
       alert(response.message)
     }

@@ -102,17 +102,18 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteLocation/" + response.idLocation, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteLocation/" + response.idLocation + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   responseDelete(response: any) {
-    if (response.code == 0) {
-
+    if (response.code == 999) {
+    
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -233,10 +234,13 @@ export class LocationComponent {
   }
 
   ResponseLocationSave(response: any) {
-    if (response.code == 0) {
+    if (response.code == 999) {
+  
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
-      this.ngOnInit()
+
     } else {
       alert(response.message)
     }
@@ -271,12 +275,12 @@ export class LocationComponent {
   }
 
   ResponseLocationModify(response: any) {
-
-    if (response.code == 0) {
+    if (response.code == 999) {
+ 
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
-      console.log("Se actualizo")
       this.back()
-      this.ngOnInit()
     } else {
       alert(response.message)
     }
@@ -284,8 +288,6 @@ export class LocationComponent {
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -309,7 +311,7 @@ export class LocationComponent {
       this.router.navigateByUrl("/")
       localStorage.clear()
     } else {
-
+        alert(response.message)
       localStorage.clear()
       this.router.navigateByUrl("/")
     }

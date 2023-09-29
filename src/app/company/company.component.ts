@@ -138,12 +138,11 @@ export class CompanyComponent {
     )
   }
   ResponseCompanyUpdate(response: any) {
-    console.log(response)
-    if (response.code == 0) {
+   if(response.code == 999){
+     this.revoke()
+   }else if (response.code == 0) {
       alert(response.message)
-      this.companyDataModify = {}
       this.back()
- 
     } else {
       alert(response.message)
     }
@@ -154,7 +153,6 @@ export class CompanyComponent {
   //para eliminar
 
   Delete(response: any) {
-    console.log(response.idCompany)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -166,14 +164,17 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteCompany/" + response.idCompany, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteCompany/" + response.idCompany +"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   responseDelete(response: any) {
-    if (response.code == 0) {
-
+   
+    if(response.code == 999 ){
+   
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.back()
     } else {
@@ -186,9 +187,7 @@ export class CompanyComponent {
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-
       this.companyDataCreate.userCreation = this.dataUser.user
-      console.log(this.companyDataCreate)
       this.RequestCompanySave().subscribe(
         (response: any) => this.ResponseCompanySave(response)
       )
@@ -206,11 +205,11 @@ export class CompanyComponent {
     )
   }
   ResponseCompanySave(response: any) {
-    console.log(response)
-    if (response.code == 0) {
+    if(response.code == 999){
 
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
-
       this.back()
     } else {
       alert(response.message)
@@ -230,7 +229,6 @@ export class CompanyComponent {
 
 
   Modify(response: any) {
-    console.log(response)
     this.companyDataModify = response
     this.add = false
     this.tab = false
