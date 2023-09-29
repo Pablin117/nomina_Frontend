@@ -49,7 +49,7 @@ export class RoleOptionComponent {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
-  }
+  } 
   
   ngOnInit() {
     this.validateSession()
