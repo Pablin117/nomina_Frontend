@@ -159,7 +159,7 @@ export class PositionComponent {
     }
     responseDepartment(response: any) {
       this.departmentData = response
-      this.position()
+    //  this.position()
     }
   
     getDepartmentName(idDepartment: number): string {
