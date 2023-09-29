@@ -45,11 +45,11 @@
             </td>
             <td>
               <div>
-                  <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
-                      <i class="fa-solid fa-delete-left"></i>
-                      Eliminar</button>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
+                  <i class="fa-solid fa-delete-left"></i>
+                  Eliminar</button>
               </div>
-          </td>
+            </td>
           </tr>
         </tbody>
 
@@ -97,7 +97,7 @@
           <option *ngFor="let user of userData" value="{{user.idUser}}" required> {{user.idUser}}
           </option>
         </select>
-       
+
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Rol</span>
         <select class="form-select" name="userRole" [(ngModel)]="roleUserDataCreate.idRole">
           <option *ngFor="let role of roleData" value="{{role.idRole}}" required>{{role.name}}
@@ -112,5 +112,5 @@
   </div>
 
 
- 
+
 </div>

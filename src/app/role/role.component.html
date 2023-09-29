@@ -1,84 +1,83 @@
 <h1>Roles</h1>
 <div *ngIf="header">
-    <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
-    <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
+  <button class="btn btn-danger" id="modificar" (click)="revoke()">Salir</button>&nbsp;
+  <button class="btn btn-secondary" id="modificar" (click)="backWelcome()">Regresar</button>
 </div>
 
 <div *ngIf="tab">
-    <div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>IdRole</th>
-                    <th>Nombre</th>
-                    <th>Fecha de creación</th>
-                    <th>Usuario de creación</th>
-                    <th>Usuario de modificación</th>
-                    <th>Fecha de modificación</th>
-                    <th>Opción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let role of RolesData">
-                    <td>{{role.idRole}}</td>
-                    <td>{{role.name}}</td>
-                    <td>{{role.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                    <td>{{role.userCreation}}</td>
-                    <td>{{role.userModification}}</td>
-                    <td>{{role.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-                    <td>
-                        <div>
-                            <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(role)">
-                                Modificar</button>
-                            <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+  <div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>IdRole</th>
+          <th>Nombre</th>
+          <th>Fecha de creación</th>
+          <th>Usuario de creación</th>
+          <th>Usuario de modificación</th>
+          <th>Fecha de modificación</th>
+          <th>Opción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of RolesData">
+          <td>{{role.idRole}}</td>
+          <td>{{role.name}}</td>
+          <td>{{role.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>{{role.userCreation}}</td>
+          <td>{{role.userModification}}</td>
+          <td>{{role.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td>
+            <div>
+              <button *ngIf="btnUpdate" class="btn btn-warning" id="modificar" (click)="Modify(role)">
+                Modificar</button>
+              <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
 
-        </table>
-        <p>
-            <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
-            &nbsp;
-            <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
-            &nbsp;
-            <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
-        </p>
-    </div>
+    </table>
+    <p>
+      <button *ngIf="btnAdd" class="btn btn-success" id="agregar" (click)="Add()">Agregar</button>
+      &nbsp;
+      <button *ngIf="exporte" class="btn btn-info" id="exportar">Exportar</button>
+      &nbsp;
+      <button *ngIf="print" class="btn btn-primary" id="imprimir">Imprimir</button>
+    </p>
+  </div>
 </div>
 
 <div *ngIf="modify">
-    <form (ngSubmit)="modForm()" id="modForm">
-        <div>
-            <p>IdRol: </p>
-            <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
-                placeholder="{{roleDataModify.idRole}}" required disabled="">
-            <p>Nombre del Rol:</p>
-            <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name"
-                    placeholder="{{roleDataModify.name}}" required>
-            </p>
-            <p>
-                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button class="btn btn-warning" (click)="back()">Regresar</button>
-            </p>
-        </div>
-    </form>
+  <form (ngSubmit)="modForm()" id="modForm">
+    <div>
+      <p>IdRol: </p>
+      <input type="text" id="idRol" name="idRol" [(ngModel)]="roleDataModify.idRole"
+        placeholder="{{roleDataModify.idRole}}" required disabled="">
+      <p>Nombre del Rol:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="roleDataModify.name" placeholder="{{roleDataModify.name}}"
+          required>
+      </p>
+      <p>
+        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+        <button class="btn btn-warning" (click)="back()">Regresar</button>
+      </p>
+    </div>
+  </form>
 </div>
 
 
 <div *ngIf="add">
-    <form (ngSubmit)="addForm()" id="addForm">
-        <div>
-            <p>Nombre del Rol:</p>
-            <p>
-                <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre"
-                    required>
-            </p>
-            <p>
-                <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
-                <button class="btn btn-warning" (click)="back()">Regresar</button>
-            </p>
-        </div>
-    </form>
+  <form (ngSubmit)="addForm()" id="addForm">
+    <div>
+      <p>Nombre del Rol:</p>
+      <p>
+        <input type="text" id="name" name="name" [(ngModel)]="roleDataCreate.name" placeholder="Nombre" required>
+      </p>
+      <p>
+        <button class="btn btn-success" type="submit" id="btn">Confirmar</button>&nbsp;
+        <button class="btn btn-warning" (click)="back()">Regresar</button>
+      </p>
+    </div>
+  </form>
 </div>

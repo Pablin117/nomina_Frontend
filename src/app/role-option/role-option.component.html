@@ -4,13 +4,13 @@
     <h1>Asignación de Opciones a Rol</h1>
     <div>
       <div *ngIf="header">
-        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i 
-          class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
-        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
-          class="fa-solid fa-right-from-bracket"></i> Salir</button>
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+            class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+          Salir</button>
       </div>
     </div>
-</div>
+  </div>
 
   <div *ngIf="tab">
     <div>
@@ -47,18 +47,15 @@
             <td>{{optRole.modificationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
             <td>
               <div>
-                <button *ngIf="btnUpdate" class="btn btn-secondary" 
-                  id="modificar" (click)="Modify(optRole)"> <i 
-                  class="fa-solid fa-pen-to-square"></i> Modificar</button>
-                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" 
-                  disabled>No Disponible</button>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(optRole)"> <i
+                    class="fa-solid fa-pen-to-square"></i> Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
               </div>
             </td>
             <td>
               <div>
-                <button *ngIf="btnDelete" class="btn btn-danger"
-                  id="delete" (click)="Delete(optRole)"> <i 
-                  class="fa-solid fa-delete-left"></i> Eliminar</button>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(optRole)"> <i
+                    class="fa-solid fa-delete-left"></i> Eliminar</button>
               </div>
             </td>
           </tr>
@@ -68,20 +65,20 @@
       </table>
       <div>
         <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
-                        class="fa-regular fa-square-plus"></i> Agregar</button>
+            class="fa-regular fa-square-plus"></i> Agregar</button>
         &nbsp;
         <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
-          class="fa-solid fa-download"></i> Exportar</button>
+            class="fa-solid fa-download"></i> Exportar</button>
         &nbsp;
         <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i
-          class="fa-solid fa-print"></i> Imprimir</button>
+            class="fa-solid fa-print"></i> Imprimir</button>
       </div>
-      
+
     </div>
   </div>
 
 
-  <div class="container text-left"  *ngIf="modify">
+  <div class="container text-left" *ngIf="modify">
     <form (ngSubmit)="modifyForm()" id="modifyForm">
       <h1>Modificación</h1>
       <div class="input-group mb-3">
@@ -103,18 +100,18 @@
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-check"></i> &nbsp; Alta</span>
         <select class="form-select" name="up" [(ngModel)]="RoleOptionModify.up" required>
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-  
+
         <span class="input-group-text"><i class="fa-solid fa-xmark"></i> &nbsp; Baja</span>
         <select class="form-select" name="down" [(ngModel)]="RoleOptionModify.down" required>
           <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-  
+
         <span class="input-group-text"><i class="fa-solid fa-pen"></i>&nbsp; Modificación</span>
         <select class="form-select" name="update" [(ngModel)]="RoleOptionModify.update" required>
           <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
@@ -126,11 +123,11 @@
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-download"></i> &nbsp; Exportar</span>
         <select class="form-select" name="export" [(ngModel)]="RoleOptionModify.export" required>
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
-  
+
         <span class="input-group-text"><i class="fa-solid fa-print"></i> &nbsp; Imprimir</span>
         <select class="form-select" name="print" [(ngModel)]="RoleOptionModify.print" required>
           <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
@@ -168,7 +165,7 @@
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-check"></i> &nbsp; Alta</span>
         <select class="form-select" name="up" [(ngModel)]="RoleOptionCreate.up" required>
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>
@@ -191,7 +188,7 @@
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-download"></i> &nbsp; Exportar</span>
         <select class="form-select" name="export" [(ngModel)]="RoleOptionCreate.export" required>
-          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}"  selected>
+          <option *ngFor="let permiso of Permisos" value="{{permiso.id}}" selected>
             {{permiso.name}}
           </option>
         </select>

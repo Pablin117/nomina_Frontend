@@ -32,9 +32,12 @@ export class EmployeeComponent {
   exporte: boolean = false
 
   //objects
-  maritalStatusDataModify: any = {}
-  maritalStatusDataCreate: any = {}
-  maritalStatusData: any = []
+  employeeDataModify: any = {}
+  employeeDataCreate: any = {}
+  employeeData: any = []
+  personData: any = []
+  locationsData: any = []
+  positionData: any = []
   dataUser: any = {}
   options: any = {}
 
@@ -63,8 +66,7 @@ export class EmployeeComponent {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
       this.optionsValidate()
-      this.maritalStatusService()
-
+      this.employeeService()
     } else {
       this.router.navigateByUrl("/")
     }
@@ -91,49 +93,25 @@ export class EmployeeComponent {
   }
 
 
-  //Obtiene datos de company
-  maritalStatusService() {
-    this.RequestMaritalStatus().subscribe(
-      (response: any) => this.ResponseMaritalStatus(response)
-    )
-  }
-  RequestMaritalStatus() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>(this.url + "/maritalStatus", httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponseMaritalStatus(response: any) {
-    console.log("obtiene status")
-    this.maritalStatusData = response
-  }
 
   //formulario para modificar
   modForm() {
     let formularioValido: any = document.getElementById("modForm")
     if (formularioValido.reportValidity()) {
-      this.maritalStatusDataModify.userModification = this.dataUser.user
-      this.RequestMaritalStatusUpdate().subscribe(
-        (response: any) => this.ResponseMaritalStatusUpdate(response)
+      this.employeeDataModify.userModification = this.dataUser.user
+      this.RequestemployeeUpdate().subscribe(
+        (response: any) => this.ResponseemployeeUpdate(response)
       )
     }
   }
 
-  RequestMaritalStatusUpdate() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.put<any>(this.url + "/updateMaritalStatus/" + this.maritalStatusDataModify.idMaritalStatus, this.maritalStatusDataModify, httpOptions).pipe(
+  RequestemployeeUpdate() {
+
+    return this.http.put<any>(this.url + "/updateemployee/" + this.employeeDataModify.idemployee, this.employeeDataModify,).pipe(
       catchError(e => "1")
     )
   }
-  ResponseMaritalStatusUpdate(response: any) {
+  ResponseemployeeUpdate(response: any) {
     if (response.code == 999) {
       this.revoke()
     } else if (response.code == 0) {
@@ -147,24 +125,17 @@ export class EmployeeComponent {
 
 
   //para eliminar
-
   Delete(response: any) {
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
   }
-
   requestDelete(response: any) {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.delete<any>(this.url + "/deleteMaritalStatus/" + response.idMaritalStatus + "/" + this.dataUser.user, httpOptions).pipe(
+
+    return this.http.delete<any>(this.url + "/deleteemployee/" + response.idemployee + "/" + this.dataUser.user,).pipe(
       catchError(e => "1")
     )
   }
-
   responseDelete(response: any) {
 
     if (response.code == 999) {
@@ -183,7 +154,7 @@ export class EmployeeComponent {
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      this.maritalStatusDataCreate.userCreation = this.dataUser.user
+      this.employeeDataCreate.userCreation = this.dataUser.user
       this.RequestCompanySave().subscribe(
         (response: any) => this.ResponseCompanySave(response)
       )
@@ -191,12 +162,8 @@ export class EmployeeComponent {
   }
   RequestCompanySave() {
 
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>(this.url + "/createMaritalStatus", this.maritalStatusDataCreate, httpOptions).pipe(
+
+    return this.http.post<any>(this.url + "/createemployee", this.employeeDataCreate,).pipe(
       catchError(e => "1")
     )
   }
@@ -222,27 +189,22 @@ export class EmployeeComponent {
     this.tab = false
     this.header = false
   }
-
-
   Modify(response: any) {
-    this.maritalStatusDataModify = response
+    this.employeeDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
     this.header = false
   }
-
-
   back() {
     this.tab = true
     this.add = false
     this.modify = false
     this.header = true
-    this.maritalStatusDataCreate = {}
-    this.maritalStatusDataModify = {}
+    this.employeeDataCreate = {}
+    this.employeeDataModify = {}
     this.ngOnInit()
   }
-
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
@@ -254,19 +216,12 @@ export class EmployeeComponent {
       (response: any) => this.ResponseRevoke(response)
     )
   }
-
-
   RequestRevoke() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session,).pipe(
       catchError(e => "1")
     )
   }
-
   ResponseRevoke(response: any) {
     if (response.code == 0) {
       alert(response.message)
@@ -278,6 +233,106 @@ export class EmployeeComponent {
       localStorage.clear()
     }
   }
+
+  //Obtiene datos de empleado
+  employeeService() {
+    this.RequestEmployee().subscribe(
+      (response: any) => this.ResponseEmployee(response)
+    )
+  }
+
+  RequestEmployee() {
+    return this.http.get<any>(this.url + "/employee",).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  ResponseEmployee(response: any) {
+    this.employeeData = response
+    this.locationService()
+  }
+
+  //obtine sucursales
+  locationService() {
+    this.RequestLocation().subscribe(
+      (response: any) => this.ResponseLocation(response)
+    )
+  }
+  RequestLocation() {
+
+    return this.http.get<any>(this.url + "/location",).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseLocation(response: any) {
+    this.locationsData = response
+    this.positionService()
+  }
+
+  //Obtiene datos de company
+  positionService() {
+
+    this.RequestPosition().subscribe(
+      (response: any) => this.ResponsePosition(response)
+    )
+  }
+  RequestPosition() {
+
+    return this.http.get<any>(this.url + "/positions").pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponsePosition(response: any) {
+    this.positionData = response
+    this.personService()
+  }
+
+  //Obtiene datos de persona
+  personService() {
+    this.RequestPerson().subscribe(
+      (response: any) => this.ResponsePerson(response)
+    )
+  }
+  RequestPerson() {
+
+    return this.http.get<any>(this.url + "/persons").pipe(catchError(e => "1"))
+  }
+  ResponsePerson(response: any) {
+    this.personData = response
+  }
+
+
+  //retorna el nombre de la compañia con el id company
+  getLocationName(idLocation: number): string {
+    for (let x = 0; x < this.locationsData.length; x++) {
+      if (this.locationsData[x].idLocation == idLocation) {
+        return this.locationsData[x].name
+      }
+    }
+    return '';
+  }
+  //retorna el nombre del puesto
+  getPositionName(idPosition: number): string {
+    for (let x = 0; x < this.positionData.length; x++) {
+      if (this.positionData[x].idPosition == idPosition) {
+        return this.positionData[x].name
+      }
+    }
+    return '';
+  }
+
+  //retorna el nombre de las personas
+  getPersonName(idPerson: number): string {
+
+    for (let x = 0; x < this.personData.length; x++) {
+      if (this.personData[x].idPerson == idPerson) {
+        return this.personData[x].name
+      }
+    }
+    return '';
+  }
+
+
 
 
 
