@@ -21,6 +21,9 @@ import { GenderComponent } from './gender/gender.component';
 import { RoleOptionComponent } from "./role-option/role-option.component";
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BankComponent } from './bank/bank.component';
+import { MaritalStatusComponent } from './marital-status/marital-status.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { PersonDocumentComponent } from './person-document/person-document.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -42,6 +45,9 @@ const routes: Routes = [
   { path: 'role-user', component: RoleUserComponent },
   { path: 'gender', component: GenderComponent },
   { path: 'bank', component: BankComponent},
+  { path: 'marital-status', component: MaritalStatusComponent},
+  { path: 'employee', component: EmployeeComponent},
+  { path: 'personal-document', component: PersonDocumentComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: '**', redirectTo: 'not-found'}
 ];

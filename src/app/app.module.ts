@@ -33,6 +33,9 @@ import { RoleOptionComponent } from './role-option/role-option.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { BankComponent } from './bank/bank.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { MaritalStatusComponent } from './marital-status/marital-status.component';
+import { PersonDocumentComponent } from './person-document/person-document.component';
 
 
 
@@ -61,6 +64,9 @@ import { BankComponent } from './bank/bank.component';
     HomeComponent,
     NotFoundComponent,
     BankComponent,
+    EmployeeComponent,
+    MaritalStatusComponent,
+    PersonDocumentComponent,
 
   ],
 
