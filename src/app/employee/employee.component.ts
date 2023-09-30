@@ -39,6 +39,7 @@ export class EmployeeComponent {
   personData: any = []
   locationsData: any = []
   positionData: any = []
+  statusEmployeeData: any = []
   dataUser: any = {}
   options: any = {}
 
@@ -271,23 +272,24 @@ export class EmployeeComponent {
   }
   ResponsePerson(response: any) {
     this.personData = response
+    this.statusEmployeeService()
   }
 
 
   //Obtiene datos de status empleados
-  statusPersonService() {
-    this.RequestStatusPerson().subscribe(
-      (response: any) => this.ResponseStatusPerson(response)
+  statusEmployeeService (){
+    this.RequestStatusEmployee().subscribe(
+      (response: any) => this.ResponseStatusEmployee(response)
     )
   }
-  RequestStatusPerson() {
-    return this.http.get<any>(this.url + "/persons").pipe(catchError(e => "1"))
-  }
-  ResponseStatusPerson(response: any) {
-    this.personData = response
-  }
 
-
+  RequestStatusEmployee() {
+    return this.http.get<any>(this.url + "/statusEmployee").pipe(catchError(e => "1"))
+  }
+  ResponseStatusEmployee(response: any) {
+    this.statusEmployeeData = response
+    console.log(response)
+  }
 
   //retorna el nombre de la compañia con el id company
   getLocationName(idLocation: number): string {
@@ -320,7 +322,14 @@ export class EmployeeComponent {
   }
 
 
+  //retorna el estado del empleado
+  getStatusEmployee(idStatusEmployee: number): string {
 
-
-
+    for (let x = 0; x < this.statusEmployeeData.length; x++) {
+      if (this.statusEmployeeData[x].idStatusEmployee == idStatusEmployee) {
+        return this.statusEmployeeData[x].name
+      }
+    }
+    return '';
+  }
 }

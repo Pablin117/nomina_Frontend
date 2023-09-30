@@ -44,7 +44,7 @@
             <td>{{getLocationName(data.idLocation)}}</td>
             <td>{{data.dateContration |date:'dd/MM/yyyy'}}</td>
             <td>{{getPositionName(data.idPosition)}}</td>
-            <td>{{data.idStatusEmployee}}</td>
+            <td>{{getStatusEmployee(data.idStatusEmployee)}}</td>
             <td>{{data.baseSalaryIncome | currency: 'Q ' }}</td>
             <td>{{data.bonusIncomeDecree | currency: 'Q ' }}</td>
             <td>{{data.incomeOther | currency: 'Q ' }}</td>
@@ -61,8 +61,6 @@
                     class="fa-solid fa-pen-to-square"></i>
                   &nbsp;Modificar</button>
                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-
-
               </div>
             </td>
             <td>
@@ -108,9 +106,10 @@
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Estado del empleado</span>
-        <input maxlength="100" name="idStatusEmployee" [(ngModel)]="employeeDataModify.idStatusEmployee" type="text"
-          class="form-control" placeholder="{{employeeDataModify.idStatusEmployee}}">
-
+          <select class="form-select" name="idStatusEmployee" [(ngModel)]="employeeDataModify.idStatusEmployee" required>
+            <option *ngFor="let statusEmployee of statusEmployeeData" value="{{statusEmployee.idStatusEmployee}}" required>{{statusEmployee.name}}
+            </option>
+          </select>
     
 
         <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Puesto</span>
