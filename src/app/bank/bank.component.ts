@@ -27,6 +27,8 @@ export class BankComponent {
   dataUser: any = {}
   options: any = {} 
   bankData: any = [] 
+  bankDataCreate: any = {}
+  bankDataModify: any = {}
 
   //url
   url: String = "http://localhost:4042/v1"
@@ -70,32 +72,39 @@ export class BankComponent {
     })
   }
 
-  Modify(response: any){
-
+  Modify(response: any) {
+    console.log("modifica")
+    this.bankDataModify = response
+    this.add = false
+    this.tab = false
+    this.modify = true
+    this.header = false
   }
 
-  Add(){
-
+  Add() {
+    this.modify = false
+    this.add = true
+    this.tab = false
+    this.header = false
+    
   }
 
   Delete(response:any){
 
   }
 
-
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
 
-
   //obtiene los bancos
   bank() {
-    this.requestGender().subscribe(
-      (response: any) => this.responseGender(response)
+    this.requestBank().subscribe(
+      (response: any) => this.responseBank(response)
     )
 
   }
-  requestGender() {
+  requestBank() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -105,36 +114,110 @@ export class BankComponent {
       catchError(e => "1")
     )
   }
-  responseGender(response: any) {
+  responseBank(response: any) {
     this.bankData = response
   }
 
+  //Agregar bancos
+  addForm() {
+    let formularioValido: any = document.getElementById("addForm");
+    if (formularioValido.reportValidity()) {
+      this.bankDataCreate.userCreation = this.dataUser.user
+      this.requestBankSave().subscribe(
+        (response: any) => this.responseBankSave(response)
+      )
+    }
+  }
+  requestBankSave() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createBank", this.bankDataCreate, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  responseBankSave(response: any) {
 
-    //cierre de sesion
-    revoke() {
-      this.RequestRevoke().subscribe(
-        (response: any) => this.ResponseRevoke(response)
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
+    }
+  }
+
+  //modificacion
+  modForm() {
+    let formularioValido: any = document.getElementById("modForm");
+    if (formularioValido.reportValidity()) {
+      this.bankDataModify.userModification = this.dataUser.user
+      this.requestBankUpdate().subscribe(
+        (response: any) => this.responseBankUpdate(response)
       )
     }
-    RequestRevoke() {
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      }
-      return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
-        catchError(e => "1")
-      )
+  }
+
+  requestBankUpdate() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
     }
-    ResponseRevoke(response: any) {
-      if (response.code == 0) {
-        alert(response.message)
-        this.router.navigateByUrl("/")
-        localStorage.clear()
-      } else {
-        alert(response.message)
-        this.router.navigateByUrl("/")
-        localStorage.clear()
-      }
+    return this.http.put<any>(this.url + "/updateBank", this.bankDataModify, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  responseBankUpdate(response: any) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
     }
+  }
+
+  back() {
+    this.bankDataCreate = {}
+    this.bankDataModify = {}
+    this.bankData = []
+    this.modify = false
+    this.add = false
+    this.tab = true
+    this.header = true
+    this.ngOnInit()
+  }
+
+  //cierre de sesion
+  revoke() {
+    this.RequestRevoke().subscribe(
+      (response: any) => this.ResponseRevoke(response)
+    )
+  }
+  RequestRevoke() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseRevoke(response: any) {
+    if (response.code == 0) {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    } else {
+      alert(response.message)
+      this.router.navigateByUrl("/")
+      localStorage.clear()
+    }
+  }
 }
