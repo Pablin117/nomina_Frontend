@@ -39,7 +39,7 @@ import { PersonDocumentComponent } from './person-document/person-document.compo
 import { PersonComponent } from './person/person.component';
 import { PositionComponent } from './position/position.component';
 import { AbsenceComponent } from './absence/absence.component';
-
+import { StatusEmployeeComponent } from './status-employee/status-employee.component';
 
 
 
@@ -74,6 +74,7 @@ import { AbsenceComponent } from './absence/absence.component';
     PersonComponent,
     PositionComponent,
     AbsenceComponent,
+    StatusEmployeeComponent,
 
   ],
 

@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <div class="container text-center">
-        <h1>Bancos</h1>
+        <h1>Status del Empleado</h1>
         <div>
             <div *ngIf="header">
                 <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
@@ -17,7 +17,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>IdBanco</th>
+                        <th>IdStatus</th>
                         <th>Nombre</th>
                         <th>Fecha de creación</th>
                         <th>Usuario de creación</th>
@@ -28,8 +28,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  data of bankData">
-                        <td>{{data.idBank}}</td>
+                    <tr *ngFor="let  data of statusEmployeeData">
+                        <td>{{data.idStatusEmployee}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                         <td>{{data.userCreation}}</td>
@@ -72,8 +72,8 @@
         <form (ngSubmit)="modForm()" id="modForm">
             <h1>Modificación</h1>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-building-columns"></i> &nbsp; Nombre del Banco</span>
-                <input name="name" [(ngModel)]="bankDataModify.name" type="text" class="form-control" required>
+                <span class="input-group-text"><i class="fa-brands fa-slack"></i> &nbsp; Nombre del </span>
+                <input name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
@@ -86,9 +86,9 @@
         <form (ngSubmit)="addForm()" id="addForm">
             <h1>Creación</h1>
             <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-building-columns"></i></span>
-                <input name="name" [(ngModel)]="bankDataCreate.name" type="text" class="form-control"
-                    placeholder="Nombre del banco" required>
+                <span class="input-group-text"><i class="fa-brands fa-slack"></i></span>
+                <input name="name" [(ngModel)]="statusEmployeeDataCreate.name" type="text" class="form-control"
+                    placeholder="Nombre del estado" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
