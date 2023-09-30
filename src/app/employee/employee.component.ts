@@ -4,6 +4,8 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
 
+
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -22,7 +24,6 @@ export class EmployeeComponent {
   //variables
   //boolean
   modify: boolean = false
-  add: boolean = false
   tab: boolean = true
   header: boolean = true
   btnAdd: boolean = false
@@ -40,6 +41,8 @@ export class EmployeeComponent {
   positionData: any = []
   dataUser: any = {}
   options: any = {}
+
+  namePerson: String = ""
 
 
 
@@ -99,9 +102,12 @@ export class EmployeeComponent {
     let formularioValido: any = document.getElementById("modForm")
     if (formularioValido.reportValidity()) {
       this.employeeDataModify.userModification = this.dataUser.user
-      this.RequestemployeeUpdate().subscribe(
+
+      console.log(this.employeeDataModify);
+      
+     /* this.RequestemployeeUpdate().subscribe(
         (response: any) => this.ResponseemployeeUpdate(response)
-      )
+      )*/
     }
   }
 
@@ -149,56 +155,22 @@ export class EmployeeComponent {
     }
   }
 
-  //formulario para agregar 
-
-  addForm() {
-    let formularioValido: any = document.getElementById("addForm");
-    if (formularioValido.reportValidity()) {
-      this.employeeDataCreate.userCreation = this.dataUser.user
-      this.RequestCompanySave().subscribe(
-        (response: any) => this.ResponseCompanySave(response)
-      )
-    }
-  }
-  RequestCompanySave() {
-
-
-    return this.http.post<any>(this.url + "/createemployee", this.employeeDataCreate,).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponseCompanySave(response: any) {
-    if (response.code == 999) {
-
-      this.revoke()
-    } else if (response.code == 0) {
-      alert(response.message)
-      this.back()
-    } else {
-      alert(response.message)
-    }
-
-  }
 
 
   //banderas
 
-  Add() {
-    this.modify = false
-    this.add = true
-    this.tab = false
-    this.header = false
-  }
+
   Modify(response: any) {
     this.employeeDataModify = response
-    this.add = false
     this.tab = false
     this.modify = true
     this.header = false
+
+    this.namePerson = this.getPersonName(response.idPerson)
+    console.log(this.namePerson)
   }
   back() {
     this.tab = true
-    this.add = false
     this.modify = false
     this.header = true
     this.employeeDataCreate = {}
@@ -249,6 +221,7 @@ export class EmployeeComponent {
 
   ResponseEmployee(response: any) {
     this.employeeData = response
+
     this.locationService()
   }
 
@@ -294,12 +267,26 @@ export class EmployeeComponent {
     )
   }
   RequestPerson() {
-
     return this.http.get<any>(this.url + "/persons").pipe(catchError(e => "1"))
   }
   ResponsePerson(response: any) {
     this.personData = response
   }
+
+
+  //Obtiene datos de status empleados
+  statusPersonService() {
+    this.RequestStatusPerson().subscribe(
+      (response: any) => this.ResponseStatusPerson(response)
+    )
+  }
+  RequestStatusPerson() {
+    return this.http.get<any>(this.url + "/persons").pipe(catchError(e => "1"))
+  }
+  ResponseStatusPerson(response: any) {
+    this.personData = response
+  }
+
 
 
   //retorna el nombre de la compañia con el id company

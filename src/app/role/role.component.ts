@@ -14,76 +14,77 @@ export class RoleComponent {
 
   ngOnInit() {
     this.validateSession()
-  }
-  //variables
 
+  }
+
+  //variables
   //boolean
-  header: boolean = true
   modify: boolean = false
   add: boolean = false
   tab: boolean = true
-  exporte: boolean = false
+  header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
+  btnDelete: boolean = false
   print: boolean = false
+  exporte: boolean = false
 
-  //url
-  page = "role"
-  url: String = "http://localhost:4042/v1"
-  //objetos
-  RolesData: any = [];
-  roleDataCreate: any = {}
-  roleDataModify: any = {}
-  companyData: any = {}
+  //objects
+  rolDataModify: any = {}
+  rolDataCreate: any = {}
+  roleData: any = []
   dataUser: any = {}
   options: any = {}
 
 
+  // pagina y url
+  url: String = "http://localhost:4042/v1"
+  page: String = "role"
 
-  //bandera de botones
-  optionsValidate() {
-    this.options = localStorage.getItem("options");
-    this.options = JSON.parse(this.options)
-    let permisos: any = {}
-    this.options.forEach((item: any) => {
-      if (item.page === this.page) {
-        permisos = item.permisos
-      }
-    })
 
-    permisos.forEach((item: any) => {
-      this.btnAdd = item.up == 1 ? true : false
-      this.btnUpdate = item.update == 1 ? true : false
-      this.print = item.print == 1 ? true : false
-      this.exporte = item.export == 1 ? true : false
-    })
 
-  }
-
-  //valida la sesion
+  //valida sesiones
   validateSession() {
     console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-      this.RoleData()
       this.optionsValidate()
+      this.rolData()
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
+  //bandera de botones
+  optionsValidate() {
+    this.options = localStorage.getItem("options");
+    this.options = JSON.parse(this.options)
 
-
-
-  RoleData() {
-    this.RequestRole().subscribe(
-      (response: any) => this.ResponseRole(response)
-    )
+    let permisos: any = {}
+    this.options.forEach((item: any) => {
+      if (item.page === this.page) {
+        permisos = item.permisos
+      }
+    })
+    permisos.forEach((item: any) => {
+      this.btnAdd = item.up == 1 ? true : false
+      this.btnUpdate = item.update == 1 ? true : false
+      this.btnDelete = item.down == 1 ? true : false
+      this.print = item.print == 1 ? true : false
+      this.exporte = item.export == 1 ? true : false
+    })
   }
 
-  RequestRole() {
+
+  //Obtiene datos de rol
+  rolData() {
+    this.Requestrol().subscribe(
+      (response: any) => this.Responserol(response)
+    )
+  }
+  Requestrol() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -93,24 +94,161 @@ export class RoleComponent {
       catchError(e => "1")
     )
   }
-
-  ResponseRole(response: any) {
-    this.RolesData = response
-
-    console.log("Se obtuvo roles")
+  Responserol(response: any) {
+    this.roleData = response
+    console.log(response)
 
   }
 
+  //formulario para modificar
+  modForm() {
+    let formularioValido: any = document.getElementById("modForm")
+
+    this.rolDataModify.userModification = this.dataUser.user
+    console.log(this.rolDataModify)
+    this.RequestrolUpdate().subscribe(
+      (response: any) => this.ResponserolUpdate(response)
+    )
+  }
+
+
+
+
+
+  RequestrolUpdate() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<any>(this.url + "/updateRol/" + this.rolDataModify.idRole, this.rolDataModify, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponserolUpdate(response: any) {
+   if(response.code == 999){
+     this.revoke()
+   }else if (response.code == 0) {
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
+    }
+
+  }
+
+
+  //para eliminar
+
+  Delete(response: any) {
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+
+  requestDelete(response: any) {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteRol/" + response.idRole +"/"+this.dataUser.user, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseDelete(response: any) {
+   
+    if(response.code == 999 ){
+   
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
+    }
+  }
+
+  //formulario para agregar 
+
+  addForm() {
+    let formularioValido: any = document.getElementById("addForm");
+    if (formularioValido.reportValidity()) {
+      this.rolDataCreate.userCreation = this.dataUser.user
+      this.RequestrolSave().subscribe(
+        (response: any) => this.ResponserolSave(response)
+      )
+    }
+  }
+  RequestrolSave() {
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createRol", this.rolDataCreate, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponserolSave(response: any) {
+    if(response.code == 999){
+
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      this.back()
+    } else {
+      alert(response.message)
+    }
+
+  }
+
+
+  //banderas
+
+  Add() {
+    this.modify = false
+    this.add = true
+    this.tab = false
+    this.header = false
+  }
+
+
+  Modify(response: any) {
+    this.rolDataModify = response
+    this.add = false
+    this.tab = false
+    this.modify = true
+    this.header = false
+  }
+
+
+  back() {
+    this.tab = true
+    this.add = false
+    this.modify = false
+    this.header = true
+    this.rolDataCreate = {}
+    this.rolDataModify = {}
+    this.ngOnInit()
+  }
+
+  backWelcome() {
+    this.router.navigateByUrl("/home")
+  }
+
+
+  //cierre de sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
   }
 
-  RequestRevoke() {
 
+  RequestRevoke() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -123,10 +261,7 @@ export class RoleComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
-
-      localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
     } else {
@@ -134,113 +269,5 @@ export class RoleComponent {
       this.router.navigateByUrl("/")
       localStorage.clear()
     }
-
   }
-
-
-  Modify(rol: any) {
-    console.log("modifica")
-    this.roleDataModify = rol
-    this.header = false
-    this.add = false
-    this.tab = false
-    this.modify = true
-    this.roleDataModify = {}
-    this.roleDataCreate = {}
-  }
-
-  Add() {
-    this.modify = false
-    this.add = true
-    this.tab = false
-    this.header = false
-    console.log("add")
-
-  }
-
-  backWelcome() {
-    this.router.navigateByUrl("/home")
-  }
-  back() {
-    console.log("back")
-    this.modify = false
-    this.add = false
-    this.tab = true
-    this.header = true
-    this.roleDataModify = {}
-    this.roleDataCreate = {}
-  }
-
-  addForm() {
-    let formularioValido: any = document.getElementById("addForm");
-    if (formularioValido.reportValidity()) {
-      console.log(this.roleDataCreate)
-      this.roleDataCreate.userCreation = this.dataUser.user
-      this.RequestRoleSave().subscribe(
-        (response: any) => this.ResponseRoleSave(response)
-      )
-
-    }
-  }
-  RequestRoleSave() {
-    console.log("se agrega")
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.post<any>(this.url + "/createRol", this.roleDataCreate, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponseRoleSave(response: any) {
-    if (response.code == 0) {
-      alert(response.message)
-      console.log("si")
-      this.back()
-      this.ngOnInit()
-    } else {
-      alert(response.message)
-    }
-
-
-  }
-
-
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      this.roleDataModify.name = this.roleDataModify.name
-      this.roleDataModify.userModification = this.dataUser.user
-      this.RequestRoleSaveM().subscribe(
-        (response: any) => this.ResponseRoleSaveM(response)
-      )
-
-    }
-  }
-  RequestRoleSaveM() {
-    console.log("se agrega")
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.put<any>(this.url + "/modifyRol", this.roleDataModify, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponseRoleSaveM(response: any) {
-    if (response.code == 0) {
-      alert(response.message)
-      console.log("si")
-      this.back()
-      this.ngOnInit()
-    } else {
-      alert(response.message)
-    }
-
-
-  }
-
-
 }
