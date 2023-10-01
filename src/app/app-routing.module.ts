@@ -60,11 +60,11 @@ const routes: Routes = [
   { path: 'person', component: PersonComponent},
   { path: 'absence', component: AbsenceComponent},
   { path: 'status-employee', component: StatusEmployeeComponent},
-  { path: 'not-found', component: NotFoundComponent},
-  { path: '**', redirectTo: 'not-found'},
   { path: 'department', component: DepartmentComponent},
   { path: 'type-document', component: TypeDocumentComponent},
   { path: 'payroll-period', component: PayrollPeriodComponent},
+  { path: 'not-found', component: NotFoundComponent},
+  { path: '**', redirectTo: 'not-found'}
 ];
 
 @NgModule({
