@@ -125,7 +125,9 @@ export class MenuComponent {
     )
   }
   ResponseModuloSave(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.back()
 
@@ -159,7 +161,9 @@ export class MenuComponent {
     )
   }
   ResponseMenuM(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.back()
 
@@ -265,7 +269,7 @@ export class MenuComponent {
 
   responseModule(response: any) {
     this.VarModule = response
-   
+
   }
 
   Delete(response:any){
@@ -281,13 +285,15 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteMenu/"+response.idMenu, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteMenu/"+response.idMenu+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   responseDelete(response:any){
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
 
       alert(response.message)
       this.back()

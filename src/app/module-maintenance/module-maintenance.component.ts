@@ -139,7 +139,7 @@ export class ModuleMaintenanceComponent {
     this.moduloDataCreate = {}
     this.ngOnInit()
   }
-  //agrega 
+  //agrega
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
@@ -163,11 +163,14 @@ export class ModuleMaintenanceComponent {
     )
   }
   ResponseModuloSave(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
-   
+
     } else {
       alert(response.message)
     }
@@ -179,7 +182,6 @@ export class ModuleMaintenanceComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.moduloDataModify.name = this.moduloDataModify.name
       this.moduloDataModify.userModification = this.dataUser.user
       this.RequestModuloSaveM().subscribe(
         (response: any) => this.ResponseModuloSaveM(response)
@@ -199,7 +201,9 @@ export class ModuleMaintenanceComponent {
     )
   }
   ResponseModuloSaveM(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       console.log("si")
       this.back()
@@ -217,21 +221,21 @@ Delete(response:any){
       (response: any) => this.responseDelete(response)
     )
   }
-  
+
   requestDelete(response:any){
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  
+
   responseDelete(response:any){
     if (response.code == 0) {
-  
+
       alert(response.message)
       this.back()
 
