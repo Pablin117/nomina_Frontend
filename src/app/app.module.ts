@@ -40,6 +40,9 @@ import { PersonComponent } from './person/person.component';
 import { PositionComponent } from './position/position.component';
 import { AbsenceComponent } from './absence/absence.component';
 import { StatusEmployeeComponent } from './status-employee/status-employee.component';
+import { DepartmentComponent } from './department/department.component';
+import { TypeDocumentComponent } from './type-document/type-document.component';
+import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
 
 
 
@@ -75,6 +78,9 @@ import { StatusEmployeeComponent } from './status-employee/status-employee.compo
     PositionComponent,
     AbsenceComponent,
     StatusEmployeeComponent,
+    DepartmentComponent,
+    TypeDocumentComponent,
+    PayrollPeriodComponent,
 
   ],
 

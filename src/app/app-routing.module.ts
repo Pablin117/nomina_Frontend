@@ -28,6 +28,9 @@ import { PersonComponent } from './person/person.component';
 import { PositionComponent } from './position/position.component';
 import { AbsenceComponent } from './absence/absence.component';
 import { StatusEmployeeComponent } from './status-employee/status-employee.component';
+import { DepartmentComponent } from './department/department.component';
+import { TypeDocumentComponent } from './type-document/type-document.component';
+import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
 
 
 const routes: Routes = [
@@ -59,6 +62,9 @@ const routes: Routes = [
   { path: 'status-employee', component: StatusEmployeeComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: '**', redirectTo: 'not-found'},
+  { path: 'department', component: DepartmentComponent},
+  { path: 'type-document', component: TypeDocumentComponent},
+  { path: 'payroll-period', component: PayrollPeriodComponent},
 ];
 
 @NgModule({
