@@ -1,0 +1,38 @@
+<div class="container-fluid">
+
+  <div class="container text-center">
+    <h1>Usuarios en linea</h1>
+  </div>
+
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Fecha de ultimo login</th>
+            <th>Sesion</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let  data of UserData">
+            <td>{{data.idUser}}</td>
+            <td>{{getNameStatusUser(data.idStatusUser)}}</td>
+            <td>{{data.lastDateOfEntry |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.currentSession}}</td>
+
+            <td>
+              <div>
+                <button class="btn btn-danger" id="delete" (click)="Delete(data)">
+                  <i class="fa-solid fa-delete-left"></i>
+                  Desconectar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
