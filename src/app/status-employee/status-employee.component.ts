@@ -4,11 +4,11 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-bank',
-  templateUrl: './bank.component.html',
-  styleUrls: ['./bank.component.css']
+  selector: 'app-status-employee',
+  templateUrl: './status-employee.component.html',
+  styleUrls: ['./status-employee.component.css']
 })
-export class BankComponent {
+export class StatusEmployeeComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   //variables
@@ -26,9 +26,9 @@ export class BankComponent {
   //objets
   dataUser: any = {}
   options: any = {} 
-  bankData: any = [] 
-  bankDataCreate: any = {}
-  bankDataModify: any = {}
+  statusEmployeeData: any = [] 
+  statusEmployeeDataCreate: any = {}
+  statusEmployeeDataModify: any = {}
 
   //url
   url: String = "http://localhost:4042/v1"
@@ -45,7 +45,7 @@ export class BankComponent {
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-      this.bank()
+      this.statusEmployee()
       this.optionsValidate()
     } else {
       this.router.navigateByUrl("/")
@@ -74,7 +74,7 @@ export class BankComponent {
 
   Modify(response: any) {
     console.log("modifica")
-    this.bankDataModify = response
+    this.statusEmployeeDataModify = response
     this.add = false
     this.tab = false
     this.modify = true
@@ -93,52 +93,57 @@ export class BankComponent {
 
   }
 
+
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
 
-  //obtiene los bancos
-  bank() {
-    this.requestBank().subscribe(
-      (response: any) => this.responseBank(response)
-    )
 
+  //obtiene los status-employee
+  statusEmployee() {
+    this.requestStatusEmployee().subscribe(
+      (response: any) => this.responseStatusEmployee(response)
+    )
   }
-  requestBank() {
+  
+  requestStatusEmployee() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bank", httpOptions).pipe(
+    return this.http.get<any>(this.url + "/statusEmployee", httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  responseBank(response: any) {
-    this.bankData = response
+
+  responseStatusEmployee(response: any) {
+    this.statusEmployeeData = response
   }
 
-  //Agregar bancos
+  //Agregar status empleado
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
-      this.bankDataCreate.userCreation = this.dataUser.user
-      this.requestBankSave().subscribe(
-        (response: any) => this.responseBankSave(response)
+      this.statusEmployeeDataCreate.userCreation = this.dataUser.user
+      this.requestStatusEmployeeSave().subscribe(
+        (response: any) => this.responseStatusEmployeeSave(response)
       )
     }
   }
-  requestBankSave() {
+
+  requestStatusEmployeeSave() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createBank", this.bankDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createStatusEmployee", this.statusEmployeeDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  responseBankSave(response: any) {
+
+  responseStatusEmployeeSave(response: any) {
 
     if(response.code == 999){
       this.revoke()
@@ -154,24 +159,25 @@ export class BankComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.bankDataModify.userModification = this.dataUser.user
-      this.requestBankUpdate().subscribe(
-        (response: any) => this.responseBankUpdate(response)
+      this.statusEmployeeDataModify.userModification = this.dataUser.user
+      this.requestStatusEmployeeUpdate().subscribe(
+        (response: any) => this.responseStatusEmployeeUpdate(response)
       )
     }
   }
 
-  requestBankUpdate() {
+  requestStatusEmployeeUpdate() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateBank", this.bankDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateStatusEmployee", this.statusEmployeeDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  responseBankUpdate(response: any) {
+
+  responseStatusEmployeeUpdate(response: any) {
     if(response.code == 999){
       this.revoke()
     }else if (response.code == 0) {
@@ -183,9 +189,9 @@ export class BankComponent {
   }
 
   back() {
-    this.bankDataCreate = {}
-    this.bankDataModify = {}
-    this.bankData = []
+    this.statusEmployeeDataCreate = {}
+    this.statusEmployeeDataModify = {}
+    this.statusEmployeeData = []
     this.modify = false
     this.add = false
     this.tab = true
@@ -193,31 +199,31 @@ export class BankComponent {
     this.ngOnInit()
   }
 
-  //cierre de sesion
-  revoke() {
-    this.RequestRevoke().subscribe(
-      (response: any) => this.ResponseRevoke(response)
-    )
-  }
-  RequestRevoke() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+    //cierre de sesion
+    revoke() {
+      this.RequestRevoke().subscribe(
+        (response: any) => this.ResponseRevoke(response)
+      )
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponseRevoke(response: any) {
-    if (response.code == 0) {
-      alert(response.message)
-      this.router.navigateByUrl("/")
-      localStorage.clear()
-    } else {
-      alert(response.message)
-      this.router.navigateByUrl("/")
-      localStorage.clear()
+    RequestRevoke() {
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+      return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+        catchError(e => "1")
+      )
     }
-  }
+    ResponseRevoke(response: any) {
+      if (response.code == 0) {
+        alert(response.message)
+        this.router.navigateByUrl("/")
+        localStorage.clear()
+      } else {
+        alert(response.message)
+        this.router.navigateByUrl("/")
+        localStorage.clear()
+      }
+    }
 }

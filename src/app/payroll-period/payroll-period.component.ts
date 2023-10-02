@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
 @Component({
-  selector: 'app-module-maintenance',
-  templateUrl: './module-maintenance.component.html',
-  styleUrls: ['./module-maintenance.component.css']
+  selector: 'app-payroll-period',
+  templateUrl: './payroll-period.component.html',
+  styleUrls: ['./payroll-period.component.css']
 })
-export class ModuleMaintenanceComponent {
+export class PayrollPeriodComponent {
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -22,11 +21,9 @@ export class ModuleMaintenanceComponent {
 
   //variables
   //objeto
-  ModulosData: any = []
-  moduloDataCreate: any = {}
-  moduloDataModify: any = {}
-  locationsData: any = {}
-  companyData: any = {}
+  PayrollPeriodsData: any = []
+  paryrollPeriodDataCreate: any = {}
+  paryrollPeriodDataModify: any = {}
   btnDelete: boolean = false
   dataUser: any = {}
   options: any = {}
@@ -42,7 +39,7 @@ export class ModuleMaintenanceComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "module"
+  page: string = "payroll-period"
 
 
 
@@ -77,7 +74,7 @@ export class ModuleMaintenanceComponent {
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-      this.Modulo()
+      this.PayrollPeriod()
       this.optionsValidate()
     } else {
       this.router.navigateByUrl("/")
@@ -86,30 +83,31 @@ export class ModuleMaintenanceComponent {
 
 
   //obtine modulos
-  Modulo() {
-    this.RequestModulo().subscribe(
-      (response: any) => this.ResponseModulo(response)
+  PayrollPeriod() {
+    this.RequestParyrollPeriod().subscribe(
+      (response: any) => this.ResponsePayrollPeriod(response)
     )
   }
 
-  RequestModulo() {
+  RequestParyrollPeriod() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/module", httpOptions).pipe(
+    return this.http.get<any>(this.url + "/payrollPeriod", httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
-  ResponseModulo(response: any) {
-    this.ModulosData = response
+  ResponsePayrollPeriod(response: any) {
+    this.PayrollPeriodsData = response
+    console.log(this.PayrollPeriodsData.idPK)
   }
   //banderas
   Modify(modulo: any) {
     console.log("modifica")
-    this.moduloDataModify = modulo
+    this.paryrollPeriodDataModify = modulo
     this.add = false
     this.tab = false
     this.modify = true
@@ -135,8 +133,8 @@ export class ModuleMaintenanceComponent {
     this.add = false
     this.tab = true
     this.header = true
-    this.moduloDataModify = {}
-    this.moduloDataCreate = {}
+    this.paryrollPeriodDataModify = {}
+    this.paryrollPeriodDataCreate = {}
     this.ngOnInit()
   }
   //agrega
@@ -144,25 +142,25 @@ export class ModuleMaintenanceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
 
-      this.moduloDataCreate.userCreation = this.dataUser.user
-      this.RequestModuloSave().subscribe(
-        (response: any) => this.ResponseModuloSave(response)
+      this.paryrollPeriodDataCreate.userCreation = this.dataUser.user
+      this.RequestPayrollPeriodSave().subscribe(
+        (response: any) => this.ResponseParyrollPeriodSave(response)
       )
 
     }
   }
-  RequestModuloSave() {
+  RequestPayrollPeriodSave() {
     console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createPayrollPeriod", this.paryrollPeriodDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseModuloSave(response: any) {
+  ResponseParyrollPeriodSave(response: any) {
     if(response.code == 999){
 
       this.revoke()
@@ -182,25 +180,25 @@ export class ModuleMaintenanceComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.moduloDataModify.userModification = this.dataUser.user
-      this.RequestModuloSaveM().subscribe(
-        (response: any) => this.ResponseModuloSaveM(response)
+      this.paryrollPeriodDataModify.userModification = this.dataUser.user
+      this.RequestPayrollPeriodSaveM().subscribe(
+        (response: any) => this.ResponsePayrollPeriodSaveM(response)
       )
 
     }
   }
-  RequestModuloSaveM() {
+  RequestPayrollPeriodSaveM() {
     console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updatePayrollPeriod", this.paryrollPeriodDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseModuloSaveM(response: any) {
+  ResponsePayrollPeriodSaveM(response: any) {
     if(response.code == 999){
       this.revoke()
     }else if (response.code == 0) {
@@ -215,8 +213,8 @@ export class ModuleMaintenanceComponent {
 
 //para eliminar
 
-Delete(response:any){
-  console.log(response.idModule)
+  Delete(response:any){
+    console.log(response)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -228,7 +226,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deletePayrollPeriod/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }

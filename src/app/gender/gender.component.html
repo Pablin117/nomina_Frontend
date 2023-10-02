@@ -1,102 +1,102 @@
 <div class="container-fluid">
 
-    <div class="container text-center">
-        <h1>Generos</h1>
-        <div>
-            <div *ngIf="header">
-                <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
-                        class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
-                <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
-                        class="fa-solid fa-right-from-bracket"></i> Salir</button>
-            </div>
-        </div>
+  <div class="container text-center">
+    <h1>Generos</h1>
+    <div>
+      <div *ngIf="header">
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+            class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+          Salir</button>
+      </div>
     </div>
+  </div>
 
-    <div *ngIf="tab">
-        <div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>IdGenero</th>
-                        <th>Nombre</th>
-                        <th>Fecha de creación</th>
-                        <th>Usuario de creación</th>
-                        <th>Fecha de modificación</th>
-                        <th>Usuario de modificación</th>
-                        <th>Opciones</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let  data of genderData">
-                        <td>{{data.idGender}}</td>
-                        <td>{{data.name}}</td>
-                        <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{data.userCreation}}</td>
-                        <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{data.userModification}}</td>
-                        <td>
-                            <div>
-                                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
-                                    Modificar</button>
-                                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
-                                    <i class="fa-solid fa-delete-left"></i>
-                                    Eliminar</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
-                        class="fa-regular fa-square-plus"></i> Agregar</button>
-                &nbsp;
-                <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
-                    Exportar</button>
-                &nbsp;
-                <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>
-                    Imprimir</button>
-            </div>
-        </div>
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>IdGenero</th>
+            <th>Nombre</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario de modificación</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let  data of genderData">
+            <td>{{data.idGender}}</td>
+            <td>{{data.name}}</td>
+            <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.userCreation}}</td>
+            <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.userModification}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
+                    class="fa-solid fa-pen-to-square"></i>
+                  Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
+                  <i class="fa-solid fa-delete-left"></i>
+                  Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+            class="fa-regular fa-square-plus"></i> Agregar</button>
+        &nbsp;
+        <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+          Exportar</button>
+        &nbsp;
+        <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>
+          Imprimir</button>
+      </div>
     </div>
+  </div>
 
 
 
-    <div class="container text-left" *ngIf="modify">
-        <form (ngSubmit)="modForm()" id="modForm">
-            <h1>Modificación</h1>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i> &nbsp; Nombre del Genero</span>
-                <input name="name" [(ngModel)]="genderDataModify.name" type="text" class="form-control"
-                    placeholder="{{genderDataModify.name}}" required>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
-                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
-            </div>
-        </form>
-    </div>
+  <div class="container text-left" *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+      <h1>Modificación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i> &nbsp; Nombre del Genero</span>
+        <input name="name" [(ngModel)]="genderDataModify.name" type="text" class="form-control"
+          placeholder="{{genderDataModify.name}}" required>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
 
-    <div class="container text-left" *ngIf="add">
-        <form (ngSubmit)="addForm()" id="addForm">
-            <h1>Creación</h1>
-            <div class="input-group mb-3">
-                <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i></span>
-                <input name="name" [(ngModel)]="genderDataCreate.name" type="text" class="form-control"
-                    placeholder="Nombre del genero" required>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
-                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
-            </div>
-        </form>
-    </div>
+  <div class="container text-left" *ngIf="add">
+    <form (ngSubmit)="addForm()" id="addForm">
+      <h1>Creación</h1>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i></span>
+        <input name="name" [(ngModel)]="genderDataCreate.name" type="text" class="form-control"
+          placeholder="Nombre del genero" required>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
 
 
 </div>

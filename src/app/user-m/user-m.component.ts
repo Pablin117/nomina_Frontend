@@ -162,7 +162,9 @@ export class UserMComponent {
     )
   }
   ResponseUserSaveM(response: any) {
-    if (response.code == 0) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
       alert(response.message)
       this.ServiceSaveImage()
       this.deleteImages()
@@ -358,14 +360,15 @@ export class UserMComponent {
                 'Content-Type': 'application/json'
             })
         }
-        return this.http.delete<any>(this.url + "/deleteUser/"+response.idUser, httpOptions).pipe(
+        return this.http.delete<any>(this.url + "/deleteUser/"+response.idUser+"/"+this.dataUser.user, httpOptions).pipe(
             catchError(e => "1")
         )
     }
 
     responseDelete(response:any){
-      console.log(response)
-        if (response.code == 0) {
+      if(response.code == 999){
+        this.revoke()
+      }else if (response.code == 0) {
 
             alert(response.message)
             this.back()

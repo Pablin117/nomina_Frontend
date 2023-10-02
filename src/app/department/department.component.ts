@@ -4,13 +4,11 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-module-maintenance',
-  templateUrl: './module-maintenance.component.html',
-  styleUrls: ['./module-maintenance.component.css']
+  selector: 'app-department',
+  templateUrl: './department.component.html',
+  styleUrls: ['./department.component.css']
 })
-export class ModuleMaintenanceComponent {
-
-
+export class DepartmentComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
@@ -19,14 +17,12 @@ export class ModuleMaintenanceComponent {
     this.validateSession()
 
   }
-
   //variables
   //objeto
-  ModulosData: any = []
-  moduloDataCreate: any = {}
-  moduloDataModify: any = {}
-  locationsData: any = {}
-  companyData: any = {}
+  companyData: any = []
+  DepartmentsData: any = []
+  departmentDataCreate: any = {}
+  departmentDataModify: any = {}
   btnDelete: boolean = false
   dataUser: any = {}
   options: any = {}
@@ -42,10 +38,7 @@ export class ModuleMaintenanceComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "module"
-
-
-
+  page: string = "department"
 
   //bandera de botones
   optionsValidate() {
@@ -76,40 +69,37 @@ export class ModuleMaintenanceComponent {
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
-      this.Modulo()
+      this.CompanyService()
+      this.Department()
       this.optionsValidate()
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
-
-  //obtine modulos
-  Modulo() {
-    this.RequestModulo().subscribe(
-      (response: any) => this.ResponseModulo(response)
+  Department() {
+    this.RequestDepartment().subscribe(
+      (response: any) => this.ResponseDepartment(response)
     )
   }
 
-  RequestModulo() {
+  RequestDepartment() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/module", httpOptions).pipe(
+    return this.http.get<any>(this.url + "/department", httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
-  ResponseModulo(response: any) {
-    this.ModulosData = response
+  ResponseDepartment(response: any) {
+    this.DepartmentsData = response
   }
   //banderas
-  Modify(modulo: any) {
-    console.log("modifica")
-    this.moduloDataModify = modulo
+  Modify(department: any) {
+    this.departmentDataModify = department
     this.add = false
     this.tab = false
     this.modify = true
@@ -125,18 +115,15 @@ export class ModuleMaintenanceComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
-
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
     this.header = true
-    this.moduloDataModify = {}
-    this.moduloDataCreate = {}
+    this.departmentDataModify = {}
+    this.departmentDataCreate = {}
     this.ngOnInit()
   }
   //agrega
@@ -144,31 +131,30 @@ export class ModuleMaintenanceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
 
-      this.moduloDataCreate.userCreation = this.dataUser.user
-      this.RequestModuloSave().subscribe(
-        (response: any) => this.ResponseModuloSave(response)
+      this.departmentDataCreate.userCreation = this.dataUser.user
+      this.RequestDepartmentSave().subscribe(
+        (response: any) => this.ResponseDepartmentSave(response)
       )
 
     }
   }
-  RequestModuloSave() {
+  RequestDepartmentSave() {
     console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createDepartment", this.departmentDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseModuloSave(response: any) {
+  ResponseDepartmentSave(response: any) {
     if(response.code == 999){
 
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -182,30 +168,28 @@ export class ModuleMaintenanceComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.moduloDataModify.userModification = this.dataUser.user
-      this.RequestModuloSaveM().subscribe(
-        (response: any) => this.ResponseModuloSaveM(response)
+      this.departmentDataModify.userModification = this.dataUser.user
+      this.RequestDepartmentSaveM().subscribe(
+        (response: any) => this.ResponseDepartmentSaveM(response)
       )
 
     }
   }
-  RequestModuloSaveM() {
-    console.log("se agrega")
+  RequestDepartmentSaveM() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateDepartment/" + this.departmentDataModify.idDepartment, this.departmentDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
-  ResponseModuloSaveM(response: any) {
+  ResponseDepartmentSaveM(response: any) {
     if(response.code == 999){
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -215,8 +199,7 @@ export class ModuleMaintenanceComponent {
 
 //para eliminar
 
-Delete(response:any){
-  console.log(response.idModule)
+  Delete(response:any){
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -228,7 +211,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteDepartment/"+response.idDepartment+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -246,8 +229,6 @@ Delete(response:any){
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -269,7 +250,6 @@ Delete(response:any){
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
 
       localStorage.removeItem("data")
@@ -283,5 +263,36 @@ Delete(response:any){
 
   }
 
+  //obtiene la empresa
+  CompanyService() {
+    this.RequestCompany().subscribe(
+      (response: any) => this.ResponseCompany(response)
+    )
+  }
+  RequestCompany() {
 
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/bussinesRules", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+
+  ResponseCompany(response: any) {
+    this.companyData = response
+  }
+
+  //retorna el nombre de la compañia con el id company
+  getCompanyName(idCompany: number): string {
+    for (let x = 0; x < this.companyData.length; x++) {
+      if (this.companyData[x].idCompany == idCompany) {
+        return this.companyData[x].name
+      }
+    }
+    return '';
+  }
 }

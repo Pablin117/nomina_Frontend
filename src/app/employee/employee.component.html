@@ -1,1 +1,167 @@
-<p>employee works!</p>
+<div class="container-fluid">
+
+  <div class="container text-center">
+    <h1>Empleados</h1>
+    <div>
+      <div *ngIf="header">
+        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+            class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+          Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="tab">
+    <div>
+      <table class="table table-hover" id="table-consult">
+        <thead>
+          <tr>
+            <th>Id Empleado</th>
+            <th>Nombre</th>
+            <th>Sucursal</th>
+            <th>Fecha de contratación</th>
+            <th>Puesto</th>
+            <th>Status Empleado</th>
+            <th>Salario Base</th>
+            <th>Bono Decreto</th>
+            <th>Otros ingresos</th>
+            <th>Descuento IGSS</th>
+            <th>Descuento ISR</th>
+            <th>Descuento inasistencia</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario de modificación</th>
+            <th>Opciones</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let  data of employeeData">
+            <td>{{data.idEmployee}}</td>
+            <td>{{getPersonName(data.idPerson)}}</td>
+            <td>{{getLocationName(data.idLocation)}}</td>
+            <td>{{data.dateContration |date:'dd/MM/yyyy'}}</td>
+            <td>{{getPositionName(data.idPosition)}}</td>
+            <td>{{getStatusEmployee(data.idStatusEmployee)}}</td>
+            <td>{{data.baseSalaryIncome | currency: 'Q ' }}</td>
+            <td>{{data.bonusIncomeDecree | currency: 'Q ' }}</td>
+            <td>{{data.incomeOther | currency: 'Q ' }}</td>
+            <td>{{data.igss | currency: 'Q ' }}</td>
+            <td>{{data.isr | currency: 'Q ' }}</td>
+            <td>{{data.noShowDiscount | currency: 'Q ' }}</td>
+            <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.userCreation}}</td>
+            <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.userModification}}</td>
+            <td>
+              <div>
+                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
+                    class="fa-solid fa-pen-to-square"></i>
+                  &nbsp;Modificar</button>
+                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)"> <i
+                    class="fa-solid fa-delete-left"></i>
+                  &nbsp;Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
+            class="fa-solid fa-download"></i> Exportar</button>
+        &nbsp;
+        <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i
+            class="fa-solid fa-print"></i> Imprimir</button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container text-left" *ngIf="modify">
+    <form (ngSubmit)="modForm()" id="modForm">
+      <h1>Modificación</h1>
+      <div class="input-group mb-3">
+
+        <span class="input-group-text"><i class="fa-solid fa-face-smile"></i>&nbsp; Nombre</span>
+        <input maxlength="100" name="name" [(ngModel)]="namePerson" type="text" class="form-control"
+          placeholder="{{namePerson}}" disabled>
+
+
+        <span class="input-group-text"><i class="fa-solid fa-shop"></i> &nbsp; Sucursal</span>
+        <select class="form-select" name="location" [(ngModel)]="employeeDataModify.idLocation" required>
+          <option *ngFor="let location of locationsData" value="{{location.idLocation}}" required>{{location.name}}
+          </option>
+        </select>
+
+      </div>
+
+      <div class="input-group mb-3">
+
+        <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Estado del empleado</span>
+          <select class="form-select" name="idStatusEmployee" [(ngModel)]="employeeDataModify.idStatusEmployee" required>
+            <option *ngFor="let statusEmployee of statusEmployeeData" value="{{statusEmployee.idStatusEmployee}}" required>{{statusEmployee.name}}
+            </option>
+          </select>
+    
+
+        <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Puesto</span>
+            
+        <select class="form-select" name="idPosition" [(ngModel)]="employeeDataModify.idPosition" required>
+          <option *ngFor="let position of positionData" value="{{position.idPosition}}" required>{{position.name}}
+          </option>
+        </select>
+
+
+      </div>
+
+      <br>
+      <div class="input-group mb-3">
+
+        <span class="input-group-text"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp; Salario Base</span>
+        <input maxlength="100" name="baseSalaryIncome" [(ngModel)]="employeeDataModify.baseSalaryIncome" type="float"
+          class="form-control" placeholder="{{employeeDataModify.baseSalaryIncome}}">
+
+        <span class="input-group-text"><i class="fa-solid fa-coins"></i>&nbsp; Bono Decreto</span>
+        <input maxlength="100" name="bonusIncomeDecree" [(ngModel)]="employeeDataModify.bonusIncomeDecree" type="float"
+          class="form-control" placeholder="{{employeeDataModify.bonusIncomeDecree}}">
+
+        <span class="input-group-text"><i class="fa-solid fa-sack-dollar"></i>&nbsp; Otros Ingresos</span>
+        <input maxlength="100" name="incomeOther" [(ngModel)]="employeeDataModify.incomeOther" type="float"
+          class="form-control" placeholder="{{employeeDataModify.incomeOther}}">
+
+      </div>
+      <br>
+      <div class="input-group mb-3">
+
+        <span class="input-group-text"><i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>&nbsp;
+          Descuento IGSS</span>
+        <input maxlength="100" name="igss" [(ngModel)]="employeeDataModify.igss" type="float" class="form-control"
+          placeholder="{{employeeDataModify.igss}}">
+
+        <span class="input-group-text"><i class="fa-solid fa-user-minus"></i>&nbsp; Descuento ISR</span>
+        <input maxlength="100" name="isr" [(ngModel)]="employeeDataModify.isr" type="float" class="form-control"
+          placeholder="{{employeeDataModify.isr}}">
+
+        <span class="input-group-text"><i class="fa-solid fa-person-circle-minus"></i>&nbsp; Descuento por
+          inasistencia</span>
+        <input maxlength="100" name="noShowDiscount" [(ngModel)]="employeeDataModify.noShowDiscount" type="float"
+          class="form-control" placeholder="{{employeeDataModify.noShowDiscount}}">
+
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+        <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+      </div>
+    </form>
+  </div>
+
+</div>

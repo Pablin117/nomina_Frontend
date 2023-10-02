@@ -1,1 +1,219 @@
-<p>person-document works!</p>
+<div class="container-fluid">
+
+    <div class="container text-center">
+      <h1>Documento Persona</h1>
+      <div>
+        <div *ngIf="header">
+          <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+              class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
+          <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
+            Salir</button>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="tab">
+      <div>
+        <table class="table table-hover" id="table-consult">
+          <thead>
+            <tr>
+              <th>Tipo de documento</th>
+              <th>Persona</th>
+              <th>Documento</th>
+              <th>Fecha de creación</th>
+              <th>Usuario de creación</th>
+              <th>Fecha de modificación</th>
+              <th>Usuario de modificación</th>
+              <th>Opciones</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let  data of personDocumentData">
+              <td>{{getDocumentName(data.idPK.idTypeDocument) }}</td>
+              <td>{{getPersonName( data.idPK.idPerson)}}</td>
+              <td>{{data.numberDocument}}</td>
+              <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+              <td>{{data.userCreation}}</td>
+              <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+              <td>{{data.userModification}}</td>
+              <td>
+                <div>
+                  <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
+                      class="fa-solid fa-pen-to-square"></i>
+                    &nbsp;Modificar</button>
+                  <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+  
+  
+                </div>
+              </td>
+              <td>
+                <div>
+                  <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)"> <i
+                      class="fa-solid fa-delete-left"></i>
+                    &nbsp;Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+  
+          <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+              class="fa-regular fa-square-plus"></i> Agregar</button>
+          &nbsp;
+          <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
+              class="fa-solid fa-download"></i> Exportar</button>
+          &nbsp;
+          <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i
+              class="fa-solid fa-print"></i> Imprimir</button>
+  
+        </div>
+  
+      </div>
+    </div>
+  
+    <div class="container text-left" *ngIf="modify">
+      <form (ngSubmit)="modForm()" id="modForm">
+        <h1>Modificación</h1>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre</span>
+          <input maxlength="100" name="name" [(ngModel)]="personDocumentModify.name" type="text" class="form-control"
+            placeholder="{{personDocumentModify.name}}">
+  
+          <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
+          <input maxlength="200" name="address" [(ngModel)]="personDocumentModify.address" type="text" class="form-control"
+            placeholder="{{personDocumentModify.address}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp;Nit</span>
+          <input maxlength="20" name="nit" [(ngModel)]="personDocumentModify.nit" type="text" class="form-control"
+            placeholder="{{personDocumentModify.nit}}" required>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp;Cantidad de
+            mayusculas</span>
+          <input maxlength="10" min="1" name="mayusculas" [(ngModel)]="personDocumentModify.passwordAmountUppercase"
+            type="number" class="form-control" placeholder="{{personDocumentModify.passwordAmountUppercase}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+            minusculas</span>
+          <input maxlength="10" min="1" name="Minusculas" [(ngModel)]="personDocumentModify.passwordAmountLowercase"
+            type="number" class="form-control" placeholder="{{personDocumentModify.passwordAmountLowercase}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+            números</span>
+          <input maxlength="10" min="1" name="Numeros" [(ngModel)]="personDocumentModify.passwordAmountNumber" type="number"
+            class="form-control" placeholder="{{personDocumentModify.passwordAmountNumber}}" required>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+            carácteres Especiales</span>
+          <input maxlength="10" min="1" name="Especial" [(ngModel)]="personDocumentModify.passwordAmountSpecialCharacters"
+            type="number" class="form-control" placeholder="{{personDocumentModify.passwordAmountSpecialCharacters}}"
+            required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-minus"></i>&nbsp; Longitud minima
+          </span>
+          <input maxlength="10" min="1" name="min" [(ngModel)]="personDocumentModify.passwordlength" type="number"
+            class="form-control" placeholder="{{personDocumentModify.passwordlength}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-plus"></i> &nbsp; Longitud
+            maxima</span>
+          <input maxlength="10" min="1" type="number" class="form-control" placeholder="Longitud maxima 25" disabled>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp; Cantidad
+            de días para caducar</span>
+          <input maxlength="10" min="1" name="expiracion" [(ngModel)]="personDocumentModify.passwordAmountExpirationsDays"
+            type="number" class="form-control" placeholder="{{personDocumentModify.passwordAmountExpirationsDays}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i>&nbsp; Cantidad
+            de intentos para bloqueo</span>
+          <input maxlength="10" min="1" name="bloqueo"
+            [(ngModel)]="personDocumentModify.passwordAmountAttemptsBeforeBlocking" type="number" class="form-control"
+            placeholder="{{personDocumentModify.passwordAmountAttemptsBeforeBlocking}}" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i> &nbsp;Cantidad
+            de preguntas a validar</span>
+          <input maxlength="10" min="1" name="validas" [(ngModel)]="personDocumentModify.passwordAmountQuestionsValidate"
+            type="number" class="form-control" placeholder="{{personDocumentModify.passwordAmountQuestionsValidate}}"
+            required>
+        </div>
+        <br>
+        <div>
+          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="container text-left" *ngIf="add">
+      <form (ngSubmit)="addForm()" id="addForm">
+        <h1>Creación</h1>
+        <div class="input-group mb-3">
+  
+          <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+          <input name="name" [(ngModel)]="personDocumentCreate.name" type="text" class="form-control" placeholder="Nombre"
+            required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
+          <input name="address" [(ngModel)]="personDocumentCreate.address" type="text" class="form-control"
+            placeholder="Direccion" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
+          <input name="address" [(ngModel)]="personDocumentCreate.nit" type="text" class="form-control" placeholder="Nit"
+            required>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+          <input maxlength="10" min="1" name="mayusculas" [(ngModel)]="personDocumentCreate.passwordAmountUppercase"
+            type="number" class="form-control" placeholder="Cantidad de Mayusculas" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+          <input maxlength="10" min="1" name="Minusculas" [(ngModel)]="personDocumentCreate.passwordAmountLowercase"
+            type="number" class="form-control" placeholder="Cantidad de Minusculas" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+          <input maxlength="10" min="1" name="Numeros" [(ngModel)]="personDocumentCreate.passwordAmountNumber" type="number"
+            class="form-control" placeholder="Cantidad de números" required>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+          <input maxlength="10" min="1" name="Especial" [(ngModel)]="personDocumentCreate.passwordAmountSpecialCharacters"
+            type="number" class="form-control" placeholder="Cantidad minima de Caracteres Especiales" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-minus"></i></span>
+          <input maxlength="10" min="1" name="min" [(ngModel)]="personDocumentCreate.passwordlength" type="number"
+            class="form-control" placeholder="Longitud minima" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-plus"></i></span>
+          <input maxlength="10" min="1" type="number" class="form-control" placeholder="Longitud maxima 25" disabled>
+        </div>
+        <br>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+          <input maxlength="10" min="1" name="expiracion" [(ngModel)]="personDocumentCreate.passwordAmountExpirationsDays"
+            type="number" class="form-control" placeholder="Días Expiracion" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
+          <input maxlength="10" min="1" name="bloqueo"
+            [(ngModel)]="personDocumentCreate.passwordAmountAttemptsBeforeBlocking" type="number" class="form-control"
+            placeholder="Intentos de bloqueo" required>
+  
+          <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i></span>
+          <input maxlength="10" min="1" name="validas" [(ngModel)]="personDocumentCreate.passwordAmountQuestionsValidate"
+            type="number" class="form-control" placeholder="Preguntas validas" required>
+        </div>
+        <br>
+        <div>
+          <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+          <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+        </div>
+      </form>
+    </div>
+  </div>

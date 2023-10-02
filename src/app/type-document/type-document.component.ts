@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
 @Component({
-  selector: 'app-module-maintenance',
-  templateUrl: './module-maintenance.component.html',
-  styleUrls: ['./module-maintenance.component.css']
+  selector: 'app-type-document',
+  templateUrl: './type-document.component.html',
+  styleUrls: ['./type-document.component.css']
 })
-export class ModuleMaintenanceComponent {
+export class TypeDocumentComponent {
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -22,11 +21,9 @@ export class ModuleMaintenanceComponent {
 
   //variables
   //objeto
-  ModulosData: any = []
-  moduloDataCreate: any = {}
-  moduloDataModify: any = {}
-  locationsData: any = {}
-  companyData: any = {}
+  TypeDocumentsData: any = []
+  typeDocumentDataCreate: any = {}
+  typeDocumentDataModify: any = {}
   btnDelete: boolean = false
   dataUser: any = {}
   options: any = {}
@@ -42,7 +39,7 @@ export class ModuleMaintenanceComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "module"
+  page: string = "type-document"
 
 
 
@@ -77,8 +74,9 @@ export class ModuleMaintenanceComponent {
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
-      this.Modulo()
+      this.TypeDocument()
       this.optionsValidate()
+      
     } else {
       this.router.navigateByUrl("/")
     }
@@ -86,30 +84,32 @@ export class ModuleMaintenanceComponent {
 
 
   //obtine modulos
-  Modulo() {
-    this.RequestModulo().subscribe(
-      (response: any) => this.ResponseModulo(response)
+  TypeDocument() {
+    this.RequestTypeDocument().subscribe(
+      (response: any) => this.ResponseTypeDocument(response)
     )
   }
 
-  RequestModulo() {
+  RequestTypeDocument() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/module", httpOptions).pipe(
+    return this.http.get<any>(this.url + "/typeDocument", httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
-  ResponseModulo(response: any) {
-    this.ModulosData = response
+  ResponseTypeDocument(response: any) {
+    this.TypeDocumentsData = response
+    console.log(this.TypeDocumentsData);
+    
   }
   //banderas
   Modify(modulo: any) {
     console.log("modifica")
-    this.moduloDataModify = modulo
+    this.typeDocumentDataModify = modulo
     this.add = false
     this.tab = false
     this.modify = true
@@ -135,8 +135,8 @@ export class ModuleMaintenanceComponent {
     this.add = false
     this.tab = true
     this.header = true
-    this.moduloDataModify = {}
-    this.moduloDataCreate = {}
+    this.typeDocumentDataModify = {}
+    this.typeDocumentDataCreate = {}
     this.ngOnInit()
   }
   //agrega
@@ -144,7 +144,7 @@ export class ModuleMaintenanceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
 
-      this.moduloDataCreate.userCreation = this.dataUser.user
+      this.typeDocumentDataCreate.userCreation = this.dataUser.user
       this.RequestModuloSave().subscribe(
         (response: any) => this.ResponseModuloSave(response)
       )
@@ -158,7 +158,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createTypeDocument", this.typeDocumentDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -182,7 +182,7 @@ export class ModuleMaintenanceComponent {
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-      this.moduloDataModify.userModification = this.dataUser.user
+      this.typeDocumentDataModify.userModification = this.dataUser.user
       this.RequestModuloSaveM().subscribe(
         (response: any) => this.ResponseModuloSaveM(response)
       )
@@ -196,7 +196,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url + "/updateTypeDocument/" + this.typeDocumentDataModify.idTypeDocument, this.typeDocumentDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -215,8 +215,7 @@ export class ModuleMaintenanceComponent {
 
 //para eliminar
 
-Delete(response:any){
-  console.log(response.idModule)
+  Delete(response:any){
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -228,7 +227,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deleteTypeDocument/"+response.idTypeDocument+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
