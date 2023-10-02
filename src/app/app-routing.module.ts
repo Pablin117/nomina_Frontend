@@ -31,6 +31,7 @@ import { StatusEmployeeComponent } from './status-employee/status-employee.compo
 import { DepartmentComponent } from './department/department.component';
 import { TypeDocumentComponent } from './type-document/type-document.component';
 import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
+import { CheckOnlineComponent } from './check-online/check-online.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
   { path: 'type-document', component: TypeDocumentComponent},
   { path: 'payroll-period', component: PayrollPeriodComponent},
   { path: 'not-found', component: NotFoundComponent},
+  { path: 'online-root', component: CheckOnlineComponent},
   { path: '**', redirectTo: 'not-found'}
 ];
 
