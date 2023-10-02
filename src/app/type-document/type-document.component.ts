@@ -76,6 +76,7 @@ export class TypeDocumentComponent {
       console.log("activo")
       this.TypeDocument()
       this.optionsValidate()
+      
     } else {
       this.router.navigateByUrl("/")
     }
@@ -102,6 +103,8 @@ export class TypeDocumentComponent {
 
   ResponseTypeDocument(response: any) {
     this.TypeDocumentsData = response
+    console.log(this.TypeDocumentsData);
+    
   }
   //banderas
   Modify(modulo: any) {

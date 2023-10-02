@@ -106,15 +106,15 @@ export class EmployeeComponent {
 
       console.log(this.employeeDataModify);
       
-     /* this.RequestemployeeUpdate().subscribe(
+      this.RequestemployeeUpdate().subscribe(
         (response: any) => this.ResponseemployeeUpdate(response)
-      )*/
+      )
     }
   }
 
   RequestemployeeUpdate() {
 
-    return this.http.put<any>(this.url + "/updateemployee/" + this.employeeDataModify.idemployee, this.employeeDataModify,).pipe(
+    return this.http.put<any>(this.url + "/updateEmployee/" + this.employeeDataModify.idEmployee, this.employeeDataModify,).pipe(
       catchError(e => "1")
     )
   }
