@@ -81,9 +81,9 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Departamento</span>
-                <select class="form-select" name="position" [(ngModel)]="positionDataModify.idPosition">
-                    <option *ngFor="let position of positionData" value="{{position.idDepartment}}" required>
-                        {{position.name}}
+                <select class="form-select" name="department" [(ngModel)]="positionDataModify.idDepartment">
+                    <option *ngFor="let department of departmentData" value="{{department.idDepartment}}" required>
+                        {{department.name}}
                     </option>
                 </select>
                 <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Nombre</span>
@@ -103,16 +103,14 @@
             <h1>Agregar</h1>
             <div class="input-group mb-3">
 
-                <span class="input-group-text"><i class="fa-solid fa-user"></i>&nbsp; Usuario</span>
-                <select class="form-select" name="userRole" [(ngModel)]="positionDataCreate.idUser">
-                    <option *ngFor="let user of userData" value="{{user.idUser}}" required> {{user.idUser}}
-                    </option>
-                </select>
+                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Nombre</span>
+                <input maxlength="200" name="name" [(ngModel)]="positionDataCreate.name" type="text"
+                    class="form-control" placeholder="{{positionDataCreate.name}}" required>
 
-                <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Rol</span>
-                <select class="form-select" name="userRole" [(ngModel)]="positionDataCreate.idPosition">
-                    <option *ngFor="let position of positionData" value="{{position.idposition}}" required>
-                        {{position.name}}
+                    <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Departamento</span>
+                <select class="form-select" name="department" [(ngModel)]="positionDataCreate.idDepartment">
+                    <option *ngFor="let department of departmentData" value="{{department.idDepartment}}" required>
+                        {{department.name}}
                     </option>
                 </select>
             </div>
