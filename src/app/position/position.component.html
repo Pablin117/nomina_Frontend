@@ -73,6 +73,26 @@
     </div>
   </div>
 
+    <div class="container text-left" *ngIf="modify">
+        <form (ngSubmit)="modForm()" id="modForm">
+            <h1>Modificación</h1>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Departamento</span>
+                <select class="form-select" name="department" [(ngModel)]="positionDataModify.idDepartment">
+                    <option *ngFor="let department of departmentData" value="{{department.idDepartment}}" required>
+                        {{department.name}}
+                    </option>
+                </select>
+                <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Nombre</span>
+                    <input maxlength="200" name="name" [(ngModel)]="positionDataModify.name" type="text"
+                        class="form-control" placeholder="{{positionDataModify.name}}" required>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
+                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
+            </div>
+        </form>
+    </div>
   <div class="container text-left" *ngIf="modify">
     <form (ngSubmit)="modForm()" id="modForm">
       <h1>Modificación</h1>

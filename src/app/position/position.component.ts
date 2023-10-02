@@ -175,7 +175,6 @@ export class PositionComponent {
   //para eliminar
 
   Delete(response: any) {
-    console.log(response)
     
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
@@ -188,14 +187,16 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deletePosition/" + response.idPosition, httpOptions).pipe(
+    return this.http.delete<any>(this.url + "/deletePosition/" + response.idPosition + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   responseDelete(response: any) {
-    if (response.code == 0) {
-
+    if (response.code == 999) {
+    
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
     } else {
@@ -228,8 +229,9 @@ export class PositionComponent {
     )
   }
   responsePositionUpdate(response: any) {
-    if (response.code == 0) {
-
+    if (response.code == 999) {
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
     } else {
@@ -257,18 +259,20 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createUserRole", this.positionDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url + "/createPosition", this.positionDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
   responsePositionSave(response: any) {
-    if (response.code == 0) {
+    if (response.code == 999) {
+      this.revoke()
+    } else if (response.code == 0) {
       alert(response.message)
       this.back()
+
     } else {
       alert(response.message)
     }
-
   }
 
 
