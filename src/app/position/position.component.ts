@@ -247,13 +247,13 @@ export class PositionComponent {
     if (formularioValido.reportValidity()) {
       this.positionDataCreate.userCreation = this.dataUser.user
 
-      this.requestPositionSave().subscribe(
-        (response: any) => this.responsePositionSave(response)
+      this.RequestPositionSave().subscribe(
+        (response: any) => this.ResponsePositionSave(response)
       )
     }
   }
 
-  requestPositionSave() {
+  RequestPositionSave() {
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -263,7 +263,7 @@ export class PositionComponent {
       catchError(e => "1")
     )
   }
-  responsePositionSave(response: any) {
+  ResponsePositionSave(response: any) {
     if (response.code == 999) {
       this.revoke()
     } else if (response.code == 0) {
