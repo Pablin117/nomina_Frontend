@@ -1,38 +1,40 @@
-<div class="container-fluid">
-  <div class="row flex-nowrap">
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark min-vh-100">
-      <div *ngFor="let modulo of modulos"
-        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
-        <div class="box-module">
-          <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none text-module">
-            <span class="fs-5 d-none d-sm-inline">{{modulo.name}}</span>
-          </a>
-        </div>
-        <ul *ngFor="let menu of modulo.menus"
-          class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-          <li>
-            <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none nav-link">
-              <span class="fs-5 d-none d-sm-inline">{{menu.name}}</span>&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></a>
-            <ul *ngFor="let opcion of menu.opciones" class="collapse show nav flex-column ms-1" id="submenu1"
-              data-bs-parent="#menu">
-              <li class="w-100">
-                <a href="{{opcion.page}}" class="nav-link px-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                    class="d-none d-sm-inline text-option">{{opcion.name}}</span></a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <button class="btn btn-danger btn-logout" id="modificar" (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Salir</button>
-    </div>
-    <div class="col py-3 content">
-      <div class="banner-user">
-        Bienvenido: {{dataUser.nameUser}}
 
-          <img id="meme" src="https://images.unsplash.com/photo-1533563906091-fdfdffc3e3c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3570&q=80" >
-         
+
+  <div class="container-fluid" >
+    <div class="row flex-nowrap" >
+      <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark min-vh-100" >
+        <div *ngFor="let modulo of modulos"
+          class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
+          <div class="box-module">
+            <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none text-module">
+              <span class="fs-5 d-none d-sm-inline" >{{modulo.name}}</span>
+            </a>
+          </div>
+          <ul *ngFor="let menu of modulo.menus"
+            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+            <li>
+              <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none nav-link">
+                <span class="fs-5 d-none d-sm-inline">{{menu.name}}</span>&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></a>
+              <ul *ngFor="let opcion of menu.opciones" class="collapse show nav flex-column ms-1" id="submenu1"
+                data-bs-parent="#menu">
+                <li class="w-100">
+                  <a href="{{opcion.page}}" class="nav-link px-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="d-none d-sm-inline text-option">{{opcion.name}}</span></a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <button class="btn btn-danger btn-logout" id="modificar" (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Salir</button>
+      </div>
+      <div class="col py-0  px-0"  >
+        <div class="banner-user"  id="fondo">
+          Bienvenido: {{dataUser.nameUser}}
+  
+      
+        </div>
       </div>
     </div>
   </div>
-</div>
+
 
