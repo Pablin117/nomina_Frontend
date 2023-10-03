@@ -16,7 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { PlanillaComponent } from './planilla/planilla.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { LogComponent } from './log/log.component';
@@ -54,7 +53,6 @@ import { PayrollComponent } from './payroll/payroll.component';
     AppComponent,
     LoginComponent,
     SetPasswordComponent,
-    PlanillaComponent,
     CompanyComponent,
     RecoverPasswordComponent,
     RoleComponent,
