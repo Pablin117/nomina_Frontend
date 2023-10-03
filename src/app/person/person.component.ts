@@ -171,7 +171,7 @@ export class PersonComponent {
     getGenderName(idGender: number): string {
       for (let x = 0; x < this.genderData.length; x++) {
         if (this.genderData[x].idGender == idGender) {
-          return this.genderData[x].idGender
+          return this.genderData[x].name
         }
       }
       return '';
@@ -202,7 +202,7 @@ export class PersonComponent {
         getMaritalName(idMaritalStatus: number): string {
           for (let x = 0; x < this.maritalData.length; x++) {
             if (this.maritalData[x].idMaritalStatus == idMaritalStatus) {
-              return this.maritalData[x].idMaritalStatus
+              return this.maritalData[x].name
             }
           }
           return '';
