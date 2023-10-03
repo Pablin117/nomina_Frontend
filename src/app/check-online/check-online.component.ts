@@ -56,7 +56,6 @@ export class CheckOnlineComponent {
   }
   responseUser(response: any) {
     this.UserData = response
-    console.log(response);
     this.Estado()
   }
 
@@ -88,9 +87,8 @@ export class CheckOnlineComponent {
   //para eliminar
 
   Delete(response: any) {
-    console.log(response);
-    
-    
+  
+  
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -99,7 +97,7 @@ export class CheckOnlineComponent {
   requestDelete(response: any) {
     let root = "root"
     let pass = "admin"
-    return this.http.delete<any>(this.url2+ "/" + response.idUser + "/" + root +"/" + pass ).pipe(
+    return this.http.get<any>(this.url2+ "/" + response.idUser + "/" + root +"/" + pass ).pipe(
       catchError(e => "1")
     )
   }
