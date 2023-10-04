@@ -21,7 +21,7 @@
                 <button type="button" class="nav-link" ngbDropdownToggle>{{menu.name}}</button> 
                 <div ngbDropdownMenu>
                   <div  *ngFor="let opcion of menu.opciones">
-                    <button  ngbDropdownItem>{{opcion.name}}</button>
+                    <a href="{{opcion.page}}" ngbDropdownItem>{{opcion.name}}</a>
                   </div>
                   
                 </div>

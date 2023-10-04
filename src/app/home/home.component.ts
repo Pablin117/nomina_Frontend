@@ -54,6 +54,10 @@ export class HomeComponent {
 
 
   //DIBOY START
+  redirect(name : any){
+
+  }
+
   recoverUser() {
     //Busqueda de role-opcion-menu-modulo usuario
     this.searchOptionsUserService().subscribe(
