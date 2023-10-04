@@ -20,7 +20,7 @@ export class MenuComponent {
 
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "userM"
+  page: string = "menu"
   //boolean
   modify: boolean = false
   add: boolean = false

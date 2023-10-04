@@ -73,6 +73,9 @@ export class HomeComponent {
 
   //response service login
   responseSearchOptionsUserService(response: any) {
+    console.log("Lo que buscas -->")
+    console.log(response)
+
     //error in consumption
     if (response == null || response == "e") {
 

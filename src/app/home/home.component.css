@@ -1,8 +1,10 @@
 .btn-logout {
     position: absolute;
-    bottom: 0;
+    top: 0;
+    right: 0;
     margin: 1%;
-    width: 5%;
+    width: 7%;
+    height: 7%;
 }
 
 
