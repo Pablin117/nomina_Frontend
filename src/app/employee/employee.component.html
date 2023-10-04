@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let  data of employeeData">
+          <tr *ngFor="let data of employeeData.slice((page - 1) * pageSize, page * pageSize)">
             <td>{{data.idEmployee}}</td>
             <td>{{getPersonName(data.idPerson)}}</td>
             <td>{{getLocationName(data.idLocation)}}</td>
@@ -72,7 +72,13 @@
             </td>
           </tr>
         </tbody>
+       
+
       </table>
+      <p>Pag.</p>
+      <ngb-pagination [collectionSize]="temp" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+     
+
       <div>
         <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
             class="fa-solid fa-download"></i> Exportar</button>

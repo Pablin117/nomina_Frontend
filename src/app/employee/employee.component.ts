@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -17,7 +18,8 @@ export class EmployeeComponent {
 
   ngOnInit() {
     this.validateSession()
-
+   
+    
   }
 
 
@@ -49,7 +51,10 @@ export class EmployeeComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  page: String = "marital-status"
+  pages: String = "marital-status"
+  page = 1;
+  pageSize = 50;
+  temp: number = 0
 
   name = 'employee.xlsx';
   exportToExcel(): void {
@@ -83,7 +88,7 @@ export class EmployeeComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pages) {
         permisos = item.permisos
       }
     })
@@ -105,7 +110,7 @@ export class EmployeeComponent {
       this.employeeDataModify.userModification = this.dataUser.user
 
       console.log(this.employeeDataModify);
-      
+
       this.RequestemployeeUpdate().subscribe(
         (response: any) => this.ResponseemployeeUpdate(response)
       )
@@ -144,7 +149,7 @@ export class EmployeeComponent {
     )
   }
   responseDelete(response: any) {
-console.log(response);
+    console.log(response);
 
     if (response.code == 999) {
 
@@ -223,7 +228,7 @@ console.log(response);
 
   ResponseEmployee(response: any) {
     this.employeeData = response
-
+    this.temp = this.employeeData / this.pageSize
     this.locationService()
   }
 
@@ -278,7 +283,7 @@ console.log(response);
 
 
   //Obtiene datos de status empleados
-  statusEmployeeService (){
+  statusEmployeeService() {
     this.RequestStatusEmployee().subscribe(
       (response: any) => this.ResponseStatusEmployee(response)
     )
