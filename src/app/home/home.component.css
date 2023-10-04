@@ -3,62 +3,36 @@
     top: 0;
     right: 0;
     margin: 1%;
-    width: 7%;
-    height: 7%;
+    width: 5%;
+    height: 5%;
 }
-
-
-/* .btn-primary{
-    background-color: #2d3839;
-    border-color: #2d3839;
-    color:#e7ecef
-}
-
-.btn-primary:hover{
-  background-color: #e0e4ce;
-  border-color: #e0e4ce;
-  color: #2d3839;
-} */
-
-
-
-.btn-secondary {
-  background-color: #114d4d;
-  border-color: #114d4d;
-  color: #e7ecef;
-}
-
-.btn-secondary:hover {
-  background-color: #1cbebe;
-  border-color: #1cbebe;
-  color: #e7ecef;
-}
-
 
 
 .btn-danger {
-  background-color: #27191c;
-  border-color: #27191c;
-  
+  background-color: #0c0b0b;
+  border-color: #0c0b0b;
 }
-
 .btn-danger:hover {
   background-color: #fe0101;
   border-color: #fe0101;
   color: #e7ecef;
 }
 
+
+
 .flex-colom{
-  background-color: #1cbebe;
+  background-color: #60748C;
 }
 
 .bg-dark{
-  background-color: #114d4d !important;
-  padding-top: 1%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(https://img.freepik.com/vector-gratis/fondo-lineas-dinamicas-estilo-papel_23-2149008629.jpg?w=1380&t=st=1696453773~exp=1696454373~hmac=e9d700217d8344c407c4b576988b58ba39071623a3c76ec09936e9566d39af31);
+  padding-top: 3%;
 }
 
 .text-menu{
-  color: #F3F3F3;
+  color: #383832;
   margin-top: 5%;
 }
 
@@ -68,24 +42,25 @@
 
 .nav-link:focus-within{
   color: white;
-  background-color: #114d4d !important;
+  background-color: #383832 !important;
   border-style: solid;
-  border-color: #0a3030 !important;
+  border-color: #383832 !important;
   border-width: 1px !important;
 
 }
 
 
 .box-module{
-  background-color: white !important;
+  background-color: #c3c3bd !important;
   width: 100%;
   padding-left: 5%;
   padding-top: 5%;
   border-radius: 10px;
+  
 }
 
 .text-module{
-  color: #114d4d !important;
+  color: #040404 !important;
 }
 
 .text-menu{
@@ -114,11 +89,14 @@
 }
 
 
+
 #fondo{
   color: white;
-  background-image: url(https://a-static.besthdwallpaper.com/green-leaves-with-black-shadow-wallpaper-2560x1600-78534_7.jpg);
+  image-orientation: flip;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(https://img.freepik.com/vector-gratis/fondo-lineas-dinamicas-estilo-papel_23-2149008629.jpg?w=1380&t=st=1696453773~exp=1696454373~hmac=e9d700217d8344c407c4b576988b58ba39071623a3c76ec09936e9566d39af31);
   width: 100%;
   height: 100%;
 }
-
 
