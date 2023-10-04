@@ -78,7 +78,7 @@ export class SetPasswordComponent {
       let fillString = "***";
       let count = fillString.length;
       for (var x = 0; x < this.QuestionsData.length; x++) {
-        //cambio la respuesta de las pregutnas por xxx
+        //cambio la respuesta de las preguntas por x
         this.QuestionsData[x].respond = fillString.repeat(count);
       }
       console.log(this.QuestionsData)
