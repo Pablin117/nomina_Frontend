@@ -139,11 +139,12 @@ export class EmployeeComponent {
   }
   requestDelete(response: any) {
 
-    return this.http.delete<any>(this.url + "/deleteemployee/" + response.idemployee + "/" + this.dataUser.user,).pipe(
+    return this.http.delete<any>(this.url + "/deleteEmployee/" + response.idEmployee + "/" + this.dataUser.user,).pipe(
       catchError(e => "1")
     )
   }
   responseDelete(response: any) {
+console.log(response);
 
     if (response.code == 999) {
 
