@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid" id="fondo">
 
   <div class="container text-center">
     <h1>Modulos</h1>
     <div>
       <div *ngIf="header">
-        <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+        <button class="btn btn-secondary" id="modificar" (click)="backWelcome()"><i
             class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
         <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
            Salir</button>
@@ -14,7 +14,7 @@
 
   <div *ngIf="tab">
     <div>
-      <table class="table table-hover">
+      <table id="table">
         <thead>
           <tr>
             <th>Modulo</th>
@@ -58,7 +58,7 @@
       </table>
       <div>
 
-        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+        <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
         &nbsp;
         <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>

@@ -33,7 +33,10 @@ export class OptionComponent {
 
   //url
   url: String = "http://localhost:4042/v1"
-  page = "option"
+  pageUrl = "option"
+  page = 1;
+  pageSize = 0
+  tamColeccion :number = 0
 
   //objetos
   optionDataCreate: any = {}
@@ -68,7 +71,7 @@ export class OptionComponent {
     this.options = JSON.parse(this.options)
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -117,7 +120,8 @@ export class OptionComponent {
 
   responseOption(response: any) {
     this.optionData = response
-
+    this.tamColeccion = response.length
+    this.pageSize = this.tamColeccion/2.5
   }
   //obtine los menus
   menu() {

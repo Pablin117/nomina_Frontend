@@ -48,7 +48,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -93,8 +92,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     HttpClientModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule, NgbModule,
-
+    MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule, NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

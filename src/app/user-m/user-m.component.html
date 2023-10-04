@@ -1,8 +1,9 @@
-<div class="container-fluid ">
+<div class="container-fluid " id="fondo">
+  
   <div class="container text-center">
     <h1>Usuarios</h1>
     <div *ngIf="header">
-      <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i>
+      <button class="btn btn-secondary" id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i>
         Regresar</button>&nbsp;&nbsp;
       <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
         Salir</button>
@@ -11,24 +12,24 @@
 
   <div *ngIf="tab">
     <div>
-      <table class="table table-hover" id="table-consult">
+      <table id="table">
         <thead>
           <tr>
             <th>Usuario</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Fecha de nacimiento</th>
+            <th>Nacimiento</th>
             <th>Estatus Usuario</th>
             <th>Genero</th>
-            <th>Fecha de ultimo ingreso</th>
-            <th>Fecha de ultimo cambio de contraseña</th>
+            <th>Fec de ult. ingreso</th>
+            <th>Fec de ult. password</th>
             <th>Correo adicional</th>
             <th>Telefono</th>
             <th>Sucursal</th>
-            <th>Fecha de creacion</th>
-            <th>Usuario de creacion</th>
-            <th>Fecha de modificacion</th>
-            <th>Usuario de modificacion</th>
+            <th>Fec. de creación</th>
+            <th>Usuario de creación</th>
+            <th>Fecha de modificación</th>
+            <th>Usuario de modificación</th>
             <th>Opciónes</th>
             <th>&nbsp;</th>
           </tr>
@@ -69,7 +70,7 @@
         </tbody>
       </table>
       <div>
-        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+        <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
 
 

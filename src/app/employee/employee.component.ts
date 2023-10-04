@@ -51,10 +51,12 @@ export class EmployeeComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  pages: String = "marital-status"
+  pageUrl: String = "marital-status"
   page = 1;
-  pageSize = 50;
-  temp: number = 0
+  pageSize = 0
+  tamColeccion :number = 0
+  
+  
 
   name = 'employee.xlsx';
   exportToExcel(): void {
@@ -88,7 +90,7 @@ export class EmployeeComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.pages) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -228,7 +230,10 @@ export class EmployeeComponent {
 
   ResponseEmployee(response: any) {
     this.employeeData = response
-    this.temp = this.employeeData / this.pageSize
+    this.tamColeccion = response.length
+    this.pageSize = this.tamColeccion/10
+    console.log(this.tamColeccion);
+    
     this.locationService()
   }
 
@@ -294,7 +299,7 @@ export class EmployeeComponent {
   }
   ResponseStatusEmployee(response: any) {
     this.statusEmployeeData = response
-    console.log(response)
+  
   }
 
   //retorna el nombre de la compañia con el id company

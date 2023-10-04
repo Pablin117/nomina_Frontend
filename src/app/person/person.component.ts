@@ -1,15 +1,24 @@
-import { Component } from '@angular/core';
+
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
+
+
+import { Component, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })
+
+
+
 export class PersonComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { 
+   
+  }
 
 
   ngOnInit() {
@@ -32,8 +41,12 @@ export class PersonComponent {
   exporte: boolean = false
   DataDocument: boolean = false
   //url
-  page: string = "role-user"
+  pageUrl: string = "role-user"
   url: String = "http://localhost:4042/v1"
+  page = 1;
+  pageSize = 0
+  tamColeccion :number = 0
+
   //objetos
   personDataModify: any = {}
   personDataCreate: any = {}
@@ -82,7 +95,7 @@ export class PersonComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -148,6 +161,8 @@ export class PersonComponent {
   }
   responsePerson(response: any) {
     this.personData = response
+    this.tamColeccion = response.length
+    this.pageSize = this.tamColeccion/10
 
   }
 

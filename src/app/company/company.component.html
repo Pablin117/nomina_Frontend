@@ -17,19 +17,19 @@
         <table id="table" id="table-consult" >
           <thead>
             <tr>
-              <th>IdEmpresa</th>
+              <th>Id Empresa</th>
               <th>Nombre</th>
               <th>Direccion</th>
               <th>Nit</th>
-              <th>Cantidad de mayusculas</th>
-              <th>Cantidad de minusculas</th>
-              <th>Cantidad de caracteres especiales</th>
-              <th>Cantidad de números</th>
-              <th>Longitud minima de contraseña</th>
-              <th>Longitud maxima de contraseña</th>
+              <th>Cant. de mayusculas</th>
+              <th>Cant. de minusculas</th>
+              <th>Cant. de caracteres</th>
+              <th>Cant. de números</th>
+              <th>Min de password</th>
+              <th>Max de password</th>
               <th>Días de expiracion</th>
-              <th>Intentos de bloqueo</th>
-              <th>Cant. preguntas validas</th>
+              <th>Int. de bloqueo</th>
+              <th>Cant. preguntas </th>
               <th>Fecha de creación</th>
               <th>Usuario de creación</th>
               <th>Fecha de modificación</th>
@@ -105,24 +105,24 @@
         </div>
         <br>
         <div class="input-group mb-3">
-          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp;Cantidad de
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp;Cant. de
             mayusculas</span>
           <input maxlength="10" min="1" name="mayusculas" [(ngModel)]="companyDataModify.passwordAmountUppercase"
             type="number" class="form-control" placeholder="{{companyDataModify.passwordAmountUppercase}}" required>
   
-          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cant. de
             minusculas</span>
           <input maxlength="10" min="1" name="Minusculas" [(ngModel)]="companyDataModify.passwordAmountLowercase"
             type="number" class="form-control" placeholder="{{companyDataModify.passwordAmountLowercase}}" required>
   
-          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cant. de
             números</span>
           <input maxlength="10" min="1" name="Numeros" [(ngModel)]="companyDataModify.passwordAmountNumber" type="number"
             class="form-control" placeholder="{{companyDataModify.passwordAmountNumber}}" required>
         </div>
         <br>
         <div class="input-group mb-3">
-          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cantidad de
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Cant. de
             carácteres Especiales</span>
           <input maxlength="10" min="1" name="Especial" [(ngModel)]="companyDataModify.passwordAmountSpecialCharacters"
             type="number" class="form-control" placeholder="{{companyDataModify.passwordAmountSpecialCharacters}}"
@@ -139,18 +139,18 @@
         </div>
         <br>
         <div class="input-group mb-3">
-          <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp; Cantidad
+          <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp; Cant.
             de días para caducar</span>
           <input maxlength="10" min="1" name="expiracion" [(ngModel)]="companyDataModify.passwordAmountExpirationsDays"
             type="number" class="form-control" placeholder="{{companyDataModify.passwordAmountExpirationsDays}}" required>
   
-          <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i>&nbsp; Cantidad
+          <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i>&nbsp; Cant.
             de intentos para bloqueo</span>
           <input maxlength="10" min="1" name="bloqueo"
             [(ngModel)]="companyDataModify.passwordAmountAttemptsBeforeBlocking" type="number" class="form-control"
             placeholder="{{companyDataModify.passwordAmountAttemptsBeforeBlocking}}" required>
   
-          <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i> &nbsp;Cantidad
+          <span class="input-group-text"><i class="fa-solid fa-clipboard-user"></i> &nbsp;Cant.
             de preguntas a validar</span>
           <input maxlength="10" min="1" name="validas" [(ngModel)]="companyDataModify.passwordAmountQuestionsValidate"
             type="number" class="form-control" placeholder="{{companyDataModify.passwordAmountQuestionsValidate}}"
@@ -185,21 +185,21 @@
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
           <input maxlength="10" min="1" name="mayusculas" [(ngModel)]="companyDataCreate.passwordAmountUppercase"
-            type="number" class="form-control" placeholder="Cantidad de Mayusculas" required>
+            type="number" class="form-control" placeholder="Cant. de Mayusculas" required>
   
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
           <input maxlength="10" min="1" name="Minusculas" [(ngModel)]="companyDataCreate.passwordAmountLowercase"
-            type="number" class="form-control" placeholder="Cantidad de Minusculas" required>
+            type="number" class="form-control" placeholder="Cant. de Minusculas" required>
   
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
           <input maxlength="10" min="1" name="Numeros" [(ngModel)]="companyDataCreate.passwordAmountNumber" type="number"
-            class="form-control" placeholder="Cantidad de números" required>
+            class="form-control" placeholder="Cant. de números" required>
         </div>
         <br>
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
           <input maxlength="10" min="1" name="Especial" [(ngModel)]="companyDataCreate.passwordAmountSpecialCharacters"
-            type="number" class="form-control" placeholder="Cantidad minima de Caracteres Especiales" required>
+            type="number" class="form-control" placeholder="Cant. minima de Caracteres Especiales" required>
   
           <span class="input-group-text"><i class="fa-solid fa-minus"></i></span>
           <input maxlength="10" min="1" name="min" [(ngModel)]="companyDataCreate.passwordlength" type="number"

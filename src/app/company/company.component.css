@@ -21,12 +21,17 @@ table {
     padding: 0.1rem;
  }
  
- th, td {
+ th {
     border-bottom: 1px solid #999;
-    width: 5rem;
+    width: 30rem;
+    font-size: medium;
  }
 
+td{
+    border-bottom: 1px solid #999;
+    width: 5rem;
 
+}
 
  .btn-primary{
   background-color: #2d3839;
