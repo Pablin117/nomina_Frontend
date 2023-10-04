@@ -24,6 +24,8 @@ export class HomeComponent {
 
 
   //variables
+  public isCollapsed = true;
+  prueba = "1"
   //objectos
   modulos: any = []
   dataUser: any = {}
@@ -125,6 +127,7 @@ export class HomeComponent {
       }
       localStorage.setItem("options", JSON.stringify(opciones));
       this.modulos = modulos
+      console.log(this.modulos)
     }
 
   }

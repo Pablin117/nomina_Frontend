@@ -8,7 +8,7 @@
 }
 
 
-.btn-primary{
+/* .btn-primary{
     background-color: #2d3839;
     border-color: #2d3839;
     color:#e7ecef
@@ -18,7 +18,7 @@
   background-color: #e0e4ce;
   border-color: #e0e4ce;
   color: #2d3839;
-}
+} */
 
 
 
@@ -62,8 +62,17 @@
   margin-top: 5%;
 }
 
-.nav-link, .nav-link:hover{
+.nav-link{
   color: white;
+}
+
+.nav-link:focus-within{
+  color: white;
+  background-color: #114d4d !important;
+  border-style: solid;
+  border-color: #0a3030 !important;
+  border-width: 1px !important;
+
 }
 
 

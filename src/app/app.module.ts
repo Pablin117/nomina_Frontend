@@ -44,6 +44,7 @@ import { TypeDocumentComponent } from './type-document/type-document.component';
 import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
 import { CheckOnlineComponent } from './check-online/check-online.component';
 import { PayrollComponent } from './payroll/payroll.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -92,7 +93,7 @@ import { PayrollComponent } from './payroll/payroll.component';
     FormsModule,
     HttpClientModule,
     MatButtonModule, MatDividerModule, MatIconModule,
-    MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule,
+    MatFormFieldModule, MatInputModule, MatSelectModule, BrowserAnimationsModule, MatMenuModule, NgbModule,
 
   ],
   providers: [],

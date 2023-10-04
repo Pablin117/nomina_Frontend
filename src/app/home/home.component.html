@@ -1,8 +1,7 @@
-
-
   <div class="container-fluid" >
     <div class="row flex-nowrap" >
       <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark min-vh-100" >
+
         <div *ngFor="let modulo of modulos"
           class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
           <div class="box-module col-11">
@@ -13,19 +12,20 @@
           <div>
             <button class="btn btn-danger btn-logout" id="modificar" (click)="revoke()"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;Salir</button>
           </div>
+
+          <!-- Lista de opciones -->
           <ul *ngFor="let menu of modulo.menus"
             class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-            <li>
-              <a class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-decoration-none nav-link">
-                <span class="fs-5 d-none d-sm-inline">{{menu.name}}</span>&nbsp;&nbsp;<i class="fa-solid fa-caret-down"></i></a>
-              <ul *ngFor="let opcion of menu.opciones" class="collapse show nav flex-column ms-1" id="submenu1"
-                data-bs-parent="#menu">
-                <li class="w-100">
-                  <a href="{{opcion.page}}" class="nav-link px-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                      class="d-none d-sm-inline text-option">{{opcion.name}}</span></a>
-                </li>
-              </ul>
-            </li>
+              <!-- //Codigo nuevo  -->
+              <li ngbDropdown class="nav-item" role="presentation">
+                <button type="button" class="nav-link" ngbDropdownToggle>{{menu.name}}</button> 
+                <div ngbDropdownMenu>
+                  <div  *ngFor="let opcion of menu.opciones">
+                    <button  ngbDropdownItem>{{opcion.name}}</button>
+                  </div>
+                  
+                </div>
+              </li>
           </ul>
         </div>
       </div>
