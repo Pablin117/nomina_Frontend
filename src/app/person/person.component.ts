@@ -69,10 +69,12 @@ export class PersonComponent {
   documentPerson: any = []
 
   documentPersonCreate: any = {}
-  documentPersonModify: any={}
+  documentPersonModify: any = {}
   documentData: any = []
   documentPersonData: Array<any> = []
   documentList: Array<any> = [];
+
+  idt: any = {}
 
 
 
@@ -141,6 +143,7 @@ export class PersonComponent {
     this.personDataCreate = {}
     this.personDataModify = {}
     this.documentPersonData = []
+    this.documentPersonData = []
     this.ngOnInit()
   }
 
@@ -170,9 +173,10 @@ export class PersonComponent {
   responsePerson(response: any) {
     this.personData = response
     this.tamColeccion = response.length
-    this.pageSize = this.tamColeccion / 10
-
+    this.pageSize = 10
   }
+
+
 
 
   //obtiene generos
@@ -277,12 +281,12 @@ export class PersonComponent {
         person: this.personDataModify,
         personDocumentTempsList: ""
       };
-      console.log(requestData);
 
 
-      /*  this.requestPersonUpdate().subscribe(
-          (response: any) => this.responsePersonUpdate(response)
-        )*/
+
+      this.requestPersonUpdate().subscribe(
+        (response: any) => this.responsePersonUpdate(response)
+      )
     }
   }
 
@@ -409,14 +413,14 @@ export class PersonComponent {
 
 
 
-   for(let x=0;x<response.length;x++){
-   
-   this.documentPersonData.push(response[x])
-   
-   }
-  
-    console.log(this.documentPersonData);
-    
+    for (let x = 0; x < response.length; x++) {
+
+      this.documentPersonData.push(response[x])
+
+    }
+
+
+
   }
 
 
@@ -465,9 +469,6 @@ export class PersonComponent {
   }
   ResponsedocumentPerson(response: any) {
     this.documentData = response
-
-    
-
   }
 
 
@@ -479,11 +480,74 @@ export class PersonComponent {
   }
 
   btnDocumentM(document: any) {
-    this.DataDocumentM = true
-    let newDocument = { ...document }; // Crear una nueva instancia de objeto 'document'
-    this.documentList.push(newDocument); // Agregar el nuevo objeto a la lista
-    this.documentPersonCreate = {}
+
+    let docu = {
+      person: this.personDataModify,
+      employee: this.employeeDataCreate,
+
+      personDocumentTemp: {
+        idTypeDocument: document.idTypeDocument,
+        idPK: {
+          idTypeDocument: document.idTypeDocument,
+          idPerson: this.personDataModify.idPerson
+        },
+        numberDocument: document.numberDocument
+      }
+    }
+    this.CreateDocumentosService(docu)
+    this.documentPersonData.push(docu.personDocumentTemp)
+
   }
+
+
+  CreateDocumentosService(data: any) {
+
+    this.RequestCreateDocument(data).subscribe(
+      (response: any) => this.ResponseCreateDocument(response)
+    )
+  }
+  RequestCreateDocument(data: any) {
+
+    return this.http.post<any>(this.url + "/createPersonDocument", data).pipe(catchError(e => e))
+  }
+  ResponseCreateDocument(response: any) {
+    console.log("se grabo ");
+
+
+
+  }
+
+  EliminaDocumento(id: any) {
+    console.log("borra");
+    this.idt = id
+    this.DeleteDocumentosService(id)
+  }
+
+  DeleteDocumentosService(data: any) {
+
+    this.RequestDeleteDocument(data).subscribe(
+      (response: any) => this.ResponseDeleteDocument(response)
+    )
+  }
+  RequestDeleteDocument(data: any) {
+    let id = data.idPK.idPerson
+    let doc = data.idPK.idTypeDocument
+    return this.http.delete<any>(this.url + "/DeletePersonDocument/" + id + "/" + doc).pipe(catchError(e => e))
+  }
+  ResponseDeleteDocument(response: any) {
+
+    let bandera = 0;
+    for (const element of this.documentPersonData) {
+      if (element.idPK.idTypeDocument == this.idt.idPK.idTypeDocument) {
+        break;
+      }
+      bandera++;
+    }
+
+    this.documentPersonData.splice(bandera)
+
+  }
+
 
 
 
@@ -498,10 +562,8 @@ export class PersonComponent {
   }
 
 
-borrar(){
-console.log("hilis");
 
-}
+
 
 
 

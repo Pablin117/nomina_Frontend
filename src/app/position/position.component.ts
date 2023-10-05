@@ -36,7 +36,7 @@ export class PositionComponent {
   url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
-  tamColeccion :number = 0
+  tamColeccion: number = 0
   //objetos
   positionDataModify: any = {}
   positionDataCreate: any = {}
@@ -141,49 +141,48 @@ export class PositionComponent {
     this.positionData = response
     this.department()
     this.tamColeccion = response.length
-    this.pageSize = this.tamColeccion/3
-    console.log(response.length)
+    this.pageSize = 10
   }
 
 
-    //obtiene departamentos
-    department() {
-      this.requestDepartment().subscribe(
-        (response: any) => this.responseDepartment(response)
-      )
-  
-    }
-    requestDepartment() {
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      }
-      return this.http.get<any>(this.url + "/department", httpOptions).pipe(
-        catchError(e => "1")
-      )
-    }
-    responseDepartment(response: any) {
-      this.departmentData = response
-    //  this.position()
-   
-   
-    }
-  
-    getDepartmentName(idDepartment: number): string {
-      for (let x = 0; x < this.departmentData.length; x++) {
-        if (this.departmentData[x].idDepartment == idDepartment) {
-          return this.departmentData[x].name
-        }
-      }
-      return '';
-    }
+  //obtiene departamentos
+  department() {
+    this.requestDepartment().subscribe(
+      (response: any) => this.responseDepartment(response)
+    )
 
-    
+  }
+  requestDepartment() {
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.get<any>(this.url + "/department", httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  responseDepartment(response: any) {
+    this.departmentData = response
+    //  this.position()
+
+
+  }
+
+  getDepartmentName(idDepartment: number): string {
+    for (let x = 0; x < this.departmentData.length; x++) {
+      if (this.departmentData[x].idDepartment == idDepartment) {
+        return this.departmentData[x].name
+      }
+    }
+    return '';
+  }
+
+
   //para eliminar
 
   Delete(response: any) {
-    
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -202,7 +201,7 @@ export class PositionComponent {
 
   responseDelete(response: any) {
     if (response.code == 999) {
-    
+
       this.revoke()
     } else if (response.code == 0) {
       alert(response.message)

@@ -231,8 +231,8 @@ export class EmployeeComponent {
   ResponseEmployee(response: any) {
     this.employeeData = response
     this.tamColeccion = response.length
-    this.pageSize = this.tamColeccion/10
-    console.log(this.tamColeccion);
+    this.pageSize = 10
+  
     
     this.locationService()
   }

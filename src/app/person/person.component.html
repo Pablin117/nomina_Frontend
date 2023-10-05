@@ -122,7 +122,7 @@
           </option>
         </select>
 
-       
+
 
       </div>
 
@@ -145,24 +145,24 @@
 
       </form>
 
-
-        <div *ngIf="DataDocumentM">
-
-          <h1>Documentos</h1>
-
-          <div class="input-group mb-3" *ngFor="let data of documentPersonData let i=index">
-  
-            <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
-            <input name="{{i}}" [(ngModel)]="documentPersonModify.idTypeDocument" type="text" class="form-control"
-              placeholder="{{ getDocumentPersonName(data.idPK.idTypeDocument)}}" disabled>
-        
-              <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
-              <input name="{{i}}" [(ngModel)]="documentPersonModify.numberDocument" type="text" class="form-control"
-                placeholder="{{data.numberDocument}}" >
-    
-             <button class="btn btn-danger" (click)="borrar()" >Borrar</button>   
-          </div>
-        </div>
+      <br>
+      <div  class="container text-center">
+        <h1>Documentos</h1>
+        <table id="tableSub">
+          <thead>
+            <th>Tipo de documento</th>
+            <th>Numero de documento</th>
+            <th>Opciones</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of documentPersonData ">
+              <td>{{getDocumentPersonName(data.idPK.idTypeDocument)}}</td>
+              <td>{{data.numberDocument}}</td>
+              <td><button class="btn btn-danger" (click)="EliminaDocumento(data)" >Eliminar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
