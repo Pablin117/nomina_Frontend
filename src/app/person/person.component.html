@@ -266,7 +266,7 @@
 
 
 
-      <form id="document">
+      <form  (ngSubmit)="btnDocument()"  id="documentForm">
         <div class="input-group mb-3">
 
           <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
@@ -278,9 +278,9 @@
 
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
           <input name="document" [(ngModel)]="documentPersonCreate.numberDocument" type="text" class="form-control"
-            placeholder="{{employeeDataCreate.numberDocument}}">
+            placeholder="{{employeeDataCreate.numberDocument}}" required>
 
-          <button class="btn btn-secondary" (click)="btnDocument(documentPersonCreate)">Agregar documento</button>
+          <button class="btn btn-secondary" type="submit">Agregar documento</button>
         </div>
 
       </form>

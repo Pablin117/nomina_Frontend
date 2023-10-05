@@ -472,11 +472,15 @@ export class PersonComponent {
   }
 
 
-  btnDocument(document: any) {
-    this.DataDocument = true
-    let newDocument = { ...document }; // Crear una nueva instancia de objeto 'document'
-    this.documentList.push(newDocument); // Agregar el nuevo objeto a la lista
-    this.documentPersonCreate = {}
+  btnDocument() {
+
+    let formularioValido: any = document.getElementById("documentForm");
+    if (formularioValido.reportValidity()) {
+      this.DataDocument = true
+      let newDocument = { ...this.documentPersonCreate };
+      this.documentList.push(this.documentPersonCreate);
+      this.documentPersonCreate = {}
+    }
   }
 
   btnDocumentM(document: any) {
