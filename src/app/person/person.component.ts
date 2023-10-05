@@ -16,8 +16,8 @@ import { Component, ViewChild } from '@angular/core';
 
 
 export class PersonComponent {
-  constructor(private http: HttpClient, private router: Router) { 
-   
+  constructor(private http: HttpClient, private router: Router) {
+
   }
 
 
@@ -40,12 +40,13 @@ export class PersonComponent {
   print: boolean = false
   exporte: boolean = false
   DataDocument: boolean = false
+  DataDocumentM: boolean = false
   //url
   pageUrl: string = "role-user"
   url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
-  tamColeccion :number = 0
+  tamColeccion: number = 0
 
   //objetos
   personDataModify: any = {}
@@ -55,17 +56,22 @@ export class PersonComponent {
   selectedGender: any = []
   selectedMarital: any = []
   userData: any = []
-  genderData: any = []
+
   maritalData: any = []
   options: any = {}
+
   employeeDataCreate: any = {}
+
   locationsData: any = []
   positionData: any = []
   statusEmployeeData: any = []
+  genderData: any = []
   documentPerson: any = []
-  documentPersonTemp: any = []
-  documentPersonCreate: any = {}
 
+  documentPersonCreate: any = {}
+  documentPersonModify: any={}
+  documentData: any = []
+  documentPersonData: Array<any> = []
   documentList: Array<any> = [];
 
 
@@ -81,7 +87,7 @@ export class PersonComponent {
       this.optionsValidate()
       this.person()
       this.gender()
-      this.documentPersonService()
+      this.documentService()
     } else {
       this.router.navigateByUrl("/")
     }
@@ -116,7 +122,8 @@ export class PersonComponent {
     this.tab = false
     this.modify = true
     this.header = false
-
+    this.DataDocumentM = true;
+    this.documentPersonService(this.personDataModify)
   }
   Add() {
     this.modify = false
@@ -133,6 +140,7 @@ export class PersonComponent {
     this.header = true
     this.personDataCreate = {}
     this.personDataModify = {}
+    this.documentPersonData = []
     this.ngOnInit()
   }
 
@@ -162,7 +170,7 @@ export class PersonComponent {
   responsePerson(response: any) {
     this.personData = response
     this.tamColeccion = response.length
-    this.pageSize = this.tamColeccion/10
+    this.pageSize = this.tamColeccion / 10
 
   }
 
@@ -264,13 +272,21 @@ export class PersonComponent {
     if (formularioValido.reportValidity()) {
       this.personDataModify.userModification = this.dataUser.user
       this.personDataModify = this.personDataModify
-      this.requestAbsenceUpdate().subscribe(
-        (response: any) => this.responseAbsenceUpdate(response)
-      )
+
+      const requestData = {
+        person: this.personDataModify,
+        personDocumentTempsList: ""
+      };
+      console.log(requestData);
+
+
+      /*  this.requestPersonUpdate().subscribe(
+          (response: any) => this.responsePersonUpdate(response)
+        )*/
     }
   }
 
-  requestAbsenceUpdate() {
+  requestPersonUpdate() {
 
     var httpOptions = {
       headers: new HttpHeaders({
@@ -281,7 +297,7 @@ export class PersonComponent {
       catchError(e => "1")
     )
   }
-  responseAbsenceUpdate(response: any) {
+  responsePersonUpdate(response: any) {
     if (response.code == 999) {
       this.revoke()
     } else if (response.code == 0) {
@@ -313,15 +329,11 @@ export class PersonComponent {
   }
 
   requestPersonSave(data: any) {
-    console.log(data);
-
-
     return this.http.post<any>(this.url + "/createPerson", data).pipe(
-      catchError(e => e)
+      catchError(e => "1")
     )
   }
   responsePersonSave(response: any) {
-    console.log(response);
 
     if (response.code == 999) {
       this.revoke()
@@ -379,6 +391,35 @@ export class PersonComponent {
     this.positionService()
   }
 
+
+  //obtine sucursales
+  documentPersonService(id: any) {
+
+    this.RequestDocumentPerson().subscribe(
+      (response: any) => this.ResponseDocumentPerson(response)
+    )
+  }
+  RequestDocumentPerson() {
+
+    return this.http.get<any>(this.url + "/documentPerson/" + this.personDataModify.idPerson,).pipe(
+      catchError(e => e)
+    )
+  }
+  ResponseDocumentPerson(response: any) {
+
+
+
+   for(let x=0;x<response.length;x++){
+   
+   this.documentPersonData.push(response[x])
+   
+   }
+  
+    console.log(this.documentPersonData);
+    
+  }
+
+
   //Obtiene datos de company
   positionService() {
 
@@ -414,7 +455,7 @@ export class PersonComponent {
   }
 
   //Obtiene documentos por persona
-  documentPersonService() {
+  documentService() {
     this.RequestdocumentPerson().subscribe(
       (response: any) => this.ResponsedocumentPerson(response)
     )
@@ -423,34 +464,44 @@ export class PersonComponent {
     return this.http.get<any>(this.url + "/typeDocument").pipe(catchError(e => "1"))
   }
   ResponsedocumentPerson(response: any) {
-    this.documentPerson = response
+    this.documentData = response
+
+    
 
   }
 
 
   btnDocument(document: any) {
-
-    this.DataDocument = true;
-
+    this.DataDocument = true
     let newDocument = { ...document }; // Crear una nueva instancia de objeto 'document'
     this.documentList.push(newDocument); // Agregar el nuevo objeto a la lista
-
     this.documentPersonCreate = {}
-
   }
 
+  btnDocumentM(document: any) {
+    this.DataDocumentM = true
+    let newDocument = { ...document }; // Crear una nueva instancia de objeto 'document'
+    this.documentList.push(newDocument); // Agregar el nuevo objeto a la lista
+    this.documentPersonCreate = {}
+  }
+
+
+
   //retorna el nombre de las personas
-  getPersonName(idTypeDocument: number): string {
-    for (let x = 0; x < this.documentPerson.length; x++) {
-      if (this.documentPerson[x].idTypeDocument == idTypeDocument) {
-        return this.documentPerson[x].name
+  getDocumentPersonName(idTypeDocument: number): string {
+    for (let x = 0; x < this.documentData.length; x++) {
+      if (this.documentData[x].idTypeDocument == idTypeDocument) {
+        return this.documentData[x].name
       }
     }
     return '';
   }
 
 
+borrar(){
+console.log("hilis");
 
+}
 
 
 

@@ -45,7 +45,10 @@ export class PersonDocumentComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  page: String = "personal-document"
+  pageUrl: String = "personal-document"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
   name = 'personDocumentReport.xlsx';
@@ -82,7 +85,7 @@ export class PersonDocumentComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -224,7 +227,6 @@ export class PersonDocumentComponent {
     } else {
       alert(response.message)
     }
-
   }
 
 
@@ -354,7 +356,9 @@ export class PersonDocumentComponent {
 
   ResponsePerson(response: any) {
     this.personData = response
-
+    this.tamColeccion = response.length
+    this.pageSize = this.tamColeccion / 10
+    console.log(this.tamColeccion);
   }
 
 

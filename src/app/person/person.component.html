@@ -55,8 +55,6 @@
                     class="fa-solid fa-pen-to-square"></i>
                   &nbsp;Modificar</button>
                 <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-
-
               </div>
             </td>
             <td>
@@ -68,11 +66,9 @@
             </td>
           </tr>
         </tbody>
-
       </table>
       <p>Paginas</p>
       <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
-
       <div>
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
@@ -100,8 +96,7 @@
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de nacimiento</span>
-        <input type="date" id="initialDate" [(ngModel)]="personDataModify.initialDate" name="initialDate"
-          class="form-control" required>
+        <input type="date" id="dob" [(ngModel)]="personDataModify.dob" name="dob" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
         <select class="form-select" name="gender" [(ngModel)]="personDataModify.idGender">
@@ -110,7 +105,7 @@
           </option>
         </select>
       </div>
-      <br>
+
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-solid fa-compass"></i>&nbsp;Direccion</span>
@@ -118,24 +113,65 @@
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i>&nbsp;Telefono</span>
-        <input type="number" id="phone" [(ngModel)]="personDataModify.phone" name="phone" class="form-control" required>
+        <input type="text" id="phone" [(ngModel)]="personDataModify.phone" name="phone" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Estado civil</span>
-        <select class="form-select" name="marital" [(ngModel)]="personDataModify.idGender">
-          <option *ngFor="let marital of maritalData" value="{{marital.idGender}}" required>
+        <select class="form-select" name="marital" [(ngModel)]="personDataModify.idMaritalStatus">
+          <option *ngFor="let marital of maritalData" value="{{marital.idMaritalStatus}}" required>
             {{marital.name}}
           </option>
         </select>
 
+       
+
       </div>
 
+      <form id="documentM">
+        <div class="input-group mb-3">
 
+          <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
+          <select class="form-select" name="idTypeDocument" [(ngModel)]="documentPersonCreate.idTypeDocument" required>
+            <option *ngFor="let docPersonal of documentData" value="{{docPersonal.idTypeDocument}}" required>
+              {{docPersonal.name}}
+            </option>
+          </select>
+
+          <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
+          <input name="document" [(ngModel)]="documentPersonCreate.numberDocument" type="text" class="form-control"
+            placeholder="{{employeeDataCreate.numberDocument}}">
+
+          <button class="btn btn-secondary" (click)="btnDocumentM(documentPersonCreate)">Agregar documento</button>
+        </div>
+
+      </form>
+
+
+        <div *ngIf="DataDocumentM">
+
+          <h1>Documentos</h1>
+
+          <div class="input-group mb-3" *ngFor="let data of documentPersonData let i=index">
+  
+            <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
+            <input name="{{i}}" [(ngModel)]="documentPersonModify.idTypeDocument" type="text" class="form-control"
+              placeholder="{{ getDocumentPersonName(data.idPK.idTypeDocument)}}" disabled>
+        
+              <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
+              <input name="{{i}}" [(ngModel)]="documentPersonModify.numberDocument" type="text" class="form-control"
+                placeholder="{{data.numberDocument}}" >
+    
+             <button class="btn btn-danger" (click)="borrar()" >Borrar</button>   
+          </div>
+        </div>
 
       <div>
         <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
       </div>
     </form>
+
+
+
   </div>
 
 
@@ -153,36 +189,29 @@
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de nacimiento</span>
-        <input type="date" id="dob" [(ngModel)]="personDataCreate.dob" name="dob"
-          class="form-control" required>
-
+        <input type="date" id="dob" [(ngModel)]="personDataCreate.dob" name="dob" class="form-control" required>
       </div>
 
-
       <div class="input-group mb-3">
+
         <span class="input-group-text"><i class="fa-solid fa-compass"></i>&nbsp;Direccion</span>
         <input type="text" id="address" [(ngModel)]="personDataCreate.address" name="address" class="form-control"
           required>
-
-         
 
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-at"></i>&nbsp;Correo Electronico</span>
-        <input type="email" id="email" [(ngModel)]="personDataCreate.email" name="email" class="form-control"
-          required>
+        <input type="email" id="email" [(ngModel)]="personDataCreate.email" name="email" class="form-control" required>
 
-          <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de Contratación</span>
-          <input type="date" id="dateOfHire" [(ngModel)]="employeeDataCreate.dateOfHire" name="dateOfHire"
-            class="form-control" required>
-
+        <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de Contratación</span>
+        <input type="date" id="dateOfHire" [(ngModel)]="employeeDataCreate.dateOfHire" name="dateOfHire"
+          class="form-control" required>
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-phone"></i>&nbsp;Telefono</span>
         <input type="number" id="phone" [(ngModel)]="personDataCreate.phone" name="phone" class="form-control" required>
-
 
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
         <select class="form-select" name="gender" [(ngModel)]="personDataCreate.idGender">
@@ -238,16 +267,14 @@
 
 
       <form id="document">
-
         <div class="input-group mb-3">
 
           <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
           <select class="form-select" name="idTypeDocument" [(ngModel)]="documentPersonCreate.idTypeDocument" required>
-            <option *ngFor="let docPersonal of documentPerson" value="{{docPersonal.idTypeDocument}}" required>
+            <option *ngFor="let docPersonal of documentData" value="{{docPersonal.idTypeDocument}}" required>
               {{docPersonal.name}}
             </option>
           </select>
-
 
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
           <input name="document" [(ngModel)]="documentPersonCreate.numberDocument" type="text" class="form-control"
@@ -262,17 +289,13 @@
       <div *ngIf="DataDocument">
         <div class="input-group mb-3" *ngFor="let data of documentList let i=index">
 
-
           <span class="input-group-text"><i class="fa-solid fa-address-card"></i>&nbsp; Tipo de documento</span>
-          <input name="{{i}}" [(ngModel)]="documentPersonTemp.idTypeDocument" type="text" class="form-control"
-            placeholder="{{ getPersonName(data.idTypeDocument)}}" disabled>
-
+          <input name="{{i}}" [(ngModel)]="documentPerson.idTypeDocument" type="text" class="form-control"
+            placeholder="{{ getDocumentPersonName(data.idTypeDocument)}}" disabled>
 
           <span class="input-group-text"><i class="fa-solid fa-hashtag"></i>&nbsp; Número de Documento</span>
-          <input name="{{i}}" [(ngModel)]="documentPersonTemp.numberDocument" type="text" class="form-control"
-            placeholder="{{data.numberDocument}}"  disabled>
-
-
+          <input name="{{i}}" [(ngModel)]="documentPerson.numberDocument" type="text" class="form-control"
+            placeholder="{{data.numberDocument}}" disabled>
         </div>
       </div>
 
@@ -282,13 +305,6 @@
       </div>
     </form>
 
-
-
-
-
-
-
   </div>
-
 
 </div>
