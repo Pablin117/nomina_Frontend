@@ -90,7 +90,34 @@ export class StatusEmployeeComponent {
   }
 
   Delete(response:any){
+    
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
 
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deleteStatusEmployee/"+response.idStatusEmployee+"/"+this.dataUser.user, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseDelete(response:any){
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+
+    } else {
+      alert(response.message)
+    }
   }
 
 
