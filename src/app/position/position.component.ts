@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 
+
+
 @Component({
   selector: 'app-position',
   templateUrl: './position.component.html',
@@ -14,7 +16,6 @@ export class PositionComponent {
 
   ngOnInit() {
     this.validateSession()
-
   }
 
 
@@ -31,8 +32,11 @@ export class PositionComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  page: string = "role-user"
+  pageUrl: string = "position"
   url: String = "http://localhost:4042/v1"
+  page = 1;
+  pageSize = 0
+  tamColeccion :number = 0
   //objetos
   positionDataModify: any = {}
   positionDataCreate: any = {}
@@ -42,7 +46,6 @@ export class PositionComponent {
   userData: any = []
   departmentData: any = []
   options: any = {}
-
 
   //valida la sesion
   validateSession() {
@@ -68,7 +71,7 @@ export class PositionComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -137,6 +140,9 @@ export class PositionComponent {
   responsePosition(response: any) {
     this.positionData = response
     this.department()
+    this.tamColeccion = response.length
+    this.pageSize = this.tamColeccion/3
+    console.log(response.length)
   }
 
 
@@ -160,6 +166,8 @@ export class PositionComponent {
     responseDepartment(response: any) {
       this.departmentData = response
     //  this.position()
+   
+   
     }
   
     getDepartmentName(idDepartment: number): string {
@@ -304,9 +312,5 @@ export class PositionComponent {
       localStorage.clear()
     }
   }
-
-
-
-
 
 }
