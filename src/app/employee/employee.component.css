@@ -45,6 +45,9 @@ color: #2d3839;
 }
 
 
+.pagination{
+  --bs-pagination-color: black !important;
+}
 
 .btn-secondary {
 background-color: #383832;

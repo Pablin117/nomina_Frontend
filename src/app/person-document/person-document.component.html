@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="fondo">
 
     <div class="container text-center">
       <h1>Documento Persona</h1>
@@ -14,7 +14,7 @@
   
     <div *ngIf="tab">
       <div>
-        <table class="table table-hover" id="table-consult">
+        <table id="table">
           <thead>
             <tr>
               <th>Tipo de documento</th>
@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let  data of personDocumentData">
+            <tr *ngFor="let  data of personDocumentData.slice((page - 1) * pageSize, page * pageSize)">
               <td>{{getDocumentName(data.idPK.idTypeDocument) }}</td>
               <td>{{getPersonName( data.idPK.idPerson)}}</td>
               <td>{{data.numberDocument}}</td>
@@ -57,11 +57,12 @@
             </tr>
           </tbody>
         </table>
+        <p>Paginas</p>
+        <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
+ 
+      
         <div>
   
-          <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
-              class="fa-regular fa-square-plus"></i> Agregar</button>
-          &nbsp;
           <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
               class="fa-solid fa-download"></i> Exportar</button>
           &nbsp;
