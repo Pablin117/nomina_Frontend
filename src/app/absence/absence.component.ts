@@ -154,7 +154,7 @@ export class AbsenceComponent {
           'Content-Type': 'application/json'
         })
       }
-      return this.http.get<any>(this.url + "/employee", httpOptions).pipe(
+      return this.http.get<any>(this.url + "/persons", httpOptions).pipe(
         catchError(e => "1")
       )
     }
@@ -162,10 +162,10 @@ export class AbsenceComponent {
       this.employeeData = response
     }
   
-    getEmployeeName(idEmployee: number): string {
+    getEmployeeName(idPerson: number): string {
       for (let x = 0; x < this.employeeData.length; x++) {
-        if (this.employeeData[x].idEmployee == idEmployee) {
-          return this.employeeData[x].idEmployee
+        if (this.employeeData[x].idPerson == idPerson) {
+          return this.employeeData[x].name
         }
       }
       return '';

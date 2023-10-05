@@ -86,7 +86,7 @@
                 <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
                 <select class="form-select" name="department" [(ngModel)]="absenceDataModify.idEmployee">
                     <option *ngFor="let department of employeeData" value="{{department.idEmployee}}" required>
-                        {{department.idEmployee}}
+                        {{department.name}}
                     </option>
                 </select>
 
@@ -116,7 +116,7 @@
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
                 <select class="form-select" name="department" [(ngModel)]="absenceDataCreate.idEmployee">
                     <option *ngFor="let department of employeeData" value="{{department.idEmployee}}" required>
-                        {{department.idEmployee}}
+                        {{department.name}}
                     </option>
                 </select>
 
