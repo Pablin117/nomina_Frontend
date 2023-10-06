@@ -41,7 +41,6 @@ import { AbsenceComponent } from './absence/absence.component';
 import { StatusEmployeeComponent } from './status-employee/status-employee.component';
 import { DepartmentComponent } from './department/department.component';
 import { TypeDocumentComponent } from './type-document/type-document.component';
-import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
 import { CheckOnlineComponent } from './check-online/check-online.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -82,7 +81,6 @@ import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-
     StatusEmployeeComponent,
     DepartmentComponent,
     TypeDocumentComponent,
-    PayrollPeriodComponent,
     CheckOnlineComponent,
     PayrollComponent,
     AccountBankEmployeeComponent,

@@ -21,8 +21,10 @@ export class PayrollComponent {
   //variables
 
   //boolean
+  add:boolean = false
   modify: boolean = false
   tab: boolean = false
+  tabPeriodo: boolean = true
   header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
@@ -46,7 +48,11 @@ export class PayrollComponent {
   options: any = {}
   locationsData: any = []
   statusEmployeeData: any = []
-  
+  PayrollPeriodsData: any = []
+  paryrollPeriodDataCreate: any = {}
+  paryrollPeriodDataModify: any = {}
+  btnDelete: boolean = false
+
 
 
   //valida la sesion
@@ -57,7 +63,7 @@ export class PayrollComponent {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
       this.optionsValidate()
-
+      this.PayrollPeriod()
 
     } else {
       this.router.navigateByUrl("/")
@@ -66,7 +72,8 @@ export class PayrollComponent {
 
   generatePayroll(){
     this.person()
-    
+    this.tab = true
+    this.tabPeriodo = false
   }
 
 
@@ -92,12 +99,20 @@ export class PayrollComponent {
   }
 
 
-
+  Add() {
+    this.modify = false
+    this.add = true
+    this.tab = false
+    this.header = false
+    this.tabPeriodo = false
+    console.log("add")
+  }
   //banderas
 
   Modify(id: any) {
     console.log("modifica")
     this.personDataModify = id
+    this.tabPeriodo = false
     this.tab = false
     this.modify = true
     this.header = false
@@ -107,6 +122,7 @@ export class PayrollComponent {
     console.log("back")
     this.modify = false
     this.tab = true
+    this.tabPeriodo = true
     this.header = true
     this.personDataCreate = {}
     this.personDataModify = {}
@@ -116,6 +132,32 @@ export class PayrollComponent {
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
+
+
+ //obtine modulos
+ PayrollPeriod() {
+  this.RequestParyrollPeriod().subscribe(
+    (response: any) => this.ResponsePayrollPeriod(response)
+  )
+}
+
+RequestParyrollPeriod() {
+  var httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  return this.http.get<any>(this.url + "/payrollPeriod", httpOptions).pipe(
+    catchError(e => "1")
+  )
+}
+
+ResponsePayrollPeriod(response: any) {
+  this.PayrollPeriodsData = response
+  console.log(response);
+  
+  console.log(this.PayrollPeriodsData.idPK)
+}
 
 
 
@@ -140,7 +182,8 @@ export class PayrollComponent {
   responsePerson(response: any) {
     this.personData = response
     this.persons()
-    this.tab=true
+    this.tabPeriodo=true
+    this.tab = false
     this.showSpinner = false
   }
 
@@ -208,40 +251,6 @@ export class PayrollComponent {
         }
 
 
-  //modificacion
-
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      this.personDataModify.userModification = this.dataUser.user
-      this.personDataModify = this.personDataModify
-      this.requestAbsenceUpdate().subscribe(
-        (response: any) => this.responseAbsenceUpdate(response)
-      )
-    }
-  }
-
-  requestAbsenceUpdate() {
-
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.put<any>(this.url + "/updatePerson/" + this.personDataModify.idPerson, this.personDataModify, httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  responseAbsenceUpdate(response: any) {
-    if (response.code == 999) {
-      this.revoke()
-    } else if (response.code == 0) {
-      alert(response.message)
-      this.back()
-    } else {
-      alert(response.message)
-    }
-  }
 
 
   //cierre de sesion
@@ -295,5 +304,112 @@ export class PayrollComponent {
     return '';
   }
 
+
+  //agrega
+  addForm() {
+    let formularioValido: any = document.getElementById("addForm");
+    if (formularioValido.reportValidity()) {
+
+      this.paryrollPeriodDataCreate.userCreation = this.dataUser.user
+      this.RequestPayrollPeriodSave().subscribe(
+        (response: any) => this.ResponseParyrollPeriodSave(response)
+      )
+
+    }
+  }
+  RequestPayrollPeriodSave() {
+    console.log("se agrega")
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post<any>(this.url + "/createPayrollPeriod", this.paryrollPeriodDataCreate, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponseParyrollPeriodSave(response: any) {
+    if(response.code == 999){
+
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      console.log("si")
+      this.back()
+
+    } else {
+      alert(response.message)
+    }
+
+
+  }
+
+  //modifica
+  modForm() {
+    let formularioValido: any = document.getElementById("modForm");
+    if (formularioValido.reportValidity()) {
+      this.paryrollPeriodDataModify.userModification = this.dataUser.user
+      this.RequestPayrollPeriodSaveM().subscribe(
+        (response: any) => this.ResponsePayrollPeriodSaveM(response)
+      )
+
+    }
+  }
+  RequestPayrollPeriodSaveM() {
+    console.log("se agrega")
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.put<any>(this.url + "/updatePayrollPeriod", this.paryrollPeriodDataModify, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+  ResponsePayrollPeriodSaveM(response: any) {
+    if(response.code == 999){
+      this.revoke()
+    }else if (response.code == 0) {
+      alert(response.message)
+      console.log("si")
+      this.back()
+
+    } else {
+      alert(response.message)
+    }
+  }
+
+//para eliminar
+
+  Delete(response:any){
+    console.log(response)
+    this.requestDelete(response).subscribe(
+      (response: any) => this.responseDelete(response)
+    )
+  }
+
+  requestDelete(response:any){
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.delete<any>(this.url + "/deletePayrollPeriod/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
+      catchError(e => "1")
+    )
+  }
+
+  responseDelete(response:any){
+    if (response.code == 0) {
+
+      alert(response.message)
+      this.back()
+
+    } else {
+      alert(response.message)
+    }
+  }
+
+ 
 
 }

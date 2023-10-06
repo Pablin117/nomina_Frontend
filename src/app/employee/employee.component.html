@@ -120,7 +120,7 @@
           </select> -->
     
         <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Cambio de estado</span>
-        <select class="form-select" name="idStatusEmployeeNew" [(ngModel)]="employeeDataModify.idStatusEmployee" required>
+        <select class="form-select" name="idStatusEmployeeNew" [(ngModel)]="employeeDataModify.idStatusEmployee" >
             <option *ngFor="let flowStatusEmployee of flowstatusEmployeeAvailable" value="{{flowStatusEmployee.idPK.idStatusNew}}" required>{{flowStatusEmployee.nameEvent}}
             </option>
           </select>
@@ -157,16 +157,16 @@
         <span class="input-group-text"><i class="fa-solid fa-person-walking-dashed-line-arrow-right"></i>&nbsp;
           Descuento IGSS</span>
         <input maxlength="100" name="igss" [(ngModel)]="employeeDataModify.igss" type="float" class="form-control"
-          placeholder="{{employeeDataModify.igss}}">
+          placeholder="{{employeeDataModify.igss}}" disabled>
 
         <span class="input-group-text"><i class="fa-solid fa-user-minus"></i>&nbsp; Descuento ISR</span>
         <input maxlength="100" name="isr" [(ngModel)]="employeeDataModify.isr" type="float" class="form-control"
-          placeholder="{{employeeDataModify.isr}}">
+          placeholder="{{employeeDataModify.isr}}" disabled>
 
         <span class="input-group-text"><i class="fa-solid fa-person-circle-minus"></i>&nbsp; Descuento por
           inasistencia</span>
         <input maxlength="100" name="noShowDiscount" [(ngModel)]="employeeDataModify.noShowDiscount" type="float"
-          class="form-control" placeholder="{{employeeDataModify.noShowDiscount}}">
+          class="form-control" placeholder="{{employeeDataModify.noShowDiscount}}" disabled>
 
       </div>
 
