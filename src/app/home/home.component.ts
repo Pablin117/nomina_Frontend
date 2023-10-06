@@ -37,11 +37,11 @@ export class HomeComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
+
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
+
 
       this.recoverUser();
 
@@ -79,8 +79,7 @@ export class HomeComponent {
 
   //response service login
   responseSearchOptionsUserService(response: any) {
-    console.log("Lo que buscas -->")
-    console.log(response)
+  
 
     //error in consumption
     if (response == null || response == "e") {
@@ -131,7 +130,7 @@ export class HomeComponent {
       }
       localStorage.setItem("options", JSON.stringify(opciones));
       this.modulos = modulos
-      console.log(this.modulos)
+
     }
 
   }

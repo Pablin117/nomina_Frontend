@@ -23,8 +23,7 @@ export class PayrollComponent {
   //boolean
   add: boolean = false
   modify: boolean = false
-  tab: boolean = false
-  tabPeriodo: boolean = true
+  tab: boolean = true
   header: boolean = true
   btnAdd: boolean = false
   btnUpdate: boolean = false
@@ -100,7 +99,7 @@ export class PayrollComponent {
     this.add = true
     this.tab = false
     this.header = false
-    this.tabPeriodo = false
+
 
     console.log("add")
   }
@@ -108,7 +107,7 @@ export class PayrollComponent {
   Modify(id: any) {
     console.log("modifica")
     this.personDataModify = id
-    this.tabPeriodo = false
+
     this.tab = false
     this.modify = true
     this.header = false
@@ -117,7 +116,7 @@ export class PayrollComponent {
   back() {
     this.modify = false
     this.tab = false
-    this.tabPeriodo = true
+
     this.header = true
     this.add = false
     this.personDataCreate = {}
@@ -164,70 +163,23 @@ export class PayrollComponent {
       // this.paryrollPeriodDataCreate.userCreation = this.dataUser.user
       const year = this.periodo.substring(0, 4);
       const month = this.periodo.substring(5, 7);
-      this.generatePayroll(year,month)
-    }
-  }
 
+      const fecha =  {
+        year:year,
+        month: month
+      }
 
-  generatePayroll(year:any,month:any) {
-    this.showSpinner = true
-    this.tab = true
-    this.tabPeriodo = false
-    this.requestPlanilla(year,month).subscribe(
-      (response: any) => this.responsePlanilla(response)
-    )
-  }
-
-  //obtiene planilla
-
-  requestPlanilla(year:any,month:any) {
-    const admin = this.dataUser.idUser
-    return this.http.get<any>(this.url + "/PayrollCalc/"+year+"/"+month+"/"+admin).pipe(
-      catchError(e => "1")
-    )
-  }
-  responsePlanilla(response: any) {
-    this.personData = response
-    this.persons()
-    this.tabPeriodo = true
-    this.tab = false
-    this.showSpinner = false
-  }
-
-
-
-  //modifica
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      this.paryrollPeriodDataModify.userModification = this.dataUser.user
-      this.RequestPayrollPeriodSaveM().subscribe(
-        (response: any) => this.ResponsePayrollPeriodSaveM(response)
-      )
-
-    }
-  }
-  RequestPayrollPeriodSaveM() {
-    console.log("se agrega")
-
-    return this.http.put<any>(this.url + "/updatePayrollPeriod", this.paryrollPeriodDataModify).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponsePayrollPeriodSaveM(response: any) {
-    if (response.code == 999) {
-      this.revoke()
-    } else if (response.code == 0) {
-      alert(response.message)
-      this.back()
-    } else {
-      alert(response.message)
+      localStorage.setItem("date", JSON.stringify(fecha));
+      this.router.navigateByUrl("/payroll-details")
     }
   }
 
 
 
-  //obtine modulos
+
+
+
+  //obtine periodos
   PayrollPeriod() {
     this.RequestParyrollPeriod().subscribe(
       (response: any) => this.ResponsePayrollPeriod(response)
@@ -247,85 +199,9 @@ export class PayrollComponent {
 
 
 
-  //obtiene empleado
-  persons() {
-    this.requestPersons().subscribe(
-      (response: any) => this.responsePersons(response)
-    )
-
-  }
-  requestPersons() {
-
-    return this.http.get<any>(this.url + "/persons").pipe(
-      catchError(e => "1")
-    )
-  }
-  responsePersons(response: any) {
-    this.employeeData = response
-    this.statusEmployeeService()
-  }
-
-  getEmployeeName(idPerson: number): string {
-    for (let x = 0; x < this.employeeData.length; x++) {
-      if (this.employeeData[x].idPerson == idPerson) {
-        return this.employeeData[x].name
-      }
-    }
-    return '';
-  }
 
 
-  //obtiene puestos
-  position() {
-    this.requestPosition().subscribe(
-      (response: any) => this.responsePosition(response)
-    )
 
-  }
-  requestPosition() {
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
-    return this.http.get<any>(this.url + "/positions", httpOptions).pipe(
-      catchError(e => "1")
-    )
-  }
-  responsePosition(response: any) {
-    this.positionData = response
-  }
-  getPositionName(idPosition: number): string {
-    for (let x = 0; x < this.positionData.length; x++) {
-      if (this.positionData[x].idPosition == idPosition) {
-        return this.positionData[x].name
-      }
-    }
-    return '';
-  }
-
-
-  //Obtiene datos de status empleados
-  statusEmployeeService() {
-    this.RequestStatusEmployee().subscribe(
-      (response: any) => this.ResponseStatusEmployee(response)
-    )
-  }
-  RequestStatusEmployee() {
-    return this.http.get<any>(this.url + "/statusEmployee").pipe(catchError(e => "1"))
-  }
-  ResponseStatusEmployee(response: any) {
-    this.statusEmployeeData = response
-    this.position()
-  }
-  getStatusEmployeeName(idStatusEmployee: number): string {
-    for (let x = 0; x < this.statusEmployeeData.length; x++) {
-      if (this.statusEmployeeData[x].idStatusEmployee == idStatusEmployee) {
-        return this.statusEmployeeData[x].name
-      }
-    }
-    return '';
-  }
 
 
 

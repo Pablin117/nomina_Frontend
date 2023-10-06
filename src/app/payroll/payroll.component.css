@@ -2,7 +2,7 @@ table {
   width: 95%;
   height: 25%;
   text-align: center;
-  margin: 3rem;
+  margin: 5rem;
   background-color: #ffffff00 !important;
   color: white;
 }
@@ -18,7 +18,7 @@ height: 100%;
 }
 
 caption, td, th {
-  padding: 0.1rem;
+  padding:0.5rem;
 }
 
 th {

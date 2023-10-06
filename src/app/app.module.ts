@@ -47,6 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccountBankEmployeeComponent } from './account-bank-employee/account-bank-employee.component';
 import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-employee.component';
 import { PayrollDetailsComponent } from './payroll-details/payroll-details.component';
+import { PayrollHeaderComponent } from './payroll-header/payroll-header.component';
 
 
 
@@ -87,6 +88,7 @@ import { PayrollDetailsComponent } from './payroll-details/payroll-details.compo
     AccountBankEmployeeComponent,
     FlowStatusEmployeeComponent,
     PayrollDetailsComponent,
+    PayrollHeaderComponent,
 
   ],
 

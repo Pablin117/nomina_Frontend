@@ -18,7 +18,7 @@ table {
   }
   
   caption, td, th {
-    padding: 0.1rem;
+    padding: 0.5rem;
   }
   
   th {
@@ -29,7 +29,7 @@ table {
   
   td{
     border-bottom: 1px solid #999;
-    width: 5rem;
+    width: 7rem;
   }
   
   .btn-primary{

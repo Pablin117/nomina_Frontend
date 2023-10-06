@@ -18,30 +18,35 @@ export class PayrollDetailsComponent {
 
   }
 
-//variables
+  //variables
 
   //boolean
   add: boolean = false
   modify: boolean = false
   tab: boolean = false
-  tabPeriodo: boolean = true
+  header: boolean = false
+
 
   btnAdd: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
-  showSpinner: boolean = false
+  showSpinner: boolean = true
 
   //url
-  page: string = "payroll-details"
+  pageUrl: string = "payroll"
   url: String = "http://localhost:4042/v1"
+  page = 1;
+  pageSize = 0
+  tamColeccion :number = 0
 
   //objetos
   personDataModify: any = {}
   personDataCreate: any = {}
   personData: any = []
   dataUser: any = {}
-
+  datePayroll: any = {}
+  payrollData: any = []
 
   positionData: any = []
   maritalData: any = []
@@ -66,14 +71,14 @@ export class PayrollDetailsComponent {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
       this.optionsValidate()
-      this.PayrollPeriod()
+      this.initPlanilla()
 
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
-  
+
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
@@ -81,7 +86,7 @@ export class PayrollDetailsComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -100,32 +105,22 @@ export class PayrollDetailsComponent {
     this.add = true
     this.tab = false
 
-    this.tabPeriodo = false
-
     console.log("add")
   }
 
   Modify(id: any) {
     console.log("modifica")
     this.personDataModify = id
-    this.tabPeriodo = false
     this.tab = false
     this.modify = true
-  
+
 
   }
   back() {
-    this.modify = false
-    this.tab = false
-    this.tabPeriodo = true
-
-    this.add = false
-    this.personDataCreate = {}
-    this.personDataModify = {}
-    this.ngOnInit()
+    this.router.navigateByUrl("/payroll")
   }
   backWelcome() {
-    this.router.navigateByUrl("/home")
+    this.router.navigateByUrl("/payroll")
   }
 
   //cierre de sesion
@@ -157,42 +152,49 @@ export class PayrollDetailsComponent {
   }
 
   //agrega
-  addForm() {
-    let formularioValido: any = document.getElementById("addForm");
-    if (formularioValido.reportValidity()) {
+  initPlanilla() {
 
-      // this.paryrollPeriodDataCreate.userCreation = this.dataUser.user
-      const year = this.periodo.substring(0, 4);
-      const month = this.periodo.substring(5, 7);
-      this.generatePayroll(year,month)
+    this.datePayroll = localStorage.getItem("date")
+
+    if(this.datePayroll != null){
+      this.datePayroll = JSON.parse(this.datePayroll)
+      console.log(this.datePayroll.year);
+      
+      this.generatePayroll(this.datePayroll.year, this.datePayroll.month)
     }
+   
+
   }
 
 
-  generatePayroll(year:any,month:any) {
-    this.showSpinner = true
-    this.tab = true
-    this.tabPeriodo = false
-    this.requestPlanilla(year,month).subscribe(
+  //obtiene planilla
+  generatePayroll(year: any, month: any) {
+
+    let yearN:number = year
+    let monthN:number = month
+    this.requestPlanilla(yearN, monthN).subscribe(
       (response: any) => this.responsePlanilla(response)
     )
   }
-
-  //obtiene planilla
-
-  requestPlanilla(year:any,month:any) {
-    const admin = this.dataUser.idUser
-    return this.http.get<any>(this.url + "/PayrollCalc/"+year+"/"+month+"/"+admin).pipe(
+  requestPlanilla(year: any, month: any) {
+    const admin = this.dataUser.user
+    this.persons()
+    return this.http.get<any>(this.url + "/PayrollCalc/" + year + "/" + month + "/" + admin).pipe(
       catchError(e => "1")
     )
   }
   responsePlanilla(response: any) {
-    this.personData = response
-    this.persons()
-    this.tabPeriodo = true
-    this.tab = false
+    console.log(response);
+    
+    this.payrollData = response
     this.showSpinner = false
+    this.tab = true
+    this.header= true
+    this.tamColeccion = response.length
+    this.pageSize = 10
+
   }
+
 
 
 
@@ -227,24 +229,6 @@ export class PayrollDetailsComponent {
 
 
 
-  //obtine modulos
-  PayrollPeriod() {
-    this.RequestParyrollPeriod().subscribe(
-      (response: any) => this.ResponsePayrollPeriod(response)
-    )
-  }
-
-  RequestParyrollPeriod() {
-    return this.http.get<any>(this.url + "/payrollPeriod").pipe(
-      catchError(e => "1")
-    )
-  }
-
-  ResponsePayrollPeriod(response: any) {
-    this.PayrollPeriodsData = response
-  }
-
-
 
 
   //obtiene empleado
@@ -262,6 +246,8 @@ export class PayrollDetailsComponent {
   }
   responsePersons(response: any) {
     this.employeeData = response
+    console.log(response);
+    
     this.statusEmployeeService()
   }
 
