@@ -34,6 +34,7 @@ import { CheckOnlineComponent } from './check-online/check-online.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { AccountBankEmployeeComponent } from './account-bank-employee/account-bank-employee.component';
 import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-employee.component';
+import { PayrollDetailsComponent } from './payroll-details/payroll-details.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,7 @@ const routes: Routes = [
   { path: 'online-root', component: CheckOnlineComponent},
   { path: 'account-bank-employee', component: AccountBankEmployeeComponent},
   { path: 'flow-status-employee', component: FlowStatusEmployeeComponent},
+  { path: 'payroll-details', component: PayrollDetailsComponent},
   { path: '**', redirectTo: 'not-found'}
 ];
 
