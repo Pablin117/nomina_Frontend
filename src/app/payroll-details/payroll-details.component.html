@@ -1,0 +1,85 @@
+<body id="fondo">
+
+    <div class="container text-center" *ngIf="showSpinner">
+
+        <div id="spinner" *ngIf="showSpinner" class="spinner-border " role="status" style="width: 10rem; height: 10rem;">
+          <br>
+        </div>
+        <h1>Espera por favor</h1>
+      </div>
+    
+    
+    <div *ngIf="tab">
+        <div>
+          <table class="table table-hover" id="table-consult">
+            <thead>
+              <tr>
+                <th>Id Planilla</th>
+                <th>Año</th>
+                <th>Mes</th>
+                <th>Empleado</th>
+                <th>Fecha de contratacion</th>
+                <th>Puesto</th>
+                <th>Estatus empleado</th>
+                <th>Sueldo base</th>
+                <th>Bonificacion decreto</th>
+                <th>Otros ingresos</th>
+                <th>Descuento IGGS</th>
+                <th>Descuento ISR</th>
+                <th>Descuento inasistencias</th>
+                <th>Salario Neto</th>
+                <th>Fecha de creación</th>
+                <th>Usuario de creación</th>
+                <th>Fecha de Modificaion</th>
+                <th>Usuario de Modificacion</th>
+                <th>Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let  data of personData">
+                <td>{{data.idPayrollDetails}}</td>
+                <td>{{data.year}}</td>
+                <td>{{data.month}}</td>
+                <td>{{getEmployeeName(data.idEmployee) }}</td>
+                <td>{{data.dateOfHire}}</td>
+                <td>{{getPositionName(data.idPosition) }}</td>
+                <td>{{getStatusEmployeeName(data.idStatusEmployee) }}</td>
+                <td>{{data.baseSalaryIncome | currency: 'Q '}}</td>
+                <td>{{data.bonusIncomeDecree | currency: 'Q '}}</td>
+                <td>{{data.incomeOther | currency: 'Q '}}</td>
+                <td>{{data.igss | currency: 'Q '}}</td>
+                <td>{{data.isr | currency: 'Q '}}</td>
+                <td>{{data.noShowDiscount | currency: 'Q '}}</td>
+                <td>{{data.netSalary | currency: 'Q '}}</td>
+                <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{data.userCreation}}</td>
+                <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+                <td>{{data.userModification}}</td>
+                <td>
+                  <div>
+                    <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
+                        class="fa-solid fa-pen-to-square"></i>
+                      &nbsp;Modificar</button>
+                    <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
+    
+    
+                  </div>
+                </td>
+    
+              </tr>
+            </tbody>
+    
+          </table>
+          <div>
+            <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+              Exportar</button>
+            &nbsp;
+            <button *ngIf="print" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>
+              Imprimir</button>
+    
+          </div>
+        </div>
+      </div>
+    
+</body>
+

@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 
+
 @Component({
-  selector: 'app-payroll',
-  templateUrl: './payroll.component.html',
-  styleUrls: ['./payroll.component.css']
+  selector: 'app-payroll-details',
+  templateUrl: './payroll-details.component.html',
+  styleUrls: ['./payroll-details.component.css']
 })
-export class PayrollComponent {
+export class PayrollDetailsComponent {
   constructor(private http: HttpClient, private router: Router) { }
 
 
@@ -17,15 +18,14 @@ export class PayrollComponent {
 
   }
 
-
-  //variables
+//variables
 
   //boolean
   add: boolean = false
   modify: boolean = false
   tab: boolean = false
   tabPeriodo: boolean = true
-  header: boolean = true
+
   btnAdd: boolean = false
   btnUpdate: boolean = false
   print: boolean = false
@@ -33,7 +33,7 @@ export class PayrollComponent {
   showSpinner: boolean = false
 
   //url
-  page: string = "payroll"
+  page: string = "payroll-details"
   url: String = "http://localhost:4042/v1"
 
   //objetos
@@ -99,7 +99,7 @@ export class PayrollComponent {
     this.modify = false
     this.add = true
     this.tab = false
-    this.header = false
+
     this.tabPeriodo = false
 
     console.log("add")
@@ -111,14 +111,14 @@ export class PayrollComponent {
     this.tabPeriodo = false
     this.tab = false
     this.modify = true
-    this.header = false
+  
 
   }
   back() {
     this.modify = false
     this.tab = false
     this.tabPeriodo = true
-    this.header = true
+
     this.add = false
     this.personDataCreate = {}
     this.personDataModify = {}
@@ -326,6 +326,7 @@ export class PayrollComponent {
     }
     return '';
   }
+
 
 
 
