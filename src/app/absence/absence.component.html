@@ -64,6 +64,8 @@
         </tbody>
 
       </table>
+      <p>Paginas</p>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
       <div>
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
@@ -114,9 +116,8 @@
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
-                <select class="form-select" name="department" [(ngModel)]="absenceDataCreate.idEmployee">
-                    <option *ngFor="let department of employeeData" value="{{department.idEmployee}}" required>
-                        {{department.name}}
+                <select class="form-select" name="empleado" id="empleado" [(ngModel)]="absenceDataCreate.idEmployee">
+                    <option *ngFor="let employee of employeeData" value="{{employee.idEmployee}}" selected>{{employee.name}}
                     </option>
                 </select>
 

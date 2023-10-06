@@ -38,7 +38,10 @@ export class RoleOptionComponent {
   RoleOptionModify: any = {}
   Permisos: any = []
   options: any = {}
-  page: string = "role-option"
+  pageUrl: string = "role-option"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   name = 'RolOpcionesReport.xlsx';
   exportToExcel(): void {
@@ -81,7 +84,7 @@ export class RoleOptionComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -157,13 +160,15 @@ export class RoleOptionComponent {
 
   ResponseRoleOptionSave(response: any) {
     console.log(response)
-
+    
     if (response.code == 1) {
       alert(response.message)
     } else if (response.code == 0) {
       alert(response.message)
       this.back()
     }
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
 

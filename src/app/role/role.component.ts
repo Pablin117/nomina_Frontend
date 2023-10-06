@@ -40,7 +40,9 @@ export class RoleComponent {
   // pagina y url
   url: String = "http://localhost:4042/v1"
   page: String = "role"
-
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
   //valida sesiones
@@ -97,6 +99,8 @@ export class RoleComponent {
   Responserol(response: any) {
     this.roleData = response
     console.log(response)
+    this.tamColeccion = response.length
+    this.pageSize = 10
 
   }
 

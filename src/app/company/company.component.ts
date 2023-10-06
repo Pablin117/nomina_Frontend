@@ -42,7 +42,9 @@ export class CompanyComponent {
   // pagina y url
   url: String = "http://localhost:4042/v1"
   page: String = "company"
-
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   name = 'empresasReport.xlsx';
   exportToExcel(): void {
@@ -108,7 +110,8 @@ export class CompanyComponent {
   }
   ResponseCompany(response: any) {
     this.BussinessRules = response
-    console.log("Se obtuvo configuracion de empresa")
+    this.tamColeccion = response.length
+    this.pageSize = 10
 
   }
 

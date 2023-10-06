@@ -45,7 +45,9 @@ export class LocationComponent {
   //url
   page = "location"
   url: String = "http://localhost:4042/v1";
-
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
   //valida la sesion
@@ -139,6 +141,8 @@ export class LocationComponent {
   }
   ResponseLocation(response: any) {
     this.locationsData = response;
+    this.tamColeccion = response.length
+    this.pageSize = 10
 
   }
 

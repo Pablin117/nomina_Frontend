@@ -77,6 +77,8 @@
             </tr>
           </tbody>
         </table>
+        <p>Paginas</p>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
           <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
               class="fa-regular fa-square-plus"></i> Agregar</button>
           &nbsp;

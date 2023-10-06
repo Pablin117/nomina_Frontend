@@ -39,6 +39,9 @@ export class DepartmentComponent {
   //url
   url: String = "http://localhost:4042/v1"
   page: string = "department"
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   //bandera de botones
   optionsValidate() {
@@ -284,6 +287,8 @@ export class DepartmentComponent {
 
   ResponseCompany(response: any) {
     this.companyData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   //retorna el nombre de la compañia con el id company

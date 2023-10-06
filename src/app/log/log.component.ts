@@ -26,8 +26,11 @@ export class LogComponent {
   tab: boolean = true
 
   //url
+  page: string = "log"
   url: String = "http://localhost:4042/v1";
-
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   ngOnInit() {
     this.validateSession()
@@ -46,13 +49,13 @@ export class LogComponent {
     }
   }
 
+
+  //obtiene datos de bitacora
   logService() {
     this.RequestLog().subscribe(
       (response: any) => this.ResponseLog(response)
     )
   }
-
-
 
   RequestLog() {
     var httpOptions = {
@@ -67,7 +70,8 @@ export class LogComponent {
 
   ResponseLog(response: any) {
     this.logData = response;
-
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
 

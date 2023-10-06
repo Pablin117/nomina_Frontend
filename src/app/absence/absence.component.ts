@@ -34,6 +34,9 @@ export class AbsenceComponent {
   //url
   page: string = "role-user"
   url: String = "http://localhost:4042/v1"
+  pages = 1;
+  pageSize = 0
+  tamColeccion: number = 0
   //objetos
   absenceDataModify: any = {}
   absenceDataCreate: any = {}
@@ -118,7 +121,7 @@ export class AbsenceComponent {
 
 
 
-  //obtiene puestos
+  //obtiene Inasistencias
   absence() {
     this.requestAbsence().subscribe(
       (response: any) => this.responseAbsence(response)
@@ -138,10 +141,12 @@ export class AbsenceComponent {
   responseAbsence(response: any) {
     this.absenceData = response
     this.employee()
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
 
-    //obtiene departamentos
+    //obtiene persona
     employee() {
       this.requestEmployee().subscribe(
         (response: any) => this.responseEmployee(response)
@@ -246,10 +251,10 @@ export class AbsenceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.absenceDataCreate.userCreation = this.dataUser.user
-
-      this.requestAbsenceSave().subscribe(
-        (response: any) => this.responseAbsenceSave(response)
-      )
+console.log(this.absenceDataCreate)
+      //this.requestAbsenceSave().subscribe(
+        //(response: any) => this.responseAbsenceSave(response)
+      //)
     }
   }
 
@@ -262,6 +267,8 @@ export class AbsenceComponent {
     return this.http.post<any>(this.url + "/createAbsence", this.absenceDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
+
+   
   }
   responseAbsenceSave(response: any) {
     if (response.code == 999) {
