@@ -18,7 +18,14 @@
         <h1 class="text-center">Generacion de planillas</h1>
     </div>
     &nbsp;
-    <div class="text-center">
+
+    <div class="container text-center" *ngIf="showSpinner">
+      <h1>Espera por favor</h1>
+      <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+    <div class="text-center" *ngIf="!showSpinner">
         <button class="btn btn-secondary" (click)="generatePayroll()"> Generar Planilla</button>
         &nbsp;
 

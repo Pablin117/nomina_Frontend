@@ -28,6 +28,7 @@ export class PayrollComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
+  showSpinner: boolean = false
   //url
   page: string = "role-user"
   url: String = "http://localhost:4042/v1"
@@ -120,6 +121,7 @@ export class PayrollComponent {
 
   //obtiene planilla
   person() {
+    this.showSpinner = true
     this.requestPerson().subscribe(
       (response: any) => this.responsePerson(response)
     )
@@ -139,6 +141,7 @@ export class PayrollComponent {
     this.personData = response
     this.persons()
     this.tab=true
+    this.showSpinner = false
   }
 
 

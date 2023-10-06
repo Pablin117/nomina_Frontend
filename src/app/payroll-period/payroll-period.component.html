@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid"  id="fondo">
 
   <div class="container text-center">
-    <h1>Modulos</h1>
+    <h1>Planilla Periodo</h1>
     <div>
       <div *ngIf="header">
         <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
@@ -14,7 +14,7 @@
 
   <div *ngIf="tab">
     <div>
-      <table class="table table-hover">
+      <table id="table" id="table-consult">
         <thead>
         <tr>
           <th>Año</th>
@@ -35,7 +35,6 @@
           <td>{{periodoPlanilla.idModule}}</td>
           <td>{{periodoPlanilla.startDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
           <td>{{periodoPlanilla.endDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
-          <td>{{periodoPlanilla.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
           <td>{{periodoPlanilla.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
           <td>{{periodoPlanilla.userCreation}}</td>
           <td>{{periodoPlanilla.userModification}}</td>
