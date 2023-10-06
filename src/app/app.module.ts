@@ -46,6 +46,7 @@ import { CheckOnlineComponent } from './check-online/check-online.component';
 import { PayrollComponent } from './payroll/payroll.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AccountBankEmployeeComponent } from './account-bank-employee/account-bank-employee.component';
+import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-employee.component';
 
 
 
@@ -85,6 +86,7 @@ import { AccountBankEmployeeComponent } from './account-bank-employee/account-ba
     CheckOnlineComponent,
     PayrollComponent,
     AccountBankEmployeeComponent,
+    FlowStatusEmployeeComponent,
 
   ],
 
