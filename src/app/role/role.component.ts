@@ -39,8 +39,8 @@ export class RoleComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  page: String = "role"
-  pages = 1;
+  pageUrl: String = "role"
+  page = 1;
   pageSize = 0
   tamColeccion: number = 0
 
@@ -66,7 +66,7 @@ export class RoleComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })

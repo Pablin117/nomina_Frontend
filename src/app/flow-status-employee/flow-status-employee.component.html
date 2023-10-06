@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  data of flowStatusEmployeeData">
+                    <tr *ngFor="let  data of flowStatusEmployeeData.slice((page - 1) * pageSize, page * pageSize)">
                         <td>{{getStatusName(data.idPK.idStatusCurrent)}}</td>
                         <td>{{getStatusName(data.idPK.idStatusNew)}}</td>
                         <td>{{data.nameEvent}}</td>
@@ -55,6 +55,8 @@
                     </tr>
                 </tbody>
             </table>
+            <p>Paginas</p>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
             <div>
                 <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
                         class="fa-regular fa-square-plus"></i> Agregar</button>

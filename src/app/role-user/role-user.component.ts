@@ -31,8 +31,11 @@ export class RoleUserComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  page: string = "role-user"
+  pageUrl: string = "role-user"
   url: String = "http://localhost:4042/v1"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
   //objetos
   roleUserDataModify: any = {}
   roleUserDataCreate: any = {}
@@ -69,7 +72,7 @@ export class RoleUserComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -135,6 +138,8 @@ export class RoleUserComponent {
   responseRolUser(response: any) {
     this.roleUserData = response
     this.userService()
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   getRoleName(idRole: number): string {

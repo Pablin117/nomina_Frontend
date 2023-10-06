@@ -38,8 +38,8 @@ export class DepartmentComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "department"
-  pages = 1;
+  pageUrl: string = "department"
+  page = 1;
   pageSize = 0
   tamColeccion: number = 0
 
@@ -51,7 +51,7 @@ export class DepartmentComponent {
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })

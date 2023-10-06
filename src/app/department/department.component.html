@@ -29,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let departamento of DepartmentsData">
+        <tr *ngFor="let departamento of DepartmentsData.slice((page - 1) * pageSize, page * pageSize)">
           <td>{{departamento.idDepartment}}</td>
           <td>{{departamento.name}}</td>
           <td>{{getCompanyName(departamento.idCompany)}}</td>
@@ -57,7 +57,7 @@
 
       </table>
       <p>Paginas</p>
-      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
       <div>
 
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i

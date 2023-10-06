@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let modulo of ModulosData">
+          <tr *ngFor="let modulo of ModulosData.slice((page - 1) * pageSize, page * pageSize)">
             <td>{{modulo.idModule}}</td>
             <td>{{modulo.name}}</td>
             <td>{{modulo.orderMenu}}</td>
@@ -56,6 +56,8 @@
         </tbody>
 
       </table>
+      <p>Paginas</p>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
       <div>
 
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i

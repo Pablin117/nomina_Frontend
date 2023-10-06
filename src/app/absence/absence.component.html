@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let  data of absenceData">
+          <tr *ngFor="let  data of absenceData.slice((page - 1) * pageSize, page * pageSize)">
             <td>{{data.idAbsence}}</td>
             <td>{{ getEmployeeName(data.idEmployee) }}</td>
             <td>{{data.initialDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -65,7 +65,7 @@
 
       </table>
       <p>Paginas</p>
-      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
       <div>
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
@@ -87,7 +87,7 @@
             <div class="input-group mb-4">
                 <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
                 <select class="form-select" name="department" [(ngModel)]="absenceDataModify.idEmployee">
-                    <option *ngFor="let department of employeeData" value="{{department.idEmployee}}" required>
+                    <option *ngFor="let department of employeeData" value="{{department.idPerson}}" required>
                         {{department.name}}
                     </option>
                 </select>
@@ -117,7 +117,7 @@
 
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
                 <select class="form-select" name="empleado" id="empleado" [(ngModel)]="absenceDataCreate.idEmployee">
-                    <option *ngFor="let employee of employeeData" value="{{employee.idEmployee}}" selected>{{employee.name}}
+                    <option *ngFor="let employee of employeeData" value="{{employee.idPerson}}" selected>{{employee.name}}
                     </option>
                 </select>
 

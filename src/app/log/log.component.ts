@@ -26,9 +26,9 @@ export class LogComponent {
   tab: boolean = true
 
   //url
-  page: string = "log"
+  pageUrl: string = "log"
   url: String = "http://localhost:4042/v1";
-  pages = 1;
+  page = 1;
   pageSize = 0
   tamColeccion: number = 0
 

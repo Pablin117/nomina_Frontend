@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let  data of roleData">
+          <tr *ngFor="let  data of roleData.slice((page - 1) * pageSize, page * pageSize)">
             <td>{{data.idRole}}</td>
             <td>{{data.name}}</td>
             <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -56,7 +56,7 @@
         </tbody>
       </table>
       <p>Paginas</p>
-      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
       <div>
 
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i

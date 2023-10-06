@@ -42,8 +42,10 @@ export class ModuleMaintenanceComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "module"
-
+  pageUrl: string = "module"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
 
@@ -55,7 +57,7 @@ export class ModuleMaintenanceComponent {
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -105,6 +107,8 @@ export class ModuleMaintenanceComponent {
 
   ResponseModulo(response: any) {
     this.ModulosData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
   //banderas
   Modify(modulo: any) {

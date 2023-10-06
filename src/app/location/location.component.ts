@@ -43,9 +43,9 @@ export class LocationComponent {
   tab: boolean = true
 
   //url
-  page = "location"
+  pageUrl = "location"
   url: String = "http://localhost:4042/v1";
-  pages = 1;
+  page = 1;
   pageSize = 0
   tamColeccion: number = 0
 
@@ -72,7 +72,7 @@ export class LocationComponent {
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })

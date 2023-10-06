@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid"  id="fondo">
 
     <div class="container text-center">
         <h1>Status del Empleado</h1>
         <div>
             <div *ngIf="header">
-                <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i
+                <button class="btn btn-secondary" id="modificar" (click)="backWelcome()"><i
                         class="fa-solid fa-arrow-left-long"></i> Regresar</button>&nbsp;&nbsp;
                 <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i
                         class="fa-solid fa-right-from-bracket"></i> Salir</button>
@@ -14,7 +14,7 @@
 
     <div *ngIf="tab">
         <div>
-            <table class="table table-hover">
+            <table id="table">
                 <thead>
                     <tr>
                         <th>IdStatus</th>
@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let  data of statusEmployeeData">
+                    <tr *ngFor="let  data of statusEmployeeData.slice((page - 1) * pageSize, page * pageSize)">
                         <td>{{data.idStatusEmployee}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
@@ -53,8 +53,10 @@
                     </tr>
                 </tbody>
             </table>
+            <p>Paginas</p>
+            <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
             <div>
-                <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+                <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
                         class="fa-regular fa-square-plus"></i> Agregar</button>
                 &nbsp;
                 <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
@@ -73,7 +75,8 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-brands fa-slack"></i> &nbsp; Nombre del </span>
-                <input name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control" required>
+                <input name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control"
+                    required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;

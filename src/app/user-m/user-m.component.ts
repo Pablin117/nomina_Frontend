@@ -31,8 +31,10 @@ export class UserMComponent {
   btnDelete: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page = "userM"
-
+  pageUrl = "userM"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
   //objetos
   UsersData: any = []
   userDataCreate: any = {}
@@ -73,7 +75,7 @@ export class UserMComponent {
     this.options = JSON.parse(this.options)
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -112,6 +114,8 @@ export class UserMComponent {
 
   ResponseUser(response: any) {
     this.UsersData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   Modify(response: any) {

@@ -41,8 +41,8 @@ export class CompanyComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  page: String = "company"
-  pages = 1;
+  pageUrl: String = "company"
+  page = 1;
   pageSize = 0
   tamColeccion: number = 0
 
@@ -78,7 +78,7 @@ export class CompanyComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })

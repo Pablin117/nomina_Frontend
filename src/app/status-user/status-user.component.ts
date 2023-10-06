@@ -42,9 +42,11 @@ export class StatusUserComponent {
   dataUser: any = {}
 
   //url
-  page = "status-user"
+  pageUrl = "status-user"
   url: String = "http://localhost:4042/v1"
-
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   //valida sesiones
   validateSession() {
@@ -69,7 +71,7 @@ export class StatusUserComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -135,6 +137,8 @@ export class StatusUserComponent {
   }
   responseStatusUser(response: any) {
     this.statusUserData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
 

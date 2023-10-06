@@ -33,7 +33,9 @@ export class CheckOnlineComponent {
   url: String = "http://localhost:4042/v1"
   url2: String = "http://localhost:4042/v2"
 
-
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
 
@@ -78,6 +80,8 @@ export class CheckOnlineComponent {
   }
   response(response: any) {
     this.stateUser = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
 
 
   }

@@ -42,8 +42,10 @@ export class GenderComponent {
   options: any = {}
   //url
   url: String = "http://localhost:4042/v1"
-  page = "gender"
-
+  pageUrl = "gender"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   //valida la sesion
   validateSession() {
@@ -67,7 +69,7 @@ export class GenderComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -128,6 +130,8 @@ export class GenderComponent {
   }
   responseGender(response: any) {
     this.genderData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   //modificacion

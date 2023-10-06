@@ -34,7 +34,10 @@ export class FlowStatusEmployeeComponent {
 
   //url
   url: String = "http://localhost:4042/v1"
-  page = "bank"
+  pageUrl = "bank"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
   ngOnInit() {
@@ -62,7 +65,7 @@ export class FlowStatusEmployeeComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -171,6 +174,8 @@ export class FlowStatusEmployeeComponent {
     this.requestStatusEmployee().subscribe(
       (response: any) => this.responseStatusEmployee(response)
     )
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   requestStatusEmployee() {

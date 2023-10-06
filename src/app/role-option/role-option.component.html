@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let optRole of RolesOptionsData">
+          <tr *ngFor="let optRole of RolesOptionsData.slice((page - 1) * pageSize, page * pageSize)">
             <td>{{optRole.idPK.nameRole}}</td>
             <td>{{optRole.idPK.nameOption}}</td>
             <td>{{optRole.nameUp}}</td>

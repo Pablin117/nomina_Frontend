@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let log of logData;">
+                <tr *ngFor="let log of logData.slice((page - 1) * pageSize, page * pageSize)">
                     <td>{{log.idLog}}</td>
                     <td>{{log.idUser}}</td>
                     <td>{{log.idtypeAccess}}</td>
@@ -45,6 +45,6 @@
             </tbody>
         </table>
         <p>Paginas</p>
-      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="pages" [boundaryLinks]="false"></ngb-pagination>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
     </div>
 </div>

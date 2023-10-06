@@ -39,8 +39,10 @@ export class TypeDocumentComponent {
   exporte: boolean = false
   //url
   url: String = "http://localhost:4042/v1"
-  page: string = "type-document"
-
+  pageUrl: string = "type-document"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
 
 
@@ -52,7 +54,7 @@ export class TypeDocumentComponent {
     let permisos: any = {}
 
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -104,7 +106,8 @@ export class TypeDocumentComponent {
   ResponseTypeDocument(response: any) {
     this.TypeDocumentsData = response
     console.log(this.TypeDocumentsData);
-    
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
   //banderas
   Modify(modulo: any) {

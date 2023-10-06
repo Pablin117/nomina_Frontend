@@ -42,8 +42,10 @@ export class MaritalStatusComponent {
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  page: String = "marital-status"
-
+  pageUrl: String = "marital-status"
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
   name = 'maritalStatus.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('table-consult');
@@ -77,7 +79,7 @@ export class MaritalStatusComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -110,6 +112,8 @@ export class MaritalStatusComponent {
   ResponseMaritalStatus(response: any) {
     console.log("obtiene status")
     this.maritalStatusData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
   }
 
   //formulario para modificar

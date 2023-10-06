@@ -28,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let tiposDocumentos of TypeDocumentsData">
+        <tr *ngFor="let tiposDocumentos of TypeDocumentsData.slice((page - 1) * pageSize, page * pageSize)">
           <td>{{tiposDocumentos.idTypeDocument}}</td>
           <td>{{tiposDocumentos.name}}</td>
           <td>{{tiposDocumentos.creationDate |date:'dd/MM/yyyy hh:mm:ss'}}</td>
@@ -54,6 +54,8 @@
         </tbody>
 
       </table>
+      <p>Paginas</p>
+      <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
       <div>
 
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
