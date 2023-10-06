@@ -50,7 +50,7 @@ export class CheckOnlineComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/user", httpOptions).pipe(
+    return this.http.get<any>(this.url + "/user2", httpOptions).pipe(
       catchError(e => "1")
     )
   }
