@@ -44,14 +44,17 @@ export class EmployeeComponent {
   statusEmployeeData: any = []
   dataUser: any = {}
   options: any = {}
+  flowstatusEmployeeAvailable:any = []
+  flowStatusEmployeeData:any = []
 
   namePerson: String = ""
+  statusEmployeeCurrent: String = ""
 
 
 
   // pagina y url
   url: String = "http://localhost:4042/v1"
-  pageUrl: String = "marital-status"
+  pageUrl: String = "employee"
   page = 1;
   pageSize = 0
   tamColeccion :number = 0
@@ -175,6 +178,18 @@ export class EmployeeComponent {
     this.modify = true
     this.header = false
 
+    for(let status of this.statusEmployeeData){
+      if(status.idStatusEmployee == response.idStatusEmployee){
+        this.statusEmployeeCurrent = status.name
+      }
+    }
+
+    for(let flowStatusEmployee of this.flowStatusEmployeeData){
+      if(flowStatusEmployee.idPK.idStatusCurrent == response.idStatusEmployee){
+        this.flowstatusEmployeeAvailable.push(flowStatusEmployee)
+      }
+    }
+
     this.namePerson = this.getPersonName(response.idPerson)
     console.log(this.namePerson)
   }
@@ -184,6 +199,10 @@ export class EmployeeComponent {
     this.header = true
     this.employeeDataCreate = {}
     this.employeeDataModify = {}
+    this.statusEmployeeCurrent = ""
+    this.flowstatusEmployeeAvailable = []
+    this.flowStatusEmployeeData = []
+
     this.ngOnInit()
   }
   backWelcome() {
@@ -299,7 +318,18 @@ export class EmployeeComponent {
   }
   ResponseStatusEmployee(response: any) {
     this.statusEmployeeData = response
-  
+
+    this.RequestFlowStatusEmployee().subscribe(
+      (response: any) => this.ResponseFlowStatusEmployee(response)
+    )
+  }
+
+  RequestFlowStatusEmployee() {
+    return this.http.get<any>(this.url + "/flowStatusEmployee").pipe(catchError(e => "1"))
+  }
+  ResponseFlowStatusEmployee(response: any) {
+    this.flowStatusEmployeeData = response
+
   }
 
   //retorna el nombre de la compañia con el id company

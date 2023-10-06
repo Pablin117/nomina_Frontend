@@ -42,7 +42,7 @@ export class PersonComponent {
   DataDocument: boolean = false
   DataDocumentM: boolean = false
   //url
-  pageUrl: string = "role-user"
+  pageUrl: string = "person"
   url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
