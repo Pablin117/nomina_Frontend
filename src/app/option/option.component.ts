@@ -121,7 +121,7 @@ export class OptionComponent {
   responseOption(response: any) {
     this.optionData = response
     this.tamColeccion = response.length
-    this.pageSize = this.tamColeccion/2.5
+    this.pageSize = 10
   }
   //obtine los menus
   menu() {

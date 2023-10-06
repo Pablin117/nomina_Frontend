@@ -33,6 +33,7 @@ import { TypeDocumentComponent } from './type-document/type-document.component';
 import { PayrollPeriodComponent } from './payroll-period/payroll-period.component';
 import { CheckOnlineComponent } from './check-online/check-online.component';
 import { PayrollComponent } from './payroll/payroll.component';
+import { AccountBankEmployeeComponent } from './account-bank-employee/account-bank-employee.component';
 
 
 const routes: Routes = [
@@ -68,6 +69,7 @@ const routes: Routes = [
   { path: 'payroll', component: PayrollComponent},
   { path: 'not-found', component: NotFoundComponent},
   { path: 'online-root', component: CheckOnlineComponent},
+  { path: 'account-bank-employee', component: AccountBankEmployeeComponent},
   { path: '**', redirectTo: 'not-found'}
 ];
 
