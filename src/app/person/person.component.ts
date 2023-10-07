@@ -81,11 +81,9 @@ export class PersonComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.person()
       this.gender()
@@ -118,7 +116,6 @@ export class PersonComponent {
 
   //banderas
   Modify(id: any) {
-    console.log("modifica")
     this.personDataModify = id
     this.add = false
     this.tab = false
@@ -132,10 +129,8 @@ export class PersonComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -515,14 +510,12 @@ export class PersonComponent {
     return this.http.post<any>(this.url + "/createPersonDocument", data).pipe(catchError(e => e))
   }
   ResponseCreateDocument(response: any) {
-    console.log("se grabo ");
 
 
 
   }
 
   EliminaDocumento(id: any) {
-    console.log("borra");
     this.idt = id
     this.DeleteDocumentosService(id)
   }

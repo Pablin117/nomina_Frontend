@@ -107,10 +107,9 @@ export class PayrollDetailsComponent {
   }
 
   backWelcome() {
-    console.log("borra");
-    localStorage.setItem("deleteDate",JSON.stringify(this.datePayroll))  
+    localStorage.setItem("deleteDate",JSON.stringify(this.datePayroll))
     this.deletePayroll()
-   
+
     this.router.navigateByUrl("/home")
   }
 
@@ -176,10 +175,10 @@ export class PayrollDetailsComponent {
     this.datePayroll = localStorage.getItem("date")
     if(this.datePayroll != null){
       this.datePayroll = JSON.parse(this.datePayroll)
-      
+
       this.generatePayroll(this.datePayroll.year, this.datePayroll.month)
     }
-   
+
   }
 
 

@@ -59,11 +59,9 @@ export class MaritalStatusComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.maritalStatusService()
 
@@ -110,7 +108,6 @@ export class MaritalStatusComponent {
     )
   }
   ResponseMaritalStatus(response: any) {
-    console.log("obtiene status")
     this.maritalStatusData = response
     this.tamColeccion = response.length
     this.pageSize = 10
@@ -182,7 +179,7 @@ export class MaritalStatusComponent {
     }
   }
 
-  //formulario para agregar 
+  //formulario para agregar
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");

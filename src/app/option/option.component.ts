@@ -51,11 +51,9 @@ export class OptionComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.option()
       this.optionsValidate()
 
@@ -147,8 +145,6 @@ export class OptionComponent {
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -167,7 +163,6 @@ export class OptionComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
       localStorage.removeItem("data")
       this.router.navigateByUrl("/")
@@ -181,7 +176,6 @@ export class OptionComponent {
   }
 
   Modify(response: any) {
-    console.log("modifica")
     this.optionDataModify = response
     this.header = false
     this.add = false
@@ -195,7 +189,6 @@ export class OptionComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
 
   backWelcome() {
@@ -203,7 +196,6 @@ export class OptionComponent {
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -218,7 +210,6 @@ export class OptionComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.optionDataCreate.userCreation = this.dataUser.user
-      console.log(this.optionDataCreate)
       this.RequestOptionSave().subscribe(
         (response: any) => this.ResponseOptionSave(response)
       )
@@ -226,8 +217,7 @@ export class OptionComponent {
     }
   }
   RequestOptionSave() {
-    console.log("se agrega")
-    console.log(this.optionDataCreate)
+
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -255,10 +245,9 @@ export class OptionComponent {
       this.optionDataModify.idOption = this.optionDataModify.idOption
       this.optionDataModify.idMenu = this.optionDataModify.idMenu
       this.optionDataModify.userModification = this.dataUser.user
-   
- 
 
-      console.log(this.optionDataModify)
+
+
 
        this.RequestOptionSaveM().subscribe(
           (response: any) => this.ResponseRoleSaveM(response)

@@ -28,7 +28,7 @@ export class RecoverPasswordComponent {
     this.dataUser = localStorage.getItem("data");
     this.dataUser = JSON.parse(this.dataUser)
     this.CompanyData()
-  
+
   }
 
 
@@ -60,11 +60,10 @@ export class RecoverPasswordComponent {
 
   //response service login
   responseValidateUserService(response: any) {
-   
+
     //validación de respuesta
     if (response != null) {
       this.dataUser = response
-      console.log(this.dataUser)
       this.userRecover = false;
       this.messageError = ""
       this.checkQuestions(response);
@@ -77,7 +76,7 @@ export class RecoverPasswordComponent {
 
 
   checkQuestions(response:any) {
-    
+
     this.RequestQuestions(response).subscribe(
       (response: any) => this.ResponseQuestions(response)
     )
@@ -94,7 +93,7 @@ export class RecoverPasswordComponent {
     )
   }
   ResponseQuestions(response: any) {
-  
+
     if (response == null) {
 
       alert("Usuario no cuenta con preguntas configuradas")
@@ -104,7 +103,6 @@ export class RecoverPasswordComponent {
     }else {
       this.QuestionsData = response;
       this.user = this.QuestionsData[0].idUser;
-      console.log("se obtuvo data de preguntas")
     for(var x=0;x<this.QuestionsData.length;x++){
       this.QuestionsData[x].respond = ''
     }
@@ -116,7 +114,6 @@ export class RecoverPasswordComponent {
   questionsForm() {
     let formularioValido: any = document.getElementById("questionsForm");
     if(formularioValido.reportValidity()){
-      console.log(this.QuestionsData)
       this.validateQuestionsService().subscribe(
         (response: any) => this.responseValidateQuestionsService(response)
       )
@@ -135,8 +132,8 @@ export class RecoverPasswordComponent {
   }
   responseValidateQuestionsService(response: any) {
 
-    if (response.code == "0") { 
-      this.questionComplete = true   
+    if (response.code == "0") {
+      this.questionComplete = true
     } else{
       alert(response.message)
     }
@@ -144,7 +141,7 @@ export class RecoverPasswordComponent {
 
 
   passwordForm(){
-    
+
   let formularioValido: any = document.getElementById("passwordForm");
     if(formularioValido.reportValidity()){
       if(this.newPassword === this.confirmPassword){
@@ -155,7 +152,7 @@ export class RecoverPasswordComponent {
         alert("Contraseñas no coinciden")
       }
   }
-      
+
   }
 
   RequestPassword(){
@@ -174,7 +171,7 @@ export class RecoverPasswordComponent {
   }
 
   ResponseValidatePassword(response:any){
-    if (response.code == "0") { 
+    if (response.code == "0") {
       alert(response.message)
       this.router.navigate(['']);
     } else{
@@ -186,7 +183,7 @@ export class RecoverPasswordComponent {
   CompanyData(){
       this.RequestCompany().subscribe(
         (response: any) => this.ResponseCompany(response)
-      ) 
+      )
   }
 
   RequestCompany(){
@@ -202,7 +199,6 @@ export class RecoverPasswordComponent {
 
   ResponseCompany(response:any){
   this.BussinessRules = response[0]
-  console.log("Se obtuvo configuracion de empresa")
   }
 
 back(){

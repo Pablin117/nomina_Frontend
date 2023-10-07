@@ -68,7 +68,6 @@ export class DepartmentComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
@@ -142,7 +141,6 @@ export class DepartmentComponent {
     }
   }
   RequestDepartmentSave() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

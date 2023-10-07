@@ -74,11 +74,9 @@ export class ModuleMaintenanceComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.Modulo()
       this.optionsValidate()
     } else {
@@ -112,7 +110,6 @@ export class ModuleMaintenanceComponent {
   }
   //banderas
   Modify(modulo: any) {
-    console.log("modifica")
     this.moduloDataModify = modulo
     this.add = false
     this.tab = false
@@ -129,12 +126,10 @@ export class ModuleMaintenanceComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
 
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -156,7 +151,6 @@ export class ModuleMaintenanceComponent {
     }
   }
   RequestModuloSave() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -172,7 +166,6 @@ export class ModuleMaintenanceComponent {
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -194,7 +187,6 @@ export class ModuleMaintenanceComponent {
     }
   }
   RequestModuloSaveM() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -209,7 +201,6 @@ export class ModuleMaintenanceComponent {
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -220,7 +211,6 @@ export class ModuleMaintenanceComponent {
 //para eliminar
 
 Delete(response:any){
-  console.log(response.idModule)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -250,8 +240,6 @@ Delete(response:any){
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -273,7 +261,6 @@ Delete(response:any){
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
 
       localStorage.removeItem("data")

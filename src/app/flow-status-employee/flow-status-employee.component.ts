@@ -25,8 +25,8 @@ export class FlowStatusEmployeeComponent {
 
   //objets
   dataUser: any = {}
-  options: any = {} 
-  flowStatusEmployeeData: any = [] 
+  options: any = {}
+  flowStatusEmployeeData: any = []
   statusEmployeeData:any = []
   statusEmployeeData2:any = []
   flowStatusEmployeeDataCreate: any = {}
@@ -46,11 +46,9 @@ export class FlowStatusEmployeeComponent {
   }
 
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.flowstatusEmployee()
       this.optionsValidate()
     } else {
@@ -79,7 +77,6 @@ export class FlowStatusEmployeeComponent {
   }
 
   Modify(response: any) {
-    console.log("modifica")
     this.statusEmployeeDataModify = response
     this.add = false
     this.tab = false
@@ -92,11 +89,11 @@ export class FlowStatusEmployeeComponent {
     this.add = true
     this.tab = false
     this.header = false
-    
+
   }
 
   Delete(response:any){
-    
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -137,14 +134,13 @@ export class FlowStatusEmployeeComponent {
     const selectElement = event.target as HTMLSelectElement;
     const valorSeleccionado = selectElement.value;
 
-    console.log('Se ha seleccionado la opción:', valorSeleccionado);
 
     for(let status of this.statusEmployeeData){
       if(status.idStatusEmployee != valorSeleccionado){
         this.statusEmployeeData2.push(status)
       }
     }
-    
+
   }
 
 
@@ -154,7 +150,7 @@ export class FlowStatusEmployeeComponent {
       (response: any) => this.responseFlowStatusEmployee(response)
     )
   }
-  
+
   requestFlowStatusEmployee() {
     var httpOptions = {
       headers: new HttpHeaders({
@@ -169,8 +165,7 @@ export class FlowStatusEmployeeComponent {
   responseFlowStatusEmployee(response: any) {
     this.flowStatusEmployeeData = response
 
-    console.log(this.flowStatusEmployeeData);
-    
+
     this.requestStatusEmployee().subscribe(
       (response: any) => this.responseStatusEmployee(response)
     )
@@ -193,7 +188,7 @@ export class FlowStatusEmployeeComponent {
     this.statusEmployeeData = response
   }
 
-  //retorna el nombre de persona segun su id 
+  //retorna el nombre de persona segun su id
   getStatusName(id: number): string {
     for (let x = 0; x < this.statusEmployeeData.length; x++) {
       if (this.statusEmployeeData[x].idStatusEmployee == id) {

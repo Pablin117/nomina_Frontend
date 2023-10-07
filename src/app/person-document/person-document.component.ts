@@ -64,11 +64,9 @@ export class PersonDocumentComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.personDocumentService()
       this.TypeDocument()
@@ -126,14 +124,12 @@ export class PersonDocumentComponent {
     let formularioValido: any = document.getElementById("modForm")
 
     this.personDocumentModify.userModification = this.dataUser.user
-    console.log(this.personDocumentModify)
     this.RequestpersonDocumentUpdate().subscribe(
       (response: any) => this.ResponsepersonDocumentUpdate(response)
     )
   }
 
   optineData() {
-    console.log("Entro");
 
 
   }
@@ -195,7 +191,7 @@ export class PersonDocumentComponent {
     }
   }
 
-  //formulario para agregar 
+  //formulario para agregar
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
@@ -358,7 +354,6 @@ export class PersonDocumentComponent {
     this.personData = response
     this.tamColeccion = response.length
     this.pageSize = this.tamColeccion / 10
-    console.log(this.tamColeccion);
   }
 
 

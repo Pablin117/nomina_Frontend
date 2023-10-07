@@ -50,11 +50,9 @@ export class CreateUserComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.genderService()
       this.location()
     } else {
@@ -68,7 +66,6 @@ export class CreateUserComponent {
     let formularioValido: any = document.getElementById("create");
     if (formularioValido.reportValidity()) {
       this.showSpinner = true
-      console.log(this.userDataCreate)
       this.userDataCreate.userCreation = this.dataUser.user
       this.RequestUserSave().subscribe(
         (response: any) => this.ResponseUserSave(response)
@@ -78,7 +75,6 @@ export class CreateUserComponent {
   }
 
   RequestUserSave() {
-    console.log(this.userDataCreate)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -89,7 +85,6 @@ export class CreateUserComponent {
     )
   }
   ResponseUserSave(response: any) {
-    console.log(response)
     if (response.code == '0') {
       this.ServiceSaveImage();
       alert("Usuario creado exitosamente.")
@@ -98,7 +93,6 @@ export class CreateUserComponent {
 
     } else {
       this.showSpinner = false;
-      console.error('Error al crear el usuario:', response.message);
       alert(response.message)
     }
 
@@ -162,7 +156,6 @@ export class CreateUserComponent {
   ServiceSaveImage() {
     if (this.imageSrc) {
 
-      console.log(this.userDataCreate.idUser)
       this.saveImage(this.userDataCreate.idUser, this.file).subscribe(
         (response: any) => response = console.log("imagen guradada")
 
@@ -238,7 +231,7 @@ export class CreateUserComponent {
 
   }
 
-  //banderas 
+  //banderas
   back() {
     this.router.navigateByUrl("/userM")
   }

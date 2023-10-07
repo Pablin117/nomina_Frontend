@@ -49,11 +49,9 @@ export class GenderComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.gender()
       this.optionsValidate()
     } else {
@@ -84,7 +82,6 @@ export class GenderComponent {
 
   //banderas
   Modify(response: any) {
-    console.log("modifica")
     this.genderDataModify = response
     this.add = false
     this.tab = false
@@ -96,10 +93,8 @@ export class GenderComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -176,7 +171,7 @@ Delete(response:any){
       (response: any) => this.responseDelete(response)
     )
   }
-  
+
   requestDelete(response:any){
     var httpOptions = {
       headers: new HttpHeaders({
@@ -187,7 +182,7 @@ Delete(response:any){
       catchError(e => "1")
     )
   }
-  
+
   responseDelete(response:any){
     if(response.code == 999){
       this.revoke()
@@ -198,7 +193,7 @@ Delete(response:any){
       alert(response.message)
     }
   }
-  
+
 
   //agregar
   addForm() {

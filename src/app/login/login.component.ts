@@ -178,7 +178,6 @@ export class LoginComponent {
       this.routes = response
 
     } else if (response == null || response == "1") {
-      console.log("No hay comunicación con el servidor!!")
     }
   }
 }

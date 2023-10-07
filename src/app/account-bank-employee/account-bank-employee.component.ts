@@ -28,8 +28,8 @@ export class AccountBankEmployeeComponent {
 
   //objets
   dataUser: any = {}
-  options: any = {} 
-  accountBankEmployeeData: any = [] 
+  options: any = {}
+  accountBankEmployeeData: any = []
   personData:any = []
   bankData:any = []
   accountBankEmployeeDataCreate: any = {}
@@ -45,11 +45,9 @@ export class AccountBankEmployeeComponent {
   }
 
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.accountBankEmployee()
       this.optionsValidate()
     } else {
@@ -78,11 +76,9 @@ export class AccountBankEmployeeComponent {
   }
 
   Modify(response: any) {
-    console.log("modifica")
     this.accoutnBankEmployeeModify = response
     this.accoutnBankEmployeeModify.employeeName = this.getEmployeeName(response.idEmployee)
     this.accoutnBankEmployeeModify.bankName = this.getBankName(response.idBank)
-    console.log(response)
     this.add = false
     this.tab = false
     this.modify = true
@@ -94,11 +90,10 @@ export class AccountBankEmployeeComponent {
     this.add = true
     this.tab = false
     this.header = false
-    
+
   }
 
   Delete(response:any){
-    console.log(response)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -150,7 +145,6 @@ export class AccountBankEmployeeComponent {
     )
   }
   responseAccountBankEmployee(response: any) {
-    console.log(response)
     this.accountBankEmployeeData = response
     this.tamColeccion = response.length
     this.pageSize = this.tamColeccion/10
@@ -175,7 +169,6 @@ export class AccountBankEmployeeComponent {
     )
   }
   responseEmployee(response: any) {
-    console.log(response)
     this.personData = response
 
     this.requestBank().subscribe(
@@ -195,11 +188,10 @@ export class AccountBankEmployeeComponent {
   }
 
   responseBank(response: any) {
-    console.log(response)
     this.bankData = response
   }
 
-  //retorna el nombre de persona segun su id 
+  //retorna el nombre de persona segun su id
   getEmployeeName(id: number): string {
     for (let x = 0; x < this.personData.length; x++) {
       if (this.personData[x].idPerson == id) {
@@ -209,7 +201,7 @@ export class AccountBankEmployeeComponent {
     return '';
   }
 
-  //retorna el nombre de banoc segun su id 
+  //retorna el nombre de banoc segun su id
   getBankName(id: number): string {
     for (let x = 0; x < this.bankData.length; x++) {
       if (this.bankData[x].idBank == id) {
