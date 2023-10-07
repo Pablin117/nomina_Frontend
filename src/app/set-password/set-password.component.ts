@@ -22,7 +22,6 @@ export class SetPasswordComponent {
 
   validateSession(){
     if(this.dataUser != null){
-      console.log("activo")
     }else{
       this.router.navigateByUrl("/")
     }
@@ -40,7 +39,7 @@ export class SetPasswordComponent {
   dataUser: any = {}
   url: string = "http://localhost:4042/v1"
 
- 
+
   confirmar = document.getElementById("Confirmar")
 
   DataUser() {
@@ -68,12 +67,10 @@ export class SetPasswordComponent {
   }
   ResponseQuestions(response: any) {
     if (response === null) {
-      console.log("no hay preguntas")
     } else {
       //guardo las preguntas
       this.QuestionsData = response;
       this.user = this.QuestionsData[0].idUser;
-      console.log("se obtuvo data de preguntas")
 
       let fillString = "***";
       let count = fillString.length;
@@ -81,7 +78,6 @@ export class SetPasswordComponent {
         //cambio la respuesta de las preguntas por x
         this.QuestionsData[x].respond = fillString.repeat(count);
       }
-      console.log(this.QuestionsData)
       this.questionCreate = true;
     }
   }
@@ -97,7 +93,6 @@ export class SetPasswordComponent {
         userCreation: this.user
       }
 
-      console.log(newQuestion)
       this.requestQuestionCreate(newQuestion).subscribe(
         (response: any) => this.responseQuestionCreate(response)
       )
@@ -116,7 +111,6 @@ export class SetPasswordComponent {
     )
   }
   responseQuestionCreate(response: any) {
-    console.log(response)
     if(response.code ==0){
       this.checkQuestions(this.user)
     }else if(response.code == 1){
@@ -144,7 +138,6 @@ export class SetPasswordComponent {
       idUser:this.user,
       password:this.newPassword
     }
-    console.log(passwordData)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -156,7 +149,7 @@ export class SetPasswordComponent {
   }
 
   ResponseValidatePassword(response:any){
-    if (response.code == "0") { 
+    if (response.code == "0") {
       alert(response.message)
       this.router.navigate(['']);
     } else{
@@ -183,7 +176,6 @@ export class SetPasswordComponent {
 
   ResponseCompany(response: any) {
     this.BussinessRules = response[0]
-    console.log("Se obtuvo configuracion de empresa")
   }
 
 
@@ -191,8 +183,8 @@ export class SetPasswordComponent {
     this.questionComplete = true
     this.questionCreate = false
   }
-  
-  
+
+
 
 
 }

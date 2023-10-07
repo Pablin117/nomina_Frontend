@@ -52,8 +52,8 @@ export class RoleOptionComponent {
     XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
 
     XLSX.writeFile(book, this.name);
-  } 
-  
+  }
+
   ngOnInit() {
     this.validateSession()
     this.RoleOptionCreate.idPK = {}
@@ -62,11 +62,9 @@ export class RoleOptionComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.permisos()
       this.Options()
@@ -140,7 +138,6 @@ export class RoleOptionComponent {
     if (formularioValido.reportValidity()) {
       this.RoleOptionCreate.userCreation = this.dataUser.user
 
-      console.log(this.RoleOptionCreate)
       this.RequestRoleOptionSave().subscribe(
         (response: any) => this.ResponseRoleOptionSave(response)
       )
@@ -159,15 +156,14 @@ export class RoleOptionComponent {
   }
 
   ResponseRoleOptionSave(response: any) {
-    console.log(response)
-    
+
     if (response.code == 1) {
       alert(response.message)
     } else if (response.code == 0) {
       alert(response.message)
       this.back()
     }
-    
+
   }
 
 
@@ -186,7 +182,6 @@ export class RoleOptionComponent {
     if (formularioValido.reportValidity()) {
       this.RoleOptionModify.userModification = this.dataUser.user
 
-      console.log(this.RoleOptionModify)
       this.RequestRoleOptionModify().subscribe(
         (response: any) => this.ResponseRoleOptionModify(response)
       )
@@ -205,7 +200,6 @@ export class RoleOptionComponent {
   }
 
   ResponseRoleOptionModify(response: any) {
-    console.log(response)
 
     if (response.code == 1) {
       alert(response.message)
@@ -229,7 +223,6 @@ export class RoleOptionComponent {
 
   ResponseRequestRole(response: any) {
     this.RolesData = response
-    console.log(this.RolesData)
 
     this.RequestOptions().subscribe(
       (response: any) => this.ResponseRequestOptions(response)
@@ -251,7 +244,6 @@ export class RoleOptionComponent {
 
   ResponseRequestOptions(response: any) {
     this.OptionsData = response
-    console.log(this.OptionsData)
 
     this.RequestRoleOptions().subscribe(
       (response: any) => this.ResponseRequestRoleOptions(response)
@@ -271,7 +263,6 @@ export class RoleOptionComponent {
 
   ResponseRequestRoleOptions(response: any) {
     this.RolesOptionsData = response
-    console.log(this.RolesOptionsData)
 
     this.assignNames()
   }
@@ -298,12 +289,11 @@ export class RoleOptionComponent {
 
 
   Delete(response:any){
-    console.log(response)
       this.requestDelete(response).subscribe(
         (response: any) => this.responseDelete(response)
       )
     }
-    
+
     requestDelete(response:any){
       var httpOptions = {
         headers: new HttpHeaders({
@@ -314,10 +304,10 @@ export class RoleOptionComponent {
         catchError(e => "1")
       )
     }
-    
+
     responseDelete(response:any){
       if (response.code == 0) {
-    
+
         alert(response.message)
         this.back()
         this.ngOnInit()
@@ -348,7 +338,6 @@ export class RoleOptionComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
 
       localStorage.removeItem("data")

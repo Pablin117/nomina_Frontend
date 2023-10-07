@@ -56,11 +56,9 @@ export class UserMComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.User()
       this.optionsValidate()
     } else {
@@ -358,7 +356,6 @@ export class UserMComponent {
     }
 
     requestDelete(response:any){
-    console.log(response)
         var httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'

@@ -50,11 +50,9 @@ export class RoleUserComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.roleUser()
 
@@ -89,7 +87,6 @@ export class RoleUserComponent {
 
   //banderas
   Modify(id: any) {
-    console.log("modifica")
     this.roleUserDataModify = id
     this.add = false
     this.tab = false
@@ -102,10 +99,8 @@ export class RoleUserComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -154,8 +149,7 @@ export class RoleUserComponent {
   //para eliminar
 
   Delete(response: any) {
-    console.log(response)
-    
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -223,8 +217,7 @@ export class RoleUserComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.roleUserDataCreate.userCreation = this.dataUser.user
-      console.log(this.roleUserDataCreate);
-      
+
       this.requestRolUserSave().subscribe(
         (response: any) => this.responseRolUserSave(response)
       )
@@ -252,7 +245,7 @@ export class RoleUserComponent {
   }
 
 
-  //llamar info del usaurio 
+  //llamar info del usaurio
   userService() {
     this.RequestUser().subscribe(
       (response: any) => this.ResponseUser(response)

@@ -50,11 +50,9 @@ export class StatusUserComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.statusUser()
 
@@ -88,7 +86,7 @@ export class StatusUserComponent {
   //banderas
   Modify(company: any) {
 
-    
+
     this.statusUserTemp = company
     this.add = false
     this.tab = false
@@ -101,9 +99,9 @@ export class StatusUserComponent {
     this.tab = false
     this.header = false
 
-    
+
   }
-  back() {    
+  back() {
     this.modify = false
     this.add = false
     this.tab = true
@@ -146,12 +144,12 @@ export class StatusUserComponent {
 
 Delete(response:any){
 
-  
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
   }
-  
+
   requestDelete(response:any){
     var httpOptions = {
       headers: new HttpHeaders({
@@ -162,28 +160,28 @@ Delete(response:any){
       catchError(e => "1")
     )
   }
-  
+
   responseDelete(response:any){
     if (response.code == 0) {
-  
+
       alert(response.message)
       this.back()
     } else {
       alert(response.message)
     }
   }
-  
+
 
   //modificacion
 
   modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
-    
+
       this.statusUserDataModify.idStatusUser = this.statusUserTemp.idStatusUser
       this.statusUserDataModify.userModification = this.dataUser.user
-   
-      
+
+
       this.requestStatusUserUpdate().subscribe(
         (response: any) => this.responseStatusUserUpdate(response)
       )
@@ -218,7 +216,7 @@ Delete(response:any){
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.statusUserDataCreate.userCreation = this.dataUser.user
- 
+
       this.requestStatusUserSave().subscribe(
         (response: any) => this.responseStatusUserSave(response)
       )

@@ -25,8 +25,8 @@ export class StatusEmployeeComponent {
 
   //objets
   dataUser: any = {}
-  options: any = {} 
-  statusEmployeeData: any = [] 
+  options: any = {}
+  statusEmployeeData: any = []
   statusEmployeeDataCreate: any = {}
   statusEmployeeDataModify: any = {}
 
@@ -42,11 +42,9 @@ export class StatusEmployeeComponent {
   }
 
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.statusEmployee()
       this.optionsValidate()
     } else {
@@ -75,7 +73,6 @@ export class StatusEmployeeComponent {
   }
 
   Modify(response: any) {
-    console.log("modifica")
     this.statusEmployeeDataModify = response
     this.add = false
     this.tab = false
@@ -88,11 +85,11 @@ export class StatusEmployeeComponent {
     this.add = true
     this.tab = false
     this.header = false
-    
+
   }
 
   Delete(response:any){
-    
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -134,7 +131,7 @@ export class StatusEmployeeComponent {
       (response: any) => this.responseStatusEmployee(response)
     )
   }
-  
+
   requestStatusEmployee() {
     var httpOptions = {
       headers: new HttpHeaders({
