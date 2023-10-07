@@ -6,7 +6,7 @@
   <div *ngIf="header">
     <div class="container text-center">
       <h1>Periodos para planilla</h1>
-      <button class="btn btn-primary" id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i>
+      <button class="btn btn-secondary" id="modificar" (click)="backWelcome()"><i class="fa-solid fa-arrow-left-long"></i>
         Regresar</button>&nbsp;&nbsp;
       <button class="btn btn-danger" id="modificar" (click)="revoke()"> <i class="fa-solid fa-right-from-bracket"></i>
         Salir</button>
@@ -22,20 +22,24 @@
             <th>Mes</th>
             <th>Fecha inicio</th>
             <th>Fecha Fin</th>
+            <th>Fecha de creación</th>
+            <th>Usuario de creación</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let periodoPlanilla of PayrollPeriodsData">
-            <td>{{periodoPlanilla.idPK.year}}</td>
-            <td>{{periodoPlanilla.idPK.month}}</td>
-            <td>{{periodoPlanilla.startDate |date:'dd/MM/yyyy '}}</td>
-            <td>{{periodoPlanilla.endDate |date:'dd/MM/yyyy '}}</td>
+          <tr *ngFor="let data of PayrollPeriodsData">
+            <td>{{data.idPK.year}}</td>
+            <td>{{data.idPK.month}}</td>
+            <td>{{data.startDate |date:'dd/MM/yyyy '}}</td>
+            <td>{{data.endDate |date:'dd/MM/yyyy '}}</td>
+            <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{data.userCreation}}</td>
           </tr>
         </tbody>
 
       </table>
       <div>
-        <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
+        <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
         &nbsp;
         <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>

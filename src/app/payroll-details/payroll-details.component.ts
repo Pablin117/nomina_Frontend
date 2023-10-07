@@ -65,11 +65,9 @@ export class PayrollDetailsComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.initPlanilla()
 
@@ -93,7 +91,6 @@ export class PayrollDetailsComponent {
     permisos.forEach((item: any) => {
       this.btnAdd = item.up == 1 ? true : false
       this.btnUpdate = item.update == 1 ? true : false
-
       this.print = item.print == 1 ? true : false
       this.exporte = item.export == 1 ? true : false
     })
@@ -101,27 +98,50 @@ export class PayrollDetailsComponent {
 
   //banderas
   Add() {
-    this.modify = false
-    this.add = true
-    this.tab = false
-
-    console.log("add")
+    this.router.navigateByUrl("/payroll-header")
   }
 
-  Modify(id: any) {
-    console.log("modifica")
-    this.personDataModify = id
-    this.tab = false
-    this.modify = true
-
-
+  back(){
+    const    tiempoEspera = 1000;
+    setTimeout(  this.backWelcome, tiempoEspera);
   }
-  back() {
-    this.router.navigateByUrl("/payroll")
-  }
+
   backWelcome() {
-    this.router.navigateByUrl("/payroll")
+    console.log("borra");
+    localStorage.setItem("deleteDate",JSON.stringify(this.datePayroll))  
+    this.deletePayroll()
+   
+    this.router.navigateByUrl("/home")
   }
+
+
+
+  //borrar planillas
+
+  deletePayroll() {
+    this.datePayroll = localStorage.getItem("deleteDate")
+
+    if (this.datePayroll != null) {
+
+      this.datePayroll = JSON.parse(this.datePayroll)
+      let yearN: number = this.datePayroll.year
+      let monthN: number = this.datePayroll.month
+      this.requesteDeletePayroll(yearN, monthN).subscribe(
+        (response: any) => this.responseDeletePayroll(response)
+      )
+    }
+
+  }
+
+  requesteDeletePayroll(year: any, month: any) {
+    return this.http.delete<any>(this.url + "/deletePayroll/" + year + "/" + month).pipe(
+      catchError(e => "1")
+    )
+  }
+  responseDeletePayroll(response: any) {
+    localStorage.removeItem("deleteDate")
+  }
+
 
   //cierre de sesion
   revoke() {
@@ -153,17 +173,13 @@ export class PayrollDetailsComponent {
 
   //agrega
   initPlanilla() {
-
     this.datePayroll = localStorage.getItem("date")
-
     if(this.datePayroll != null){
       this.datePayroll = JSON.parse(this.datePayroll)
-      console.log(this.datePayroll.year);
       
       this.generatePayroll(this.datePayroll.year, this.datePayroll.month)
     }
    
-
   }
 
 
@@ -184,8 +200,7 @@ export class PayrollDetailsComponent {
     )
   }
   responsePlanilla(response: any) {
-    console.log(response);
-    
+
     this.payrollData = response
     this.showSpinner = false
     this.tab = true
@@ -194,40 +209,6 @@ export class PayrollDetailsComponent {
     this.pageSize = 10
 
   }
-
-
-
-
-  //modifica
-  modForm() {
-    let formularioValido: any = document.getElementById("modForm");
-    if (formularioValido.reportValidity()) {
-      this.paryrollPeriodDataModify.userModification = this.dataUser.user
-      this.RequestPayrollPeriodSaveM().subscribe(
-        (response: any) => this.ResponsePayrollPeriodSaveM(response)
-      )
-
-    }
-  }
-  RequestPayrollPeriodSaveM() {
-    console.log("se agrega")
-
-    return this.http.put<any>(this.url + "/updatePayrollPeriod", this.paryrollPeriodDataModify).pipe(
-      catchError(e => "1")
-    )
-  }
-  ResponsePayrollPeriodSaveM(response: any) {
-    if (response.code == 999) {
-      this.revoke()
-    } else if (response.code == 0) {
-      alert(response.message)
-      this.back()
-    } else {
-      alert(response.message)
-    }
-  }
-
-
 
 
 
@@ -246,8 +227,6 @@ export class PayrollDetailsComponent {
   }
   responsePersons(response: any) {
     this.employeeData = response
-    console.log(response);
-    
     this.statusEmployeeService()
   }
 

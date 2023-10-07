@@ -63,6 +63,9 @@
       <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
 
       <div>
+        <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
+          class="fa-regular fa-square-plus"></i> Confirmar</button>
+      &nbsp;
         <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
           Exportar</button>
         &nbsp;

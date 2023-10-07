@@ -14,7 +14,7 @@ export class PayrollComponent {
 
   ngOnInit() {
     this.validateSession()
-
+    this.PayrollPeriod()
   }
 
 
@@ -52,6 +52,7 @@ export class PayrollComponent {
   PayrollPeriodsData: any = []
   paryrollPeriodDataCreate: any = {}
   paryrollPeriodDataModify: any = {}
+  datePayroll: any = {}
   periodo: string = ""
 
 
@@ -65,14 +66,12 @@ export class PayrollComponent {
       this.dataUser = JSON.parse(this.dataUser)
       console.log("activo")
       this.optionsValidate()
-      this.PayrollPeriod()
-
     } else {
       this.router.navigateByUrl("/")
     }
   }
 
-  
+
   //bandera de botones
   optionsValidate() {
     this.options = localStorage.getItem("options");
@@ -115,7 +114,7 @@ export class PayrollComponent {
   }
   back() {
     this.modify = false
-    this.tab = false
+    this.tab = true
 
     this.header = true
     this.add = false
@@ -126,6 +125,7 @@ export class PayrollComponent {
   backWelcome() {
     this.router.navigateByUrl("/home")
   }
+
 
   //cierre de sesion
   revoke() {
@@ -164,8 +164,8 @@ export class PayrollComponent {
       const year = this.periodo.substring(0, 4);
       const month = this.periodo.substring(5, 7);
 
-      const fecha =  {
-        year:year,
+      const fecha = {
+        year: year,
         month: month
       }
 
@@ -173,10 +173,6 @@ export class PayrollComponent {
       this.router.navigateByUrl("/payroll-details")
     }
   }
-
-
-
-
 
 
   //obtine periodos
@@ -195,15 +191,5 @@ export class PayrollComponent {
   ResponsePayrollPeriod(response: any) {
     this.PayrollPeriodsData = response
   }
-
-
-
-
-
-
-
-
-
-
 
 }
