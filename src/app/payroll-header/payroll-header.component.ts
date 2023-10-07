@@ -47,7 +47,7 @@ this.validateSession()
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
+
   }
 
   backWelcome() {
@@ -57,11 +57,11 @@ this.validateSession()
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
+  
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
+
       this.optionsValidate()
       this.PayrollHeader()
     } else {
@@ -133,7 +133,7 @@ this.validateSession()
 
   ResponsePayrollHeader(response: any) {
     this.PayrollHeaderData = response
-    console.log(response);
+
     
   }
 

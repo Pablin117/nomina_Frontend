@@ -22,6 +22,7 @@
               <th>Mes</th>
               <th>Total de ingresos</th>
               <th>Total de descuentos</th>
+              <th>Salario Neto total</th>
               <th>Fecha y hora de proceso</th>
               <th>Usuario de creación</th>
               <th>Fecha de creación</th>
@@ -31,11 +32,12 @@
             <tr *ngFor="let data of PayrollHeaderData">
               <td>{{data.idPK.year}}</td>
               <td>{{data.idPK.month}}</td>
-              <td>{{data.salary | currency: 'Q '}}</td>
+              <td>{{data.totalIncome | currency: 'Q '}}</td>
               <td>{{data.totalDiscounts | currency: 'Q '}}</td>
+              <td>{{data.salary | currency: 'Q '}}</td>
               <td>{{data.dateProcess |date:'dd/MM/yyyy HH:mm:ss'}}</td>
               <td>{{data.userCreation}}</td>
-              <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
+              <td>{{data.creationDate |date:'dd/MM/yyyy '}}</td>
             </tr>
           </tbody>
   

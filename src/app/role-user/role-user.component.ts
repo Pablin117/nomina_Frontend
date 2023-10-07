@@ -223,7 +223,8 @@ export class RoleUserComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.roleUserDataCreate.userCreation = this.dataUser.user
-
+      console.log(this.roleUserDataCreate);
+      
       this.requestRolUserSave().subscribe(
         (response: any) => this.responseRolUserSave(response)
       )
