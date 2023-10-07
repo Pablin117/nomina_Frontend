@@ -47,11 +47,9 @@ export class RoleComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.rolData()
     } else {
@@ -98,7 +96,6 @@ export class RoleComponent {
   }
   Responserol(response: any) {
     this.roleData = response
-    console.log(response)
     this.tamColeccion = response.length
     this.pageSize = 10
 
@@ -109,7 +106,6 @@ export class RoleComponent {
     let formularioValido: any = document.getElementById("modForm")
 
     this.rolDataModify.userModification = this.dataUser.user
-    console.log(this.rolDataModify)
     this.RequestrolUpdate().subscribe(
       (response: any) => this.ResponserolUpdate(response)
     )
@@ -162,9 +158,9 @@ export class RoleComponent {
   }
 
   responseDelete(response: any) {
-   
+
     if(response.code == 999 ){
-   
+
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
@@ -174,7 +170,7 @@ export class RoleComponent {
     }
   }
 
-  //formulario para agregar 
+  //formulario para agregar
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");

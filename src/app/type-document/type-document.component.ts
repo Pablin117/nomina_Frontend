@@ -71,14 +71,12 @@ export class TypeDocumentComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.TypeDocument()
       this.optionsValidate()
-      
+
     } else {
       this.router.navigateByUrl("/")
     }
@@ -105,13 +103,11 @@ export class TypeDocumentComponent {
 
   ResponseTypeDocument(response: any) {
     this.TypeDocumentsData = response
-    console.log(this.TypeDocumentsData);
     this.tamColeccion = response.length
     this.pageSize = 10
   }
   //banderas
   Modify(modulo: any) {
-    console.log("modifica")
     this.typeDocumentDataModify = modulo
     this.add = false
     this.tab = false
@@ -128,12 +124,10 @@ export class TypeDocumentComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
 
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -155,7 +149,6 @@ export class TypeDocumentComponent {
     }
   }
   RequestModuloSave() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -171,7 +164,6 @@ export class TypeDocumentComponent {
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -193,7 +185,6 @@ export class TypeDocumentComponent {
     }
   }
   RequestModuloSaveM() {
-    console.log("se agrega")
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -208,7 +199,6 @@ export class TypeDocumentComponent {
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
-      console.log("si")
       this.back()
 
     } else {
@@ -248,8 +238,7 @@ export class TypeDocumentComponent {
 
   //finaliza la sesion
   revoke() {
-    console.log("salida")
-    console.log(this.dataUser.session)
+
     this.RequestRevoke().subscribe(
       (response: any) => this.ResponseRevoke(response)
     )
@@ -271,7 +260,6 @@ export class TypeDocumentComponent {
 
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      console.log(response)
       alert(response.message)
 
       localStorage.removeItem("data")

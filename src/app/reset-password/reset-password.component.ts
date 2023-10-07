@@ -29,7 +29,6 @@ export class ResetPasswordComponent {
 
   validateSession(){
     if(this.dataUser != null){
-      console.log("activo")
       this.CompanyData()
     }else{
       this.router.navigateByUrl("/")
@@ -55,8 +54,6 @@ export class ResetPasswordComponent {
 
   ResponseCompany(response:any){
     this.BussinessRules = response[0]
-    console.log(this.BussinessRules)
-    console.log("Se obtuvo configuracion de empresa")
   }
 
   resetPassword(){
@@ -78,7 +75,6 @@ export class ResetPasswordComponent {
 
   //consumer service login
   resetPasswordService() {
-    console.log(this.data)
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -92,7 +88,6 @@ export class ResetPasswordComponent {
   //response service login
   responseResetPasswordService(response: any) {
 
-    console.log(response)
 
     if (response != null) {
       //validate code
@@ -109,7 +104,6 @@ export class ResetPasswordComponent {
       }
       // //error in consumption
       else if (response == null || response == "e") {
-        console.log("No hay comunicación con el servidor!!")
 
       }
     }
