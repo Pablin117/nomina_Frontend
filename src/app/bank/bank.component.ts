@@ -25,8 +25,8 @@ export class BankComponent {
 
   //objets
   dataUser: any = {}
-  options: any = {} 
-  bankData: any = [] 
+  options: any = {}
+  bankData: any = []
   bankDataCreate: any = {}
   bankDataModify: any = {}
 
@@ -42,11 +42,9 @@ export class BankComponent {
   }
 
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.bank()
       this.optionsValidate()
     } else {
@@ -75,7 +73,6 @@ export class BankComponent {
   }
 
   Modify(response: any) {
-    console.log("modifica")
     this.bankDataModify = response
     this.add = false
     this.tab = false
@@ -88,11 +85,10 @@ export class BankComponent {
     this.add = true
     this.tab = false
     this.header = false
-    
+
   }
 
   Delete(response:any){
-    console.log(response)
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )

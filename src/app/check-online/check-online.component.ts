@@ -91,8 +91,8 @@ export class CheckOnlineComponent {
   //para eliminar
 
   Delete(response: any) {
-  
-  
+
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -107,8 +107,7 @@ export class CheckOnlineComponent {
   }
 
   responseDelete(response: any) {
-    console.log(response);
-    
+
     alert("se desconecata")
     this.router.navigateByUrl("/")
   }

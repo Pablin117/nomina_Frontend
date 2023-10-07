@@ -50,11 +50,9 @@ export class AbsenceComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.absence()
 
@@ -89,7 +87,6 @@ export class AbsenceComponent {
 
   //banderas
   Modify(id: any) {
-    console.log("modifica")
     this.absenceDataModify = id
     this.add = false
     this.tab = false
@@ -102,10 +99,8 @@ export class AbsenceComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -151,7 +146,7 @@ export class AbsenceComponent {
       this.requestEmployee().subscribe(
         (response: any) => this.responseEmployee(response)
       )
-  
+
     }
     requestEmployee() {
       var httpOptions = {
@@ -166,7 +161,7 @@ export class AbsenceComponent {
     responseEmployee(response: any) {
       this.employeeData = response
     }
-  
+
     getEmployeeName(idPerson: number): string {
       for (let x = 0; x < this.employeeData.length; x++) {
         if (this.employeeData[x].idPerson == idPerson) {
@@ -176,11 +171,11 @@ export class AbsenceComponent {
       return '';
     }
 
-    
+
   //para eliminar
 
   Delete(response: any) {
-    
+
     this.requestDelete(response).subscribe(
       (response: any) => this.responseDelete(response)
     )
@@ -199,7 +194,7 @@ export class AbsenceComponent {
 
   responseDelete(response: any) {
     if (response.code == 999) {
-    
+
       this.revoke()
     } else if (response.code == 0) {
       alert(response.message)
@@ -251,8 +246,7 @@ export class AbsenceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.absenceDataCreate.userCreation = this.dataUser.user
-      console.log(this.absenceDataCreate);
-      
+
       this.requestAbsenceSave().subscribe(
         (response: any) => this.responseAbsenceSave(response)
       )
@@ -269,7 +263,7 @@ export class AbsenceComponent {
       catchError(e => "1")
     )
 
-   
+
   }
   responseAbsenceSave(response: any) {
     if (response.code == 999) {

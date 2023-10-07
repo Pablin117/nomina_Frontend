@@ -18,8 +18,8 @@ export class EmployeeComponent {
 
   ngOnInit() {
     this.validateSession()
-   
-    
+
+
   }
 
 
@@ -58,8 +58,8 @@ export class EmployeeComponent {
   page = 1;
   pageSize = 0
   tamColeccion :number = 0
-  
-  
+
+
 
   name = 'employee.xlsx';
   exportToExcel(): void {
@@ -74,11 +74,9 @@ export class EmployeeComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.employeeService()
     } else {
@@ -114,7 +112,6 @@ export class EmployeeComponent {
     if (formularioValido.reportValidity()) {
       this.employeeDataModify.userModification = this.dataUser.user
 
-      console.log(this.employeeDataModify);
 
       this.RequestemployeeUpdate().subscribe(
         (response: any) => this.ResponseemployeeUpdate(response)
@@ -154,7 +151,6 @@ export class EmployeeComponent {
     )
   }
   responseDelete(response: any) {
-    console.log(response);
 
     if (response.code == 999) {
 
@@ -191,7 +187,6 @@ export class EmployeeComponent {
     }
 
     this.namePerson = this.getPersonName(response.idPerson)
-    console.log(this.namePerson)
   }
   back() {
     this.tab = true
@@ -251,8 +246,8 @@ export class EmployeeComponent {
     this.employeeData = response
     this.tamColeccion = response.length
     this.pageSize = 10
-  
-    
+
+
     this.locationService()
   }
 

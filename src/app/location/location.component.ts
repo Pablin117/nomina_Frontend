@@ -52,11 +52,9 @@ export class LocationComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.CompanyService()
       this.locationService()
       this.optionsValidate()
@@ -111,7 +109,7 @@ export class LocationComponent {
 
   responseDelete(response: any) {
     if (response.code == 999) {
-    
+
       this.revoke()
     } else if (response.code == 0) {
       alert(response.message)
@@ -202,7 +200,6 @@ export class LocationComponent {
   }
 
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true
@@ -239,7 +236,7 @@ export class LocationComponent {
 
   ResponseLocationSave(response: any) {
     if (response.code == 999) {
-  
+
       this.revoke()
     } else if (response.code == 0) {
       alert(response.message)
@@ -266,7 +263,6 @@ export class LocationComponent {
 
 
   RequestLocationModify() {
-    console.log("se agrega")
 
     var httpOptions = {
       headers: new HttpHeaders({
@@ -280,7 +276,7 @@ export class LocationComponent {
 
   ResponseLocationModify(response: any) {
     if (response.code == 999) {
- 
+
       this.revoke()
     } else if (response.code == 0) {
       alert(response.message)

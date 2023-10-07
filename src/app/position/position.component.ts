@@ -49,11 +49,9 @@ export class PositionComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.position()
 
@@ -88,7 +86,6 @@ export class PositionComponent {
 
   //banderas
   Modify(id: any) {
-    console.log("modifica")
     this.positionDataModify = id
     this.add = false
     this.tab = false
@@ -101,10 +98,8 @@ export class PositionComponent {
     this.add = true
     this.tab = false
     this.header = false
-    console.log("add")
   }
   back() {
-    console.log("back")
     this.modify = false
     this.add = false
     this.tab = true

@@ -60,11 +60,9 @@ export class PayrollComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
     } else {
       this.router.navigateByUrl("/")
@@ -100,11 +98,9 @@ export class PayrollComponent {
     this.header = false
 
 
-    console.log("add")
   }
 
   Modify(id: any) {
-    console.log("modifica")
     this.personDataModify = id
 
     this.tab = false

@@ -38,11 +38,9 @@ export class LogComponent {
 
   //valida la sesion
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.logService();
     } else {
       this.router.navigateByUrl("/")

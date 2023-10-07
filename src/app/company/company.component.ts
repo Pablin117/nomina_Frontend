@@ -59,11 +59,9 @@ export class CompanyComponent {
 
   //valida sesiones
   validateSession() {
-    console.log("valida Sesion")
     this.dataUser = localStorage.getItem("data")
     if (this.dataUser != null) {
       this.dataUser = JSON.parse(this.dataUser)
-      console.log("activo")
       this.optionsValidate()
       this.CompanyData()
     } else {
@@ -120,7 +118,6 @@ export class CompanyComponent {
     let formularioValido: any = document.getElementById("modForm")
 
     this.companyDataModify.userModification = this.dataUser.user
-    console.log(this.companyDataModify)
     this.RequestCompanyUpdate().subscribe(
       (response: any) => this.ResponseCompanyUpdate(response)
     )
@@ -173,9 +170,9 @@ export class CompanyComponent {
   }
 
   responseDelete(response: any) {
-   
+
     if(response.code == 999 ){
-   
+
       this.revoke()
     }else if (response.code == 0) {
       alert(response.message)
@@ -185,7 +182,7 @@ export class CompanyComponent {
     }
   }
 
-  //formulario para agregar 
+  //formulario para agregar
 
   addForm() {
     let formularioValido: any = document.getElementById("addForm");
