@@ -32,7 +32,7 @@ export class AbsenceComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  pageUrl: string = "role-user"
+  pageUrl: string = "absence"
   url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
@@ -211,7 +211,7 @@ export class AbsenceComponent {
 
   //modificacion
 
-  modForm() {
+  /* modForm() {
     let formularioValido: any = document.getElementById("modForm");
     if (formularioValido.reportValidity()) {
       this.absenceDataModify.userModification = this.dataUser.user
@@ -242,7 +242,7 @@ export class AbsenceComponent {
     } else {
       alert(response.message)
     }
-  }
+  } */
 
 
   //agregar
@@ -251,6 +251,8 @@ export class AbsenceComponent {
     let formularioValido: any = document.getElementById("addForm");
     if (formularioValido.reportValidity()) {
       this.absenceDataCreate.userCreation = this.dataUser.user
+      console.log(this.absenceDataCreate);
+      
       this.requestAbsenceSave().subscribe(
         (response: any) => this.responseAbsenceSave(response)
       )

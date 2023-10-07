@@ -25,10 +25,7 @@
             <th>Fecha procesado</th>
             <th>Fecha de creacion</th>
             <th>Usuario de creacion</th>
-            <th>Fecha de modificacion</th>
-            <th>Usuario de modificacion</th>
             <th>Opciones</th>
-            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
@@ -41,18 +38,6 @@
             <td>{{data.processingDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td>{{data.createDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td>{{data.userCreation}}</td>
-            <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-            <td>{{data.userModification}}</td>
-            <td>
-              <div>
-                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar" (click)="Modify(data)"> <i
-                    class="fa-solid fa-pen-to-square"></i>
-                  &nbsp;Modificar</button>
-                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-
-
-              </div>
-            </td>
             <td>
               <div>
                 <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)"> <i
@@ -81,7 +66,7 @@
     </div>
   </div>
 
-    <div class="container text-left" *ngIf="modify">
+    <!-- <div class="container text-left" *ngIf="modify">
         <form (ngSubmit)="modForm()" id="modForm">
             <h1>Modificación</h1>
             <div class="input-group mb-4">
@@ -107,7 +92,7 @@
                 <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
             </div>
         </form>
-    </div>
+    </div> -->
 
 
   <div class="container text-left" *ngIf="add">
