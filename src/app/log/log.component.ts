@@ -71,7 +71,7 @@ export class LogComponent {
   ResponseLog(response: any) {
     this.logData = response;
     this.tamColeccion = response.length
-    this.pageSize = 10
+    this.pageSize = 5
   }
 
 
