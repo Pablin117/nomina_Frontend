@@ -12,7 +12,7 @@ color: white;
 image-orientation: flip;
 background-repeat: no-repeat;
 background-size: cover;
-background-image: url(https://img.freepik.com/vector-gratis/fondo-lineas-dinamicas-estilo-papel_23-2149008629.jpg?w=1380&t=st=1696453773~exp=1696454373~hmac=e9d700217d8344c407c4b576988b58ba39071623a3c76ec09936e9566d39af31);
+  background-image: url('../Images/fondo2.jpeg');
 width: 100%;
 height: 100%;
 }
