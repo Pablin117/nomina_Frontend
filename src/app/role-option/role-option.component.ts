@@ -224,8 +224,7 @@ export class RoleOptionComponent {
     this.RequestOptions().subscribe(
       (response: any) => this.ResponseRequestOptions(response)
     )
-    this.tamColeccion = response.length
-    this.pageSize = 10
+   
   }
 
   RequestOptions() {
@@ -260,7 +259,8 @@ export class RoleOptionComponent {
 
   ResponseRequestRoleOptions(response: any) {
     this.RolesOptionsData = response
-
+    this.tamColeccion = response.length
+    this.pageSize = 10
     this.assignNames()
   }
 

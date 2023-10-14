@@ -19,6 +19,17 @@ export class LocationComponent {
 
   }
 
+  name = 'reporte.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('table-consult');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
+  }
+
   //variables
 
   //objecto
@@ -61,16 +72,7 @@ export class LocationComponent {
     }
   }
 
-  name = 'reporte.xlsx';
-  exportToExcel(): void {
-    let element = document.getElementById('table-consult');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
-  }
 
 
   //obtiene botones con permisos

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="fondo">
 
     <div class="container text-center">
         <h1>Flujo de Status del Empleado</h1>
@@ -14,7 +14,7 @@
 
     <div *ngIf="tab">
         <div>
-            <table class="table table-hover">
+            <table id="table-consult">
                 <thead>
                     <tr>
                         <th>Estado Actual</th>
@@ -22,10 +22,7 @@
                         <th>Nombre</th>
                         <th>Fecha de creación</th>
                         <th>Usuario de creación</th>
-                        <!-- <th>Fecha de modificación</th>
-                        <th>Usuario de modificación</th> -->
                         <th>Opciones</th>
-                        <!-- <th>&nbsp;</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -35,16 +32,6 @@
                         <td>{{data.nameEvent}}</td>
                         <td>{{data.creationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
                         <td>{{data.userCreation}}</td>
-                        <!-- <td>{{data.modificationDate |date:'dd/MM/yyyy HH:mm:ss'}}</td>
-                        <td>{{data.userModification}}</td> -->
-                        <!-- <td>
-                            <div>
-                                <button *ngIf="btnUpdate" class="btn btn-secondary" id="modificar"
-                                    (click)="Modify(data)"> <i class="fa-solid fa-pen-to-square"></i>
-                                    Modificar</button>
-                                <button *ngIf="!btnUpdate" class="btn btn-danger btn-sm" disabled>No Disponible</button>
-                            </div>
-                        </td> -->
                         <td>
                             <div>
                                 <button *ngIf="btnDelete" class="btn btn-danger" id="delete" (click)="Delete(data)">
@@ -61,7 +48,7 @@
                 <button *ngIf="btnAdd" class="btn btn-secondary" id="agregar" (click)="Add()"><i
                         class="fa-regular fa-square-plus"></i> Agregar</button>
                 &nbsp;
-                <button *ngIf="exporte" class="btn btn-primary" id="exportar"><i class="fa-solid fa-download"></i>
+                <button *ngIf="exporte" class="btn btn-primary"  (click)="exportToExcel()" id="exportar"><i class="fa-solid fa-download"></i>
                     Exportar</button>
                 &nbsp;
                 <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i class="fa-solid fa-print"></i>

@@ -182,11 +182,11 @@ export class HomeComponent {
   
 
   revokeOptions(){
-    this.options = localStorage.getItem("options");
-    
+    this.options = localStorage.getItem("options");    
     this.options = JSON.parse(this.options)
-    console.log(this.options)
+
     if (this.options.length==0){
+      alert("No tienes asignada opciones")
       this.revoke()
     }
   }
