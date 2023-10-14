@@ -46,7 +46,8 @@ export class CompanyComponent {
   pageSize = 0
   tamColeccion: number = 0
 
-  name = 'empresasReport.xlsx';
+
+  name = 'reporte.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('table-consult');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

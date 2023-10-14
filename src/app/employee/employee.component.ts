@@ -61,7 +61,7 @@ export class EmployeeComponent {
 
 
 
-  name = 'employee.xlsx';
+  name = 'reporte.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('table-consult');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);

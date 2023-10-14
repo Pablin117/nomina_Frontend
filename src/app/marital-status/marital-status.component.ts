@@ -46,7 +46,8 @@ export class MaritalStatusComponent {
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
-  name = 'maritalStatus.xlsx';
+  
+  name = 'reporte.xlsx';
   exportToExcel(): void {
     let element = document.getElementById('table-consult');
     const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
