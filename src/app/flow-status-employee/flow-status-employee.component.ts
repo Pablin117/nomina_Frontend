@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-flow-status-employee',
   templateUrl: './flow-status-employee.component.html',
   styleUrls: ['./flow-status-employee.component.css']
 })
 export class FlowStatusEmployeeComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   //variables
   //boolean
@@ -33,7 +34,6 @@ export class FlowStatusEmployeeComponent {
   statusEmployeeDataModify: any = {}
 
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "bank"
   page = 1;
   pageSize = 0
@@ -116,7 +116,7 @@ export class FlowStatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteFlowStatusEmployee/"+response.idPK.idStatusCurrent+"/"+response.idPK.idStatusNew, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteFlowStatusEmployee/"+response.idPK.idStatusCurrent+"/"+response.idPK.idStatusNew, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -168,7 +168,7 @@ export class FlowStatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/flowStatusEmployee", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/flowStatusEmployee", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -190,7 +190,7 @@ export class FlowStatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/statusEmployee", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/statusEmployee", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -227,7 +227,7 @@ export class FlowStatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createFlowStatusEmployee", this.flowStatusEmployeeDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createFlowStatusEmployee", this.flowStatusEmployeeDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -261,7 +261,7 @@ export class FlowStatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusEmployee", this.statusEmployeeDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateStatusEmployee", this.statusEmployeeDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -300,7 +300,7 @@ export class FlowStatusEmployeeComponent {
           'Content-Type': 'application/json'
         })
       }
-      return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
         catchError(e => "1")
       )
     }

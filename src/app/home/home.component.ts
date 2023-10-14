@@ -44,7 +44,7 @@ export class HomeComponent {
       this.dataUser = JSON.parse(this.dataUser)
 
 
-      this.revokeOptions()
+      
       this.recoverUser();
 
     } else {
@@ -141,9 +141,9 @@ export class HomeComponent {
       }
       localStorage.setItem("options", JSON.stringify(opciones));
       this.modulos = modulos
-
+      
     }
-
+    this.revokeOptions()
   }
   //DIBOY END
 
@@ -183,11 +183,14 @@ export class HomeComponent {
 
   revokeOptions(){
     this.options = localStorage.getItem("options");
+    
     this.options = JSON.parse(this.options)
-    if (this.options==null){
+    console.log(this.options)
+    if (this.options.length==0){
       this.revoke()
     }
   }
+  
 
 
 }

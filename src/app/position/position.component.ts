@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-position',
@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./position.component.css']
 })
 export class PositionComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -33,7 +33,6 @@ export class PositionComponent {
   exporte: boolean = false
   //url
   pageUrl: string = "position"
-  url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -140,7 +139,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/positions", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/positions", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -165,7 +164,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/department", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/department", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -201,7 +200,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deletePosition/" + response.idPosition + "/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deletePosition/" + response.idPosition + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -238,7 +237,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updatePosition/" + this.positionDataModify.idPosition, this.positionDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updatePosition/" + this.positionDataModify.idPosition, this.positionDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -273,7 +272,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createPosition", this.positionDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createPosition", this.positionDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -303,7 +302,7 @@ export class PositionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

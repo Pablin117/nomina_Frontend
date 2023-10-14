@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-status-employee',
   templateUrl: './status-employee.component.html',
   styleUrls: ['./status-employee.component.css']
 })
 export class StatusEmployeeComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   //variables
   //boolean
@@ -31,7 +33,6 @@ export class StatusEmployeeComponent {
   statusEmployeeDataModify: any = {}
 
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "bank"
   page = 1;
   pageSize = 0
@@ -112,7 +113,7 @@ export class StatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteStatusEmployee/"+response.idStatusEmployee+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteStatusEmployee/"+response.idStatusEmployee+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -149,7 +150,7 @@ export class StatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/statusEmployee", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/statusEmployee", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -177,7 +178,7 @@ export class StatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createStatusEmployee", this.statusEmployeeDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createStatusEmployee", this.statusEmployeeDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -211,7 +212,7 @@ export class StatusEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusEmployee", this.statusEmployeeDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateStatusEmployee", this.statusEmployeeDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -250,7 +251,7 @@ export class StatusEmployeeComponent {
           'Content-Type': 'application/json'
         })
       }
-      return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+      return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
         catchError(e => "1")
       )
     }

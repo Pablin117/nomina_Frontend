@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-marital-status',
@@ -11,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class MaritalStatusComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -40,8 +42,7 @@ export class MaritalStatusComponent {
 
 
 
-  // pagina y url
-  url: String = "http://localhost:4042/v1"
+  // pagina 
   pageUrl: String = "marital-status"
   page = 1;
   pageSize = 0
@@ -104,7 +105,7 @@ export class MaritalStatusComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/maritalStatus", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/maritalStatus", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -131,7 +132,7 @@ export class MaritalStatusComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateMaritalStatus/" + this.maritalStatusDataModify.idMaritalStatus, this.maritalStatusDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateMaritalStatus/" + this.maritalStatusDataModify.idMaritalStatus, this.maritalStatusDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -162,7 +163,7 @@ export class MaritalStatusComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteMaritalStatus/" + response.idMaritalStatus + "/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteMaritalStatus/" + response.idMaritalStatus + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -198,7 +199,7 @@ export class MaritalStatusComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createMaritalStatus", this.maritalStatusDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createMaritalStatus", this.maritalStatusDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -264,7 +265,7 @@ export class MaritalStatusComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

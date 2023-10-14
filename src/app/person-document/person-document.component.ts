@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-person-document',
@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 export class PersonDocumentComponent {
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -44,7 +44,6 @@ export class PersonDocumentComponent {
 
 
   // pagina y url
-  url: String = "http://localhost:4042/v1"
   pageUrl: String = "personal-document"
   page = 1;
   pageSize = 0
@@ -111,7 +110,7 @@ export class PersonDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/personDocument", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/personDocument", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -144,7 +143,7 @@ export class PersonDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updatepersonDocument/" + this.personDocumentModify.idpersonDocument, this.personDocumentModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updatepersonDocument/" + this.personDocumentModify.idpersonDocument, this.personDocumentModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -175,7 +174,7 @@ export class PersonDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deletepersonDocument/" + response.idpersonDocument + "/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deletepersonDocument/" + response.idpersonDocument + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -211,7 +210,7 @@ export class PersonDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createpersonDocument", this.personDocumentCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createpersonDocument", this.personDocumentCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -276,7 +275,7 @@ export class PersonDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -328,7 +327,7 @@ export class PersonDocumentComponent {
 
   RequestTypeDocument() {
 
-    return this.http.get<any>(this.url + "/typeDocument").pipe(
+    return this.http.get<any>(this.url.urlData + "/typeDocument").pipe(
       catchError(e => "1")
     )
   }
@@ -347,7 +346,7 @@ export class PersonDocumentComponent {
   }
 
   RequestPerson() {
-    return this.http.get<any>(this.url + "/persons").pipe(
+    return this.http.get<any>(this.url.urlData + "/persons").pipe(
       catchError(e => "1")
     )
   }

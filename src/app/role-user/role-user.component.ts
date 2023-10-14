@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-role-user',
@@ -10,7 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./role-user.component.css']
 })
 export class RoleUserComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -33,7 +34,6 @@ export class RoleUserComponent {
   exporte: boolean = false
   //url
   pageUrl: string = "role-user"
-  url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -138,7 +138,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/userRole", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/userRole", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -173,7 +173,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteUserRole/" + response.idUser, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteUserRole/" + response.idUser, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -208,7 +208,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateUserRole/" + this.roleUserDataModify.idUser, this.roleUserDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateUserRole/" + this.roleUserDataModify.idUser, this.roleUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -242,7 +242,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createUserRole", this.roleUserDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createUserRole", this.roleUserDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -270,7 +270,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/user", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/user", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -296,7 +296,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/role", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/role", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -320,7 +320,7 @@ export class RoleUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

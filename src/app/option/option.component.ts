@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-option',
   templateUrl: './option.component.html',
@@ -11,7 +12,7 @@ import * as XLSX from 'xlsx';
 })
 export class OptionComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -32,7 +33,6 @@ export class OptionComponent {
   exporte: boolean = false
 
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "option"
   page = 1;
   pageSize = 0
@@ -122,7 +122,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/option", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/option", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -145,7 +145,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/menu", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/menu", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -167,7 +167,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -234,7 +234,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createOption", this.optionDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createOption", this.optionDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -272,7 +272,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateOption/"+this.optionDataModify.idOption, this.optionDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateOption/"+this.optionDataModify.idOption, this.optionDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -302,7 +302,7 @@ export class OptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteOption/" + response.idOption, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteOption/" + response.idOption, httpOptions).pipe(
       catchError(e => "1")
     )
   }

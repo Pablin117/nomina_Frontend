@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-module-maintenance',
   templateUrl: './module-maintenance.component.html',
@@ -11,7 +13,7 @@ import * as XLSX from 'xlsx';
 export class ModuleMaintenanceComponent {
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
 
@@ -40,8 +42,6 @@ export class ModuleMaintenanceComponent {
   btnUpdate: boolean = false
   print: boolean = false
   exporte: boolean = false
-  //url
-  url: String = "http://localhost:4042/v1"
   pageUrl: string = "module"
   page = 1;
   pageSize = 0
@@ -109,7 +109,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/module", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/module", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -167,7 +167,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createModulo", this.moduloDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -203,7 +203,7 @@ export class ModuleMaintenanceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/modifyModule/" + this.moduloDataModify.idModule, this.moduloDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -233,7 +233,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteModule/"+response.idModule+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -265,7 +265,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

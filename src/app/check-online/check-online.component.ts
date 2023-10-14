@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-check-online',
@@ -10,7 +11,7 @@ import { Router } from "@angular/router";
 })
 export class CheckOnlineComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -30,8 +31,6 @@ export class CheckOnlineComponent {
   stateUser: any = {}
 
   //url
-  url: String = "http://localhost:4042/v1"
-  url2: String = "http://localhost:4042/v2"
 
   page = 1;
   pageSize = 0
@@ -52,7 +51,7 @@ export class CheckOnlineComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/user2", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/user2", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -74,7 +73,7 @@ export class CheckOnlineComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/statusUser", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/statusUser", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -101,7 +100,7 @@ export class CheckOnlineComponent {
   requestDelete(response: any) {
     let root = "root"
     let pass = "admin"
-    return this.http.get<any>(this.url2+ "/" + response.idUser + "/" + root +"/" + pass ).pipe(
+    return this.http.get<any>(this.url.urlData2+ "/" + response.idUser + "/" + root +"/" + pass ).pipe(
       catchError(e => "1")
     )
   }

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-company',
@@ -12,7 +12,7 @@ import * as XLSX from 'xlsx';
 })
 export class CompanyComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -40,7 +40,6 @@ export class CompanyComponent {
 
 
   // pagina y url
-  url: String = "http://localhost:4042/v1"
   pageUrl: String = "company"
   page = 1;
   pageSize = 0
@@ -103,7 +102,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bussinesRules", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/bussinesRules", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -134,7 +133,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateCompany/" + this.companyDataModify.idCompany, this.companyDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateCompany/" + this.companyDataModify.idCompany, this.companyDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -165,7 +164,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteCompany/" + response.idCompany +"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteCompany/" + response.idCompany +"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -201,7 +200,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createCompany", this.companyDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createCompany", this.companyDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -267,7 +266,7 @@ export class CompanyComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

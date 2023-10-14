@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-set-password',
@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class SetPasswordComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.CompanyData()
@@ -37,7 +37,6 @@ export class SetPasswordComponent {
   confirmPassword: string = "";
   BussinessRules: any;
   dataUser: any = {}
-  url: string = "http://localhost:4042/v1"
 
 
   confirmar = document.getElementById("Confirmar")
@@ -61,7 +60,7 @@ export class SetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/questionUserAll/" + response, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/questionUserAll/" + response, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -106,7 +105,7 @@ export class SetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/questionsCreate", response, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/questionsCreate", response, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -143,7 +142,7 @@ export class SetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url+"/resetPassword" , passwordData, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData +"/resetPassword" , passwordData, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -169,7 +168,7 @@ export class SetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bussinesRules", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/bussinesRules", httpOptions).pipe(
       catchError(e => "1")
     )
   }

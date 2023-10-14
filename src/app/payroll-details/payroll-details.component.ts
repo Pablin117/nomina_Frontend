@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-payroll-details',
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./payroll-details.component.css']
 })
 export class PayrollDetailsComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -35,7 +35,6 @@ export class PayrollDetailsComponent {
 
   //url
   pageUrl: string = "payroll"
-  url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
   tamColeccion :number = 0
@@ -133,7 +132,7 @@ export class PayrollDetailsComponent {
   }
 
   requesteDeletePayroll(year: any, month: any) {
-    return this.http.delete<any>(this.url + "/deletePayroll/" + year + "/" + month).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deletePayroll/" + year + "/" + month).pipe(
       catchError(e => "1")
     )
   }
@@ -154,7 +153,7 @@ export class PayrollDetailsComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -194,7 +193,7 @@ export class PayrollDetailsComponent {
   requestPlanilla(year: any, month: any) {
     const admin = this.dataUser.user
     this.persons()
-    return this.http.get<any>(this.url + "/PayrollCalc/" + year + "/" + month + "/" + admin).pipe(
+    return this.http.get<any>(this.url.urlData + "/PayrollCalc/" + year + "/" + month + "/" + admin).pipe(
       catchError(e => "1")
     )
   }
@@ -220,7 +219,7 @@ export class PayrollDetailsComponent {
   }
   requestPersons() {
 
-    return this.http.get<any>(this.url + "/persons").pipe(
+    return this.http.get<any>(this.url.urlData + "/persons").pipe(
       catchError(e => "1")
     )
   }
@@ -252,7 +251,7 @@ export class PayrollDetailsComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/positions", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/positions", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -276,7 +275,7 @@ export class PayrollDetailsComponent {
     )
   }
   RequestStatusEmployee() {
-    return this.http.get<any>(this.url + "/statusEmployee").pipe(catchError(e => "1"))
+    return this.http.get<any>(this.url.urlData + "/statusEmployee").pipe(catchError(e => "1"))
   }
   ResponseStatusEmployee(response: any) {
     this.statusEmployeeData = response
