@@ -84,7 +84,7 @@
                 <input type="date" id="finalDate" [(ngModel)]="absenceDataCreate.finalDate" name="finalDate" class="form-control" required>
 
                 <span class="input-group-text"><i class="fa-solid fa-table-list"></i>&nbsp;Motivo de inasistencia</span>
-                <input type="text" id="reason" placeholder="Motivo" [(ngModel)]="absenceDataCreate.reason" name="reason"
+                <input maxlength="300" type="text" id="reason" placeholder="Motivo" [(ngModel)]="absenceDataCreate.reason" name="reason"
                 class="form-control" required>
       </div>
       <div>

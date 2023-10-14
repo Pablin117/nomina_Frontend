@@ -77,7 +77,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del departamento</span>
-        <input class="form-control" type="text"  name="name" [(ngModel)]="departmentDataModify.name" placeholder="{{departmentDataModify.name}}"
+        <input maxlength="50" class="form-control" type="text"  name="name" [(ngModel)]="departmentDataModify.name" placeholder="{{departmentDataModify.name}}"
                required>
 
         <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Empresa</span>

@@ -120,7 +120,7 @@
       <h1>Agregar</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-notes-medical"></i></span>
-        <input name="name" [(ngModel)]="optionDataCreate.name" type="text" class="form-control" placeholder="Nombre"
+        <input maxlength="50" name="name" [(ngModel)]="optionDataCreate.name" type="text" class="form-control" placeholder="Nombre"
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-list-check"></i> &nbsp; Menu</span>
@@ -135,7 +135,7 @@
           placeholder="Asignacion de la opción" required>
 
         <span class="input-group-text"><i class="fa-solid fa-table"></i></span>
-        <input name="name" [(ngModel)]="optionDataCreate.page" type="text" class="form-control" placeholder="Pagina"
+        <input maxlength="100" name="name" [(ngModel)]="optionDataCreate.page" type="text" class="form-control" placeholder="Pagina"
           required>
       </div>
       <div>

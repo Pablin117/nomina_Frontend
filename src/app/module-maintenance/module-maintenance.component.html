@@ -77,7 +77,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del modulo</span>
-        <input class="form-control" type="text"  name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloDataModify.name}}"
+        <input maxlength="50" class="form-control" type="text"  name="name" [(ngModel)]="moduloDataModify.name" placeholder="{{moduloDataModify.name}}"
           required>
       </div>
       <div>
@@ -92,7 +92,7 @@
     <form (ngSubmit)="addForm()" id="addForm">
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;</span>
-        <input class="form-control" type="text"  name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre del modulo" required>
+        <input maxlength="50" class="form-control" type="text"  name="name" [(ngModel)]="moduloDataCreate.name" placeholder="Nombre del modulo" required>
       </div>
       <br>
       <div>

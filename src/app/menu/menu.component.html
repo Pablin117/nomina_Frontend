@@ -82,7 +82,7 @@
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-pen"></i> &nbsp; Nombre</span>
-        <input type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
+        <input maxlength="50" type="text" id="NombreMenu" name="NombreMenu" [(ngModel)]="menuDataModify.name" class="form-control"
           placeholder="{{menuDataModify.name}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-list"></i> &nbsp; Asignación en el menu</span>
@@ -107,7 +107,7 @@
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-pen"></i></span>
-        <input class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name"
+        <input maxlength="50" class="form-control" type="text" id="namec" name="namec" [(ngModel)]="menuDataCreate.name"
           placeholder="Nombre" required>
 
         <span class="input-group-text"><i class="fa-solid fa-list"></i> </span>

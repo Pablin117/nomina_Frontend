@@ -90,11 +90,11 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Nombre</span>
-        <input class="form-control" type="text" id="name" name="name" [(ngModel)]="userDataModify.name"
+        <input maxlength="100" class="form-control" type="text" id="name" name="name" [(ngModel)]="userDataModify.name"
           placeholder="{{userDataModify.name}}" required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i> &nbsp; Apellido</span>
-        <input class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName"
+        <input maxlength="100" class="form-control" type="text" id="lastName" name="lastName" [(ngModel)]="userDataModify.lastName"
           placeholder="{{userDataModify.lastName}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-link"></i> &nbsp; Estado</span>
@@ -104,11 +104,11 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-envelope"></i> &nbsp; Correo</span>
-        <input class="form-control" type="text" id="email" name="email" [(ngModel)]="userDataModify.email"
+        <input maxlength="100" class="form-control" type="text" id="email" name="email" [(ngModel)]="userDataModify.email"
           placeholder="{{userDataModify.email}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i> &nbsp; Telefono</span>
-        <input class="form-control" type="text" id="mobilePhone" name="mobilePhone"
+        <input maxlength="30" class="form-control" type="text" id="mobilePhone" name="mobilePhone"
           [(ngModel)]="userDataModify.mobilePhone" placeholder="{{userDataModify.mobilePhone}}" required>
 
         <span class="input-group-text"><i class="fa-regular fa-building"></i> &nbsp; Sucursal</span>

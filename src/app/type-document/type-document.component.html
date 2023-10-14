@@ -75,7 +75,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre del documento</span>
-        <input class="form-control" type="text"  name="name" [(ngModel)]="typeDocumentDataModify.name" placeholder="{{typeDocumentDataModify.name}}"
+        <input maxlength="50" class="form-control" type="text"  name="name" [(ngModel)]="typeDocumentDataModify.name" placeholder="{{typeDocumentDataModify.name}}"
                required>
       </div>
       <div>
@@ -90,7 +90,7 @@
     <form (ngSubmit)="addForm()" id="addForm">
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;</span>
-        <input class="form-control" type="text"  name="name" [(ngModel)]="typeDocumentDataCreate.name" placeholder="Nombre del documento" required>
+        <input maxlength="50" class="form-control" type="text"  name="name" [(ngModel)]="typeDocumentDataCreate.name" placeholder="Nombre del documento" required>
       </div>
       <br>
       <div>

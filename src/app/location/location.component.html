@@ -88,11 +88,11 @@
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-map"></i>&nbsp; Nombre</span>
-        <input name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
+        <input maxlength="100" name="name" [(ngModel)]="locationDataModify.name" type="text" class="form-control"
           placeholder="{{locationDataModify.name}}" required>
 
         <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i>&nbsp;Dirección</span>
-        <input name="address" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
+        <input maxlength="200" name="address" [(ngModel)]="locationDataModify.address" type="text" class="form-control"
           placeholder="{{locationDataModify.address}}" required>
       </div>
       <div>
@@ -114,11 +114,11 @@
         </select>
 
         <span class="input-group-text"><i class="fa-solid fa-map"></i></span>
-        <input name="name" [(ngModel)]="locationDataCreate.name" type="text" class="form-control" placeholder="Nombre"
+        <input maxlength="100" name="name" [(ngModel)]="locationDataCreate.name" type="text" class="form-control" placeholder="Nombre"
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-map-location-dot"></i></span>
-        <input name="name" [(ngModel)]="locationDataCreate.address" type="text" class="form-control"
+        <input maxlength="200" name="name" [(ngModel)]="locationDataCreate.address" type="text" class="form-control"
           placeholder="Dirección" required>
       </div>
       <div>

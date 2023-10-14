@@ -62,7 +62,7 @@
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>
         &nbsp;
-        
+
         <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i
             class="fa-solid fa-print"></i> Imprimir</button>
 
@@ -76,7 +76,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp; Nombre</span>
-        <input maxlength="100" name="name" [(ngModel)]="rolDataModify.name" type="text" class="form-control"
+        <input maxlength="50" name="name" [(ngModel)]="rolDataModify.name" type="text" class="form-control"
           placeholder="{{rolDataModify.name}}">
 
       </div>
@@ -93,7 +93,7 @@
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-        <input name="name" [(ngModel)]="rolDataCreate.name" type="text" class="form-control" placeholder="Nombre"
+        <input maxlength="50" name="name" [(ngModel)]="rolDataCreate.name" type="text" class="form-control" placeholder="Nombre"
           required>
       </div>
       <div>
