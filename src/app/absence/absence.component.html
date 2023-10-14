@@ -66,35 +66,6 @@
     </div>
   </div>
 
-    <!-- <div class="container text-left" *ngIf="modify">
-        <form (ngSubmit)="modForm()" id="modForm">
-            <h1>Modificación</h1>
-            <div class="input-group mb-4">
-                <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
-                <select class="form-select" name="department" [(ngModel)]="absenceDataModify.idEmployee">
-                    <option *ngFor="let department of employeeData" value="{{department.idPerson}}" required>
-                        {{department.name}}
-                    </option>
-                </select>
-
-                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha inicial</span>
-                <input type="date" id="initialDate" [(ngModel)]="absenceDataModify.initialDate" name="initialDate" class="form-control" required>
-
-                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha Final</span>
-                <input type="date" id="finalDate" [(ngModel)]="absenceDataModify.finalDate" name="finalDate" class="form-control" required>
-
-                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Motivo de inasistencia</span>
-                <input type="text" id="reason" placeholder="Motivo" [(ngModel)]="absenceDataModify.reason" name="reason"
-                class="form-control" required>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
-                <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>
-            </div>
-        </form>
-    </div> -->
-
-
   <div class="container text-left" *ngIf="add">
     <form (ngSubmit)="addForm()" id="addForm">
       <h1>Agregar</h1>
@@ -112,7 +83,7 @@
                 <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha Final</span>
                 <input type="date" id="finalDate" [(ngModel)]="absenceDataCreate.finalDate" name="finalDate" class="form-control" required>
 
-                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Motivo de inasistencia</span>
+                <span class="input-group-text"><i class="fa-solid fa-table-list"></i>&nbsp;Motivo de inasistencia</span>
                 <input type="text" id="reason" placeholder="Motivo" [(ngModel)]="absenceDataCreate.reason" name="reason"
                 class="form-control" required>
       </div>
