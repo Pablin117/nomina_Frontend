@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'nomina_Frontend';
+  urlData: String = "http://localhost:4042/v1"
 }

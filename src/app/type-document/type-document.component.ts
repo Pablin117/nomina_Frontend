@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-type-document',
   templateUrl: './type-document.component.html',
@@ -11,7 +12,7 @@ import * as XLSX from 'xlsx';
 export class TypeDocumentComponent {
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
 
@@ -39,7 +40,7 @@ export class TypeDocumentComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  url: String = "http://localhost:4042/v1"
+
   pageUrl: string = "type-document"
   page = 1;
   pageSize = 0
