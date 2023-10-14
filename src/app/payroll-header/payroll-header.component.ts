@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-payroll-header',
@@ -11,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class PayrollHeaderComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -33,7 +35,6 @@ this.validateSession()
 
   //url
   page: string = "payroll"
-  url: String = "http://localhost:4042/v1"
 
   //objetos
   dataUser: any = {}
@@ -112,7 +113,7 @@ this.validateSession()
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -137,7 +138,7 @@ this.validateSession()
   }
 
   RequestParyrollHeader() {
-    return this.http.get<any>(this.url + "/payrollHeader").pipe(
+    return this.http.get<any>(this.url.urlData + "/payrollHeader").pipe(
       catchError(e => "1")
     )
   }

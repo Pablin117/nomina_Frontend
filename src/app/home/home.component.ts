@@ -4,7 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class HomeComponent {
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) {
   }
 
   ngOnInit() {
@@ -27,12 +27,13 @@ export class HomeComponent {
   public isCollapsed = true;
   prueba = "1"
   //objectos
+  options: any = []
   modulos: any = []
   dataUser: any = {}
   //boolean
   header: boolean = true
   //url
-  url: String = "http://localhost:4042/v1"
+
 
 
   //valida la sesion
@@ -43,6 +44,7 @@ export class HomeComponent {
       this.dataUser = JSON.parse(this.dataUser)
 
 
+      
       this.recoverUser();
 
     } else {
@@ -81,7 +83,7 @@ export class HomeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/search/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/search/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "e")
     )
   }
@@ -139,9 +141,9 @@ export class HomeComponent {
       }
       localStorage.setItem("options", JSON.stringify(opciones));
       this.modulos = modulos
-
+      
     }
-
+    this.revokeOptions()
   }
   //DIBOY END
 
@@ -159,7 +161,7 @@ export class HomeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -176,5 +178,19 @@ export class HomeComponent {
     }
 
   }
+
+  
+
+  revokeOptions(){
+    this.options = localStorage.getItem("options");    
+    this.options = JSON.parse(this.options)
+
+    if (this.options.length==0){
+      alert("No tienes asignada opciones")
+      this.revoke()
+    }
+  }
+  
+
 
 }

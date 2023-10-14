@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,11 +10,10 @@ import { Router } from "@angular/router";
 })
 export class LoginComponent {
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) {
   }
 
   //vars
-  url: String = "http://localhost:4042/v1"
   messageError: String = ""
   data: any = {}
   routes: any = {}
@@ -75,7 +74,7 @@ export class LoginComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -119,7 +118,7 @@ export class LoginComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/login/" + this.ipData, this.data, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/login/" + this.ipData, this.data, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -166,7 +165,7 @@ export class LoginComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/option", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/option", httpOptions).pipe(
       catchError(e => "1")
     )
   }

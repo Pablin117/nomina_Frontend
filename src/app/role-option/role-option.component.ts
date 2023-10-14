@@ -4,6 +4,7 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { coerceStringArray } from "@angular/cdk/coercion";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-role-option',
@@ -12,13 +13,9 @@ import * as XLSX from 'xlsx';
 })
 export class RoleOptionComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   //variables
-
-  //url
-  url: String = "http://localhost:4042/v1"
-
   //boolean
   header: boolean = true
   tab: boolean = true
@@ -150,7 +147,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createRoleOption", this.RoleOptionCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createRoleOption", this.RoleOptionCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -194,7 +191,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyRoleOption", this.RoleOptionModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/modifyRoleOption", this.RoleOptionModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -216,7 +213,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/role", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/role", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -227,8 +224,7 @@ export class RoleOptionComponent {
     this.RequestOptions().subscribe(
       (response: any) => this.ResponseRequestOptions(response)
     )
-    this.tamColeccion = response.length
-    this.pageSize = 10
+   
   }
 
   RequestOptions() {
@@ -237,7 +233,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/option", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/option", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -256,14 +252,15 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/roleOption", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/roleOption", httpOptions).pipe(
       catchError(e => "1")
     )
   }
 
   ResponseRequestRoleOptions(response: any) {
     this.RolesOptionsData = response
-
+    this.tamColeccion = response.length
+    this.pageSize = 10
     this.assignNames()
   }
 
@@ -300,7 +297,7 @@ export class RoleOptionComponent {
           'Content-Type': 'application/json'
         })
       }
-      return this.http.delete<any>(this.url + "/deleteRoleOption/"+response.idPK.idRole + "/" + response.idPK.idOption, httpOptions).pipe(
+      return this.http.delete<any>(this.url.urlData + "/deleteRoleOption/"+response.idPK.idRole + "/" + response.idPK.idOption, httpOptions).pipe(
         catchError(e => "1")
       )
     }
@@ -331,7 +328,7 @@ export class RoleOptionComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

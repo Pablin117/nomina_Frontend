@@ -3,13 +3,15 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -18,8 +20,6 @@ export class MenuComponent {
   //variables
   MenusData: any = []
 
-  //url
-  url: String = "http://localhost:4042/v1"
   page: string = "menu"
   //boolean
   modify: boolean = false
@@ -102,7 +102,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/menu", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/menu", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -130,7 +130,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createMenu", this.menuDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createMenu", this.menuDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -166,7 +166,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateMenu/" + this.menuDataModify.idMenu, this.menuDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -228,7 +228,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -272,7 +272,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/module", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/module", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -295,7 +295,7 @@ export class MenuComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteMenu/"+response.idMenu+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteMenu/"+response.idMenu+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }

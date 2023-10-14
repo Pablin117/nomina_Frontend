@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-account-bank-employee',
   templateUrl: './account-bank-employee.component.html',
   styleUrls: ['./account-bank-employee.component.css']
 })
 export class AccountBankEmployeeComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   //variables
   //boolean
@@ -37,7 +37,6 @@ export class AccountBankEmployeeComponent {
   accoutnBankEmployeeModify: any = {}
 
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "bank"
 
 
@@ -118,7 +117,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteAccountBankEmployee/"+response.idAccountBank+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteAccountBankEmployee/"+response.idAccountBank+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -153,7 +152,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/accountBankEmployee", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/accountBankEmployee", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -177,7 +176,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/persons", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/persons", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -195,7 +194,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bank", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/bank", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -240,7 +239,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createAccountBankEmployee", this.accountBankEmployeeDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createAccountBankEmployee", this.accountBankEmployeeDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -273,7 +272,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateAccountBankEmployee", this.accoutnBankEmployeeModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateAccountBankEmployee", this.accoutnBankEmployeeModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -311,7 +310,7 @@ export class AccountBankEmployeeComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

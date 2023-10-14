@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
+
 @Component({
   selector: 'app-type-document',
   templateUrl: './type-document.component.html',
@@ -11,7 +14,7 @@ import * as XLSX from 'xlsx';
 export class TypeDocumentComponent {
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
 
@@ -39,7 +42,7 @@ export class TypeDocumentComponent {
   print: boolean = false
   exporte: boolean = false
   //url
-  url: String = "http://localhost:4042/v1"
+
   pageUrl: string = "type-document"
   page = 1;
   pageSize = 0
@@ -109,7 +112,7 @@ export class TypeDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/typeDocument", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/typeDocument", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -167,7 +170,7 @@ export class TypeDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createTypeDocument", this.typeDocumentDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createTypeDocument", this.typeDocumentDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -203,7 +206,7 @@ export class TypeDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateTypeDocument/" + this.typeDocumentDataModify.idTypeDocument, this.typeDocumentDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateTypeDocument/" + this.typeDocumentDataModify.idTypeDocument, this.typeDocumentDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -233,7 +236,7 @@ export class TypeDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteTypeDocument/"+response.idTypeDocument+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteTypeDocument/"+response.idTypeDocument+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -266,7 +269,7 @@ export class TypeDocumentComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

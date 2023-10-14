@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router } from "@angular/router";
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class CreateUserComponent {
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) {
   }
 
 
@@ -19,8 +19,7 @@ export class CreateUserComponent {
   }
 
 
-  //URL
-  url: string = 'http://localhost:4042/v1';
+  
 
   //Objectos
   data: any = {}
@@ -80,7 +79,7 @@ export class CreateUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createUser", this.userDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createUser", this.userDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -115,7 +114,7 @@ export class CreateUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/location", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/location", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -168,7 +167,7 @@ export class CreateUserComponent {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('idUser', idUser);
-    return this.http.post(this.url + `/saveImage`, formData);
+    return this.http.post(this.url.urlData + `/saveImage`, formData);
   }
 
 
@@ -184,7 +183,7 @@ export class CreateUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/gender", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/gender", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -210,7 +209,7 @@ export class CreateUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

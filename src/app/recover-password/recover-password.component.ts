@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError} from "rxjs/operators";
 import { Router } from "@angular/router";
+import { AppComponent } from '../app.component';
+
 @Component({
   selector: 'app-recover-password',
   templateUrl: './recover-password.component.html',
@@ -9,11 +11,10 @@ import { Router } from "@angular/router";
 })
 export class RecoverPasswordComponent {
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient,private router: Router, private url:AppComponent) {
   }
 
   //vars
-  url: String = "http://localhost:4042/v1"
   userRecover: boolean = true;
   user: String = ""
   messageError: String = ""
@@ -53,7 +54,7 @@ export class RecoverPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/user/" + this.user,httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/user/" + this.user,httpOptions).pipe(
       catchError(e => "e")
     )
   }
@@ -88,7 +89,7 @@ export class RecoverPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url+"/questionsUser/" + response.idUser, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData +"/questionsUser/" + response.idUser, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -126,7 +127,7 @@ export class RecoverPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url+"/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData +"/questionUser/validation" , this.QuestionsData, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -165,7 +166,7 @@ export class RecoverPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url+"/resetPassword" , passwordData, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData +"/resetPassword" , passwordData, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -192,7 +193,7 @@ export class RecoverPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url+"/bussinesRules" , httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData +"/bussinesRules" , httpOptions).pipe(
       catchError(e => "1")
     )
   }

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-status-user',
@@ -11,7 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class StatusUserComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -43,7 +45,6 @@ export class StatusUserComponent {
 
   //url
   pageUrl = "status-user"
-  url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -140,7 +141,7 @@ export class StatusUserComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/statusUser", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/statusUser", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -167,7 +168,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteStatusUser/"+response.idStatusUser, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteStatusUser/"+response.idStatusUser, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -206,7 +207,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateStatusUser/"+ this.statusUserDataModify.idStatusUser, this.statusUserDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateStatusUser/"+ this.statusUserDataModify.idStatusUser, this.statusUserDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -241,7 +242,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createStatusUser", this.statusUserDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createStatusUser", this.statusUserDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -268,7 +269,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

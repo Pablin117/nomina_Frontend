@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-absence',
@@ -11,7 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./absence.component.css']
 })
 export class AbsenceComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -34,7 +34,6 @@ export class AbsenceComponent {
   exporte: boolean = false
   //url
   pageUrl: string = "absence"
-  url: String = "http://localhost:4042/v1"
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -142,7 +141,7 @@ export class AbsenceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/absences", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/absences", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -167,7 +166,7 @@ export class AbsenceComponent {
           'Content-Type': 'application/json'
         })
       }
-      return this.http.get<any>(this.url + "/persons", httpOptions).pipe(
+      return this.http.get<any>(this.url.urlData + "/persons", httpOptions).pipe(
         catchError(e => "1")
       )
     }
@@ -200,7 +199,7 @@ export class AbsenceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteAbsence/" + response.idAbsence + "/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteAbsence/" + response.idAbsence + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -237,7 +236,7 @@ export class AbsenceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateAbsence/" + this.absenceDataModify.idAbsence, this.absenceDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateAbsence/" + this.absenceDataModify.idAbsence, this.absenceDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -272,7 +271,7 @@ export class AbsenceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createAbsence", this.absenceDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createAbsence", this.absenceDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
 
@@ -304,7 +303,7 @@ export class AbsenceComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

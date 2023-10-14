@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError} from "rxjs/operators";
 import {Router} from "@angular/router";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class ResetPasswordComponent {
 
-  constructor(private http: HttpClient,  private router: Router) {
+  constructor(private http: HttpClient,  private router: Router, private url:AppComponent) {
   }
 
   ngOnInit(){
@@ -20,7 +21,6 @@ export class ResetPasswordComponent {
   }
 
   //vars
-  url: String = "http://localhost:4042/v1"
   data: any = {}
   dataUser: any = {}
   BussinessRules: any
@@ -47,7 +47,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url+"/bussinesRules" , httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData +"/bussinesRules" , httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -80,7 +80,7 @@ export class ResetPasswordComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/changePassword", this.data, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/changePassword", this.data, httpOptions).pipe(
       catchError(e => "e")
     )
   }

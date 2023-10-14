@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-bank',
@@ -10,7 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./bank.component.css']
 })
 export class BankComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   //variables
   //boolean
@@ -32,7 +33,6 @@ export class BankComponent {
   bankDataModify: any = {}
 
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "bank"
   page = 1;
   pageSize = 0
@@ -113,7 +113,7 @@ export class BankComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteBank/"+response.idBank+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteBank/"+response.idBank+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -148,7 +148,7 @@ export class BankComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bank", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/bank", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -174,7 +174,7 @@ export class BankComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createBank", this.bankDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createBank", this.bankDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -207,7 +207,7 @@ export class BankComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateBank", this.bankDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateBank", this.bankDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -245,7 +245,7 @@ export class BankComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

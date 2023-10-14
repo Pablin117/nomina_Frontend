@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class LogComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url: AppComponent) { }
   //variables
   logData: any = [];
   dataUser: any = {}
@@ -27,7 +27,6 @@ export class LogComponent {
 
   //url
   pageUrl: string = "log"
-  url: String = "http://localhost:4042/v1";
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -61,7 +60,7 @@ export class LogComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/log", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/log", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -95,7 +94,7 @@ export class LogComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

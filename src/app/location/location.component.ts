@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-location',
@@ -12,13 +12,22 @@ import * as XLSX from 'xlsx';
 })
 export class LocationComponent {
 
-  constructor(private http: HttpClient,
-    private router: Router
-  ) { }
+  constructor(private http: HttpClient,private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
 
+  }
+
+  name = 'reporte.xlsx';
+  exportToExcel(): void {
+    let element = document.getElementById('table-consult');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
+    const book: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
+
+    XLSX.writeFile(book, this.name);
   }
 
   //variables
@@ -45,7 +54,6 @@ export class LocationComponent {
 
   //url
   pageUrl = "location"
-  url: String = "http://localhost:4042/v1";
   page = 1;
   pageSize = 0
   tamColeccion: number = 0
@@ -64,16 +72,7 @@ export class LocationComponent {
     }
   }
 
-  name = 'reporte.xlsx';
-  exportToExcel(): void {
-    let element = document.getElementById('table-consult');
-    const worksheet: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    const book: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(book, worksheet, 'Sheet1');
-
-    XLSX.writeFile(book, this.name);
-  }
 
 
   //obtiene botones con permisos
@@ -115,7 +114,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteLocation/" + response.idLocation + "/" + this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteLocation/" + response.idLocation + "/" + this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -146,7 +145,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/location", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/location", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -171,7 +170,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/bussinesRules", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/bussinesRules", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -242,7 +241,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createLocation", this.locationDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createLocation", this.locationDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -282,7 +281,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateLocation/" + this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateLocation/" + this.locationDataModify.idLocation, this.locationDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -313,7 +312,7 @@ export class LocationComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }

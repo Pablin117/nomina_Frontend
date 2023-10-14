@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-user-m',
@@ -10,7 +11,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./user-m.component.css']
 })
 export class UserMComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -30,8 +31,6 @@ export class UserMComponent {
   print: boolean = false
   exporte: boolean = false
   btnDelete: boolean = false
-  //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "userM"
   page = 1;
   pageSize = 0
@@ -118,7 +117,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/user", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/user", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -172,7 +171,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/modifyUser/" + this.userDataModify.idUser, this.userDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/modifyUser/" + this.userDataModify.idUser, this.userDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -207,7 +206,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -266,7 +265,7 @@ export class UserMComponent {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('idUser', idUser);
-        return this.http.post(this.url + `/saveImage`, formData);
+        return this.http.post(this.url.urlData + `/saveImage`, formData);
     }
 
     ResponseImages(response: any) {
@@ -293,7 +292,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/statusUser", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/statusUser", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -323,7 +322,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/location", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/location", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -353,7 +352,7 @@ export class UserMComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/gender", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/gender", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -374,7 +373,7 @@ export class UserMComponent {
                 'Content-Type': 'application/json'
             })
         }
-        return this.http.delete<any>(this.url + "/deleteUser/"+response.idUser+"/"+this.dataUser.user, httpOptions).pipe(
+        return this.http.delete<any>(this.url.urlData + "/deleteUser/"+response.idUser+"/"+this.dataUser.user, httpOptions).pipe(
             catchError(e => "1")
         )
     }

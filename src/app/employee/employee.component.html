@@ -14,7 +14,7 @@
 
   <div *ngIf="tab">
     <div>
-      <table id="table" id="table-consult">
+      <table id="table-consult">
         <thead>
           <tr>
             <th>Id Empleado</th>
@@ -81,7 +81,7 @@
      
 
       <div>
-        <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary" id="exportar"><i
+        <button *ngIf="exporte" (click)="exportToExcel()" class="btn btn-primary"  id="exportar"><i
             class="fa-solid fa-download"></i> Exportar</button>
         &nbsp;
         <button *ngIf="print" onclick="javascript:window.print()" class="btn btn-primary" id="imprimir"><i

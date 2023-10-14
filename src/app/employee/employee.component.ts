@@ -4,7 +4,7 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EmployeeComponent {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
   ngOnInit() {
     this.validateSession()
@@ -52,8 +52,7 @@ export class EmployeeComponent {
 
 
 
-  // pagina y url
-  url: String = "http://localhost:4042/v1"
+  // pagina
   pageUrl: String = "employee"
   page = 1;
   pageSize = 0
@@ -121,7 +120,7 @@ export class EmployeeComponent {
 
   RequestemployeeUpdate() {
 
-    return this.http.put<any>(this.url + "/updateEmployee/" + this.employeeDataModify.idEmployee, this.employeeDataModify,).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateEmployee/" + this.employeeDataModify.idEmployee, this.employeeDataModify,).pipe(
       catchError(e => "1")
     )
   }
@@ -146,7 +145,7 @@ export class EmployeeComponent {
   }
   requestDelete(response: any) {
 
-    return this.http.delete<any>(this.url + "/deleteEmployee/" + response.idEmployee + "/" + this.dataUser.user,).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteEmployee/" + response.idEmployee + "/" + this.dataUser.user,).pipe(
       catchError(e => "1")
     )
   }
@@ -213,7 +212,7 @@ export class EmployeeComponent {
   }
   RequestRevoke() {
 
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session,).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session,).pipe(
       catchError(e => "1")
     )
   }
@@ -237,7 +236,7 @@ export class EmployeeComponent {
   }
 
   RequestEmployee() {
-    return this.http.get<any>(this.url + "/employee",).pipe(
+    return this.http.get<any>(this.url.urlData + "/employee",).pipe(
       catchError(e => "1")
     )
   }
@@ -259,7 +258,7 @@ export class EmployeeComponent {
   }
   RequestLocation() {
 
-    return this.http.get<any>(this.url + "/location",).pipe(
+    return this.http.get<any>(this.url.urlData + "/location",).pipe(
       catchError(e => "1")
     )
   }
@@ -277,7 +276,7 @@ export class EmployeeComponent {
   }
   RequestPosition() {
 
-    return this.http.get<any>(this.url + "/positions").pipe(
+    return this.http.get<any>(this.url.urlData + "/positions").pipe(
       catchError(e => "1")
     )
   }
@@ -293,7 +292,7 @@ export class EmployeeComponent {
     )
   }
   RequestPerson() {
-    return this.http.get<any>(this.url + "/persons").pipe(catchError(e => "1"))
+    return this.http.get<any>(this.url.urlData + "/persons").pipe(catchError(e => "1"))
   }
   ResponsePerson(response: any) {
     this.personData = response
@@ -309,7 +308,7 @@ export class EmployeeComponent {
   }
 
   RequestStatusEmployee() {
-    return this.http.get<any>(this.url + "/statusEmployee").pipe(catchError(e => "1"))
+    return this.http.get<any>(this.url.urlData + "/statusEmployee").pipe(catchError(e => "1"))
   }
   ResponseStatusEmployee(response: any) {
     this.statusEmployeeData = response
@@ -320,7 +319,7 @@ export class EmployeeComponent {
   }
 
   RequestFlowStatusEmployee() {
-    return this.http.get<any>(this.url + "/flowStatusEmployee").pipe(catchError(e => "1"))
+    return this.http.get<any>(this.url.urlData + "/flowStatusEmployee").pipe(catchError(e => "1"))
   }
   ResponseFlowStatusEmployee(response: any) {
     this.flowStatusEmployeeData = response

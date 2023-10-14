@@ -14,7 +14,7 @@
 
   <div *ngIf="tab">
     <div>
-      <table id="table" id="table-consult">
+      <table id="table-consult">
         <thead>
           <tr>
             <th>Rol</th>
@@ -65,6 +65,7 @@
       </table>
       <p>Paginas</p>
       <ngb-pagination [collectionSize]="tamColeccion" [(page)]="page" [boundaryLinks]="false"></ngb-pagination>
+      
       <div>
         <button *ngIf="btnAdd" class="btn btn-primary" id="agregar" (click)="Add()"><i
             class="fa-regular fa-square-plus"></i> Agregar</button>

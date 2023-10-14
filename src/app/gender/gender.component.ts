@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import * as XLSX from 'xlsx';
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-gender',
   templateUrl: './gender.component.html',
   styleUrls: ['./gender.component.css']
 })
 export class GenderComponent {
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private url:AppComponent) { }
 
 
   ngOnInit() {
@@ -41,7 +41,6 @@ export class GenderComponent {
   dataUser: any = {}
   options: any = {}
   //url
-  url: String = "http://localhost:4042/v1"
   pageUrl = "gender"
   page = 1;
   pageSize = 0
@@ -130,7 +129,7 @@ export class GenderComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/gender", httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/gender", httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -158,7 +157,7 @@ export class GenderComponent {
         'Content-Type': 'application/json'
       })
     }
-    return this.http.put<any>(this.url + "/updateGender/"+this.genderDataModify.idGender, this.genderDataModify, httpOptions).pipe(
+    return this.http.put<any>(this.url.urlData + "/updateGender/"+this.genderDataModify.idGender, this.genderDataModify, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -189,7 +188,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.delete<any>(this.url + "/deleteGender/"+response.idGender+"/"+this.dataUser.user, httpOptions).pipe(
+    return this.http.delete<any>(this.url.urlData + "/deleteGender/"+response.idGender+"/"+this.dataUser.user, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -222,7 +221,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.post<any>(this.url + "/createGender", this.genderDataCreate, httpOptions).pipe(
+    return this.http.post<any>(this.url.urlData + "/createGender", this.genderDataCreate, httpOptions).pipe(
       catchError(e => "1")
     )
   }
@@ -251,7 +250,7 @@ Delete(response:any){
         'Content-Type': 'application/json'
       })
     }
-    return this.http.get<any>(this.url + "/revoke/" + this.dataUser.session, httpOptions).pipe(
+    return this.http.get<any>(this.url.urlData + "/revoke/" + this.dataUser.session, httpOptions).pipe(
       catchError(e => "1")
     )
   }
