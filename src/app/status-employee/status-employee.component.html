@@ -75,7 +75,7 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-brands fa-slack"></i> &nbsp; Nombre del </span>
-                <input name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control"
+                <input maxlength="50" name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control"
                     required>
             </div>
             <div>
@@ -90,7 +90,7 @@
             <h1>Creación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-brands fa-slack"></i></span>
-                <input name="name" [(ngModel)]="statusEmployeeDataCreate.name" type="text" class="form-control"
+                <input maxlength="50" name="name" [(ngModel)]="statusEmployeeDataCreate.name" type="text" class="form-control"
                     placeholder="Nombre del estado" required>
             </div>
             <div>

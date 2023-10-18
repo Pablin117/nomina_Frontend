@@ -64,7 +64,7 @@
             <h1>Modificación</h1>
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fa-brands fa-slack"></i> &nbsp; Nombre del </span>
-                <input name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control" required>
+                <input maxlength="50" name="name" [(ngModel)]="statusEmployeeDataModify.name" type="text" class="form-control" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;
@@ -90,7 +90,7 @@
                     </option>
                 </select>
                 <span class="input-group-text"><i class="fa-solid fa-file-pen"></i> &nbsp; Nombre del Evento</span>
-                <input name="name" [(ngModel)]="flowStatusEmployeeDataCreate.nameEvent" type="text" class="form-control" required>
+                <input maxlength="50" name="name" [(ngModel)]="flowStatusEmployeeDataCreate.nameEvent" type="text" class="form-control" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-secondary">Confirmar</button>&nbsp;

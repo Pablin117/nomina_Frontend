@@ -89,10 +89,10 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;Nombre</span>
-        <input type="text" id="name" [(ngModel)]="personDataModify.name" name="name" class="form-control" required>
+        <input maxlength="50" type="text" id="name" [(ngModel)]="personDataModify.name" name="name" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;Apellido</span>
-        <input type="text" id="lastname" [(ngModel)]="personDataModify.lastname" name="lastname" class="form-control"
+        <input maxlength="50" type="text" id="lastname" [(ngModel)]="personDataModify.lastname" name="lastname" class="form-control"
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de nacimiento</span>
@@ -109,11 +109,11 @@
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-solid fa-compass"></i>&nbsp;Direccion</span>
-        <input type="text" id="address" [(ngModel)]="personDataModify.address" name="address" class="form-control"
+        <input maxlength="100" type="text" id="address" [(ngModel)]="personDataModify.address" name="address" class="form-control"
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i>&nbsp;Telefono</span>
-        <input type="text" id="phone" [(ngModel)]="personDataModify.phone" name="phone" class="form-control" required>
+        <input maxlength="50" type="text" id="phone" [(ngModel)]="personDataModify.phone" name="phone" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Estado civil</span>
         <select class="form-select" name="marital" [(ngModel)]="personDataModify.idMaritalStatus">
@@ -182,10 +182,10 @@
 
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;Nombre</span>
-        <input type="text" id="name" [(ngModel)]="personDataCreate.name" name="name" class="form-control" required>
+        <input maxlength="50" type="text" id="name" [(ngModel)]="personDataCreate.name" name="name" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i>&nbsp;Apellido</span>
-        <input type="text" id="lastname" [(ngModel)]="personDataCreate.lastname" name="lastname" class="form-control"
+        <input maxlength="50" type="text" id="lastname" [(ngModel)]="personDataCreate.lastname" name="lastname" class="form-control"
           required>
 
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de nacimiento</span>
@@ -195,14 +195,14 @@
       <div class="input-group mb-3">
 
         <span class="input-group-text"><i class="fa-solid fa-compass"></i>&nbsp;Direccion</span>
-        <input type="text" id="address" [(ngModel)]="personDataCreate.address" name="address" class="form-control"
+        <input maxlength="100" type="text" id="address" [(ngModel)]="personDataCreate.address" name="address" class="form-control"
           required>
 
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-at"></i>&nbsp;Correo Electronico</span>
-        <input type="email" id="email" [(ngModel)]="personDataCreate.email" name="email" class="form-control" required>
+        <input maxlength="50" type="email" id="email" [(ngModel)]="personDataCreate.email" name="email" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i>&nbsp;Fecha de Contratación</span>
         <input type="date" id="dateOfHire" [(ngModel)]="employeeDataCreate.dateOfHire" name="dateOfHire"
@@ -211,7 +211,7 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-phone"></i>&nbsp;Telefono</span>
-        <input type="number" id="phone" [(ngModel)]="personDataCreate.phone" name="phone" class="form-control" required>
+        <input maxlength="50" type="number" id="phone" [(ngModel)]="personDataCreate.phone" name="phone" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
         <select class="form-select" name="gender" [(ngModel)]="personDataCreate.idGender">

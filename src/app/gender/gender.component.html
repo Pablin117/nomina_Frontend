@@ -75,7 +75,7 @@
       <h1>Modificación</h1>
       <div class="input-group mb-3">
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i> &nbsp; Nombre del Genero</span>
-        <input name="name" [(ngModel)]="genderDataModify.name" type="text" class="form-control"
+        <input maxlength="100" name="name" [(ngModel)]="genderDataModify.name" type="text" class="form-control"
           placeholder="{{genderDataModify.name}}" required>
       </div>
       <div>

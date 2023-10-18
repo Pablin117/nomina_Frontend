@@ -3,8 +3,8 @@
   <h1>Usuario</h1>
 </div>
 
- 
- 
+
+
   <div class="container text-center" *ngIf="showSpinner">
     <h1>Espera por favor</h1>
     <div id="spinner" *ngIf="showSpinner" class="spinner-border m-5" role="status">
@@ -16,17 +16,17 @@
     <form (ngSubmit)="addForm()" id="create"><br>
       <h1>Creación</h1>
       <div class="input-group mb-3">
-    
+
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
         <input type="email" id="idUser" placeholder="@" [(ngModel)]="userDataCreate.idUser" name="idUser"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-        <input type="text" id="name" placeholder="Nombre" [(ngModel)]="userDataCreate.name" name="name" class="form-control"
+        <input maxlength="100" type="text" id="name" placeholder="Nombre" [(ngModel)]="userDataCreate.name" name="name" class="form-control"
           required>
 
         <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
-        <input type="text" id="lastName" placeholder="Apellido" [(ngModel)]="userDataCreate.lastName" name="lastName"
+        <input maxlength="100" type="text" id="lastName" placeholder="Apellido" [(ngModel)]="userDataCreate.lastName" name="lastName"
           class="form-control" required>
 
           <span class="input-group-text"><i class="fa-regular fa-building"></i> &nbsp; Sucursal</span>
@@ -40,11 +40,11 @@
         <input type="date" id="dob" [(ngModel)]="userDataCreate.dob" name="dob" class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
-        <input type="number" id="mobilePhone" placeholder="Telefono" [(ngModel)]="userDataCreate.mobilePhone" name="mobilePhone"
+        <input maxlength="30" type="number" id="mobilePhone" placeholder="Telefono" [(ngModel)]="userDataCreate.mobilePhone" name="mobilePhone"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-        <input type="email" id="email" placeholder="@ Adicional" [(ngModel)]="userDataCreate.email" name="email"
+        <input maxlength="100" type="email" id="email" placeholder="@ Adicional" [(ngModel)]="userDataCreate.email" name="email"
           class="form-control" required>
 
         <span class="input-group-text"><i class="fa-solid fa-venus-mars"></i>&nbsp; Genero</span>
@@ -68,11 +68,11 @@
       </form>
     </div>
       <div>
-        
+
         <button class="btn btn-secondary" (click)="addForm()">Confirmar</button>&nbsp;
         <button class="btn btn-primary" id="Regresar" (click)="back()">Regresar</button>&nbsp;
       </div>
-      
+
     </form>
   </div>
 </div>
