@@ -114,10 +114,7 @@
 
         <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Estado actual del empleado</span>
         <input maxlength="100" name="idStatusEmployeeCurrent" [(ngModel)]="statusEmployeeCurrent" type="text" class="form-control" disabled>  
-        <!-- <select class="form-select" name="idStatusEmployee" [(ngModel)]="employeeDataModify.idStatusEmployee" required>
-            <option *ngFor="let statusEmployee of statusEmployeeData" value="{{statusEmployee.idStatusEmployee}}" required>{{statusEmployee.name}}
-            </option>
-          </select> -->
+
     
         <span class="input-group-text"><i class="fa-solid fa-check-to-slot"></i>&nbsp; Cambio de estado</span>
         <select class="form-select" name="idStatusEmployeeNew" [(ngModel)]="employeeDataModify.idStatusEmployee" >

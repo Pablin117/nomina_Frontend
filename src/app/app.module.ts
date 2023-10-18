@@ -48,6 +48,7 @@ import { AccountBankEmployeeComponent } from './account-bank-employee/account-ba
 import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-employee.component';
 import { PayrollDetailsComponent } from './payroll-details/payroll-details.component';
 import { PayrollHeaderComponent } from './payroll-header/payroll-header.component';
+import { VoucherComponent } from './voucher/voucher.component';
 
 
 
@@ -89,6 +90,7 @@ import { PayrollHeaderComponent } from './payroll-header/payroll-header.componen
     FlowStatusEmployeeComponent,
     PayrollDetailsComponent,
     PayrollHeaderComponent,
+    VoucherComponent,
 
   ],
 

@@ -36,6 +36,7 @@ import { AccountBankEmployeeComponent } from './account-bank-employee/account-ba
 import { FlowStatusEmployeeComponent } from './flow-status-employee/flow-status-employee.component';
 import { PayrollDetailsComponent } from './payroll-details/payroll-details.component';
 import { PayrollHeaderComponent } from './payroll-header/payroll-header.component';
+import { VoucherComponent } from './voucher/voucher.component';
 
 
 const routes: Routes = [
@@ -74,7 +75,7 @@ const routes: Routes = [
   { path: 'flow-status-employee', component: FlowStatusEmployeeComponent},
   { path: 'payroll-details', component: PayrollDetailsComponent},
   { path: 'payroll-header', component: PayrollHeaderComponent},
-  
+  { path: 'voucher', component: VoucherComponent},
   { path: '**', redirectTo: 'not-found'}
 ];
 
