@@ -177,7 +177,7 @@ export class AbsenceComponent {
     getEmployeeName(idPerson: number): string {
       for (let x = 0; x < this.employeeData.length; x++) {
         if (this.employeeData[x].idPerson == idPerson) {
-          return this.employeeData[x].name
+          return this.employeeData[x].name + " " + this.employeeData[x].lastname
         }
       }
       return '';

@@ -18,8 +18,8 @@
         <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa-solid fa-circle-user fa-flip"></i> &nbsp;</span>
             <select class="form-select" name="idStatusEmployeeNew" [(ngModel)]="employee.id">
-                <option *ngFor="let data of employees" value="{{ data.idEmployee}}" required>{{getPersonName(
-                    data.idEmployee)}}
+                <option *ngFor="let data of employees" value="{{ data.idEmployee}} " required>
+                    {{getPersonName(data.idEmployee)}}
                 </option>
             </select>
             <button class="btn btn-primary" (click)="dataEmployee(employee.id)" >Confirmar</button>

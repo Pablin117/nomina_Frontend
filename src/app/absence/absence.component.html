@@ -72,7 +72,7 @@
 
         <span class="input-group-text"><i class="fa-solid fa-user-gear"></i>&nbsp; Empleado</span>
                 <select class="form-select" name="empleado" id="empleado" [(ngModel)]="absenceDataCreate.idEmployee" required>
-                    <option *ngFor="let employee of employeeData" value="{{employee.idPerson}}" selected>{{employee.name}}
+                    <option *ngFor="let employee of employeeData" value="{{employee.idPerson}}" selected>{{getEmployeeName(employee.idPerson)}}
                     </option>
                 </select>
 

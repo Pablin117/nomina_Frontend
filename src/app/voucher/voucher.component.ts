@@ -130,8 +130,8 @@ export class VoucherComponent {
   getPersonName(idEmployee: number): string {
 
     for (let x = 0; x < this.person.length; x++) {
-      if (this.person[x].idPerson == idEmployee) {
-        return this.person[x].name
+      if (this.person[x].idPerson == idEmployee) {       
+        return this.person[x].name +" "+this.person[x].lastname
       }
     }
     return '';
