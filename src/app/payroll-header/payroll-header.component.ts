@@ -34,12 +34,16 @@ this.validateSession()
   exporte: boolean = false
 
   //url
-  page: string = "payroll"
+  pageUrl: string = "payroll"
 
   //objetos
   dataUser: any = {}
   options: any = {}
   PayrollHeaderData: any = []
+
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
 
   name = 'reporte.xlsx';
   exportToExcel(): void {
@@ -89,7 +93,7 @@ this.validateSession()
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -145,7 +149,8 @@ this.validateSession()
 
   ResponsePayrollHeader(response: any) {
     this.PayrollHeaderData = response
-
+    this.tamColeccion = response.length
+    this.pageSize = 10
     
   }
 

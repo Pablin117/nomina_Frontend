@@ -34,7 +34,7 @@ export class PayrollComponent {
   showSpinner: boolean = false
 
   //url
-  page: string = "payroll"
+  pageUrl: string = "payroll"
 
   //objetos
   personDataModify: any = {}
@@ -55,6 +55,11 @@ export class PayrollComponent {
   paryrollPeriodDataModify: any = {}
   datePayroll: any = {}
   periodo: string = ""
+
+  page = 1;
+  pageSize = 0
+  tamColeccion: number = 0
+
 
 
   name = 'reporte.xlsx';
@@ -89,7 +94,7 @@ export class PayrollComponent {
 
     let permisos: any = {}
     this.options.forEach((item: any) => {
-      if (item.page === this.page) {
+      if (item.page === this.pageUrl) {
         permisos = item.permisos
       }
     })
@@ -198,6 +203,9 @@ export class PayrollComponent {
 
   ResponsePayrollPeriod(response: any) {
     this.PayrollPeriodsData = response
+    this.tamColeccion = response.length
+    this.pageSize = 10
+
   }
 
 }
