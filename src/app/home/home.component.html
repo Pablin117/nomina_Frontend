@@ -21,9 +21,8 @@
                 <button type="button" class="nav-link" ngbDropdownToggle>{{menu.name}}</button> 
                 <div ngbDropdownMenu>
                   <div  *ngFor="let opcion of menu.opciones">
-                    <a href="{{opcion.page}}" ngbDropdownItem>{{opcion.name}}</a>
-                  </div>
-                  
+                    <a (click)="direPage(opcion.page)" ngbDropdownItem>{{opcion.name}} </a>
+                  </div>                  
                 </div>
               </li>
           </ul>
@@ -31,9 +30,7 @@
       </div>
       <div class="col py-0  px-0"  >
         <div class="banner-user"  id="fondo">
-          Bienvenido: {{dataUser.nameUser}}
-  
-      
+          Bienvenido: {{dataUser.nameUser}}    
         </div>
       </div>
     </div>

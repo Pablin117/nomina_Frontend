@@ -191,6 +191,12 @@ export class HomeComponent {
     }
   }
   
+direPage(page:string){
+  console.log(page);
+  
+  this.router.navigateByUrl("/"+page)
+
+}
 
 
 }
