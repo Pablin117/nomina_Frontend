@@ -40,7 +40,7 @@ import { VoucherComponent } from './voucher/voucher.component';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'set-password', component: SetPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'home', component: HomeComponent },
@@ -76,7 +76,9 @@ const routes: Routes = [
   { path: 'payroll-details', component: PayrollDetailsComponent},
   { path: 'payroll-header', component: PayrollHeaderComponent},
   { path: 'voucher', component: VoucherComponent},
-  { path: '**', redirectTo: 'not-found'}
+  { path: '', redirectTo: "/login", pathMatch: "full"},
+  { path: '**', redirectTo: 'not-found'},
+
 ];
 
 @NgModule({
