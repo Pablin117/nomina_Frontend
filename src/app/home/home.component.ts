@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { AppComponent } from '../app.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -167,7 +168,13 @@ export class HomeComponent {
   }
   ResponseRevoke(response: any) {
     if (response.code == 0) {
-      alert(response.message)
+
+      Swal.fire({
+        icon: 'warning',
+        title: 'Atencion',
+        text: response.message,});
+
+     // alert(response.message)
       localStorage.removeItem("data")
       this.router.navigateByUrl("/")
       localStorage.clear()
